@@ -11,11 +11,6 @@ single technique, a document, or something used purely for testing counts.
   against. praydog's example plugin and VR/FirstPerson sources were studied as
   technique references (never copied); his `re8_vr.lua` scope/reticle handling
   is the starting point this work extends.
-- **Andyalpa** — creator of RE2VRMODRELOADED, the base our
-  [Resident Evil 2 VR interaction mod](https://github.com/TefMeister/arcade-controls-re2-vr)
-  is built on. This scope effort exists to support his VR work — a working
-  scope is something he identified as needed (including the expectation that
-  it would take a native C++ plugin, which proved exactly right).
 - **[cursey](https://github.com/cursey)** — the
   [REFramework Book](https://cursey.github.io/reframework-book/), the Lua API
   documentation used to establish what scripting can and cannot do.
