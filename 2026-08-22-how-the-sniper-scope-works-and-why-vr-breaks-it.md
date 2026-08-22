@@ -1,8 +1,15 @@
 # How the sniper scope works, and why VR breaks it
 
 **Date:** 2026-08-22 · **Game:** Resident Evil Village (RE Engine, REFramework native VR)
-**Status at time of writing:** mechanism fully identified, implementation path decided,
-plugin scaffold built — verification of the scaffold pending one game restart.
+**Status:** mechanism fully identified, implementation path decided — and, by the end of
+the same night, a working digital-zoom scope image was live in-game: a round, magnified,
+live lens drawn by the plugin's own D3D12 pipeline, with the game's real magnifications
+measured (stock scope 2.40×, High Magnification Scope 2.58× — yes, only 8% apart) and
+cycling on a hotkey. The weapon rig recon also completed: the F2 rifle has **no scope
+bone and no attachment object** (7 joints total; the scope is a mesh part), so the lens
+will mount to the `Body` joint with a calibrated offset, bore-sighted via the
+`vfx_muzzle` joint. Remaining: projecting the lens onto the rifle in screen/eye space,
+aim-point crop centering, and the VR composite.
 
 ## The symptom
 
