@@ -53,8 +53,7 @@ plus 2D drawing. Render infrastructure lives at the native layer, which is exact
 REFramework's C++ plugin SDK exposes: initialization hands over the renderer type
 (D3D11/D3D12), device, swap chain and command queue, plus per-frame callbacks
 (`on_present`, the `BeginRendering`/`EndRendering` application-entry boundaries, device
-reset). Andyalpa predicted a C++ plugin would be required before this recon was done —
-he was right.
+reset).
 
 ## Where it stands
 
