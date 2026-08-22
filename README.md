@@ -19,11 +19,10 @@ the game to borrow — so a real VR scope has to be built: a second magnified
 view rendered to a texture, mapped onto the lens, with the fullscreen zoom
 suppressed so the world stays 1:1 in the headset.
 
-This effort started as a thank-you. Our
-[Resident Evil 2 VR interaction mod](https://github.com/TefMeister/arcade-controls-re2-vr)
-stands on the foundation and hard manual work of **Andyalpa** (creator of
-RE2VRMODRELOADED), and a working scope is something his VR work needs. If we
-can crack it here, the technique is documented for every RE Engine game.
+This is neutral research, done in the open — not built for any one project,
+person, or group in particular, but for anyone who wants to pick it up. If we
+can crack it here, the technique will be useful for every Resident Evil game
+that has scopes.
 
 Everything is **written from scratch** against REFramework's published plugin
 SDK headers; praydog's sources are studied and credited as prior art, but no
