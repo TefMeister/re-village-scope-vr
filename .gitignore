@@ -1,0 +1,12 @@
+# Never commit game files or binaries — these repos store only files we create.
+*.exe
+*.dll
+*.pak
+*.tex.*
+*.mesh.*
+*.motlist.*
+*.scn.*
+*.msg.*
+*.dmp
+*.dump
+/tmp/
