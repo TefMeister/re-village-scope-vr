@@ -1,0 +1,59 @@
+[2026-08-25 00:19:20.318] [REFramework] [info] [ScriptState] Running script C:\Steam\steamapps\common\Resident Evil Village BIOHAZARD VILLAGE\reframework\autorun\re8_scope_m6_mirror_producer.lua...
+[2026-08-25 00:19:20.319] [REFramework] [info] [m6_mirror] loaded — open the REFramework menu, Script Generated UI -> 'M6 — Mirror as producer (scope)'
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] ==== via.CameraType constants ====
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   value__ = nil
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   Game = 0
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   Debug = 1
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   Scene = 2
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   SceneXY = 3
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   SceneYZ = 4
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   SceneXZ = 5
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror]   Preview = 6
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] MainCamera get_CameraType    = 0
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] MainCamera get_DebugCamera   = false
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] MainCamera get_FOV           = 51.321155548096
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] MainCamera get_NearClipPlane = 0.0099999997764826
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] MainCamera get_FarClipPlane  = 4000.0
+[2026-08-25 00:26:45.059] [REFramework] [info] [m6_mirror] SceneView get_CameraType = 0
+[2026-08-25 00:30:56.437] [REFramework] [info] [ScriptState] Running script C:\Steam\steamapps\common\Resident Evil Village BIOHAZARD VILLAGE\reframework\autorun\re8_scope_m6_mirror_producer.lua...
+[2026-08-25 00:30:56.438] [REFramework] [info] [m6_mirror] loaded — open the REFramework menu, Script Generated UI -> 'M6 — Mirror as producer (scope)'
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] ==== via.CameraType constants ====
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   value__ = nil
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   Game = 0
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   Debug = 1
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   Scene = 2
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   SceneXY = 3
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   SceneYZ = 4
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   SceneXZ = 5
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror]   Preview = 6
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] MainCamera get_CameraType    = 0
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] MainCamera get_DebugCamera   = false
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] MainCamera get_FOV           = 51.321155548096
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] MainCamera get_NearClipPlane = 0.0099999997764826
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] MainCamera get_FarClipPlane  = 4000.0
+[2026-08-25 00:30:58.951] [REFramework] [info] [m6_mirror] SceneView get_CameraType = 0
+[2026-08-25 00:30:58.952] [REFramework] [info] [m6_mirror] ==== cameras alive in this scene: 1 ====
+[2026-08-25 00:30:58.952] [REFramework] [info] [m6_mirror]   'MainCamera'  CameraType=0  DebugCamera=false  FOV=51.321155548096
+[2026-08-25 00:30:58.952] [REFramework] [info] [m6_mirror]   -- how many cameras per type --
+[2026-08-25 00:30:58.952] [REFramework] [info] [m6_mirror]     CameraType 0 : 1 camera(s) <- already in use
+[2026-08-25 00:30:58.952] [REFramework] [info] [m6_mirror]   A type with ZERO cameras is one nothing else is relying on: safest to join.
+[2026-08-25 00:33:51.889] [REFramework] [info] [ScriptState] Running script C:\Steam\steamapps\common\Resident Evil Village BIOHAZARD VILLAGE\reframework\autorun\re8_scope_m6_mirror_producer.lua...
+[2026-08-25 00:33:51.890] [REFramework] [info] [m6_mirror] loaded — open the REFramework menu, Script Generated UI -> 'M6 — Mirror as producer (scope)'
+[2026-08-25 00:34:01.426] [REFramework] [info] [m6_mirror] cam_type = 6 Preview
+[2026-08-25 00:34:07.084] [REFramework] [info] [m6_mirror] holder ready: movie/rtex/movie_1280_720.rtex
+[2026-08-25 00:34:07.121] [REFramework] [info] [m6_mirror] RenderOutput created on the rifle GameObject
+[2026-08-25 00:34:07.121] [REFramework] [info] [m6_mirror] set_RenderOutputID(2) -- main view is 1, ours is not
+[2026-08-25 00:34:07.121] [REFramework] [info] [m6_mirror] set_RenderTarget(our holder) -> sol.REManagedObject*: 0000014BD4A5EBD8
+[2026-08-25 00:34:07.121] [REFramework] [info] [m6_mirror] RenderOutput ready. If the glass is bound (button 3) look at it now: a
+[2026-08-25 00:34:07.121] [REFramework] [info] [m6_mirror] RenderOutput with NO paired via.Camera may well render nothing -- that
+[2026-08-25 00:34:07.121] [REFramework] [info] [m6_mirror] result is exactly what step 8 is for.
+[2026-08-25 00:34:08.742] [REFramework] [info] [m6_mirror]   BOUND material[2] (it02_070_Sniperrifle_01_Lens_Mat) slot 1 -> Mirror RT (true)
+[2026-08-25 00:34:08.742] [REFramework] [info] [m6_mirror]   BOUND material[3] (it02_070_Sniperrifle_01_Lens2_Mat) slot 1 -> Mirror RT (true)
+[2026-08-25 00:34:08.742] [REFramework] [info] [m6_mirror] 2 lens slot(s) now showing MIRROR's render target. LOOK AT THE GLASS.
+[2026-08-25 00:34:10.470] [REFramework] [info] [m6_mirror] saved original primary camera: sol.REManagedObject*: 00000149125FD808
+[2026-08-25 00:34:10.504] [REFramework] [info] [m6_mirror] via.Camera created on the rifle GameObject
+[2026-08-25 00:34:10.504] [REFramework] [info] [m6_mirror] camera FOV -> 26.229999542236
+[2026-08-25 00:34:10.504] [REFramework] [info] [m6_mirror] set_CameraType(6) -> now 6
+[2026-08-25 00:34:10.504] [REFramework] [info] [m6_mirror] primary camera is now = sol.REManagedObject*: 00000149125FD808
+[2026-08-25 00:34:10.504] [REFramework] [info] [m6_mirror] LOOK AT THE GLASS -- and at your own screen. If YOUR view changed, press
+[2026-08-25 00:34:10.504] [REFramework] [info] [m6_mirror] 'Detach second view' immediately and tell me.
