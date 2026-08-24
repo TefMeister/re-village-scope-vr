@@ -23,6 +23,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 | REFramework (mod framework, native VR support for RE Village, plugin SDK) | praydog | https://github.com/praydog/REFramework |
 | REFramework Book (Lua API documentation) | cursey | https://cursey.github.io/reframework-book/ |
 | The REFramework VR community (scopes-don't-render-in-VR limitation, VR rendering techniques) | various, credited individually as sourced | — |
+| REFramework GitHub issue trackers (RE resource-lifetime bug research) | praydog and the issue reporter | https://github.com/praydog/REFramework/issues |
+| Otis_Inf (Frans Bouma) — RE Engine photomode tools (checked as prior art) | Frans Bouma | https://opm.fransbouma.com |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)

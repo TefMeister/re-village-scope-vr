@@ -10,6 +10,7 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
+| 2026-08-24 | [RT GPU-backing: known REResource bug + VR eye-texture architecture](topics/2026-08-24-rt-gpu-backing-known-reresource-bug-and-vr-eye-texture-architecture.md) | 🆕 new | REFramework issue #1448 describes an unresolved resource-lifetime/GC bug matching the "RT binds but shows nothing" symptom — workaround: `add_ref()` both the holder AND the resource, create early. Also: REFramework's own VR eye texture is a post-render backbuffer copy, not engine-side scene→RT registration — doesn't transfer, but reinforces that Mirror-as-producer (candidate 1) is the right direction, not a backbuffer-copy shortcut. Still no public in-world-screen/second-camera RE Engine mod found. |
 
 ## How to add a topic
 
