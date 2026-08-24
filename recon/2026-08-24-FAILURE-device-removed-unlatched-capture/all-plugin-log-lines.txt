@@ -1,0 +1,222 @@
+[2026-08-24 22:05:32.271] [REFramework] [info] [Plugin] [re-scope-vr] M2a build loaded (renderer=D3D12, device=0000011C4E4DE610, swapchain=0000011C77693410, cmdqueue=0000011C4EDC64B0)
+[2026-08-24 22:05:32.402] [REFramework] [info] [Plugin] [re-scope-vr] first BeginRendering entry observed — frame-boundary hook is live
+[2026-08-24 22:05:32.402] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:32.405] [REFramework] [info] [Plugin] [re-scope-vr] first LockScene entry observed
+[2026-08-24 22:05:34.034] [REFramework] [info] [Plugin] [re-scope-vr] [hook] D3D12 device hooks installed: OK
+[2026-08-24 22:05:34.048] [REFramework] [info] [Plugin] [re-scope-vr] M2a GPU init OK (bb 1920x1080 fmt=28, RT 480x360, zoom=2.40, pipeline built)
+[2026-08-24 22:05:34.766] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:35.469] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:36.156] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:36.841] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:37.527] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:38.213] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:38.899] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:39.584] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:40.270] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:40.956] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:41.642] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:42.328] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:43.014] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:43.699] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:44.385] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:45.071] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:45.757] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:46.443] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:46.658] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-08-24 22:05:46.660] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-08-24 22:05:46.665] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-08-24 22:05:46.665] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-08-24 22:05:46.668] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-08-24 22:05:46.668] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-08-24 22:05:46.749] [REFramework] [info] [Plugin] [re-scope-vr] M2a GPU init OK (bb 1920x1080 fmt=28, RT 480x360, zoom=2.40, pipeline built)
+[2026-08-24 22:05:46.874] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:46.980] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.082] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.191] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.290] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.386] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.484] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.583] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(0.00,4.46,0.89) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.618] [REFramework] [info] [Plugin] [re-scope-vr] deep: cam type=via.Camera get_FOV raw=0x404F800000000000 (f=0.000000)
+[2026-08-24 22:05:47.618] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PlayerInfoHolder inst=0000011B56A122F0
+[2026-08-24 22:05:47.618] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PropsSpawnInfoHolder inst=0000011B56A135B0
+[2026-08-24 22:05:47.618] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PropsSpawnPrefabSwapManager inst=0000011B56A14640
+[2026-08-24 22:05:47.618] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PropsManager inst=0000011B56A13520
+[2026-08-24 22:05:47.703] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.802] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:47.924] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.038] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.146] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.277] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.400] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.607] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.799] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:48.995] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:49.223] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:49.416] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:49.611] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:49.794] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:49.999] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:50.188] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:50.377] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:50.562] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:50.746] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:50.932] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:51.116] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:51.301] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:51.479] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:51.658] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:51.842] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:52.025] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:52.206] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:52.384] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:52.562] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:52.741] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:52.923] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:53.106] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:53.291] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:53.470] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:53.649] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:53.829] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:54.009] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:54.189] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:54.368] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:54.546] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:54.724] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:54.903] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:55.083] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:55.264] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:55.447] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:55.625] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:55.803] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:55.994] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:56.186] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:56.376] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:56.557] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:56.747] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:56.929] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:57.113] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:57.301] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:57.479] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:57.665] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:57.845] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:58.025] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:58.205] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:58.383] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:58.561] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:58.739] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:58.920] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:59.099] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:59.301] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:59.486] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:59.669] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:05:59.852] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:00.056] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:00.236] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:00.421] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:00.602] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:00.782] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:00.967] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:01.162] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:01.353] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:01.538] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:01.744] [REFramework] [info] [Plugin] [re-scope-vr] world[getcomp-null]: cam=(55.66,-34.82,112.96) fov=63.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:01.924] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.051] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.187] [REFramework] [info] [Plugin] [re-scope-vr] world[player-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.346] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.481] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.612] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.746] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:02.887] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:03.063] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:03.212] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:03.369] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:03.501] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:03.669] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:03.908] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:04.158] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:04.401] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:04.616] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:04.840] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:05.079] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:05.361] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:05.669] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:05.907] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:06.148] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:06.384] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:06.619] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:06.853] [REFramework] [info] [Plugin] [re-scope-vr] world[weapon-null]: cam=(55.66,-34.82,112.96) fov=40.0 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2: gun_go type=app.PlayerGun
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[0]=app.WeaponGunCore
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method get_muzzleJoint
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method gatherJoints
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field ObjectEffectManager
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[1]=app.WeaponShootableCore
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[2]=app.WeaponCore
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method get_cartridgeJoint
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method set_cartridgeJoint
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method requestStartVfxObjectLanding
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field WpLockObject
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field _VfxObjectLanding
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[3]=app.ItemCore
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field LockObject
+[2026-08-24 22:06:07.101] [REFramework] [info] [Plugin] [re-scope-vr] weapon changed: scoped=0 (wgo=0000011B5617D2B0 name=0000011B56280030)
+[2026-08-24 22:06:07.123] [REFramework] [info] [Plugin] [re-scope-vr] world[unscoped]: cam=(-278.21,-98.70,236.31) fov=51.3 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:07.729] [REFramework] [info] [Plugin] [re-scope-vr] world[unscoped]: cam=(-278.21,-98.70,236.31) fov=51.3 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:08.346] [REFramework] [info] [Plugin] [re-scope-vr] world[unscoped]: cam=(-278.21,-98.70,236.31) fov=51.3 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:08.958] [REFramework] [info] [Plugin] [re-scope-vr] world[unscoped]: cam=(-278.21,-98.70,236.30) fov=51.3 joint=(0.00,0.00,0.00) local=(0.00,0.00,0.00) no-lock px=(0,0) axis=-1 aim=!(0,0)
+[2026-08-24 22:06:09.309] [REFramework] [info] [Plugin] [re-scope-vr] weapon changed: scoped=1 (wgo=0000011B55FFED20 name=0000011B56102210)
+[2026-08-24 22:06:09.309] [REFramework] [info] [Plugin] [re-scope-vr] scoped rifle in hand -- press NUMPAD * to bind the scope glass, NUMPAD / to restore it
+[2026-08-24 22:06:09.314] [REFramework] [info] [Plugin] [re-scope-vr] [hook] auto-created scope target resource -> committed=0000000000000000 holder=0000011B4F592670
+[2026-08-24 22:06:09.315] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=728x1280 fmt=29 flags=0x1 -> 0000011FC36ACFB0
+[2026-08-24 22:06:09.316] [REFramework] [info] [Plugin] [re-scope-vr] M2a: first zoom composite — the corner box should show a 2.4x magnified live view
+[2026-08-24 22:06:09.318] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE68B20
+[2026-08-24 22:06:09.320] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE69A30
+[2026-08-24 22:06:09.322] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE66D00
+[2026-08-24 22:06:09.325] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE67C10
+[2026-08-24 22:06:09.328] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE7E330
+[2026-08-24 22:06:09.331] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE7D420
+[2026-08-24 22:06:09.332] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=512x512 fmt=72 flags=0x0 -> 0000011FCFE8FF70
+[2026-08-24 22:06:09.335] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE80150
+[2026-08-24 22:06:09.338] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE81F70
+[2026-08-24 22:06:09.339] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE7F240
+[2026-08-24 22:06:09.339] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE83D90
+[2026-08-24 22:06:09.341] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE81060
+[2026-08-24 22:06:09.343] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE82E80
+[2026-08-24 22:06:09.345] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE86440
+[2026-08-24 22:06:09.349] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE89170
+[2026-08-24 22:06:09.351] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE8A080
+[2026-08-24 22:06:09.353] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE88260
+[2026-08-24 22:06:09.356] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE87350
+[2026-08-24 22:06:09.360] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE8BEA0
+[2026-08-24 22:06:09.361] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE8CDB0
+[2026-08-24 22:06:09.368] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE8AF90
+[2026-08-24 22:06:09.369] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE97370
+[2026-08-24 22:06:09.370] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE96460
+[2026-08-24 22:06:09.372] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE9A0A0
+[2026-08-24 22:06:09.375] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE9AFB0
+[2026-08-24 22:06:09.379] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE99190
+[2026-08-24 22:06:09.380] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE98280
+[2026-08-24 22:06:09.383] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE9BEC0
+[2026-08-24 22:06:09.385] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE9CDD0
+[2026-08-24 22:06:09.387] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEA2BB0
+[2026-08-24 22:06:09.391] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE9FE80
+[2026-08-24 22:06:09.392] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEA1CA0
+[2026-08-24 22:06:09.393] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEA0D90
+[2026-08-24 22:06:09.397] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAA7C0
+[2026-08-24 22:06:09.399] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEAB6D0
+[2026-08-24 22:06:09.401] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAC5E0
+[2026-08-24 22:06:09.406] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEA98B0
+[2026-08-24 22:06:09.407] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=512x512 fmt=72 flags=0x0 -> 0000011FCFE90D00
+[2026-08-24 22:06:09.410] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEAF310
+[2026-08-24 22:06:09.413] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAD4F0
+[2026-08-24 22:06:09.417] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEB0220
+[2026-08-24 22:06:09.420] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAE400
+[2026-08-24 22:06:09.422] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE73110
+[2026-08-24 22:06:09.423] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE74020
+[2026-08-24 22:06:09.427] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE77C60
+[2026-08-24 22:06:09.427] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE74F30
+[2026-08-24 22:06:09.428] [REFramework] [info] [Plugin] [re-scope-vr] blit: pso_blit (re)built for target fmt=98 1024x1024
+[2026-08-24 22:06:09.430] [REFramework] [info] [Plugin] [re-scope-vr] blit: first continuous scope-image write into the engine target (fmt=98 1024x1024) -- if a mesh is bound to it via setMaterialTexture (F4/F3), it should now show the LIVE scope image, not a static test pattern.
+[2026-08-24 22:06:54.720] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(-278.23,-98.69,236.22) fov=51.3 joint=(-278.25,-98.24,237.14) local=(0.15,-0.03,-0.22) LOCK px=(1733,712) axis=2 aim=(961,541)
