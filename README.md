@@ -17,9 +17,9 @@ written so the findings outlive this one project.
   `-engine-research` repositories).
 - `templates/` — starter template for researching another engine the same way.
 
-## The five repositories for the RE Village VR scope
+## The six repositories for the RE Village VR scope
 
-Everything for this project lives in five repositories, each with one job — so
+Everything for this project lives in six repositories, each with one job — so
 you always know where to look. You are in **re-village-scope-vr-engine-research**.
 
 | Repository | What lives here |
@@ -29,6 +29,7 @@ you always know where to look. You are in **re-village-scope-vr-engine-research*
 | [re-village-scope-vr-modding-notes](https://github.com/TefMeister/re-village-scope-vr-modding-notes) | Readable field notes / progress ledger. |
 | [re-village-scope-vr-staging](https://github.com/TefMeister/re-village-scope-vr-staging) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
 | **re-village-scope-vr-engine-research** ← you are here | Distilled engine reference (dossier) + reusable VR RE playbook. |
+| [re-village-scope-vr-external-research](https://github.com/TefMeister/re-village-scope-vr-external-research) | Ongoing public-research leads, gathered separately from hands-on modding work. |
 
 ## Credits
 
