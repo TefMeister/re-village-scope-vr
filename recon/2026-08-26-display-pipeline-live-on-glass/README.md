@@ -51,9 +51,28 @@ next source.
 - Provenance rule paid off twice: read the log before theorizing (found the mispress),
   verify writes by read-back (found the silent float4 failure).
 
+## Later the same night — FIRST TRUE SCOPE IMAGE (Mirror content on the glass)
+
+Lua buttons 2+3 (attach `via.render.Mirror` to the rifle + bind glass to the Mirror's
+holder) + the now-working UV/emissive sliders put a **live, right-way-up, recognizable,
+non-recursive scene render on the glass**: the Duke at his caravan (06 = actual scene,
+07 = through the scope). Two artifacts, both understood: the grey half = the planar
+mirror's clip plane slicing the view (geometry — host the mirror on the controllable rig
+instead of the rifle root); the blown-out lighting = raw un-tonemapped HDR render
+(grading — correct at copy time in the plugin compositor's shader).
+
+**💥 Crash gotcha:** `set_LightWeightMode` on a live, attached, rendering Mirror crashes
+the game instantly (~23:25). If ever tested again, set it BEFORE attaching. No harm —
+all state was runtime-only.
+
+**Decision:** next build is the plugin compositor — mirror texture → glass target per
+frame with exposure/tonemap, un-flip, zoom-preset crop, and the reticle drawn on top;
+mirror hosted on a rig for clip-plane/aim control.
+
 ## Files
 
 01 stock painted lens during ADS · 02 UV scale up = layer shrinks · 03 UV (-0.1,-0.1) =
 layer fills the glass · 04 the `+` mispress (overlay only) · 05 plugin RT live on the glass,
-feedback haze + doubled reticle. Log: `re2_framework_log.txt` 22:19–23:0x (22:50:57 latch,
-22:51:10 scan freeze, 22:59:54 clean bind).
+feedback haze + doubled reticle · 06 actual scene (the Duke) · 07 Mirror content on the
+glass (Duke visible; clip + exposure artifacts). Log: `re2_framework_log.txt` 22:19–23:2x
+(22:50:57 latch, 22:51:10 scan freeze, 22:59:54 clean bind, ~23:25 LightWeightMode crash).
