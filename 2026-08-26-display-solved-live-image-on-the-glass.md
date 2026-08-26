@@ -66,6 +66,18 @@ test: bind the glass to the Mirror's holder directly and use `Reticle_UV_Scale_O
 negative-scale mirroring + sub-1 magnitude zoom to un-flip and magnify at the material
 level, no new plugin code.
 
+## Addendum, later the same night — FIRST TRUE SCOPE IMAGE
+
+Mirror-direct test (Lua attach Mirror → bind glass to its holder → UV/emissive sliders):
+**a live, right-way-up, recognizable, non-recursive scene render on the glass** — the Duke
+at his caravan, screenshot pair in dev-archive (06/07). Remaining artifacts, both
+understood: grey half = the planar mirror's clip plane (geometry → host the mirror on the
+controllable rig); blown-out lighting = raw un-tonemapped HDR (grading → correct in the
+plugin compositor's shader at copy time). **Crash gotcha:** `set_LightWeightMode` on a
+live, attached Mirror crashes the game instantly — set it before attaching or not at all.
+**Decision: next build is the plugin compositor** (mirror texture → glass target with
+exposure, un-flip, zoom crop, reticle; rig-hosted mirror for clip/aim).
+
 ## State at session end
 
 Runtime-only throughout — restart restores stock everything. Plugin now ACTIVE (un-parked)
