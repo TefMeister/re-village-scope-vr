@@ -25,6 +25,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 | The REFramework VR community (scopes-don't-render-in-VR limitation, VR rendering techniques) | various, credited individually as sourced | — |
 | REFramework GitHub issue trackers (RE resource-lifetime bug research) | praydog and the issue reporter | https://github.com/praydog/REFramework/issues |
 | Otis_Inf (Frans Bouma) — RE Engine photomode tools (checked as prior art) | Frans Bouma | https://opm.fransbouma.com |
+| EMV Engine (the prefab-instantiate spawning mechanism, studied online; RE8 support and component-spawning caveats from its README) | alphazolam | https://github.com/alphazolam/EMV-Engine |
+| REE.PAK.Tool (`RE8_STM_Release.list` — the RE8 file inventory used to enumerate `.pfb` prefabs and `.rtex` render-target descriptors) | Ekey | https://github.com/Ekey/REE.PAK.Tool |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
