@@ -1,0 +1,83 @@
+PROVENANCE: as above -- transcript captured live on 2026-08-24, the source log
+has since been rotated by a game restart.
+
+--- MIRROR PRODUCING A REAL SCENE RENDER (23:13-23:14) ---------------------
+registerScene was NEVER called: no via.render.layer.Scene accessor resolved
+(via.SceneView exposes only get/set_RenderType). createComponent +
+set_RenderTarget alone is sufficient for Mirror to produce.
+
+  [m6_mirror] attach: rifle GameObject = ri3042_Inventory
+  [m6_mirror] Mirror component created on the rifle GameObject
+  [m6_mirror] set_RenderTarget(our holder) -> true
+  [m6_mirror] no known accessor returned a via.render.layer.Scene -- dumping via.SceneView layer methods:
+  [m6_mirror]   SceneView.get_RenderType()
+  [m6_mirror]   SceneView.set_RenderType(via.RenderType)
+  [m6_mirror] registerScene SKIPPED (no render layer resolved) -- testing set_RenderTarget alone
+  [m6_mirror] Mirror Visible=true LightWeightMode=false
+  [m6_mirror]   BOUND material[2] (it02_070_Sniperrifle_01_Lens_Mat) slot 1 -> Mirror RT (true)
+  [m6_mirror]   BOUND material[3] (it02_070_Sniperrifle_01_Lens2_Mat) slot 1 -> Mirror RT (true)
+
+User-verified visually: the glass showed the actual room (fuse box, gauges,
+breaker switches), matched against a reference screenshot taken without the
+scope. Mirrored (upside down) and clipped at the mirror plane (grey half) --
+both are a planar reflection doing its job.
+
+--- MIRROR HAS NO CONTROLS (23:20) ----------------------------------------
+  [m6_mirror] ==== via.render.Mirror : FIELDS ====
+  [m6_mirror] ==== via.Component : FIELDS ====
+  [m6_mirror] ==== System.Object : FIELDS ====
+  [m6_mirror] internals dump complete
+
+Zero fields anywhere in the chain. Eight methods total, none geometric.
+Reflection geometry is steerable ONLY via the host GameObject's transform.
+
+--- THE RECIPE, OFF THE GAME'S OWN MainCamera (23:47) ---------------------
+  ==== via.render.RenderOutput ====
+    chain: via.render.RenderOutput -> via.Component -> System.Object
+    ATTACHABLE TO A GAMEOBJECT: true
+    live instances in scene: 1
+
+  ==== RenderOutput #0  on GameObject 'MainCamera' ====
+     getOutputType = 0        getRenderMode = 0
+     get_RenderOutputID = 1   <- ours must differ
+     get_ImageQuality = 1.0   get_HorizontalScreenScale = 1.0
+     get_Cutscene = false     get_ClipingEnable = false   <- no forced clipped half
+     get_UseCustomSceneLayer = false   get_ManualAspectUse = false
+     get_RenderTarget = nil   <- the main view has NONE because it draws to screen;
+                                 setting one is exactly how a view is diverted
+                                 into a texture
+     -- sibling components --
+       via.Transform          <- where it is / which way it faces
+       via.Camera             <- what it sees
+       via.render.RenderOutput<- where the picture goes
+       ...then ~40 optional post-process components (LDRPostProcess, Fog,
+       ToneMapping, SoftBloom, SSAO, SSR, DepthOfField, MotionBlur, GodRay,
+       VolumetricFog, Outline, RetroFilm, ExperimentalRayTrace, ...)
+
+--- CAMERA TAKEOVER (2026-08-25 00:0x) ------------------------------------
+  [m6_mirror] set_RenderOutputID(2) -- main view is 1, ours is not
+  [m6_mirror] set_RenderTarget(our holder) -> sol.REManagedObject*: 00000190FF0C4248
+  [m6_mirror] via.Camera created on the rifle GameObject
+  [m6_mirror] camera FOV -> 26.229999542236
+
+Result: the engine promoted our new camera to the scene's PRIMARY camera. The
+main view rendered from the rifle -- viewpoint inside Ethan's hands, weapon
+"gone" because we were looking out of it. Screenshot with the user.
+RenderOutputID=2 was NOT the leak; the takeover came through the primary-camera
+slot. via.SceneView has get_PrimaryCamera() with NO setter, so this cannot be
+undone from Lua -- a game restart is the only way out.
+
+--- THE FREE SEAT (2026-08-25) --------------------------------------------
+  ==== via.CameraType constants ====
+    Game = 0   Debug = 1   Scene = 2
+    SceneXY = 3   SceneYZ = 4   SceneXZ = 5   Preview = 6
+  MainCamera get_CameraType=0  get_DebugCamera=false  get_FOV=51.321155548096
+  MainCamera get_NearClipPlane=0.0099999997764826  get_FarClipPlane=4000.0
+
+  ==== cameras alive in this scene: 1 ====
+    'MainCamera'  CameraType=0  DebugCamera=false  FOV=51.321155548096
+    CameraType 0 : 1 camera(s) <- already in use
+
+Types 1..6 have ZERO users. They are editor leftovers (three are orthographic
+layout views), so joining one displaces nothing. Remaining risk is the inverse:
+an editor-only type may not render at all at runtime.

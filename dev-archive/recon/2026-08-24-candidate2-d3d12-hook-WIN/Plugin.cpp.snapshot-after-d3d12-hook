@@ -1,0 +1,1497 @@
+// re-scope-vr — REFramework native plugin for a real VR sniper scope in RE Engine games.
+//
+// M2b step 1: the lens rides the rifle. A game-thread tick (BeginRendering)
+// resolves the primary camera's pose and the equipped weapon's Body joint via
+// the reflection SDK, projects the joint with our own pinhole math, and hands
+// the render thread a lens rect through atomics. The composite draws the lens
+// there (corner fallback while unresolved), and the crop follows the lens so
+// it behaves like a magnifier held over the rifle.
+//
+// M2a: digital-zoom scope image.
+// Every frame at present time: copy the completed backbuffer into our own capture
+// texture, draw a magnified crop of it into our 320x240 render target through a
+// textured-quad pipeline (root signature + embedded HLSL + PSO), then composite that
+// RT into the backbuffer corner (M1 path). The corner box becomes a live 2.6x
+// magnified view — the scope image exists. Crop center is a parameter (root
+// constants) so the aim-point-projected center can drive it later.
+//
+// Written from scratch against the published REFramework plugin SDK (include/reframework/API.h).
+
+#include <windows.h>
+#include <d3d12.h>
+#include <dxgi1_4.h>
+#include <d3dcompiler.h>
+#include <wrl/client.h>
+
+#include <atomic>
+#include <cmath>
+#include <cstdint>
+#include <cstring>
+
+#include "reframework/API.h"
+#include "reframework/API.hpp"
+
+using Microsoft::WRL::ComPtr;
+
+#define LOGI(...) do { if (g_param != nullptr && g_param->functions != nullptr && g_param->functions->log_info  != nullptr) g_param->functions->log_info(__VA_ARGS__);  } while (0)
+#define LOGE(...) do { if (g_param != nullptr && g_param->functions != nullptr && g_param->functions->log_error != nullptr) g_param->functions->log_error(__VA_ARGS__); } while (0)
+
+namespace {
+
+const REFrameworkPluginInitializeParam* g_param = nullptr;
+
+// Zoom presets, cycled live with F9. Stock F2 scope measured in-game at 2.40x
+// (26.23deg vs hip 63.00deg). The High Magnification Scope measured only 2.58x —
+// too close to tell apart — so ours gets a properly noticeable 3.0x instead
+// (user's call). Default = stock.
+constexpr float kZoomPresets[] = { 1.0f, 2.4f, 3.0f, 4.0f, 6.0f };
+constexpr int kZoomCount = (int)(sizeof(kZoomPresets) / sizeof(kZoomPresets[0]));
+std::atomic<int> g_zoom_idx{1};
+
+const char* kShaderSrc = R"hlsl(
+struct VSOut { float4 pos : SV_Position; float2 uv : TEXCOORD0; };
+
+VSOut vs_main(uint id : SV_VertexID) {
+    VSOut o;
+    float2 p = float2((id == 1) ? 3.0 : -1.0, (id == 2) ? 3.0 : -1.0);
+    o.pos = float4(p, 0.0, 1.0);
+    o.uv  = float2(p.x * 0.5 + 0.5, 0.5 - p.y * 0.5);
+    return o;
+}
+
+Texture2D    srcTex : register(t0);
+SamplerState samp   : register(s0);
+cbuffer Crop : register(b0) { float2 uvCenter; float2 uvHalf; float style; float3 _pad; };
+
+float4 ps_main(VSOut i) : SV_Target {
+    // Scope look: circular lens, per-scope reticle, soft edge vignette.
+    float2 c = i.uv - 0.5;
+    c.x *= 1.3333333;                 // 4:3 target -> round circle
+    float r = length(c);
+    if (r > 0.485) return float4(0.02, 0.02, 0.02, 1.0);
+
+    float2 suv = uvCenter + (i.uv - 0.5) * 2.0 * uvHalf;
+    float4 col = srcTex.Sample(samp, suv);
+
+    // Reticle styles (our renditions of the game's scope interfaces):
+    // 0 = plain fine cross (1x glass), 1 = duplex — heavy bars, fine center
+    // (stock scope look), 2 = fine cross + center dot (high magnification).
+    if (style < 0.5) {
+        if (abs(c.x) < 0.0028 || abs(c.y) < 0.0028) col.rgb *= 0.25;
+    } else if (style < 1.5) {
+        bool thick = (abs(c.y) < 0.011 && abs(c.x) > 0.16) || (abs(c.x) < 0.011 && abs(c.y) > 0.16);
+        bool fine  = abs(c.x) < 0.0028 || abs(c.y) < 0.0028;
+        if (thick) col.rgb *= 0.05;
+        else if (fine) col.rgb *= 0.25;
+    } else {
+        bool fine = (abs(c.x) < 0.0022 || abs(c.y) < 0.0022) && r < 0.34;
+        if (fine) col.rgb *= 0.2;
+        if (r < 0.006) col.rgb *= 0.05;
+    }
+    if (r > 0.45) col.rgb *= saturate((0.485 - r) / 0.035);        // vignette ring
+
+    return col;
+}
+
+// Composite pass: draw the scope RT onto the backbuffer as a CIRCLE.
+// Alpha 0 outside the lens; blending makes the rectangle disappear.
+float4 ps_comp(VSOut i) : SV_Target {
+    float2 c = i.uv - 0.5;
+    c.x *= 1.3333333;
+    float r = length(c);
+    float a = saturate((0.487 - r) / 0.008);   // soft circular edge
+    float4 col = srcTex.Sample(samp, i.uv);
+    return float4(col.rgb, a);
+}
+)hlsl";
+
+struct Gpu {
+    bool ready = false;
+    bool dead = false;   // failed — stay off until the next device reset
+
+    ComPtr<ID3D12Device> device;
+    ComPtr<IDXGISwapChain3> swap;
+    ComPtr<ID3D12CommandQueue> queue;
+
+    ComPtr<ID3D12CommandAllocator> alloc;
+    ComPtr<ID3D12GraphicsCommandList> list;
+    ComPtr<ID3D12Fence> fence;
+    HANDLE fence_event = nullptr;
+    uint64_t fence_value = 0;
+
+    ComPtr<ID3D12DescriptorHeap> rtv_heap;   // [0] our RT, [1] current backbuffer
+    ComPtr<ID3D12DescriptorHeap> srv_heap;   // [0] capture, [1] our RT (shader-visible)
+    ComPtr<ID3D12Resource> rt;               // the scope image (draw target)
+    ComPtr<ID3D12Resource> capture;          // copy of the completed backbuffer
+    ComPtr<ID3D12RootSignature> root_sig;
+    ComPtr<ID3D12PipelineState> pso;         // scope-image pass (opaque, into RT)
+    ComPtr<ID3D12PipelineState> pso_comp;    // composite pass (alpha-blended circle, onto backbuffer)
+    UINT rtv_inc = 0;
+    UINT srv_inc = 0;
+
+    DXGI_FORMAT format = DXGI_FORMAT_UNKNOWN;
+    UINT bb_w = 0;
+    UINT bb_h = 0;
+    UINT rt_w = 480;
+    UINT rt_h = 360;
+
+    std::atomic<uint64_t> frames{0};
+
+    void wait_idle() {
+        if (queue && fence && fence_event != nullptr) {
+            const uint64_t v = ++fence_value;
+            if (SUCCEEDED(queue->Signal(fence.Get(), v)) && fence->GetCompletedValue() < v) {
+                fence->SetEventOnCompletion(v, fence_event);
+                WaitForSingleObject(fence_event, 2000);
+            }
+        }
+    }
+
+    void release() {
+        wait_idle();
+        pso_comp.Reset();
+        pso.Reset();
+        root_sig.Reset();
+        capture.Reset();
+        rt.Reset();
+        srv_heap.Reset();
+        rtv_heap.Reset();
+        list.Reset();
+        alloc.Reset();
+        fence.Reset();
+        if (fence_event != nullptr) { CloseHandle(fence_event); fence_event = nullptr; }
+        queue.Reset();
+        swap.Reset();
+        device.Reset();
+        fence_value = 0;
+        frames = 0;
+        ready = false;
+    }
+};
+
+Gpu g;
+
+// ---- M4/M5 candidate 2: native D3D12 hook to find the real GPU resource behind
+// a texture the managed-reflection API cannot reach (see dev-archive
+// recon/2026-08-24-candidate2-texture-native-resource-recon/ -- reflection has no
+// native-handle accessor anywhere in via.render.TextureResourceHolder's type chain).
+// Hooks ID3D12Device::CreateShaderResourceView (vtable slot 18) and
+// ::CreateCommittedResource (slot 27) -- both are fixed, publicly documented offsets
+// from Microsoft's own d3d12.h, not anything game-specific to reverse engineer.
+// F6 arms a short capture window, triggers our own native create_resource call (the
+// same RT/path already used throughout M3/M4), and logs whatever the hook sees in the
+// next ~90 frames -- settling, with direct evidence, whether that call ever produces
+// a real GPU allocation at all.
+extern std::atomic<bool> g_api_ok;   // defined further down, forward-declared here so
+                                       // arm_and_trigger() (which needs it) can sit
+                                       // near the rest of the hook machinery instead
+                                       // of after every other global in the file.
+namespace hook {
+
+std::atomic<bool> armed{false};
+std::atomic<int> captures{0};
+std::atomic<int> committed_captures{0};
+std::atomic<ID3D12Resource*> last_captured{nullptr};
+std::atomic<void*> scope_holder{nullptr};   // the via.render.RenderTargetTextureResourceHolder
+                                              // (ManagedObject*) wrapping our created resource --
+                                              // needed to bind it onto a GUI element for a full
+                                              // visual proof, same object type M3/M4 already bound
+                                              // successfully from Lua via set_RenderTarget.
+std::atomic<ID3D12Resource*> last_committed{nullptr};   // specifically from
+    // CreateCommittedResource (real GPU allocations) -- kept separate from the
+    // SRV hook's last_captured, which floods with thousands of unrelated
+    // bindless-heap SRV creations per frame and drowns out the one allocation
+    // we actually care about.
+std::atomic<uint64_t> arm_frame{0};
+std::atomic<uint64_t> frame_counter{0};   // own unconditional counter -- g.frames only
+                                            // advances while the scope composite is
+                                            // actively drawing (weapon equipped, not VR),
+                                            // which this test doesn't require.
+bool installed = false;
+
+using CreateSRV_t = void(STDMETHODCALLTYPE*)(ID3D12Device*, ID3D12Resource*,
+    const D3D12_SHADER_RESOURCE_VIEW_DESC*, D3D12_CPU_DESCRIPTOR_HANDLE);
+using CreateCommitted_t = HRESULT(STDMETHODCALLTYPE*)(ID3D12Device*,
+    const D3D12_HEAP_PROPERTIES*, D3D12_HEAP_FLAGS, const D3D12_RESOURCE_DESC*,
+    D3D12_RESOURCE_STATES, const D3D12_CLEAR_VALUE*, REFIID, void**);
+
+CreateSRV_t orig_srv = nullptr;
+CreateCommitted_t orig_committed = nullptr;
+
+void STDMETHODCALLTYPE hook_srv(ID3D12Device* self, ID3D12Resource* resource,
+        const D3D12_SHADER_RESOURCE_VIEW_DESC* desc, D3D12_CPU_DESCRIPTOR_HANDLE dest) {
+    if (armed.load() && resource != nullptr) {
+        // no per-call log here on purpose -- this fires thousands of times/frame
+        // for unrelated bindless-heap SRVs and floods the log; count silently,
+        // CreateCommittedResource (below) is the signal that actually matters.
+        last_captured.store(resource);
+        captures.fetch_add(1);
+    }
+    orig_srv(self, resource, desc, dest);
+}
+
+HRESULT STDMETHODCALLTYPE hook_committed(ID3D12Device* self,
+        const D3D12_HEAP_PROPERTIES* heap_props, D3D12_HEAP_FLAGS heap_flags,
+        const D3D12_RESOURCE_DESC* desc, D3D12_RESOURCE_STATES state,
+        const D3D12_CLEAR_VALUE* clear, REFIID riid, void** out) {
+    HRESULT hr = orig_committed(self, heap_props, heap_flags, desc, state, clear, riid, out);
+    if (armed.load() && SUCCEEDED(hr) && desc != nullptr &&
+            desc->Dimension == D3D12_RESOURCE_DIMENSION_TEXTURE2D && out != nullptr && *out != nullptr) {
+        LOGI("[re-scope-vr] [hook] CreateCommittedResource dim=%dx%llu fmt=%d flags=0x%X -> %p",
+            (int)desc->Height, (unsigned long long)desc->Width, (int)desc->Format,
+            (unsigned)desc->Flags, *out);
+        last_captured.store(static_cast<ID3D12Resource*>(*out));
+        last_committed.store(static_cast<ID3D12Resource*>(*out));
+        captures.fetch_add(1);
+        committed_captures.fetch_add(1);
+    }
+    return hr;
+}
+
+void install(ID3D12Device* device) {
+    if (installed || device == nullptr) return;
+    void** vtbl = *reinterpret_cast<void***>(device);
+
+    DWORD old_protect = 0;
+    if (VirtualProtect(&vtbl[18], sizeof(void*), PAGE_EXECUTE_READWRITE, &old_protect)) {
+        orig_srv = reinterpret_cast<CreateSRV_t>(vtbl[18]);
+        vtbl[18] = reinterpret_cast<void*>(&hook_srv);
+        VirtualProtect(&vtbl[18], sizeof(void*), old_protect, &old_protect);
+    } else {
+        LOGE("[re-scope-vr] [hook] VirtualProtect failed for CreateShaderResourceView slot");
+    }
+
+    if (VirtualProtect(&vtbl[27], sizeof(void*), PAGE_EXECUTE_READWRITE, &old_protect)) {
+        orig_committed = reinterpret_cast<CreateCommitted_t>(vtbl[27]);
+        vtbl[27] = reinterpret_cast<void*>(&hook_committed);
+        VirtualProtect(&vtbl[27], sizeof(void*), old_protect, &old_protect);
+    } else {
+        LOGE("[re-scope-vr] [hook] VirtualProtect failed for CreateCommittedResource slot");
+    }
+
+    installed = (orig_srv != nullptr) && (orig_committed != nullptr);
+    LOGI("[re-scope-vr] [hook] D3D12 device hooks installed: %s", installed ? "OK" : "FAILED");
+}
+
+// Called from F6: arm the capture window and trigger the same create_resource call
+// M3/M4 already used from Lua, now natively, to see what the hook actually observes.
+void arm_and_trigger() {
+    captures.store(0);
+    committed_captures.store(0);
+    last_captured.store(nullptr);
+    last_committed.store(nullptr);
+    armed.store(true);
+    arm_frame.store(frame_counter.load());
+
+    if (!g_api_ok.load()) {
+        LOGE("[re-scope-vr] [hook] C++ SDK wrapper not ready, cannot call create_resource natively");
+        return;
+    }
+    auto& api = reframework::API::get();
+    auto* rm = api->resource_manager();
+    if (rm == nullptr) {
+        LOGE("[re-scope-vr] [hook] resource_manager() returned null");
+        return;
+    }
+    auto* res = rm->create_resource("via.render.RenderTargetTextureResource", "movie/rtex/movie_1280_720.rtex");
+    if (res != nullptr) {
+        res->add_ref();
+        // Resource doesn't expose create_holder as a convenience method in this SDK
+        // version (only add_ref/release do) -- call the raw function pointer directly,
+        // same underlying native call the Lua binding's res:create_holder(...) uses.
+        auto* fn = g_param->sdk->resource->create_holder;
+        if (fn != nullptr) {
+            auto holder_handle = fn((REFrameworkResourceHandle)(void*)res, "via.render.RenderTargetTextureResourceHolder");
+            scope_holder.store((void*)holder_handle);
+            LOGI("[re-scope-vr] [hook] create_holder -> %p", (void*)holder_handle);
+        } else {
+            LOGE("[re-scope-vr] [hook] sdk->resource->create_holder is null");
+        }
+    }
+    LOGI("[re-scope-vr] [hook] armed; native create_resource(RT, movie_1280_720.rtex) -> %p — watching for %d frames",
+        (void*)res, 90);
+}
+
+// F7: write a solid-color test pattern into whatever hook_committed/hook_srv last
+// captured. Only handles simple uncompressed formats (BC-compressed textures are
+// skipped, not guessed at -- wrong block-compression math is worse than doing
+// nothing). ASSUMES the resource's current state is D3D12_RESOURCE_STATE_COMMON
+// (a real, documented assumption, not verified -- we don't own this resource end to
+// end the way we own g.rt/g.capture, so this is the honest risk in this test: if
+// wrong, expect a render glitch, not a crash, and it clears on next restart, same
+// safety net as every other experimental change this project has made).
+void write_test_pattern() {
+    ID3D12Resource* target = last_committed.load();
+    if (target == nullptr) target = last_captured.load();
+    if (target == nullptr) { LOGE("[re-scope-vr] [hook] F7: no captured resource yet, press F6 first"); return; }
+    LOGI("[re-scope-vr] [hook] F7: targeting %p (%s)", (void*)target,
+        last_committed.load() == target ? "from CreateCommittedResource -- the real allocation" : "from CreateShaderResourceView fallback");
+
+    D3D12_RESOURCE_DESC desc = target->GetDesc();
+    UINT bpp = 0;
+    switch (desc.Format) {
+        case DXGI_FORMAT_R8G8B8A8_UNORM:
+        case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+        case DXGI_FORMAT_B8G8R8A8_UNORM:
+        case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB: bpp = 4; break;
+        default:
+            LOGE("[re-scope-vr] [hook] F7: format %d not a simple 4-byte format (likely BC-compressed) -- "
+                 "skipping rather than guessing block-compression math", (int)desc.Format);
+            return;
+    }
+
+    const UINT w = (UINT)desc.Width, h = desc.Height;
+    const UINT row_pitch = ((w * bpp) + 255u) & ~255u;   // D3D12_TEXTURE_DATA_PITCH_ALIGNMENT
+    const UINT64 buf_size = (UINT64)row_pitch * h;
+
+    D3D12_HEAP_PROPERTIES hp{}; hp.Type = D3D12_HEAP_TYPE_UPLOAD;
+    D3D12_RESOURCE_DESC bd{};
+    bd.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+    bd.Width = buf_size; bd.Height = 1; bd.DepthOrArraySize = 1; bd.MipLevels = 1;
+    bd.Format = DXGI_FORMAT_UNKNOWN; bd.SampleDesc.Count = 1;
+    bd.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+
+    ComPtr<ID3D12Resource> upload;
+    if (FAILED(g.device->CreateCommittedResource(&hp, D3D12_HEAP_FLAG_NONE, &bd,
+            D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&upload)))) {
+        LOGE("[re-scope-vr] [hook] F7: CreateCommittedResource(upload) failed"); return;
+    }
+
+    void* mapped = nullptr;
+    if (FAILED(upload->Map(0, nullptr, &mapped))) { LOGE("[re-scope-vr] [hook] F7: Map failed"); return; }
+    uint8_t* rows = static_cast<uint8_t*>(mapped);
+    for (UINT y = 0; y < h; ++y) {
+        uint32_t* px = reinterpret_cast<uint32_t*>(rows + (size_t)y * row_pitch);
+        for (UINT x = 0; x < w; ++x) {
+            // bright magenta/black checkerboard -- unmistakable, can't be confused
+            // with any real game content.
+            bool a = (((x / 16) + (y / 16)) % 2) == 0;
+            px[x] = a ? 0xFFFF00FFu : 0xFF000000u;   // AARRGGBB-order irrelevant here, just needs to be loud
+        }
+    }
+    upload->Unmap(0, nullptr);
+
+    g.list->Reset(g.alloc.Get(), nullptr);
+
+    D3D12_RESOURCE_BARRIER to_dest{};
+    to_dest.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+    to_dest.Transition.pResource = target;
+    to_dest.Transition.StateBefore = D3D12_RESOURCE_STATE_COMMON;   // the documented assumption
+    to_dest.Transition.StateAfter = D3D12_RESOURCE_STATE_COPY_DEST;
+    to_dest.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+    g.list->ResourceBarrier(1, &to_dest);
+
+    D3D12_TEXTURE_COPY_LOCATION dst{}; dst.pResource = target; dst.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX; dst.SubresourceIndex = 0;
+    D3D12_TEXTURE_COPY_LOCATION src{}; src.pResource = upload.Get(); src.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
+    src.PlacedFootprint.Offset = 0;
+    src.PlacedFootprint.Footprint = { desc.Format, w, h, 1, row_pitch };
+    g.list->CopyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
+
+    D3D12_RESOURCE_BARRIER to_common = to_dest;
+    to_common.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
+    to_common.Transition.StateAfter = D3D12_RESOURCE_STATE_COMMON;
+    g.list->ResourceBarrier(1, &to_common);
+
+    g.list->Close();
+    ID3D12CommandList* lists[] = { g.list.Get() };
+    g.queue->ExecuteCommandLists(1, lists);
+    g.wait_idle();
+
+    LOGI("[re-scope-vr] [hook] F7: wrote a %ux%u magenta/black checkerboard into %p -- "
+         "CHECK THE GLASS/SCREEN NOW. If it shows up, this is the win condition for the whole RT problem.",
+        w, h, (void*)target);
+}
+
+// Called every frame from on_present: after the capture window elapses, report
+// what (if anything) got seen and disarm.
+void check_and_report() {
+    frame_counter.fetch_add(1);
+    if (!armed.load()) return;
+    if (frame_counter.load() - arm_frame.load() < 90) return;
+    armed.store(false);
+    const int n = captures.load();
+    const int nc = committed_captures.load();
+    if (n == 0) {
+        LOGI("[re-scope-vr] [hook] RESULT: 0 CreateShaderResourceView/CreateCommittedResource calls observed "
+             "in the 90-frame window -- the create_resource call produced NO real GPU allocation at all.");
+    } else if (nc == 0) {
+        LOGI("[re-scope-vr] [hook] RESULT: %d SRV call(s) observed (all unrelated bindless-heap noise), "
+             "0 CreateCommittedResource calls -- no new GPU allocation happened this window.", n);
+    } else {
+        LOGI("[re-scope-vr] [hook] RESULT: %d SRV call(s), %d CreateCommittedResource call(s) -- "
+             "a REAL GPU allocation exists at %p. Press F7 to write a test pattern into it.",
+            n, nc, (void*)last_committed.load());
+    }
+}
+
+} // namespace hook
+
+void barrier(ID3D12GraphicsCommandList* l, ID3D12Resource* res,
+             D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after) {
+    D3D12_RESOURCE_BARRIER b{};
+    b.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+    b.Transition.pResource = res;
+    b.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+    b.Transition.StateBefore = before;
+    b.Transition.StateAfter = after;
+    l->ResourceBarrier(1, &b);
+}
+
+bool compile_shader(const char* entry, const char* target, ComPtr<ID3DBlob>& out) {
+    ComPtr<ID3DBlob> err;
+    const HRESULT hr = D3DCompile(kShaderSrc, strlen(kShaderSrc), nullptr, nullptr, nullptr,
+        entry, target, 0, 0, &out, &err);
+    if (FAILED(hr)) {
+        LOGE("[re-scope-vr] D3DCompile(%s) failed (0x%08X): %s", entry, (unsigned)hr,
+            err ? (const char*)err->GetBufferPointer() : "no diagnostics");
+        return false;
+    }
+    return true;
+}
+
+bool init_gpu() {
+    const auto* rd = g_param->renderer_data;
+    if (rd == nullptr || rd->renderer_type != REFRAMEWORK_RENDERER_D3D12) {
+        LOGE("[re-scope-vr] needs D3D12; renderer_type=%d", rd != nullptr ? rd->renderer_type : -1);
+        return false;
+    }
+
+    g.device = static_cast<ID3D12Device*>(rd->device);
+    g.queue = static_cast<ID3D12CommandQueue*>(rd->command_queue);
+    auto* unk = static_cast<IUnknown*>(rd->swapchain);
+    if (g.device == nullptr || g.queue == nullptr || unk == nullptr) {
+        LOGE("[re-scope-vr] renderer_data has null device/queue/swapchain");
+        return false;
+    }
+    if (FAILED(unk->QueryInterface(IID_PPV_ARGS(&g.swap)))) {
+        LOGE("[re-scope-vr] swapchain QueryInterface(IDXGISwapChain3) failed");
+        return false;
+    }
+
+    hook::install(g.device.Get());
+
+    DXGI_SWAP_CHAIN_DESC1 sd{};
+    if (FAILED(g.swap->GetDesc1(&sd))) { LOGE("[re-scope-vr] GetDesc1 failed"); return false; }
+    g.format = sd.Format;
+    g.bb_w = sd.Width;
+    g.bb_h = sd.Height;
+
+    HRESULT hr = g.device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&g.alloc));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateCommandAllocator failed (0x%08X)", (unsigned)hr); return false; }
+
+    hr = g.device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g.alloc.Get(), nullptr, IID_PPV_ARGS(&g.list));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateCommandList failed (0x%08X)", (unsigned)hr); return false; }
+    g.list->Close();
+
+    hr = g.device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&g.fence));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateFence failed (0x%08X)", (unsigned)hr); return false; }
+    g.fence_event = CreateEventW(nullptr, FALSE, FALSE, nullptr);
+    if (g.fence_event == nullptr) { LOGE("[re-scope-vr] CreateEvent failed"); return false; }
+
+    // Descriptor heaps
+    D3D12_DESCRIPTOR_HEAP_DESC hd{};
+    hd.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+    hd.NumDescriptors = 2;
+    hr = g.device->CreateDescriptorHeap(&hd, IID_PPV_ARGS(&g.rtv_heap));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateDescriptorHeap(RTV) failed (0x%08X)", (unsigned)hr); return false; }
+
+    hd.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+    hd.NumDescriptors = 2;
+    hd.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+    hr = g.device->CreateDescriptorHeap(&hd, IID_PPV_ARGS(&g.srv_heap));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateDescriptorHeap(SRV) failed (0x%08X)", (unsigned)hr); return false; }
+
+    g.rtv_inc = g.device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+    g.srv_inc = g.device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+    // Our RT (draw target, also copy source for the composite)
+    D3D12_HEAP_PROPERTIES hp{};
+    hp.Type = D3D12_HEAP_TYPE_DEFAULT;
+
+    D3D12_RESOURCE_DESC td{};
+    td.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+    td.Width = g.rt_w;
+    td.Height = g.rt_h;
+    td.DepthOrArraySize = 1;
+    td.MipLevels = 1;
+    td.Format = g.format;
+    td.SampleDesc.Count = 1;
+    td.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+    td.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
+
+    D3D12_CLEAR_VALUE cv{};
+    cv.Format = g.format;
+    cv.Color[0] = 0.0f; cv.Color[1] = 0.0f; cv.Color[2] = 0.0f; cv.Color[3] = 1.0f;
+
+    hr = g.device->CreateCommittedResource(&hp, D3D12_HEAP_FLAG_NONE, &td,
+        D3D12_RESOURCE_STATE_RENDER_TARGET, &cv, IID_PPV_ARGS(&g.rt));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateCommittedResource(RT) failed (0x%08X)", (unsigned)hr); return false; }
+    g.device->CreateRenderTargetView(g.rt.Get(), nullptr, g.rtv_heap->GetCPUDescriptorHandleForHeapStart());
+
+    // Capture texture (full backbuffer copy; steady state COPY_DEST)
+    td.Width = g.bb_w;
+    td.Height = g.bb_h;
+    td.Flags = D3D12_RESOURCE_FLAG_NONE;
+    hr = g.device->CreateCommittedResource(&hp, D3D12_HEAP_FLAG_NONE, &td,
+        D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&g.capture));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateCommittedResource(capture) failed (0x%08X)", (unsigned)hr); return false; }
+    g.device->CreateShaderResourceView(g.capture.Get(), nullptr, g.srv_heap->GetCPUDescriptorHandleForHeapStart());
+
+    // SRV [1]: our RT, sampled by the composite pass
+    {
+        D3D12_CPU_DESCRIPTOR_HANDLE h = g.srv_heap->GetCPUDescriptorHandleForHeapStart();
+        h.ptr += g.srv_inc;
+        g.device->CreateShaderResourceView(g.rt.Get(), nullptr, h);
+    }
+
+    // Root signature: [0] SRV table (t0, PS), [1] 4 root constants (b0, PS), static linear-clamp sampler s0
+    D3D12_DESCRIPTOR_RANGE range{};
+    range.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+    range.NumDescriptors = 1;
+    range.BaseShaderRegister = 0;
+
+    D3D12_ROOT_PARAMETER params[2]{};
+    params[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+    params[0].DescriptorTable.NumDescriptorRanges = 1;
+    params[0].DescriptorTable.pDescriptorRanges = &range;
+    params[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+    params[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS;
+    params[1].Constants.ShaderRegister = 0;
+    params[1].Constants.Num32BitValues = 8;
+    params[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+
+    D3D12_STATIC_SAMPLER_DESC samp{};
+    samp.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+    samp.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+    samp.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+    samp.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+    samp.MaxLOD = D3D12_FLOAT32_MAX;
+    samp.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+
+    D3D12_ROOT_SIGNATURE_DESC rs{};
+    rs.NumParameters = 2;
+    rs.pParameters = params;
+    rs.NumStaticSamplers = 1;
+    rs.pStaticSamplers = &samp;
+
+    ComPtr<ID3DBlob> rs_blob, rs_err;
+    hr = D3D12SerializeRootSignature(&rs, D3D_ROOT_SIGNATURE_VERSION_1, &rs_blob, &rs_err);
+    if (FAILED(hr)) {
+        LOGE("[re-scope-vr] SerializeRootSignature failed (0x%08X): %s", (unsigned)hr,
+            rs_err ? (const char*)rs_err->GetBufferPointer() : "no diagnostics");
+        return false;
+    }
+    hr = g.device->CreateRootSignature(0, rs_blob->GetBufferPointer(), rs_blob->GetBufferSize(), IID_PPV_ARGS(&g.root_sig));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateRootSignature failed (0x%08X)", (unsigned)hr); return false; }
+
+    // Shaders + PSO
+    ComPtr<ID3DBlob> vs, ps;
+    if (!compile_shader("vs_main", "vs_5_0", vs)) return false;
+    if (!compile_shader("ps_main", "ps_5_0", ps)) return false;
+
+    D3D12_GRAPHICS_PIPELINE_STATE_DESC pd{};
+    pd.pRootSignature = g.root_sig.Get();
+    pd.VS = { vs->GetBufferPointer(), vs->GetBufferSize() };
+    pd.PS = { ps->GetBufferPointer(), ps->GetBufferSize() };
+    pd.BlendState.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+    pd.SampleMask = UINT_MAX;
+    pd.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
+    pd.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
+    pd.RasterizerState.DepthClipEnable = TRUE;
+    pd.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+    pd.NumRenderTargets = 1;
+    pd.RTVFormats[0] = g.format;
+    pd.SampleDesc.Count = 1;
+
+    hr = g.device->CreateGraphicsPipelineState(&pd, IID_PPV_ARGS(&g.pso));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateGraphicsPipelineState failed (0x%08X)", (unsigned)hr); return false; }
+
+    // Composite PSO: same VS, ps_comp, alpha blending on
+    ComPtr<ID3DBlob> psc;
+    if (!compile_shader("ps_comp", "ps_5_0", psc)) return false;
+    pd.PS = { psc->GetBufferPointer(), psc->GetBufferSize() };
+    auto& bd = pd.BlendState.RenderTarget[0];
+    bd.BlendEnable = TRUE;
+    bd.SrcBlend = D3D12_BLEND_SRC_ALPHA;
+    bd.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+    bd.BlendOp = D3D12_BLEND_OP_ADD;
+    bd.SrcBlendAlpha = D3D12_BLEND_ONE;
+    bd.DestBlendAlpha = D3D12_BLEND_INV_SRC_ALPHA;
+    bd.BlendOpAlpha = D3D12_BLEND_OP_ADD;
+    hr = g.device->CreateGraphicsPipelineState(&pd, IID_PPV_ARGS(&g.pso_comp));
+    if (FAILED(hr)) { LOGE("[re-scope-vr] CreateGraphicsPipelineState(comp) failed (0x%08X)", (unsigned)hr); return false; }
+
+    LOGI("[re-scope-vr] M2a GPU init OK (bb %ux%u fmt=%d, RT %ux%u, zoom=%.2f, pipeline built)",
+        g.bb_w, g.bb_h, (int)g.format, g.rt_w, g.rt_h, kZoomPresets[g_zoom_idx.load() % kZoomCount]);
+    return true;
+}
+
+// ---------------------------------------------------------------------------
+// M2b step 1 — world tracking (game thread).
+//
+// Reflection chain per REFramework's RE8VR mod (study, not copy):
+//   app.PropsManager -> <Player>k__BackingField -> player GameObject
+//   -> app.PlayerUpdater component -> get_playerGun -> get_equipWeaponObject
+//   -> weapon GameObject -> transform -> getJointByName("Body")
+// Camera: via.SceneManager -> get_MainView -> get_PrimaryCamera; pose from its
+// transform's position + rotation quaternion + get_FOV. Projection is our own
+// pinhole model (X right, Y up, -Z forward — the 0.5 Hz log verifies signs),
+// so no engine matrix conventions are involved at all.
+// ---------------------------------------------------------------------------
+
+using reframework::API;
+
+struct Vec3 { float x, y, z; };
+struct Quat { float x, y, z, w; };
+
+std::atomic<bool> g_api_ok{false};
+
+// Which application entry samples the world: 0 = BeginRendering, 1 = LockScene.
+// F8 toggles live — the presented image reflects a camera finalized somewhere
+// between these entries, so the less-laggy source is found empirically.
+std::atomic<int> g_tick_source{0};
+
+// VR guard: in VR the desktop swapchain is an accumulating mirror — drawing on
+// it feeds back (lens-of-lens storm, observed 2026-08-23) and never reaches
+// the headset. No VR query exists in the plugin C API, so detect via FOV: VR
+// renders ~81 deg, flat tops out ~63. F10 cycles auto/force-off/force-on.
+std::atomic<float> g_last_fov{0.0f};
+std::atomic<int> g_vr_override{0};   // 0 = auto, 1 = force off, 2 = force on
+
+bool composite_allowed() {
+    const int ov = g_vr_override.load();
+    if (ov == 1) return false;
+    if (ov == 2) return true;
+    const float f = g_last_fov.load();
+    return f <= 0.0f || f < 75.0f;
+}
+
+struct LensTarget {
+    std::atomic<bool> valid{false};      // scoped weapon in hand + anchor projected
+    std::atomic<float> px{0.0f};         // lens anchor in pixels
+    std::atomic<float> py{0.0f};
+    std::atomic<bool> aim_valid{false};  // bore-ray far point projected
+    std::atomic<float> ax{0.0f};         // aim point in pixels (crop center)
+    std::atomic<float> ay{0.0f};
+    std::atomic<float> size{240.0f};     // lens display width in pixels (distance-scaled)
+} g_lens_target;
+
+// Lens mount calibration (numpad, live): offset from the Body joint in the
+// joint's own frame, and the lens' physical radius (drives distance scaling).
+// 4/6 = x -/+, 8/2 = y +/-, 7/9 = z -/+, 1/3 = radius -/+, 5 = log, 0 = reset.
+// Defaults = user's flat-screen calibration 2026-08-23 (numpad-5 log).
+std::atomic<float> g_mount_x{0.0f};
+std::atomic<float> g_mount_y{0.151f};
+std::atomic<float> g_mount_z{0.099f};
+std::atomic<float> g_lens_radius{0.039f};
+
+// Rotate v by unit quaternion q (local -> world):
+// t = 2*cross(q.xyz, v); v' = v + q.w*t + cross(q.xyz, t).
+Vec3 rotate_fwd(const Quat& q, const Vec3& v) {
+    const float tx = 2.0f * (q.y * v.z - q.z * v.y);
+    const float ty = 2.0f * (q.z * v.x - q.x * v.z);
+    const float tz = 2.0f * (q.x * v.y - q.y * v.x);
+    return Vec3{
+        v.x + q.w * tx + (q.y * tz - q.z * ty),
+        v.y + q.w * ty + (q.z * tx - q.x * tz),
+        v.z + q.w * tz + (q.x * ty - q.y * tx),
+    };
+}
+
+// Rotate v by the inverse of unit quaternion q (world -> camera-local):
+// with u = -q.xyz, t = 2*cross(u, v), v' = v + q.w*t + cross(u, t).
+Vec3 rotate_inv(const Quat& q, const Vec3& v) {
+    const float ux = -q.x, uy = -q.y, uz = -q.z;
+    const float tx = 2.0f * (uy * v.z - uz * v.y);
+    const float ty = 2.0f * (uz * v.x - ux * v.z);
+    const float tz = 2.0f * (ux * v.y - uy * v.x);
+    return Vec3{
+        v.x + q.w * tx + (uy * tz - uz * ty),
+        v.y + q.w * ty + (uz * tx - ux * tz),
+        v.z + q.w * tz + (ux * ty - uy * tx),
+    };
+}
+
+// find_method on a runtime type does not reliably resolve inherited methods
+// (get_GameObject failed on app.WeaponGunCore even though Lua resolves it), so
+// walk the parent chain ourselves.
+API::Method* find_method_deep(API::TypeDefinition* td, std::string_view name) {
+    for (int i = 0; td != nullptr && i < 10; ++i) {
+        auto* m = td->find_method(name);
+        if (m != nullptr) return m;
+        td = td->get_parent_type();
+    }
+    return nullptr;
+}
+
+API::Field* find_field_deep(API::TypeDefinition* td, std::string_view name) {
+    for (int i = 0; td != nullptr && i < 10; ++i) {
+        auto* f = td->find_field(name);
+        if (f != nullptr) return f;
+        td = td->get_parent_type();
+    }
+    return nullptr;
+}
+
+reframework::InvokeRet inv(API::ManagedObject* o, std::string_view name,
+                           std::vector<void*> args = {}) {
+    if (o == nullptr) return {};
+    auto* m = find_method_deep(o->get_type_definition(), name);
+    if (m == nullptr) return {};
+    return m->invoke(o, args);
+}
+
+API::ManagedObject* inv_ptr(API::ManagedObject* o, std::string_view name) {
+    return (API::ManagedObject*)inv(o, name).ptr;
+}
+
+// By-value returns (via.vec3 / via.Quaternion) land in InvokeRet's byte buffer.
+bool inv_val(API::ManagedObject* o, std::string_view name, void* out, size_t n) {
+    if (o == nullptr) return false;
+    auto r = inv(o, name);
+    memcpy(out, r.bytes.data(), n);
+    return true;
+}
+
+// Overload-qualified lookup with a plain-name fallback, parent-chain aware.
+API::Method* find_method2(API::TypeDefinition* td, const char* sig, const char* plain) {
+    auto* m = find_method_deep(td, sig);
+    return m != nullptr ? m : find_method_deep(td, plain);
+}
+
+void world_tick() {
+    if (!g_api_ok.load()) return;
+    auto& api = API::get();
+
+    static uint64_t tick = 0;
+    const bool logt = (tick++ % 120) == 0;   // ~0.5 Hz diagnostics
+
+    // ---- camera pose ----
+    Vec3 cpos{}; Quat crot{}; float fov = 0.0f;
+    auto* sm = (API::ManagedObject*)api->get_native_singleton("via.SceneManager");
+    auto* smt = api->tdb()->find_type("via.SceneManager");
+    API::ManagedObject* cam = nullptr;
+    if (sm != nullptr && smt != nullptr) {
+        auto* get_main_view = smt->find_method("get_MainView");
+        auto* main_view = get_main_view != nullptr
+            ? (API::ManagedObject*)get_main_view->invoke(sm, std::vector<void*>{}).ptr : nullptr;
+        cam = inv_ptr(main_view, "get_PrimaryCamera");
+    }
+    if (cam != nullptr) {
+        auto* cam_go = inv_ptr(cam, "get_GameObject");
+        auto* cam_tf = inv_ptr(cam_go, "get_Transform");
+        if (cam_tf != nullptr) {
+            inv_val(cam_tf, "get_Position", &cpos, sizeof(cpos));
+            inv_val(cam_tf, "get_Rotation", &crot, sizeof(crot));
+        }
+        // Primitive float returns come back double-promoted in the invoke
+        // buffer (deep dump showed raw 0x404F800000000000 == 63.0 as double).
+        fov = (float)inv(cam, "get_FOV").d;
+        g_last_fov.store(fov);
+    }
+
+    // One-shot deep diagnostics: name the exact broken link instead of guessing.
+    static std::atomic<bool> deep_logged{false};
+    bool deep = false;
+    {
+        bool expected = false;
+        // Only fire once we're likely in gameplay (camera away from the origin).
+        if (fabsf(cpos.x) + fabsf(cpos.z) > 20.0f) {
+            deep = deep_logged.compare_exchange_strong(expected, true);
+        }
+    }
+    if (deep) {
+        if (cam != nullptr) {
+            auto* ct = cam->get_type_definition();
+            auto r = cam->invoke("get_FOV", {});
+            LOGI("[re-scope-vr] deep: cam type=%s get_FOV raw=0x%016llX (f=%f)",
+                ct != nullptr ? ct->get_full_name().c_str() : "null?", (unsigned long long)r.qword, r.f);
+        } else {
+            LOGI("[re-scope-vr] deep: cam is NULL (sm=%p smt=%p)", (void*)sm, (void*)smt);
+        }
+        // Which managed singletons mention Props/Player?
+        try {
+            for (const auto& s : api->get_managed_singletons()) {
+                auto* td = (API::TypeDefinition*)s.t;
+                if (td == nullptr) continue;
+                const auto n = td->get_full_name();
+                if (n.find("Props") != std::string::npos || n.find("Player") != std::string::npos) {
+                    LOGI("[re-scope-vr] deep: singleton %s inst=%p", n.c_str(), (void*)s.instance);
+                }
+            }
+        } catch (...) { LOGI("[re-scope-vr] deep: singleton enumeration failed"); }
+    }
+
+    // ---- equipped weapon: Body-joint mount + muzzle bore ray ----
+    API::ManagedObject* joint = nullptr;   // muzzle joint (bore ray, anchor fallback)
+    Vec3 jpos{};                           // muzzle world position
+    Vec3 apos{};                           // lens anchor world position
+    bool have_anchor = false;
+    const char* stage = "propsman-null";
+    auto* propsman = api->get_managed_singleton("app.PropsManager");
+    API::ManagedObject* player = nullptr;
+    if (propsman != nullptr) {
+        auto* pt = propsman->get_type_definition();
+        auto* pf = pt != nullptr ? pt->find_field("<Player>k__BackingField") : nullptr;
+        if (pf == nullptr) {
+            stage = "playerfield-null";
+            if (deep && pt != nullptr) {
+                LOGI("[re-scope-vr] deep: PropsManager runtime type=%s, <Player>k__BackingField NOT found; Player-ish fields:", pt->get_full_name().c_str());
+                int shown = 0;
+                for (auto* f : pt->get_fields()) {
+                    const char* fn = f != nullptr ? f->get_name() : nullptr;
+                    if (fn != nullptr && strstr(fn, "layer") != nullptr && shown++ < 20) {
+                        LOGI("[re-scope-vr] deep:   field %s", fn);
+                    }
+                }
+            }
+        } else {
+            auto** pp = (API::ManagedObject**)pf->get_data_raw((void*)propsman, false);
+            player = pp != nullptr ? *pp : nullptr;
+            stage = player != nullptr ? "updtype-null" : "player-null";
+        }
+    }
+
+    static API::ManagedObject* updater_type_rt = nullptr;
+    if (updater_type_rt == nullptr) {
+        auto* td = api->tdb()->find_type("app.PlayerUpdater");
+        if (td == nullptr) td = api->tdb()->find_type("app.PlayerUpdaterFPS");
+        if (deep) {
+            LOGI("[re-scope-vr] deep: app.PlayerUpdater td=%p (FPS fallback tried), runtime=%p",
+                (void*)td, td != nullptr ? (void*)td->get_runtime_type() : nullptr);
+        }
+        if (td != nullptr) {
+            updater_type_rt = td->get_runtime_type();
+            if (updater_type_rt != nullptr) updater_type_rt->add_ref();
+        }
+    }
+
+    if (player != nullptr && updater_type_rt != nullptr) {
+        stage = "getcomp-null";
+        auto* getcomp = find_method2(player->get_type_definition(),
+            "getComponent(System.Type)", "getComponent");
+        auto* updater = getcomp != nullptr
+            ? (API::ManagedObject*)getcomp->invoke(player, std::vector<void*>{ updater_type_rt }).ptr : nullptr;
+        if (updater != nullptr) stage = "gun-null";
+        auto* gun_go = inv_ptr(updater, "get_playerGun");
+        if (gun_go != nullptr) stage = "weapon-null";
+        auto* weapon = inv_ptr(gun_go, "get_equipWeaponObject");
+        if (weapon != nullptr) stage = "transform-null";
+        // One-shot: what IS the weapon object? get_GameObject/get_Transform both
+        // failed on it, so dump its type chain + candidate accessors.
+        static std::atomic<bool> deep2_logged{false};
+        if (weapon != nullptr) {
+            bool expected2 = false;
+            if (deep2_logged.compare_exchange_strong(expected2, true)) {
+                auto* gt = gun_go != nullptr ? gun_go->get_type_definition() : nullptr;
+                LOGI("[re-scope-vr] deep2: gun_go type=%s", gt != nullptr ? gt->get_full_name().c_str() : "null");
+                auto* td = weapon->get_type_definition();
+                for (int depth = 0; td != nullptr && depth < 4; ++depth) {
+                    LOGI("[re-scope-vr] deep2: weapon type[%d]=%s", depth, td->get_full_name().c_str());
+                    int shown = 0;
+                    for (auto* m : td->get_methods()) {
+                        const char* mn = m != nullptr ? m->get_name() : nullptr;
+                        if (mn == nullptr) continue;
+                        if ((strstr(mn, "Transform") != nullptr || strstr(mn, "GameObject") != nullptr ||
+                             strstr(mn, "Object") != nullptr || strstr(mn, "Joint") != nullptr) && shown++ < 25) {
+                            LOGI("[re-scope-vr] deep2:   method %s", mn);
+                        }
+                    }
+                    shown = 0;
+                    for (auto* f : td->get_fields()) {
+                        const char* fn2 = f != nullptr ? f->get_name() : nullptr;
+                        if (fn2 == nullptr) continue;
+                        if ((strstr(fn2, "bject") != nullptr || strstr(fn2, "ransform") != nullptr) && shown++ < 15) {
+                            LOGI("[re-scope-vr] deep2:   field %s", fn2);
+                        }
+                    }
+                    td = td->get_parent_type();
+                }
+            }
+        }
+        // Scoped-weapon filter: only the sniper line (GameObject name starting
+        // "ri3042") gets a lens — otherwise every pistol grows a scope. Cached
+        // per weapon pointer; FAIL-OPEN if the name can't be resolved so a
+        // lookup hiccup never blanks a working scope.
+        static API::ManagedObject* filt_weapon = nullptr;
+        static bool filt_scoped = false;
+        if (weapon != nullptr && weapon != filt_weapon) {
+            filt_weapon = weapon;
+            filt_scoped = true;
+            auto* wgo_f = inv_ptr(weapon, "get_GameObject");
+            if (wgo_f == nullptr) {
+                for (const char* fname : { "<owner>k__BackingField", "<Owner>k__BackingField", "Owner", "_Owner" }) {
+                    auto* f = find_field_deep(weapon->get_type_definition(), fname);
+                    if (f != nullptr) {
+                        auto** op = (API::ManagedObject**)f->get_data_raw((void*)weapon, false);
+                        if (op != nullptr && *op != nullptr) { wgo_f = *op; break; }
+                    }
+                }
+            }
+            auto* name_str = inv_ptr(wgo_f, "get_Name");
+            static API::ManagedObject* prefix_str = nullptr;
+            if (prefix_str == nullptr) {
+                prefix_str = api->create_managed_string_normal("ri3042");
+                if (prefix_str != nullptr) prefix_str->add_ref();
+            }
+            if (name_str != nullptr && prefix_str != nullptr) {
+                auto* sw = find_method2(name_str->get_type_definition(),
+                    "StartsWith(System.String)", "StartsWith");
+                if (sw != nullptr) {
+                    filt_scoped = sw->invoke(name_str, std::vector<void*>{ prefix_str }).byte != 0;
+                }
+            }
+            LOGI("[re-scope-vr] weapon changed: scoped=%d (wgo=%p name=%p)",
+                (int)filt_scoped, (void*)wgo_f, (void*)name_str);
+        }
+        if (weapon == nullptr) filt_weapon = nullptr;
+
+        // Muzzle joint: bore-sight reference and anchor fallback.
+        joint = filt_scoped ? inv_ptr(weapon, "get_muzzleJoint") : nullptr;
+        if (weapon != nullptr && !filt_scoped) stage = "unscoped";
+        if (joint != nullptr) {
+            stage = "ok-muzzle";
+            inv_val(joint, "get_Position", &jpos, sizeof(jpos));
+            apos = jpos;
+            have_anchor = true;
+        }
+
+        // Visual mount: Body joint + the numpad-calibrated offset in the
+        // joint's own frame — the lens sits on the scope, not the barrel tip.
+        if (filt_scoped && joint != nullptr) {
+            auto* wgo_b = inv_ptr(weapon, "get_GameObject");
+            if (wgo_b == nullptr) {
+                auto* f = find_field_deep(weapon->get_type_definition(), "<owner>k__BackingField");
+                if (f != nullptr) {
+                    auto** op = (API::ManagedObject**)f->get_data_raw((void*)weapon, false);
+                    if (op != nullptr) wgo_b = *op;
+                }
+            }
+            auto* wtf = inv_ptr(wgo_b, "get_Transform");
+            if (wtf != nullptr) {
+                static API::ManagedObject* body_name = nullptr;
+                if (body_name == nullptr) {
+                    body_name = api->create_managed_string_normal("Body");
+                    if (body_name != nullptr) body_name->add_ref();
+                }
+                auto* getjoint = find_method2(wtf->get_type_definition(),
+                    "getJointByName(System.String)", "getJointByName");
+                API::ManagedObject* body = nullptr;
+                if (getjoint != nullptr && body_name != nullptr) {
+                    body = (API::ManagedObject*)getjoint->invoke(wtf, std::vector<void*>{ body_name }).ptr;
+                }
+                if (body != nullptr) {
+                    Vec3 bpos{}; Quat brot{};
+                    if (inv_val(body, "get_Position", &bpos, sizeof(bpos)) &&
+                        inv_val(body, "get_Rotation", &brot, sizeof(brot))) {
+                        const Vec3 off = rotate_fwd(brot,
+                            Vec3{ g_mount_x.load(), g_mount_y.load(), g_mount_z.load() });
+                        apos = Vec3{ bpos.x + off.x, bpos.y + off.y, bpos.z + off.z };
+                        stage = "ok-body";
+                    }
+                }
+            }
+        }
+    }
+
+    // ---- project (own pinhole math) ----
+    bool valid = false, aim_valid = false;
+    float px = 0.0f, py = 0.0f, ax = 0.0f, ay = 0.0f;
+    Vec3 l{};
+    int axis_pick = -1;
+    const float bw = (float)g.bb_w;
+    const float bh = (float)g.bb_h;
+    const bool can_project = fov > 1.0f && fov < 170.0f && bw > 0.0f && bh > 0.0f;
+
+    auto project = [&](const Vec3& p, float& outx, float& outy) -> bool {
+        const Vec3 d{ p.x - cpos.x, p.y - cpos.y, p.z - cpos.z };
+        const Vec3 lp = rotate_inv(crot, d);
+        if (p.x == apos.x && p.y == apos.y && p.z == apos.z) l = lp;   // keep anchor diag
+        if (lp.z >= -0.01f) return false;   // behind the camera (-Z forward)
+        const float tv = tanf(fov * 0.5f * 3.14159265f / 180.0f);
+        const float th = tv * (bw / bh);
+        const float nx = (lp.x / -lp.z) / th;
+        const float ny = (lp.y / -lp.z) / tv;
+        if (nx < -2.0f || nx > 2.0f || ny < -2.0f || ny > 2.0f) return false;
+        outx = (0.5f + 0.5f * nx) * bw;
+        outy = (0.5f - 0.5f * ny) * bh;
+        return true;
+    };
+
+    const bool equipped = joint != nullptr && have_anchor;
+    float size_px = 240.0f;
+    if (equipped && can_project) {
+        valid = project(apos, px, py);
+
+        // Distance-scaled lens: display width from the lens' physical radius
+        // and the anchor's view depth — close (ADS) fills the objective,
+        // hip-held shrinks naturally.
+        if (valid && l.z < -0.01f) {
+            const float tv = tanf(fov * 0.5f * 3.14159265f / 180.0f);
+            size_px = (2.0f * g_lens_radius.load()) * (0.5f * bh) / (tv * -l.z);
+            if (size_px < 96.0f) size_px = 96.0f;
+            if (size_px > bh * 0.9f) size_px = bh * 0.9f;
+        }
+
+        // Bore ray: the muzzle-local axis most aligned with the camera forward
+        // is the barrel (self-calibrating — no axis-name guessing). Project its
+        // far point as the aim-centered crop target.
+        Quat mrot{};
+        if (valid && inv_val(joint, "get_Rotation", &mrot, sizeof(mrot))) {
+            const Vec3 cam_fwd = rotate_fwd(crot, Vec3{ 0.0f, 0.0f, -1.0f });
+            const Vec3 axes[3] = {
+                rotate_fwd(mrot, Vec3{ 1.0f, 0.0f, 0.0f }),
+                rotate_fwd(mrot, Vec3{ 0.0f, 1.0f, 0.0f }),
+                rotate_fwd(mrot, Vec3{ 0.0f, 0.0f, 1.0f }),
+            };
+            float best = 0.0f;
+            Vec3 dir{};
+            for (int i = 0; i < 3; ++i) {
+                const float dp = axes[i].x * cam_fwd.x + axes[i].y * cam_fwd.y + axes[i].z * cam_fwd.z;
+                if (fabsf(dp) > fabsf(best)) { best = dp; dir = axes[i]; axis_pick = i; }
+            }
+            if (best < 0.0f) { dir.x = -dir.x; dir.y = -dir.y; dir.z = -dir.z; }
+            if (fabsf(best) > 0.5f) {
+                const Vec3 far_pt{ jpos.x + dir.x * 50.0f, jpos.y + dir.y * 50.0f, jpos.z + dir.z * 50.0f };
+                aim_valid = project(far_pt, ax, ay);
+            }
+        }
+    }
+    // Publish. Rules learned from fast-turn testing:
+    //  - hide ONLY on unequip; while equipped-but-unprojectable (weapon sway
+    //    swings the muzzle off-frustum during quick turns) hold the last good
+    //    position briefly instead of flickering out;
+    //  - exponential smoothing damps single-frame mismatch jumps, with
+    //    snap-through for genuinely large moves (weapon switch, teleports).
+    static float s_px = 0.0f, s_py = 0.0f, s_ax = 0.0f, s_ay = 0.0f;
+    static float s_size = 240.0f;
+    static int s_hold = 0;
+    static bool s_have = false;
+
+    if (valid) {
+        const float jump = fabsf(px - s_px) + fabsf(py - s_py);
+        if (!s_have || jump > 250.0f) {
+            s_px = px; s_py = py; s_size = size_px;
+        } else {
+            s_px += 0.5f * (px - s_px);
+            s_py += 0.5f * (py - s_py);
+            s_size += 0.5f * (size_px - s_size);
+        }
+        if (aim_valid) {
+            const float ajump = fabsf(ax - s_ax) + fabsf(ay - s_ay);
+            if (!s_have || ajump > 250.0f) { s_ax = ax; s_ay = ay; }
+            else { s_ax += 0.5f * (ax - s_ax); s_ay += 0.5f * (ay - s_ay); }
+        }
+        s_have = true;
+        s_hold = 45;   // ~0.75 s grace at 60 fps
+    } else if (equipped && s_have && s_hold > 0) {
+        --s_hold;      // keep the last good spot while the muzzle is off-frustum
+    } else {
+        s_have = false;
+        s_hold = 0;
+    }
+
+    g_lens_target.px.store(s_px);
+    g_lens_target.py.store(s_py);
+    g_lens_target.ax.store(s_ax);
+    g_lens_target.ay.store(s_ay);
+    g_lens_target.size.store(s_size);
+    g_lens_target.aim_valid.store(aim_valid || (equipped && s_have));
+    g_lens_target.valid.store(equipped && s_have);
+
+    if (logt) {
+        LOGI("[re-scope-vr] world[%s]: cam=(%.2f,%.2f,%.2f) fov=%.1f joint=(%.2f,%.2f,%.2f) local=(%.2f,%.2f,%.2f) %s px=(%.0f,%.0f) axis=%d aim=%s(%.0f,%.0f)",
+            stage, cpos.x, cpos.y, cpos.z, fov, jpos.x, jpos.y, jpos.z,
+            l.x, l.y, l.z, valid ? "LOCK" : "no-lock", px, py,
+            axis_pick, aim_valid ? "" : "!", ax, ay);
+    }
+}
+
+// F5: full-chain visual proof. Redirects a large, always-visible GUI element
+// ("BackColor", present on the title/menu screen -- same target this project's own
+// research fork already used from Lua when testing via.render.Mirror) to the resource
+// hook::arm_and_trigger() created and hook::write_test_pattern() wrote a checkerboard
+// into. Native equivalent of the exact set_RenderTarget call M3/M4 proved works from
+// Lua -- the only new variable here is that THIS resource is now confirmed to have a
+// real GPU allocation with real pixel data in it, which none of the earlier attempts had.
+void bind_holder_to_gui() {
+    void* holder = hook::scope_holder.load();
+    if (holder == nullptr) { LOGE("[re-scope-vr] [hook] F5: no holder yet -- press F6 then F7 first"); return; }
+    if (!g_api_ok.load()) { LOGE("[re-scope-vr] [hook] F5: SDK wrapper not ready"); return; }
+
+    auto& api = reframework::API::get();
+    auto* sm = (API::ManagedObject*)api->get_native_singleton("via.SceneManager");
+    auto* smt = api->tdb()->find_type("via.SceneManager");
+    auto* get_scene = smt != nullptr ? find_method_deep(smt, "get_CurrentScene") : nullptr;
+    auto* scene = (get_scene != nullptr && sm != nullptr)
+        ? (API::ManagedObject*)get_scene->invoke(sm, std::vector<void*>{}).ptr : nullptr;
+    if (scene == nullptr) { LOGE("[re-scope-vr] [hook] F5: no current scene"); return; }
+
+    auto* find_components = find_method_deep(scene->get_type_definition(), "findComponents(System.Type)");
+    if (find_components == nullptr) { LOGE("[re-scope-vr] [hook] F5: findComponents not found"); return; }
+    // Needs the BOXED System.Type object (same as Lua's sdk.typeof(name)), not the
+    // raw TypeDefinition* -- that mismatch is exactly what made the first attempt
+    // return null (the call went through, wrong-typed argument, silent nullptr).
+    auto* gui_type = api->typeof("via.gui.GUI");
+    if (gui_type == nullptr) { LOGE("[re-scope-vr] [hook] F5: via.gui.GUI typeof() failed"); return; }
+
+    auto list_ret = find_components->invoke(scene, std::vector<void*>{ (void*)gui_type });
+    auto* list = (API::ManagedObject*)list_ret.ptr;
+    if (list == nullptr) { LOGE("[re-scope-vr] [hook] F5: findComponents returned null"); return; }
+    auto* get_elements = find_method_deep(list->get_type_definition(), "get_elements");
+    auto* elements = get_elements != nullptr ? (API::ManagedObject*)get_elements->invoke(list, std::vector<void*>{}).ptr : nullptr;
+    // get_elements() in this SDK returns a native array wrapper; fall back to a
+    // count+index walk if it isn't directly iterable the way Lua's ipairs() is.
+    auto* count_m = list->get_type_definition() != nullptr ? find_method_deep(list->get_type_definition(), "get_Count") : nullptr;
+    auto* item_m = list->get_type_definition() != nullptr ? find_method_deep(list->get_type_definition(), "get_Item(System.Int32)") : nullptr;
+    int count = count_m != nullptr ? count_m->invoke(list, std::vector<void*>{}).dword : 0;
+
+    int found = 0;
+    for (int i = 0; i < count; ++i) {
+        if (item_m == nullptr) break;
+        int idx = i;
+        auto* comp = (API::ManagedObject*)item_m->invoke(list, std::vector<void*>{ (void*)(intptr_t)idx }).ptr;
+        if (comp == nullptr) continue;
+        auto* get_go = find_method_deep(comp->get_type_definition(), "get_GameObject");
+        auto* go = get_go != nullptr ? (API::ManagedObject*)get_go->invoke(comp, std::vector<void*>{}).ptr : nullptr;
+        auto* get_name = go != nullptr ? find_method_deep(go->get_type_definition(), "get_Name") : nullptr;
+        auto name_ret = get_name != nullptr ? get_name->invoke(go, std::vector<void*>{}) : reframework::InvokeRet{};
+        // Names come back as a managed System.String* -- compare via a helper the
+        // rest of this file already uses for weapon-name matching (prefix/contains).
+        auto* name_obj = (API::ManagedObject*)name_ret.ptr;
+        if (name_obj == nullptr) continue;
+        auto* to_string_ok = find_method_deep(name_obj->get_type_definition(), "ToString");
+        (void)to_string_ok;   // names are already strings; kept for symmetry/documentation
+
+        auto* set_rt = find_method_deep(comp->get_type_definition(), "set_RenderTarget");
+        if (set_rt == nullptr) continue;
+        // We can't cheaply strcmp a managed System.String* here without more
+        // plumbing than this test warrants -- redirect every GUI element's render
+        // target, same brute-force approach the Lua M4 round 5 test already used
+        // (41 elements at once) when a single named target wasn't conclusively visible.
+        set_rt->invoke(comp, std::vector<void*>{ holder });
+        found++;
+    }
+    LOGI("[re-scope-vr] [hook] F5: redirected %d/%d GUI element(s) to the written-checkerboard resource -- CHECK SCREEN NOW", found, count);
+}
+
+// F4: the ORIGINAL M3-proven mechanism (setMaterialTexture on a MESH's material),
+// not the GUI set_RenderTarget path F5 just showed does nothing regardless of
+// backing. M3 proved this pathway displays real content when given a real, backed
+// texture holder -- which is exactly what F6+F7 now hand us for the first time.
+// Tries every material slot on every mesh in the scene (brute force, same spirit
+// as F5) since we don't know which mesh/slot indices apply outside a real weapon.
+void bind_holder_to_mesh() {
+    void* holder = hook::scope_holder.load();
+    if (holder == nullptr) { LOGE("[re-scope-vr] [hook] F4: no holder yet -- press F6 then F7 first"); return; }
+    if (!g_api_ok.load()) { LOGE("[re-scope-vr] [hook] F4: SDK wrapper not ready"); return; }
+
+    auto& api = reframework::API::get();
+    auto* sm = (API::ManagedObject*)api->get_native_singleton("via.SceneManager");
+    auto* smt = api->tdb()->find_type("via.SceneManager");
+    auto* get_scene = smt != nullptr ? find_method_deep(smt, "get_CurrentScene") : nullptr;
+    auto* scene = (get_scene != nullptr && sm != nullptr)
+        ? (API::ManagedObject*)get_scene->invoke(sm, std::vector<void*>{}).ptr : nullptr;
+    if (scene == nullptr) { LOGE("[re-scope-vr] [hook] F4: no current scene"); return; }
+
+    auto* find_components = find_method_deep(scene->get_type_definition(), "findComponents(System.Type)");
+    auto* mesh_type = api->typeof("via.render.Mesh");
+    if (find_components == nullptr || mesh_type == nullptr) { LOGE("[re-scope-vr] [hook] F4: findComponents/typeof(Mesh) failed"); return; }
+
+    auto* list = (API::ManagedObject*)find_components->invoke(scene, std::vector<void*>{ (void*)mesh_type }).ptr;
+    if (list == nullptr) { LOGE("[re-scope-vr] [hook] F4: findComponents(Mesh) returned null"); return; }
+    auto* count_m = find_method_deep(list->get_type_definition(), "get_Count");
+    auto* item_m = find_method_deep(list->get_type_definition(), "get_Item(System.Int32)");
+    int count = count_m != nullptr ? count_m->invoke(list, std::vector<void*>{}).dword : 0;
+
+    int calls = 0;
+    for (int i = 0; i < count && item_m != nullptr; ++i) {
+        auto* mesh = (API::ManagedObject*)item_m->invoke(list, std::vector<void*>{ (void*)(intptr_t)i }).ptr;
+        if (mesh == nullptr) continue;
+        auto* set_mat_tex = find_method_deep(mesh->get_type_definition(), "setMaterialTexture");
+        if (set_mat_tex == nullptr) continue;
+        // Try material slots 0-3, texture slot 0-1 -- small brute-force grid, mirrors
+        // M3's own "lens mats 2/3, slot 1" discovery-by-trying pattern since we have
+        // no weapon in hand to know the real indices for whatever mesh this hits.
+        for (int mat = 0; mat < 4; ++mat) {
+            for (int tex = 0; tex < 2; ++tex) {
+                set_mat_tex->invoke(mesh, std::vector<void*>{ (void*)(intptr_t)mat, (void*)(intptr_t)tex, holder });
+                calls++;
+            }
+        }
+    }
+    LOGI("[re-scope-vr] [hook] F4: tried setMaterialTexture on %d mesh(es), %d calls total -- CHECK SCREEN NOW", count, calls);
+}
+
+// F9 cycles the zoom presets live — no restart needed for zoom tuning.
+bool on_message(void* hwnd, unsigned int msg, unsigned long long wparam, long long lparam) {
+    (void)hwnd;
+    if (msg == WM_KEYDOWN && wparam == VK_F9 && (lparam & (1LL << 30)) == 0) {
+        const int idx = (g_zoom_idx.fetch_add(1) + 1) % kZoomCount;
+        LOGI("[re-scope-vr] zoom -> %.1fx (F9 to cycle)", kZoomPresets[idx]);
+    }
+    if (msg == WM_KEYDOWN && wparam == VK_F8 && (lparam & (1LL << 30)) == 0) {
+        const int src = g_tick_source.load() == 0 ? 1 : 0;
+        g_tick_source.store(src);
+        LOGI("[re-scope-vr] tick source -> %s (F8 to toggle)", src == 0 ? "BeginRendering" : "LockScene");
+    }
+    if (msg == WM_KEYDOWN && wparam == VK_F6 && (lparam & (1LL << 30)) == 0) {
+        hook::arm_and_trigger();
+    }
+    if (msg == WM_KEYDOWN && wparam == VK_F7 && (lparam & (1LL << 30)) == 0) {
+        hook::write_test_pattern();
+    }
+    if (msg == WM_KEYDOWN && wparam == VK_F5 && (lparam & (1LL << 30)) == 0) {
+        bind_holder_to_gui();
+    }
+    if (msg == WM_KEYDOWN && wparam == VK_F4 && (lparam & (1LL << 30)) == 0) {
+        bind_holder_to_mesh();
+    }
+    if (msg == WM_KEYDOWN && wparam == VK_F10 && (lparam & (1LL << 30)) == 0) {
+        const int ov = (g_vr_override.load() + 1) % 3;
+        g_vr_override.store(ov);
+        LOGI("[re-scope-vr] composite mode -> %s (F10 cycles; auto disables when FOV>=75 i.e. VR)",
+            ov == 0 ? "auto" : (ov == 1 ? "force-OFF" : "force-ON"));
+    }
+    if (msg == WM_KEYDOWN && (lparam & (1LL << 30)) == 0) {
+        const float s = 0.0002f;   // x/y fine steps (0.2 mm)
+        const float sz = 0.001f;   // z + radius steps (1 mm)
+        bool changed = true;
+        switch (wparam) {
+        case VK_NUMPAD4: g_mount_x.store(g_mount_x.load() - s); break;
+        case VK_NUMPAD6: g_mount_x.store(g_mount_x.load() + s); break;
+        case VK_NUMPAD8: g_mount_y.store(g_mount_y.load() + s); break;
+        case VK_NUMPAD2: g_mount_y.store(g_mount_y.load() - s); break;
+        case VK_NUMPAD7: g_mount_z.store(g_mount_z.load() - sz); break;
+        case VK_NUMPAD9: g_mount_z.store(g_mount_z.load() + sz); break;
+        case VK_NUMPAD1: g_lens_radius.store(g_lens_radius.load() - sz); break;
+        case VK_NUMPAD3: g_lens_radius.store(g_lens_radius.load() + sz); break;
+        case VK_NUMPAD0:
+            g_mount_x.store(0.0f); g_mount_y.store(0.151f); g_mount_z.store(0.099f);
+            g_lens_radius.store(0.039f);
+            break;
+        case VK_NUMPAD5: break;   // just log
+        default: changed = false; break;
+        }
+        if (changed) {
+            LOGI("[re-scope-vr] mount offset=(%.3f, %.3f, %.3f) radius=%.3f",
+                g_mount_x.load(), g_mount_y.load(), g_mount_z.load(), g_lens_radius.load());
+        }
+    }
+    return true;
+}
+
+void on_present() {
+    if (g.dead) {
+        return;
+    }
+    if (!g.ready) {
+        if (!init_gpu()) {
+            LOGE("[re-scope-vr] init failed — disabled until the next device reset");
+            g.release();
+            g.dead = true;
+            return;
+        }
+        g.ready = true;
+    }
+
+    hook::check_and_report();
+
+    // VR guard: never draw on the swapchain in VR (accumulating mirror; the
+    // headset never sees it). The in-world M3 lens is the VR path.
+    if (!composite_allowed()) return;
+
+    // Scope hidden (no scoped weapon in hand / not resolvable): draw nothing,
+    // capture nothing. The per-frame world tick IS the equip detection.
+    const bool lens_lock = g_lens_target.valid.load();
+    if (!lens_lock) return;
+
+    ComPtr<ID3D12Resource> bb;
+    const UINT idx = g.swap->GetCurrentBackBufferIndex();
+    if (FAILED(g.swap->GetBuffer(idx, IID_PPV_ARGS(&bb)))) return;
+
+    // If the swapchain was resized without a device-reset callback, re-init next frame.
+    const D3D12_RESOURCE_DESC bbd = bb->GetDesc();
+    if ((UINT)bbd.Width != g.bb_w || bbd.Height != g.bb_h || bbd.Format != g.format) {
+        LOGI("[re-scope-vr] backbuffer changed (%ux%u fmt=%d) — re-initializing",
+            (UINT)bbd.Width, bbd.Height, (int)bbd.Format);
+        g.release();
+        return;
+    }
+
+    if (FAILED(g.alloc->Reset())) return;
+    if (FAILED(g.list->Reset(g.alloc.Get(), nullptr))) return;
+
+    // 1) Capture the completed frame: bb -> capture
+    barrier(g.list.Get(), bb.Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_COPY_SOURCE);
+    g.list->CopyResource(g.capture.Get(), bb.Get());
+    barrier(g.list.Get(), g.capture.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+
+    // 2) Draw the magnified crop into our RT
+    // Magnifier framing: the RT is the "lens", so the source crop covers rt_size/zoom
+    // pixels — content then appears exactly zoom x larger in the box than on screen.
+    // Crop centers on the projected bore-ray far point (where the bullet goes);
+    // falls back to the lens anchor itself. Clamped so it never samples off-screen.
+    const int zoom_idx = g_zoom_idx.load() % kZoomCount;
+    const float zoom = kZoomPresets[zoom_idx];
+    // Lens display rect (4:3), distance-scaled by the world tick. The crop
+    // covers lens_w/zoom SCREEN pixels so magnification stays true at any
+    // display size ("the RT is the lens" — display size now varies).
+    const float lens_w = g_lens_target.size.load();
+    const float lens_h = lens_w * 0.75f;
+    const float uv_half_u = 0.5f * (lens_w / zoom) / (float)g.bb_w;
+    const float uv_half_v = 0.5f * (lens_h / zoom) / (float)g.bb_h;
+    const bool aim_ok = g_lens_target.aim_valid.load();
+    float uv_cx = (aim_ok ? g_lens_target.ax.load() : g_lens_target.px.load()) / (float)g.bb_w;
+    float uv_cy = (aim_ok ? g_lens_target.ay.load() : g_lens_target.py.load()) / (float)g.bb_h;
+    if (uv_cx < uv_half_u) uv_cx = uv_half_u;
+    if (uv_cy < uv_half_v) uv_cy = uv_half_v;
+    if (uv_cx > 1.0f - uv_half_u) uv_cx = 1.0f - uv_half_u;
+    if (uv_cy > 1.0f - uv_half_v) uv_cy = 1.0f - uv_half_v;
+    // Reticle style follows the preset: 1x = plain, stock 2.4x = duplex,
+    // 3x and up = high-magnification fine cross.
+    const float style = zoom_idx == 0 ? 0.0f : (zoom_idx == 1 ? 1.0f : 2.0f);
+    const float crop[8] = { uv_cx, uv_cy, uv_half_u, uv_half_v, style, 0.0f, 0.0f, 0.0f };
+
+    ID3D12DescriptorHeap* heaps[] = { g.srv_heap.Get() };
+    g.list->SetDescriptorHeaps(1, heaps);
+    g.list->SetGraphicsRootSignature(g.root_sig.Get());
+    g.list->SetPipelineState(g.pso.Get());
+    g.list->SetGraphicsRootDescriptorTable(0, g.srv_heap->GetGPUDescriptorHandleForHeapStart());
+    g.list->SetGraphicsRoot32BitConstants(1, 8, crop, 0);
+    g.list->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    const D3D12_VIEWPORT vp{ 0.0f, 0.0f, (float)g.rt_w, (float)g.rt_h, 0.0f, 1.0f };
+    const D3D12_RECT sc{ 0, 0, (LONG)g.rt_w, (LONG)g.rt_h };
+    g.list->RSSetViewports(1, &vp);
+    g.list->RSSetScissorRects(1, &sc);
+
+    const auto rtv = g.rtv_heap->GetCPUDescriptorHandleForHeapStart();
+    g.list->OMSetRenderTargets(1, &rtv, FALSE, nullptr);
+    g.list->DrawInstanced(3, 1, 0, 0);
+
+    // 3) Composite: alpha-blended circular draw of the RT onto the backbuffer
+    barrier(g.list.Get(), g.rt.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+    barrier(g.list.Get(), bb.Get(), D3D12_RESOURCE_STATE_COPY_SOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+
+    D3D12_CPU_DESCRIPTOR_HANDLE bb_rtv = g.rtv_heap->GetCPUDescriptorHandleForHeapStart();
+    bb_rtv.ptr += g.rtv_inc;
+    g.device->CreateRenderTargetView(bb.Get(), nullptr, bb_rtv);
+
+    D3D12_GPU_DESCRIPTOR_HANDLE rt_srv = g.srv_heap->GetGPUDescriptorHandleForHeapStart();
+    rt_srv.ptr += g.srv_inc;
+
+    // The lens' on-screen rect: viewport placement does the positioning.
+    // Centered on the projected mount anchor (we only get here when locked).
+    float lens_x = g_lens_target.px.load() - 0.5f * lens_w;
+    float lens_y = g_lens_target.py.load() - 0.5f * lens_h;
+    {
+        const float max_x = (float)g.bb_w - lens_w;
+        const float max_y = (float)g.bb_h - lens_h;
+        if (lens_x < 0.0f) lens_x = 0.0f;
+        if (lens_y < 0.0f) lens_y = 0.0f;
+        if (lens_x > max_x) lens_x = max_x;
+        if (lens_y > max_y) lens_y = max_y;
+    }
+    const D3D12_VIEWPORT lens_vp{ lens_x, lens_y, lens_w, lens_h, 0.0f, 1.0f };
+    const D3D12_RECT lens_sc{ (LONG)lens_x, (LONG)lens_y,
+        (LONG)(lens_x + lens_w), (LONG)(lens_y + lens_h) };
+
+    g.list->SetPipelineState(g.pso_comp.Get());
+    g.list->SetGraphicsRootDescriptorTable(0, rt_srv);
+    g.list->RSSetViewports(1, &lens_vp);
+    g.list->RSSetScissorRects(1, &lens_sc);
+    g.list->OMSetRenderTargets(1, &bb_rtv, FALSE, nullptr);
+    g.list->DrawInstanced(3, 1, 0, 0);
+
+    // 4) Restore steady states
+    barrier(g.list.Get(), bb.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+    barrier(g.list.Get(), g.rt.Get(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+    barrier(g.list.Get(), g.capture.Get(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_COPY_DEST);
+
+    if (FAILED(g.list->Close())) return;
+
+    ID3D12CommandList* lists[] = { g.list.Get() };
+    g.queue->ExecuteCommandLists(1, lists);
+
+    // Correctness-first full wait (ring of allocators later if perf needs it).
+    const uint64_t v = ++g.fence_value;
+    if (SUCCEEDED(g.queue->Signal(g.fence.Get(), v)) && g.fence->GetCompletedValue() < v) {
+        g.fence->SetEventOnCompletion(v, g.fence_event);
+        if (WaitForSingleObject(g.fence_event, 2000) != WAIT_OBJECT_0) {
+            LOGE("[re-scope-vr] fence wait timed out — disabling until the next device reset");
+            g.dead = true;
+            return;
+        }
+    }
+
+    if (g.frames.fetch_add(1) == 0) {
+        LOGI("[re-scope-vr] M2a: first zoom composite — the corner box should show a %.1fx magnified live view", zoom);
+    }
+}
+
+void on_device_reset() {
+    LOGI("[re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init");
+    g.release();
+    g.dead = false;
+}
+
+void on_begin_rendering() {
+    static std::atomic<bool> logged{false};
+    bool expected = false;
+    if (logged.compare_exchange_strong(expected, true)) {
+        LOGI("[re-scope-vr] first BeginRendering entry observed — frame-boundary hook is live");
+    }
+    if (g_tick_source.load() == 0) world_tick();
+}
+
+void on_lock_scene() {
+    static std::atomic<bool> logged{false};
+    bool expected = false;
+    if (logged.compare_exchange_strong(expected, true)) {
+        LOGI("[re-scope-vr] first LockScene entry observed");
+    }
+    if (g_tick_source.load() == 1) world_tick();
+}
+
+} // namespace
+
+extern "C" __declspec(dllexport) void reframework_plugin_required_version(REFrameworkPluginVersion* version) {
+    version->major = REFRAMEWORK_PLUGIN_VERSION_MAJOR;
+    version->minor = REFRAMEWORK_PLUGIN_VERSION_MINOR;
+    version->patch = REFRAMEWORK_PLUGIN_VERSION_PATCH;
+}
+
+extern "C" __declspec(dllexport) bool reframework_plugin_initialize(const REFrameworkPluginInitializeParam* param) {
+    g_param = param;
+
+    const auto* fns = param->functions;
+
+    try {
+        reframework::API::initialize(param);
+        g_api_ok.store(true);
+    } catch (...) {
+        fns->log_error("[re-scope-vr] C++ SDK wrapper init failed — lens tracking disabled, M2a still active");
+    }
+    const auto* rd = param->renderer_data;
+
+    const char* renderer = "unknown";
+    if (rd != nullptr) {
+        if (rd->renderer_type == REFRAMEWORK_RENDERER_D3D11) renderer = "D3D11";
+        if (rd->renderer_type == REFRAMEWORK_RENDERER_D3D12) renderer = "D3D12";
+    }
+
+    fns->log_info("[re-scope-vr] M2a build loaded (renderer=%s, device=%p, swapchain=%p, cmdqueue=%p)",
+        renderer,
+        rd != nullptr ? rd->device : nullptr,
+        rd != nullptr ? rd->swapchain : nullptr,
+        rd != nullptr ? rd->command_queue : nullptr);
+
+    fns->on_present(on_present);
+    fns->on_device_reset(on_device_reset);
+    fns->on_pre_application_entry("BeginRendering", on_begin_rendering);
+    fns->on_pre_application_entry("LockScene", on_lock_scene);
+    fns->on_message(on_message);
+
+    return true;
+}
