@@ -1,0 +1,236 @@
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror] ==== GR1: components on the MainCamera GameObject ====
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.Transform
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.Camera
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.RenderOutput
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.LDRPostProcess   <== grading suspect
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.Fog
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   app.FogController
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   app.ColorCorrectController   <== grading suspect
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.ToneMapping   <== grading suspect
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   app.ToneMapController   <== grading suspect
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.SoftBloom
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   app.SoftBloomController
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.SSAOControl
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   app.SSAOController
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.render.SSRControl
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   via.wwise.WwiseListener
+[2026-08-30 11:56:55.843] [REFramework] [info] [m6_mirror]   app.LensDistortionController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LightShaftFilterControl
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.DepthOfField
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.SSSSSControl
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.FakeLensflare
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.MotionBlur
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.RenderResolutioinController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.CameraDOFController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.CameraMotionBlurController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.GeometryAOControl
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.GodRay
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.GodRayController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.SubsurfaceSettings
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.VolumetricFog
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.VolumetricFogControl
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.VolumetricFogControllApp
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.Outline
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.RadialBlurController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.OnPauseCameraCaller
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.TessellationFactor
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.RetroFilm
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.ExperimentalRayTrace
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.ExperimentalRayTraceController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.SSSSSController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.HazeFilterController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.ImagePlaneController
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   app.ObjectDefinitionDynamic
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror] ==== via.render.LDRPostProcess ====
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void reset(via.Size)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean get_Enabled()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_Enabled(System.Boolean)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRHazeFilter get_HazeFilter()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_HazeFilter(via.render.LDRHazeFilter)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRLensDistortion get_LensDistortion()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_LensDistortion(via.render.LDRLensDistortion)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRFilmGrain get_FilmGrain()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_FilmGrain(via.render.LDRFilmGrain)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRColorCorrect get_ColorCorrect()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_ColorCorrect(via.render.LDRColorCorrect)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRColorDeficiencySimulation get_ColorDeficiencySimulation()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_ColorDeficiencySimulation(via.render.LDRColorDeficiencySimulation)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRImagePlane get_ImagePlane()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_ImagePlane(via.render.LDRImagePlane)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.LDRRadialBlur get_RadialBlur()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_RadialBlur(via.render.LDRRadialBlur)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror] ==== app.ColorCorrectController ====
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void awake()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void lateUpdate()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void onDestroy()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean getBlendTargetIndexDirect(System.UInt32)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean setForceEnable(System.Boolean)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean isChangeBlendTarget(System.UInt32)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean isAnimationBlendInternalExecution()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void resetControl()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setRequestDying(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void requestBlend(System.UInt32, System.UInt32, System.Single, System.Boolean)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean requestDeadBlend()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setBlendRequest(System.UInt32, System.String)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void clearBlendRequest(System.UInt32)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean isProductionDeadEnd()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean requestChangeLinearParamAt(app.ColorCorrectLinearParamsAt)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void startPhotoMode()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void endPhotoMode()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean setPhotoModeLinearParamsAt(app.PhotoModeLinearParamsAt)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean gatherBackupPhotoModeParam(app.PhotoModeLinearParamsAt)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean gatherComponents()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void releaseComponents()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void applyData()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean isRequestChangeColorCorrectImpl(System.UInt32)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean requestChangeColorCorrectImpl(app.ColorCorrectBlendInfo)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean updateColorCube2()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean updateLinearParamsAt()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void .ctor()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror] ==== via.render.ToneMapping ====
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void calcRealEV()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.AutoExposure getAutoExposure()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.NeighborhoodClamp getNeighborhoodClamp()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.TemporalAA getTemporalAA()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.TemporalAAAlgorithm getTemporalAAAlgorithm()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.Vignetting getVignetting()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setAutoExposure(via.render.ToneMapping.AutoExposure)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setNeighborhoodClamp(via.render.ToneMapping.NeighborhoodClamp)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setTemporalAA(via.render.ToneMapping.TemporalAA)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setTemporalAAAlgorithm(via.render.ToneMapping.TemporalAAAlgorithm)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void setVignetting(via.render.ToneMapping.Vignetting)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean get_Enabled()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_Enabled(System.Boolean)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean get_UseTripleSectionTonemap()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_EV()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_EV(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_SnappedRealEV()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_MaxWhitePoint()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_MaxWhitePoint(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_MinWhitePoint()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_MinWhitePoint(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_WhiteRange()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_WhiteRange(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_TonemapRange()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_TonemapRange(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_PreTonemapRange()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_PreTonemapRange(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_BrightAdaptationRate()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_BrightAdaptationRate(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_DarkAdaptationRate()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_DarkAdaptationRate(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_KerareBeginAngle()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_KerareBeginAngle(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_Contrast()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_Contrast(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_LinearSectionBegin()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_LinearSectionBegin(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_LinearSectionLength()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_LinearSectionLength(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_SDRToe()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_SDRToe(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_HDRToe()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_HDRToe(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_KerareEndAngle()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_KerareEndAngle(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Single get_VignettingBrightness()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_VignettingBrightness(System.Single)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   via.render.TextureResourceHolder get_MultiZoneMeteringTexture()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_MultiZoneMeteringTexture(via.render.TextureResourceHolder)
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Boolean get_EchoEnabled()
+[2026-08-30 11:56:55.844] [REFramework] [info] [m6_mirror]   System.Void set_EchoEnabled(System.Boolean)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Single get_EchoPrevRate()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_EchoPrevRate(System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Single get_AntiAliasingSubPixelSize()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_AntiAliasingSubPixelSize(System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Single get_AntiAliasingBlendRate()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_AntiAliasingBlendRate(System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Single get_TemporalJitterScale()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_TemporalJitterScale(System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Single get_Sharpness()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_Sharpness(System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Single get_ResponsiveAARate()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_ResponsiveAARate(System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.GameObjectRef get_InjectingGameObject()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_InjectingGameObject(via.GameObjectRef)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean get_DebugDraw()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void set_DebugDraw(System.Boolean)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror] ==== app.ToneMapController ====
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void awake()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void start()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void lateUpdate()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void onDestroy()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void resetControl()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void requestPostProcessAnimation(app.ToneMapAnimationParam)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void requestGUIAnimation(app.ToneMapAnimationParam)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void requestNightVisionAnimation(app.ToneMapAnimationParam)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void requestNightVisionEnable(System.Boolean)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void setDyingParam(System.Boolean, System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void setVFXEchoPrevRate(System.Boolean, System.Single)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void startPhotoMode()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void endPhotoMode()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean gatherBackupPhotoModeParam(app.PhotoModeToneMapParam)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean setPhotoModeToneMapParam(app.PhotoModeToneMapParam)
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean gatherComponents()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void releaseComponents()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean applyData()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean applyFeedbackBlur()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Boolean isApplyEnableFeedBackBlur()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void .ctor()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   System.Void .cctor()
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror] ==== GR1: one-shot read of 31 numeric/bool getters ====
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.LDRPostProcess.get_Enabled = true
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   app.ColorCorrectController.isAnimationBlendInternalExecution = false
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   app.ColorCorrectController.isProductionDeadEnd = false
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_Enabled = true
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_UseTripleSectionTonemap = true
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_EV = 3.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_SnappedRealEV = 3.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_MaxWhitePoint = 15.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_MinWhitePoint = 5.5999999046326
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_WhiteRange = 0.89999997615814
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_TonemapRange = 0.10000000149012
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_PreTonemapRange = 1.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_BrightAdaptationRate = 0.035000000149012
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_DarkAdaptationRate = 0.050000000745058
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_KerareBeginAngle = 10.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_Contrast = 1.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_LinearSectionBegin = 0.21999999880791
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_LinearSectionLength = 0.40000000596046
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_SDRToe = 1.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_HDRToe = 1.3300000429153
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_KerareEndAngle = 35.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_VignettingBrightness = 0.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_EchoEnabled = false
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_EchoPrevRate = 0.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_AntiAliasingSubPixelSize = 1.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_AntiAliasingBlendRate = 16.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_TemporalJitterScale = 0.0
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_Sharpness = 0.33300000429153
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_ResponsiveAARate = 0.5
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   via.render.ToneMapping.get_DebugDraw = false
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror]   app.ToneMapController.isApplyEnableFeedBackBlur = false
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror] GR1 done. Tick GR2, then look at: bright sky -> dark room -> ADS.
+[2026-08-30 11:56:55.845] [REFramework] [info] [m6_mirror] Whatever number tracks the brightness your eyes see is the live exposure.
+[2026-08-30 11:56:58.921] [REFramework] [info] [m6_mirror] GR2 watch = true
+[2026-08-30 11:57:20.046] [REFramework] [info] [m6_mirror] GR2 app.ColorCorrectController.isAnimationBlendInternalExecution: false -> true
+[2026-08-30 11:57:20.046] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_MinWhitePoint: 5.5999999046326 -> 8.0
+[2026-08-30 11:57:20.046] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_WhiteRange: 0.89999997615814 -> 0.80000001192093
+[2026-08-30 11:57:20.547] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_EV: 3.0 -> 2.5565445423126
+[2026-08-30 11:57:20.547] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_SnappedRealEV: 3.0 -> 2.5565445423126
+[2026-08-30 11:57:21.047] [REFramework] [info] [m6_mirror] GR2 app.ColorCorrectController.isAnimationBlendInternalExecution: true -> false
+[2026-08-30 11:57:21.048] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_EV: 2.5565445423126 -> 2.0568308830261
+[2026-08-30 11:57:21.048] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_SnappedRealEV: 2.5565445423126 -> 2.0568308830261
+[2026-08-30 11:57:21.549] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_EV: 2.0568308830261 -> 2.0
+[2026-08-30 11:57:21.549] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_SnappedRealEV: 2.0568308830261 -> 2.0
+[2026-08-30 11:57:49.711] [REFramework] [info] [m6_mirror] GR2 app.ColorCorrectController.isAnimationBlendInternalExecution: false -> true
+[2026-08-30 11:57:49.711] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_MinWhitePoint: 8.0 -> 5.5999999046326
+[2026-08-30 11:57:49.711] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_WhiteRange: 0.80000001192093 -> 0.89999997615814
+[2026-08-30 11:57:50.211] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_EV: 2.0 -> 2.0268495082855
+[2026-08-30 11:57:50.211] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_SnappedRealEV: 2.0 -> 2.0268495082855
+[2026-08-30 11:57:50.714] [REFramework] [info] [m6_mirror] GR2 app.ColorCorrectController.isAnimationBlendInternalExecution: true -> false
+[2026-08-30 11:57:50.714] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_EV: 2.0268495082855 -> 2.5301034450531
+[2026-08-30 11:57:50.714] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_SnappedRealEV: 2.0268495082855 -> 2.5301034450531
+[2026-08-30 11:57:51.218] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_EV: 2.5301034450531 -> 3.0
+[2026-08-30 11:57:51.218] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_SnappedRealEV: 2.5301034450531 -> 3.0
+[2026-08-30 12:04:06.179] [REFramework] [info] [m6_mirror] GR2 via.render.ToneMapping.get_WhiteRange: 0.89999997615814 -> 0.80000001192093

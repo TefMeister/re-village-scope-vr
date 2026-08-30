@@ -1,0 +1,61 @@
+[2026-08-24 22:06:09.304] [REFramework] [info] [scope_recon] new GUI element: 'GUIQuickEquip'
+[2026-08-24 22:06:09.309] [REFramework] [info] [Plugin] [re-scope-vr] weapon changed: scoped=1 (wgo=0000011B55FFED20 name=0000011B56102210)
+[2026-08-24 22:06:09.309] [REFramework] [info] [Plugin] [re-scope-vr] scoped rifle in hand -- press NUMPAD * to bind the scope glass, NUMPAD / to restore it
+[2026-08-24 22:06:09.314] [REFramework] [info] [Plugin] [re-scope-vr] [hook] auto-created scope target resource -> committed=0000000000000000 holder=0000011B4F592670
+[2026-08-24 22:06:09.315] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=728x1280 fmt=29 flags=0x1 -> 0000011FC36ACFB0
+[2026-08-24 22:06:09.316] [REFramework] [info] [Plugin] [re-scope-vr] M2a: first zoom composite — the corner box should show a 2.4x magnified live view
+[2026-08-24 22:06:09.318] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE68B20
+[2026-08-24 22:06:09.320] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE69A30
+[2026-08-24 22:06:09.322] [REFramework] [info] LdrRegisterDllNotification: Loaded: dxilconv.dll
+[2026-08-24 22:06:09.322] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE66D00
+[2026-08-24 22:06:09.325] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE67C10
+[2026-08-24 22:06:09.328] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE7E330
+[2026-08-24 22:06:09.331] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE7D420
+[2026-08-24 22:06:09.332] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=512x512 fmt=72 flags=0x0 -> 0000011FCFE8FF70
+[2026-08-24 22:06:09.335] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE80150
+[2026-08-24 22:06:09.338] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE81F70
+[2026-08-24 22:06:09.339] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE7F240
+[2026-08-24 22:06:09.339] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE83D90
+[2026-08-24 22:06:09.341] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE81060
+[2026-08-24 22:06:09.343] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE82E80
+[2026-08-24 22:06:09.345] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE86440
+[2026-08-24 22:06:09.349] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE89170
+[2026-08-24 22:06:09.351] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE8A080
+[2026-08-24 22:06:09.353] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE88260
+[2026-08-24 22:06:09.356] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE87350
+[2026-08-24 22:06:09.360] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE8BEA0
+[2026-08-24 22:06:09.361] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE8CDB0
+[2026-08-24 22:06:09.368] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE8AF90
+[2026-08-24 22:06:09.369] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE97370
+[2026-08-24 22:06:09.370] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE96460
+[2026-08-24 22:06:09.372] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE9A0A0
+[2026-08-24 22:06:09.375] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE9AFB0
+[2026-08-24 22:06:09.379] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE99190
+[2026-08-24 22:06:09.380] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE98280
+[2026-08-24 22:06:09.383] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE9BEC0
+[2026-08-24 22:06:09.385] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE9CDD0
+[2026-08-24 22:06:09.387] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEA2BB0
+[2026-08-24 22:06:09.391] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE9FE80
+[2026-08-24 22:06:09.392] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEA1CA0
+[2026-08-24 22:06:09.393] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEA0D90
+[2026-08-24 22:06:09.397] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAA7C0
+[2026-08-24 22:06:09.399] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEAB6D0
+[2026-08-24 22:06:09.401] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAC5E0
+[2026-08-24 22:06:09.406] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEA98B0
+[2026-08-24 22:06:09.407] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=512x512 fmt=72 flags=0x0 -> 0000011FCFE90D00
+[2026-08-24 22:06:09.410] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEAF310
+[2026-08-24 22:06:09.413] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAD4F0
+[2026-08-24 22:06:09.417] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFEB0220
+[2026-08-24 22:06:09.420] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFEAE400
+[2026-08-24 22:06:09.422] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE73110
+[2026-08-24 22:06:09.423] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE74020
+[2026-08-24 22:06:09.427] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=98 flags=0x0 -> 0000011FCFE77C60
+[2026-08-24 22:06:09.427] [REFramework] [info] [Plugin] [re-scope-vr] [hook] CreateCommittedResource dim=1024x1024 fmt=72 flags=0x0 -> 0000011FCFE74F30
+[2026-08-24 22:06:09.428] [REFramework] [info] [Plugin] [re-scope-vr] blit: pso_blit (re)built for target fmt=98 1024x1024
+[2026-08-24 22:06:09.430] [REFramework] [info] [Plugin] [re-scope-vr] blit: first continuous scope-image write into the engine target (fmt=98 1024x1024) -- if a mesh is bound to it via setMaterialTexture (F4/F3), it should now show the LIVE scope image, not a static test pattern.
+[2026-08-24 22:06:09.430] [REFramework] [error] Present failed: ffffffff887a0005
+[2026-08-24 22:06:09.434] [REFramework] [error] Present failed: ffffffff887a0005
+[2026-08-24 22:06:09.440] [REFramework] [error] Present failed: ffffffff887a0005
+[2026-08-24 22:06:10.445] [REFramework] [error] Present failed: ffffffff887a0005
+[2026-08-24 22:06:11.448] [REFramework] [error] Present failed: ffffffff887a0005
+[2026-08-24 22:06:12.456] [REFramework] [error] Present failed: ffffffff887a0005

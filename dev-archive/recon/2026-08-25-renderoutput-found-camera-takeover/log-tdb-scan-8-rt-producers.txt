@@ -1,0 +1,17 @@
+PROVENANCE: captured live from re2_framework_log.txt during the session on
+2026-08-24 23:40. The framework log is truncated on every game launch and the
+game has since been restarted, so this is a transcript of what was read at the
+time, not a file copy. Reproduce at any time with numpad + .
+
+[2026-08-24 23:40:34.336] [re-scope-vr] scan: RT-producer scan requested (numpad +) -- brief hitch expected
+[2026-08-24 23:40:34.338] [re-scope-vr] scan: walking 114234 types for render-target producers...
+[2026-08-24 23:40:35.660] [re-scope-vr] scan:   [SET] via.render.TextureSpreader
+[2026-08-24 23:40:35.767] [re-scope-vr] scan:   [SET] via.gui.GUI
+[2026-08-24 23:40:38.736] [re-scope-vr] scan:   [SET] via.render.RenderOutput
+[2026-08-24 23:40:38.755] [re-scope-vr] scan:   [SET] via.render.Bloodshed
+[2026-08-24 23:40:38.950] [re-scope-vr] scan:   [SET] via.render.Mirror
+[2026-08-24 23:40:39.322] [re-scope-vr] scan:   [SET] via.render.Stamp
+[2026-08-24 23:40:39.617] [re-scope-vr] scan:   [SET] via.render.RenderTargetOperator
+[2026-08-24 23:40:41.294] [re-scope-vr] scan:   [alt] via.gui.ImageFilter
+[2026-08-24 23:40:42.427] [re-scope-vr] scan:   [SET] via.render.Wrinkle
+[2026-08-24 23:40:43.828] [re-scope-vr] scan: DONE -- 8 type(s) with set_RenderTarget, 0 get-only, 1 alt-accessor
