@@ -104,3 +104,38 @@ target and composite it visibly → **M2** magnified scene render into it →
   `obj:get_type_definition():get_full_name()` — REFramework-native methods on
   the object. Routing them through `obj:call(...)` fails silently inside
   pcall guards.
+
+## 6. Scene objects: spawning things that actually draw
+
+- **Runtime GameObject assembly does NOT produce a drawable mesh in RE8.**
+  `[verified-live 2026-08-28, n=1 — our own M18–M26 sessions]` A `via.render.Mesh` built by
+  creating a GameObject and attaching components will not draw through any recipe we tried, up
+  to and including EMV Engine's own constructor calls. This blocked Mirror pane control, the
+  project's named linchpin. Negative record:
+  `modding-notes/2026-08-28-rig-mesh-hunt-and-clean-camera-retest.md`.
+
+- **✅ The working route is prefab instantiation.** `[verified-live 2026-08-29]`
+  `via.Prefab` instance → `set_Path` → check `get_Exist` → `instantiate(via.vec3, via.Folder)`.
+  The engine spawns the complete object through its own registration path, so it is **born
+  visible** — no manual component wiring. Proven here by spawning a goat totem that hosts the
+  mirror, with pitch and yaw provably steering the image.
+  - Two constraints found live: it must run on the **game thread**, and the prefab must be a
+    **non-item** prefab.
+
+- **Public precedent agrees, and arrived independently.** `[reported, /gr 2026-08-29]` EMV
+  Engine spawns `.pfb` prefabs in all games, and its README explicitly warns that component-list
+  assembly "will not work well for complicated GameObjects… use via.Prefabs for those" — the
+  same wall, documented publicly. **Note the order: our live result came first (2026-08-29) and
+  the research corroborates it rather than having unblocked it.** Recorded this way so nobody
+  re-opens a closed question. Research write-up:
+  `external-research/topics/2026-08-29-runtime-mesh-spawning-via-prefab-instantiate.md`.
+
+- **RE8 prefab paths worth keeping** `[reported, /gr 2026-08-29 — not yet spawned by us]`:
+  - `environment/props/prefab/item/detailsearch/ri3042_detailsearch.pfb` — a spawnable
+    standalone copy of the F2 rifle.
+  - `movie/prefab/c22e500_00_mirror.pfb` — a Capcom-assembled cutscene mirror, worth dumping
+    live as a reference recipe for how they build one.
+
+- **Generalisable habit:** when an engine refuses hand-assembled objects, look for the path the
+  engine uses on itself. Spawning through the game's own registration is not a workaround here;
+  it is the supported route, and the hand-assembly attempt was the deviation.
