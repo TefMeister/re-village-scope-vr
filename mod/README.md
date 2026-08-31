@@ -29,7 +29,7 @@ SDK headers; praydog's sources are studied and credited as prior art, but no
 one else's code is used — every line is our own, by deliberate policy. The
 playable plugin is almost the by-product: the real goal is the knowledge
 gained on the way, written down so anyone can do the same — see the
-[engine dossier](https://github.com/TefMeister/re-village-scope-vr-engine-research)
+[engine dossier](../engine-research/)
 and the cross-engine
 [flat-to-VR library](https://github.com/TefMeister/flat-to-vr-cross-engine-research).
 
@@ -40,19 +40,19 @@ and the cross-engine
 - [REFramework](https://github.com/praydog/REFramework) (the RE8 build).
 - A PC VR headset via SteamVR/OpenXR (Quest over Link/Virtual Desktop works).
 
-## The six repositories for the RE Village VR scope
+## The folders for the RE Village VR scope
 
-Everything for this project lives in six repositories, each with one job — so
-you always know where to look. You are in **re-village-scope-vr-mod**.
+Everything for this project lives in six folders, each with one job — so
+you always know where to look. You are in **`mod/`**.
 
-| Repository | What lives here |
+| Folder | What lives here |
 | --- | --- |
-| **re-village-scope-vr-mod** ← you are here | The plugin itself — releases only. |
-| [re-village-scope-vr-dev-archive](https://github.com/TefMeister/re-village-scope-vr-dev-archive) | Full development history — snapshots, probes, dead ends, raw recon. |
-| [re-village-scope-vr-modding-notes](https://github.com/TefMeister/re-village-scope-vr-modding-notes) | Readable field notes / progress ledger. |
-| [re-village-scope-vr-staging](https://github.com/TefMeister/re-village-scope-vr-staging) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
-| [re-village-scope-vr-engine-research](https://github.com/TefMeister/re-village-scope-vr-engine-research) | Distilled engine reference (dossier) + reusable VR RE playbook. |
-| [re-village-scope-vr-external-research](https://github.com/TefMeister/re-village-scope-vr-external-research) | Ongoing public-research leads, gathered separately from hands-on modding work. |
+| **`mod/`** ← you are here | The plugin itself — releases only. |
+| [`dev-archive/`](../dev-archive/) | Full development history — snapshots, probes, dead ends, raw recon. |
+| [`modding-notes/`](../modding-notes/) | Readable field notes / progress ledger. |
+| [staging/re-village-scope-vr](https://github.com/TefMeister/staging/tree/main/re-village-scope-vr) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
+| [`engine-research/`](../engine-research/) | Distilled engine reference (dossier) + reusable VR RE playbook. |
+| [`external-research/`](../external-research/) | Ongoing public-research leads, gathered separately from hands-on modding work. |
 
 ## Credits, scope, and legality
 

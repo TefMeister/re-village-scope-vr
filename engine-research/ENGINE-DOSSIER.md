@@ -3,7 +3,7 @@
 The distilled technical reference for building a real VR sniper scope in
 Resident Evil Village. Everything here was established by live probing on
 2026-08-22 (methods in the
-[dev archive](https://github.com/TefMeister/re-village-scope-vr-dev-archive))
+[dev archive](https://github.com/TefMeister/re-village-scope-vr/tree/main/dev-archive))
 or verified against REFramework's published sources and documentation.
 
 ## 1. The game and the framework
