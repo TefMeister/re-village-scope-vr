@@ -2,8 +2,13 @@
 
 A real, usable sniper scope for **Resident Evil Village in VR** (praydog's
 [REFramework](https://github.com/praydog/REFramework) native VR) — a native
-C++ REFramework plugin that renders a magnified picture-in-picture view onto
-the rifle's scope lens, accurate to where the bullet actually goes.
+C++ REFramework plugin that renders a true second view of the world onto the
+rifle's scope lens, accurate to where the bullet actually goes. This is what
+VR players call a **"PiP (picture-in-picture) scope"**: the lens itself is a
+live picture — a separately rendered, magnified view — not a fullscreen zoom
+or a flat overlay. (Not to be confused with the mod's flat-monitor mode,
+which additionally shows a picture-in-picture magnifier circle on screen;
+in VR the lens is the whole show.)
 
 > **Status: early work in progress — nothing playable is released yet.** This
 > repository will hold releases only; watch it if you want to know the moment
