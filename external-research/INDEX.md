@@ -1,5 +1,11 @@
 # Research index
 
+**Last `/gr` pass: 2026-09-01 — CHECK-IN.** Inbox drained: the prefab-instantiation verdict was
+already reflected in the row below (the modding side had recorded the flip itself), so this pass
+only closed the loop and stamped it. No new web research — the project's open questions are live
+RE Engine ones, and the standing gap (no public in-world-screen / second-camera RE Engine mod) was
+re-checked at the last sweep with nothing new.
+
 Every research topic gathered for this project, newest first. Each row links to a self-contained
 write-up in `topics/`. Status tags:
 
