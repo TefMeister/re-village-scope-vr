@@ -1,10 +1,7 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-01 — CHECK-IN.** Inbox drained: the prefab-instantiation verdict was
-already reflected in the row below (the modding side had recorded the flip itself), so this pass
-only closed the loop and stamped it. No new web research — the project's open questions are live
-RE Engine ones, and the standing gap (no public in-world-screen / second-camera RE Engine mod) was
-re-checked at the last sweep with nothing new.
+**Last `/gr` pass: 2026-09-02 (estate sweep) — CHECK-IN** (board OPEN block + INDEX; no dossier or topic re-read)**.** Inbox empty. **Nothing new.** Open rows are a never-run virtual numpad, an in-headset retune and a hand-off only the user can send; the standing public gap (no in-world-screen / second-camera RE Engine mod) was re-confirmed yesterday and not re-searched.
+_Previous: Last `/gr` pass: 2026-09-01 — CHECK-IN. Inbox drained: the prefab-instantiation verdict was already reflected in the row below (the modding side had recorded the flip itself), so this pass only closed the loop and st…_
 
 Every research topic gathered for this project, newest first. Each row links to a self-contained
 write-up in `topics/`. Status tags:
