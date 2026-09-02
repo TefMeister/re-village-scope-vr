@@ -92,6 +92,17 @@ restore, so re-binding puts the stock texture back before re-reading it — the
 saved original stays the true one and overwrites never stack. Silent unless it
 acts; cleared by an explicit restore, so a deliberate un-bind still sticks.
 
+**Caught in the self-review pass, not in testing:** the first version of the
+guard omitted a `!g_glass_binds.empty()` test. `forget_scope_glass()` empties
+that list on load screens and scene teardown, so the guard would have read
+"empty" as "we were replaced" and **bound glass the user never asked for after
+every load** — a different feature entirely, on an untested path, reaching
+through objects that had just been declared presumed-dead. The guard's job is
+strictly to take a bind *back*, never to create one, and it now says so in
+code as well as in prose. This is the whole argument for the self-review step:
+the bug was invisible in the diff and would have surfaced as "the scope
+sometimes turns itself on".
+
 ---
 
 ## 4. What is NOT established
