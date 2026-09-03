@@ -27,6 +27,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 | Otis_Inf (Frans Bouma) — RE Engine photomode tools (checked as prior art) | Frans Bouma | https://opm.fransbouma.com |
 | EMV Engine (the prefab-instantiate spawning mechanism, studied online; RE8 support and component-spawning caveats from its README) | alphazolam | https://github.com/alphazolam/EMV-Engine |
 | REE.PAK.Tool (`RE8_STM_Release.list` — the RE8 file inventory used to enumerate `.pfb` prefabs and `.rtex` render-target descriptors) | Ekey | https://github.com/Ekey/REE.PAK.Tool |
+| "HDR Theory and Practice" (CEDEC 2017) — the GT three-section tone curve whose structure the engine's tonemap parameters resemble | Hajime Uchimura | https://www.slideshare.net/nikuque/hdr-theory-and-practicce-jp |
+| tonemapper — an open catalogue of tone-mapping operators, used to compare curve shapes; nothing taken | Tizian Zeltner | https://github.com/tizian/tonemapper |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
