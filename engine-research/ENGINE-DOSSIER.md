@@ -139,3 +139,62 @@ target and composite it visibly → **M2** magnified scene render into it →
 - **Generalisable habit:** when an engine refuses hand-assembled objects, look for the path the
   engine uses on itself. Spawning through the game's own registration is not a workaround here;
   it is the supported route, and the hand-assembly attempt was the deviation.
+
+## 7. Grading: the game's tone curve, and the scope's copy of it
+
+- **Where the grading lives.** `via.render.ToneMapping` is a component on the MainCamera
+  GameObject (`getComponent(System.Type)` with the runtime type, same pattern as everything else
+  on that object). `get_EV` is the game's live light meter — 3.0 outdoors, ~2.0 in a dark
+  interior, a smooth glide between `[verified-live 2026-08-30]` — and the compositor has read it
+  every frame since 08-30 to drive its exposure (`knob × 0.4 × 2⁻ᴱⱽ` on the raw-HDR mirror path).
+
+- **The game's curve is three-section, and its numbers are on disk.** `[measured 2026-08-30]`
+  (`dev-archive/recon/2026-08-30-grading-ev-recon/gr-recon-log-extract.txt`):
+  `UseTripleSectionTonemap = true`, `LinearSectionBegin = 0.22`, `LinearSectionLength = 0.40`,
+  `SDRToe = 1.0`, `HDRToe = 1.33`, `Contrast = 1.0`, `MinWhitePoint = 5.6`, `MaxWhitePoint = 15.0`,
+  `WhiteRange = 0.9`, `TonemapRange = 0.1`, `PreTonemapRange = 1.0`. Every one has a setter. The
+  white-point fields **move with the zone**: `MinWhitePoint` 5.6 → 8.0 and `WhiteRange` 0.9 → 0.8
+  going indoors, in the same session `[measured 2026-08-30]`.
+
+- **Identification.** The vocabulary — triple section, linear section as *begin + length*, toe,
+  shoulder to a white point — is Uchimura's GT tonemap (CEDEC 2017), and the live values
+  0.22 / 0.40 / 1.33 / 1.0 are that curve's **published defaults to the digit** (m, l, c, a).
+  `[inferred-static 2026-09-03]` — a strong fingerprint, but the engine's algebra has not been
+  read; `SDRToe`/`HDRToe`/`WhiteRange`/`TonemapRange` do not map one-to-one onto the published
+  parameter list. Nothing built here depends on the identification, only on the measured shape.
+
+- **In GT, the straight section spans `m .. m + (P − m)·l / a` = 0.22 → 0.532 for these values,
+  not 0.22 → 0.62** — the "length" is a fraction of the headroom, not an absolute.
+  `[verified-numerically 2026-09-03]` for our implementation; the game's own span is inferred.
+
+- **The scope now uses this curve** (`staging 87efe59`, `plugin/src/tone_curve.inc`, build of
+  2026-09-03, `[compile-verified 2026-09-03]`, **not run**): the raw-HDR path tonemaps with GT
+  (P = 1, no pedestal) on the exposed value, with `m`, `l`, toe and contrast **read live from the
+  same component at ~2 Hz** and logged on every change; numpad 5 cycles GT / exponential /
+  exponential-with-EV-frozen so the old `1-exp` look stays one press away, each with its own knob.
+  Details and the first-look protocol: `modding-notes/2026-09-03-tone-curve-gt-shoulder.md`.
+
+- **What the curve alone will and will not do** `[verified-numerically 2026-09-03]`: at the
+  same knob GT is brighter in the mids (x′ 0.4 → 0.400 vs 0.330) and clips the top *harder*
+  (raw 500 at the 09-02 knob → 0.999 vs 0.965). The snow comes back only when the knob comes
+  down; the straight middle is what should let the village survive that. Whether it does is
+  the open test. The mirror render has no atmosphere pass (§ the 08-31 finding: black sky,
+  sun-only light), so its dynamic range is plausibly wider than the game view's and a global
+  curve may not close the gap by itself `[hypothesis]`.
+
+- **Open, each with a knob or a log line waiting for it:** which toe the game uses (chosen from
+  the swapchain format, logged at init, `[hypothesis]`); whether `Contrast` is GT's `a`
+  (`[hypothesis]`, harmless at 1.0); what the three white-point fields do (`tone_wp=1` in the
+  settings file applies `MinWhitePoint / 5.6` as an input divisor, off by default, `[hypothesis]`
+  on the direction alone).
+
+- **Correction to the 2026-09-02 board row.** "Above ~25 raw = flat white at exposure 0.134"
+  treated the knob as the effective exposure; the effective value is `0.134 × 0.4 × 2⁻³ = 0.0067`
+  at EV 3, so flat white starts at raw ≈ 480. The defect is real (screenshots); the threshold was
+  ~20× off.
+
+- **Method worth keeping:** the curve is *one file compiled twice* — `#include`d as C++ for the
+  CPU-side inverse and read by CMake into a raw-string header prepended to the HLSL — so the
+  numeric harness (`plugin/tools/tone_curve_check.cpp`) tests the bytes the shader runs, and
+  `plugin/tools/check-shader.sh` runs `fxc` over the assembled source so a runtime-compiled shader
+  is checked without the game. Both are how a `/pd` session can touch shader code at all.
