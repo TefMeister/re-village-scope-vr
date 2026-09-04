@@ -13,6 +13,17 @@ or verified against REFramework's published sources and documentation.
   native VR (no separate VR mod needed for RE8); injection via `dinput8.dll`.
 - **Log file:** `re2_framework_log.txt` in the game root — REFramework uses
   that filename even for RE Village.
+- **REFramework revision actually run** (recorded 2026-09-04 after a `/gr` drop pointed out it
+  was missing; read from the log header, `[verified-live 2026-09-04, n=1 log read]`):
+  - **Home PC:** commit `76298bd9796b2b32e67133ff0360a7993c2e1482`, tag `v1.5.9.1` + 671
+    commits, branch **`pd-upscaler`** (gmankab's fork), build date **2026-03-11**, `dinput8.dll`
+    22,825,472 B dated 2026-08-22 — the **same fork build the sibling `visceral-re2-vr` runs**.
+    Plugin API exported: **1.15.0** (`re_scope_vr requires version 1.15.0` accepted).
+  - **Dev PC:** REFramework **nightly 01397** (`684ca77`, 2026-08-20) per the 2026-08-24 setup
+    note — a different build; results from the two machines are results about two frameworks.
+  - This build predates the 2026-08-19 → 2026-08-28 window in which `re.on_pre_gui_draw_element`
+    ignored `false`, and predates September's Lua array/string fixes on `master`. **Record the
+    revision beside every Lua finding from now on** (one clause, the way a game patch is recorded).
 - **Scripting:** REFramework Lua (reflection over the managed type system,
   hooks, 2D drawing/ImGui). **No render-target, camera-creation, or
   render-pass API exists in Lua** — render infrastructure is native-only.
