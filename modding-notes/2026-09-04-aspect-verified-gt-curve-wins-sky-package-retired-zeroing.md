@@ -86,9 +86,39 @@ screen."* The crouch defect is a flat aim-pose artefact (in VR the eye is the he
 rifle is where the hands are) and goes to the back of the flat list. The next step is the
 existing `[VR]` row: the in-headset pane retune.
 
+## 8. VR, 23:50: the numpad reaches the game; the picture is view-dependent because a mirror is a mirror
+
+Tefa put the headset on (Quest 3, Virtual Desktop). Log: VR runtime up (`D3D12 Backbuffer 2688x2880`),
+settings carried (GT, 0.134, cropY 0.60, package off), and **`polled key 0x6A (VR route)`** — the
+physical numpad reaches the game through Virtual Desktop `[verified-live 2026-09-04, n=2 presses]`.
+That was the blocker that ended the 2026-09-01 headset session. `*` worked in-headset.
+
+**The picture "moves away when I tilt or move the weapon, like it doesn't stay on the glass".**
+The rig drive is rigid to the rifle (Lua `drive`: position = rifle + local-axis offsets, rotation =
+rifle × baked pitch/yaw), so the mirror PLANE follows the rifle exactly. What does not follow is the
+image, because **`via.render.Mirror` is a planar reflection: what it shows depends on where the
+viewer's eye is relative to the plane.** In flat ADS the eye sits at a fixed pose relative to the
+rifle, so one baked plane pose (pitch 180 / yaw 90 + offsets) reflects the view down the barrel. In
+VR the head moves freely relative to the controller-held rifle, so the reflected direction swings
+with every head or rifle motion. `[inferred-static 2026-09-04]` — consistent with the report and
+with the 09-01 "dark shape across the image" (the rifle itself entering the reflection).
+
+**The fix is geometry, not tuning, and it needs no headset to build.** For a unit vector `v` from
+the eye to the mirror centre and the desired view direction `d` (the barrel axis the plugin already
+derives each frame), a plane with unit normal `n = normalize(v − d)` reflects `v` onto `d`
+exactly (`r = v − 2(v·n)n = d`). So per frame: keep the mirror centre where the offsets put it,
+compute `n` from the current eye (`cpos`, which REFramework drives from the HMD) and the bore ray,
+and rotate the rig so its mirror-normal axis lands on `n`, choosing the roll that keeps the rig's up
+closest to the rifle's up (roll only rotates the image). The rig's local mirror-normal axis is
+unknown; **calibrate it once from the known-good flat ADS pose**: at that pose `n` must already
+equal `normalize(v − d)`, so `local_normal = rig_rot⁻¹ · n`. Sliders become a fallback.
+Deep-end placement: the plugin (it has `cpos`, `crot`, the bore axis and reflection access to the
+rig transform); the Lua drive then only spawns and adopts.
+
 ## Not established
 
 - Why the atmosphere package brightened raw-18 snow (its mask should not reach it).
 - Whether the GT-only picture holds in other weather / indoors / at night (n=2 outdoor spots).
 - The crouch clamp itself (never executed).
+- The view-independent steering: designed, not built.
 - Whether the post-reload shift is ours or the game's.
