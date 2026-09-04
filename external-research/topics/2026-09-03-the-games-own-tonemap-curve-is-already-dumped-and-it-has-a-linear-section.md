@@ -1,6 +1,6 @@
 # The game's own tonemap curve is already dumped — and the reason the shoulder is missing is that `1-exp` has no linear section
 
-**Date:** 2026-09-03 · **Status:** 🆕 new · **Answers:** the board's `[PD]` row *"give the compositor
+**Date:** 2026-09-03 · **Status:** ✅ incorporated — built 2026-09-03 (`staging 87efe59`, compile-verified, not yet run); see "Outcome" at the end · **Answers:** the board's `[PD]` row *"give the compositor
 a highlight SHOULDER"*
 
 ## The row this addresses
@@ -47,6 +47,13 @@ continuously from the first sample onward. So when `exposure=0.134` was fitted t
 right, it was fitting a permanently-bending curve through a region the game keeps **dead straight** —
 `LinearSectionBegin = 0.22`, `LinearSectionLength = 0.40`, i.e. **linear from 0.22 to 0.62** in
 normalised terms. That is exactly the midtone band the calibration cared about.
+
+> ⚠️ **Corrected 2026-09-03 by the modding lane:** the linear section ends at **0.532**, not 0.62. In
+> Uchimura's GT the length `l` is a fraction of the `(P − m)` headroom divided by the contrast:
+> `l0 = (P − m)·l / a = 0.78 × 0.40 = 0.312`, so the straight part runs `0.22 → 0.532`. This file
+> originally read `l` as an absolute length. `[verified-numerically 2026-09-03]` for our implementation
+> of the published formula; whether RE Engine's own `LinearSectionLength` is the same fraction is
+> `[inferred-static]`. The 0.62 figures below are left as written; read them as 0.532.
 
 Two consequences follow, and they are the whole finding:
 
@@ -128,3 +135,32 @@ expose them, which in this estate is RE Engine via REFramework. The sibling proj
 `visceral-re2-vr` runs on the same engine and the same `via.render.ToneMapping` class will be
 present there, so if a scope-like or overlay-like surface ever needs grading in that project, this
 table is where to start.
+
+## Outcome — modding lane verdict, 2026-09-03 (`/pd`, home PC, no launch)
+
+**Acted on, and built.** The scope compositor now tonemaps the raw-HDR mirror with a three-section
+GT curve fed by the game's live `via.render.ToneMapping` parameters, with the old exponential kept
+one numpad press away for the A/B. `staging 87efe59`, `[compile-verified 2026-09-03]`, **not run** —
+the first look is on the board as a `[FLAT]` row. Write-up:
+`modding-notes/2026-09-03-tone-curve-gt-shoulder.md`.
+
+Three things the verdict adds to this topic:
+
+1. **The linear section ends at 0.532, not 0.62** — see the correction banner above. The topic read
+   `LinearSectionLength` as an absolute length; in GT it is a fraction of the headroom over the
+   contrast.
+2. **The GT identification is upgraded from `[hypothesis]` to `[inferred-static 2026-09-03]`.** The
+   four live values `LinearSectionBegin 0.22`, `LinearSectionLength 0.40`, `HDRToe 1.33`,
+   `Contrast 1.0` are Uchimura's **published defaults to the digit** (m = 0.22, l = 0.4, c = 1.33,
+   a = 1.0) — a fingerprint, not a vocabulary match. Still not read from the engine's code, and
+   `SDRToe` / `WhiteRange` / `TonemapRange` / `PreTonemapRange` still do not map onto the published
+   parameter list.
+3. **Two fields this topic did not list, from the same 2026-08-30 dump:** `Contrast = 1.0` (used as
+   GT's `a`, `[hypothesis]` — identity at 1.0), `TonemapRange = 0.1` and `PreTonemapRange = 1.0`
+   (semantics unknown, logged only).
+
+**Expectation reset for the first look:** the curve alone does not bring the snow back at the current
+knob. At the same exposure GT is brighter in the mids and clips the top *harder* than `1-exp`
+(raw 500 → 0.999 vs 0.965). The gain is that the knob can come down without the midtones
+collapsing, which is the straight section's job. So "expect `exposure=0.134` to become
+unnecessary" should read "expect it to need re-tuning downward"; the modding note has the numbers.
