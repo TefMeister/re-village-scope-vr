@@ -209,3 +209,20 @@ target and composite it visibly → **M2** magnified scene render into it →
   numeric harness (`plugin/tools/tone_curve_check.cpp`) tests the bytes the shader runs, and
   `plugin/tools/check-shader.sh` runs `fxc` over the assembled source so a runtime-compiled shader
   is checked without the game. Both are how a `/pd` session can touch shader code at all.
+
+
+### 7x. Field result, 2026-09-04: the GT curve alone matches the game; the atmosphere package is retired
+
+`[verified-live 2026-09-04, n=2 outdoor spots]` With the compositor on the game's own three-section
+curve (parameters read live: m=0.220, l=0.400, white point applied) at the 0.134 knob and the
+**atmosphere package OFF**, the scope matched the game at the village well and at the mountain
+view: snow textured, village "about the same", sky "looks like it should" (screenshot pair in
+`dev-archive/recon/2026-09-04-gt-curve-sky-package-off/`). The package — sky fill, threshold
+ladder, white balance — was what blew the snow to flat white: across a 20× exposure sweep the snow
+did not change, the `+` probe showed finite source values (blocks 1.5–18.5, pixel max 136) and a
+compositor output max of 0.69, and switching the package off made the snow "go dark". Why its
+below-threshold sky mask reached raw-18 snow is not understood `[hypothesis: another brightening
+term in the package]`. **Keep the package off; treat the black-dome problem it was built for as
+solved by the curve until a spot proves otherwise.** Aspect fix of 2026-09-02 also verified the
+same evening (well square, reticle square with no reticle code touched); scope zeroed at
+`cropY = 0.60`; the crop centre now has a horizontal key (numpad 4/6) and 0.01 steps.
