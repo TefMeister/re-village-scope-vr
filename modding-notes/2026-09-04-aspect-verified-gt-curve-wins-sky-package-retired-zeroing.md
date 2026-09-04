@@ -79,7 +79,7 @@ correction after the vertical one.
   of 51.3°, so the `fov < 45` gate excluded the very case. `[disproved 2026-09-04]` for that gate;
   the clamp itself is untested. **Parked as flat-screen work** — see §7.
 
-## 7. Priority change (Tefa, 2026-09-04 ~00:00): VR first
+## 7. Priority change (Tefa, 2026-09-04 ~23:40): VR first
 
 *"I would like to make this work in VR first and then, when there is time, get it working flat
 screen."* The crouch defect is a flat aim-pose artefact (in VR the eye is the headset and the
