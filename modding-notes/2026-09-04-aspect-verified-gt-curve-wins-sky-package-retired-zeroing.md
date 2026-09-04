@@ -115,10 +115,48 @@ equal `normalize(v − d)`, so `local_normal = rig_rot⁻¹ · n`. Sliders becom
 Deep-end placement: the plugin (it has `cpos`, `crot`, the bore axis and reflection access to the
 rig transform); the Lua drive then only spawns and adopts.
 
+## 9. 00:30–00:50: first steering build tested in-headset — NEGATIVE, and it narrows the model
+
+Built as a modification of the Lua pose writer `rig_pose_once` (staging `80f154a`, deployed,
+hot-reloadable; the native port stays queued): per frame `n = normalize(v − d)` with `v` =
+unit(eye → mirror centre) from `main_view():get_PrimaryCamera()`, `d` = rifle `get_AxisZ`; the
+rig's mirror-normal axis learned once as the best-dot local axis (learned **local +Z, dot 0.79**
+— a weak match); shortest-arc rotation applied on top of the baked pose; panel checkbox, axis
+cycle, bore flip. Tefa, in the headset, steer ON: **"still slides out of view and when I have it in
+view, I can see a little bit of Ethan's jacket fur, his left hand gripping the rifle front, part of
+the rifle, and the rifle is angled, pointed downwards in the scope picture."** `[disproved
+2026-09-05, n=1]` for this formulation. The log shows the plane re-aiming smoothly through head
+turns and a rifle pointed at the ceiling (pre-dot 0.71–0.91), so the mechanism ran; the *result*
+was wrong.
+
+What the picture says: the reflected ray points back at the body, and the image ROLLS. Three
+candidate causes, in the order to test:
+
+1. **The imaging model.** If `via.render.Mirror` renders the MAIN camera's whole view reflected
+   through the plane (a mirrored-camera frame projected onto the plane), then the texture's
+   centre is the reflection of the camera's FORWARD, not of the eye→mirror ray, and the rule
+   becomes `n = normalize(f − d)` with `f` = camera forward. Position-independent. The roll of the
+   image is then the mirrored camera's roll, which changes with `n` — matching the tilted rifle.
+   Both the flat-ADS baked pose (pitch 180 / yaw 90 + offsets) and the 2026-08-27 board note
+   ("plane normal n = normalize(d − b)") are consistent with either model; only a controlled
+   sweep tells them apart.
+2. **The learned axis.** 0.79 is not a clean match; the mirror's face may be local ±Y, or the
+   component may define its plane independently of the GameObject transform.
+3. **Roll.** Even with the right normal, the compositor assumes a fixed image roll (the two flips);
+   under a moving eye the roll varies and needs a per-frame rotation in the sampling.
+
+**The decisive experiment is FLAT, where the eye is fixed** (`[FLAT]` row): with steer OFF, ADS on a
+known scene, sweep pitch (and then yaw) by known steps from the baked pose and log, per step,
+which way and how far the image content moves and rotates in the glass. That measures the
+mapping from plane normal to image direction and roll directly, and picks the model. Then build
+the winner (with roll compensation) — natively this time, since the maths is then known.
+
+Steer was left OFF for the night; the baked pose is what the game runs.
+
 ## Not established
 
 - Why the atmosphere package brightened raw-18 snow (its mask should not reach it).
 - Whether the GT-only picture holds in other weather / indoors / at night (n=2 outdoor spots).
 - The crouch clamp itself (never executed).
-- The view-independent steering: designed, not built.
+- The view-independent steering: built once (eye→mirror-ray model), disproved in-headset; model undetermined.
 - Whether the post-reload shift is ours or the game's.
