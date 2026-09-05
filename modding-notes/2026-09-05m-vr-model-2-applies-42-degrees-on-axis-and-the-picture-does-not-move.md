@@ -34,7 +34,8 @@ Evidence: `dev-archive/recon/2026-09-05m-vr-model2-steering/` — Tefa's headset
    it rotates about the pane's own normal-adjacent axis where the reflected view barely changes
    `[hypothesis]`. Read the producer's `steer` apply path before the next VR run — this is the
    cheaper question and it decides whether finding 1 matters yet.
-3. **The sign question was not answered.** With k=+0.5 Tefa saw the picture follow head lean
+3. **Late answer to question 3 (Tefa, 22:45): at k=-0.5 the picture inside the scope "leans with me" - it moves in the SAME direction as the head lean** `[reported 2026-09-05, n=1]`. The +0.5 direction was described only as "moves left-right", so the two signs are not yet compared, and finding 2 still says the applied rotation may not be what moves it.
+3b. **Before that answer, the sign question stood as not answered.** With k=+0.5 Tefa saw the picture follow head lean
    left-right (parallax exists); with −0.5 the report was the jacket, not a direction. Given
    finding 2, a sign judgement would not have meant much tonight anyway.
 
