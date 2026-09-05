@@ -1,7 +1,7 @@
 # The flat control passes at last, and the eye-box is confirmed at n=2 (2026-09-05 evening, home PC, `/lm`)
 
-Tefa launched and loaded a level; everything after that was driven from outside. The game was
-**left running** — the next step is a VR run in the same session, not a relaunch. Evidence:
+Tefa launched and loaded a level; everything after that was driven from outside. The game was left running at first, then **closed gracefully through `WM_CLOSE`**: Tefa corrected the
+assumption — **VR needs its own relaunch on this setup**, so holding the session open bought nothing. Evidence:
 `dev-archive/recon/2026-09-05h-the-control-passes/`.
 
 ## 1. ⭐⭐ The control passes — the steering correction is finally a no-op on-axis
@@ -66,8 +66,9 @@ pass silently.
 - **Commands: PROVEN** — command file plus numpad-by-virtual-key, whole cold order driven from
   outside.
 - **Character + camera: not exercised.**
-- **Self-close: not used** — the game was deliberately left running, because the next step is a VR
-  run in the same session rather than a relaunch.
+- **Self-close: PROVEN** — `WM_CLOSE`, process gone within 5 s. It was initially left running on the
+  assumption that VR could be enabled in-session; **that assumption was wrong** (Tefa: VR needs a
+  relaunch), so it was closed. Recorded because the reasoning, not just the outcome, was faulty.
 
 ## 5. What is NOT established
 
