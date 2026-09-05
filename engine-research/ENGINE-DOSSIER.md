@@ -492,6 +492,47 @@ redistributed. Source: `external-research/topics/2026-09-05-the-1920-rtex-path-i
 
 Credit: **Ekey**, REE.PAK.Tool.
 
+### 9a. The instrument for that question is built, and what it cannot see (2026-09-05 evening, `/lm`, static)
+
+`fn probe_rtex` in the producer reads `mirror_env.rtex`, the six `systems/rendering` cube faces and
+both movie targets through reflection, and reports type, dimensions and format to the log.
+`[compile-verified 2026-09-05]` — built, deployed, **not yet run**.
+
+- **It enumerates the type's zero-argument value getters rather than guessing accessor names.** The
+  guessing approach returned "all seven candidate accessors absent" on
+  `via.render.TextureResourceHolder` the same day — a result that describes the guess, not the
+  object. Only value-type and string returns are called: a primitive getter is a field read, an
+  object getter may construct, and `pcall` does not catch an access violation.
+- **`movie_1280_720` is read last as a CONTROL**, against its known descriptor — 1280×728,
+  `R8G8B8A8_UNORM_SRGB`, `ALLOW_RENDER_TARGET` `[verified-live 2026-08-24]`. A wrong control voids
+  every negative in the same run. This is the habit that caught three wrong answers earlier today.
+- **⚠️ The `RENDER_TARGET` flag is NOT readable this way, and must not be reported as absent.** It
+  lives on the D3D12 allocation; only the plugin's `CreateCommittedResource` hook (F6) sees it. An
+  **engine-owned** resource that is already resident allocates nothing on `create_resource`, so F6
+  sees nothing either. **Dimensions and format are the honest discriminator**: screen-shaped 2D =
+  the Mirror lead alive; small square matching the cube faces = static environment capture, lead
+  dies.
+- **Path form:** the release list writes `<path>.rtex.5`; the `.5` is the resource version and
+  `create_resource` does not take it. The working `movie_1280_720` path settles the un-suffixed form
+  `[verified-live 2026-09-05]`.
+- The **by-eye** version of the same question (SC — cycle candidate engine textures onto the glass)
+  existed since 2026-08-29 but was **a REFramework panel button only**, unreachable from a driven
+  session. Now published as `fn sc_next`. General lesson worth keeping: **anything reachable only
+  from the panel is invisible to a session with nobody at the mouse, and nothing errors to say so.**
+
+### 9b. Borrowing a bigger target is exhausted, and the near-square idea is not free
+
+`fn rtex_1920` / `fn rtex_1280` reorder the existing candidate list so the "is 1920 actually
+sharper?" judgement happens **inside one launch** `[compile-verified 2026-09-05]`. Both are 16:9 and
+both already pass `looks_like_mirror_target`, so the aspect path and the latch are untouched.
+
+**⚠️ `movie_1144_1048.rtex` was deliberately left out.** The arithmetic is attractive — a circular
+scope picture wastes most of a 16:9 target, and 1144×1048 inscribes a ~1048 px circle against
+1920×1080's ~1080, near-identical detail from half the pixels `[inferred-static 2026-09-05]`. But it
+is **near-square, and both `st.aspect_val` and the latch's size window are written around 16:9**.
+Adopting it is a change to the working display path, not a resolution knob, and it needs its own
+session with its own control.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
