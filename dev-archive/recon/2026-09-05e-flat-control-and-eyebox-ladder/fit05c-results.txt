@@ -1,0 +1,30 @@
+disc centre from the bright core: (986, 660)   frame centre (960, 540)
+radial profile: bright from r=52 to r=419 (peak ring mean 97)
+  profile sample every 40 px: 0:14 40:47 80:56 120:61 160:62 200:71 240:78 280:97 320:73 360:65 400:51
+mask: 339341 px, annulus r 64..407
+
+positive control: rolled the baseline by (dx=-23, dy=+17) -> measured (dx=-23, dy=+17) peak/rms=686.3
+  the instrument works on this mask.
+
+--- noise floor: two frames at the SAME pitch ---
+  +0.0  dx=  +6 dy=  +2  peak/rms=  71.2
+  +0.5  dx=  -7 dy= +19  peak/rms= 113.3
+  +1.0  dx= -16 dy=  +8  peak/rms=  80.9
+  +1.5  dx= -11 dy= -17  peak/rms=  54.9
+  +2.0  dx=  +6 dy= -26  peak/rms=  53.8
+  +2.5  dx= +24 dy= -15  peak/rms= 113.2
+
+--- baseline vs each step ---
+  +0.0  dx=  +0 dy=  +0  peak/rms= 791.8
+  +0.5  dx= +12 dy=  -3  peak/rms= 116.6
+  +1.0  dx= +17 dy=  +0  peak/rms=  58.8
+  +1.5  dx= +10 dy= +14  peak/rms=  69.5
+  +2.0  dx=  +2 dy= +16  peak/rms=  90.1
+  +2.5  dx=  -5 dy=  +3  peak/rms= 109.7
+
+repeatability, back to 180: dx=+4 dy=-4 peak/rms=116.2
+
+  dx slope =   -3.54 px/deg   residual rms 6.97 px
+  dy slope =   +4.91 px/deg   residual rms 5.98 px
+  |shift| =  +2.32 px/deg   residual rms 6.13 px
+  direction over the full 2.5 deg: dx -5 dy +3  (y grows DOWN)

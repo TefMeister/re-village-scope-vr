@@ -372,6 +372,31 @@ evidence `dev-archive/recon/2026-09-05e-flat-control-and-eyebox-ladder/`.
 - **Launch trap:** `start steam://rungameid/1196590` issued while Steam is still starting produces no
   process and no log growth at all — silently. Steam must already be up.
 
+### 8c. The measurement bug behind three wrong answers, and a withdrawn bound (2026-09-05 evening, `/pd`)
+
+Source: `modding-notes/2026-09-05f-the-mask-was-the-bug-and-the-sweep-cannot-give-a-gain.md`;
+validated script and results in `dev-archive/recon/2026-09-05e-flat-control-and-eyebox-ladder/`.
+
+- **⚠⚠ A BINARY MASK MAKES PHASE CORRELATION LIE, CONFIDENTLY.** A hard-edged annulus has enormous
+  energy at its own rim; after high-passing, that rim is the strongest feature in both images and is
+  in the same place in both, so the correlator locks onto the mask and returns exactly `(0,0)` with a
+  peak/rms around 500. **That is what produced every "the picture did not move" result on this glass
+  today.** `[verified-numerically 2026-09-05]` Use a **smooth raised-cosine taper in radius** instead.
+- **The control that catches it, and the only thing that did:** roll the baseline by a known offset
+  and require the pipeline to recover it before believing anything else. Hard mask recovered
+  `(0,0)`; the taper recovered `(-23,+17)` exactly, and pinned the sign convention as a bonus.
+  **Every image measurement here should carry that control.**
+- **⚠️ WITHDRAWN: the `> ~60 px/deg` lower bound** recorded from the 5° sweep is downgraded to
+  `[hypothesis]`. It rested on the correlator finding 0–3 % patch agreement — a correlation
+  *failure* — and a correlation failure on this glass can be a masking artefact. What survives from
+  that session is the part read **by eye**: the view swings DOWN as the plane pitches up, from the
+  monotonic ordering of six frames against a flat yaw null control `[measured 2026-09-05]`.
+- **The noise floor on this rig is ±26 px, and it is the weapon's idle sway.** Two frames at the
+  *same* pitch, seconds apart, differ by up to `dy = -26`. Over 2.5° of plane pitch the picture moves
+  less than that, so **the fitted slopes (dx -3.5, dy +4.9 px/deg) have residual rms of 7.0 and 6.0 px
+  — larger than the change across the whole sweep** `[measured 2026-09-05]`. A gain measurement here
+  needs a much larger step with landmark tracking, or the idle suppressed.
+
 ## 9. The shipped `.rtex` inventory, and the one named `mirror_env` (`/gr` drop, drained 2026-09-05)
 
 From Ekey's public `RE8_STM_Release.list` path listing — path strings only, no game content read or
