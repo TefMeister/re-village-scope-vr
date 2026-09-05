@@ -592,6 +592,33 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
   *name* was unknown, today the *object* is. `mirror_env`'s descriptor needs the D3D12 route — the
   plugin's existing `CreateShaderResourceView` hook can `GetDesc()` the resource the lens samples.
 
+### 9e. The corrected latch passes its control, and a target switch can strand it (2026-09-05 late, `/lm`, same flat launch resumed)
+
+- **All three control readings of §9d pass in one process** `[verified-live 2026-09-05, n=1 each]`: the
+  `fmt=29` first-source latch upgrades to `fmt=26` (21:39:25 at boot, 21:54:19 on the rebuild); `.` marks a
+  pending replacement and the next acceptable allocation on the OTHER width replaces (`REPLACED on pending
+  re-arm (1280-wide)` after a 1920-wide boot source); a rebuild that allocates nothing keeps the picture
+  (green square, world in the glass). No cream-with-blue in the process. The 21:13 regression is closed.
+- **Allocation happens on a target's FIRST use in the process and does not recur** `[verified-live
+  2026-09-05, n=1 process]`: 1920 allocated at 21:48 (first rig, nothing pending — ignored by design),
+  1280 at 21:54 (first use, pending — replaced); every later rebuild on either target logged
+  `mirror RT: using` with no latch line. Consequence: **an allocation that lands with nothing pending is
+  lost for the rest of the process.** The cold order therefore presses `.` BEFORE the first `fn p10` on each
+  target that must be compared — the sharpness recipe in `status/`.
+- **A width switch without an allocation strands the latch on a frozen buffer** `[verified-live
+  2026-09-05, n=1]`: with the 1280 `fmt=26` buffer latched, a 1920 rig gave a still frame of Ethan's jacket
+  (the lowered rifle's last view), unchanged under `dyaw 25`; a 1280 rig brought the live world straight
+  back with no latch line. Reading: the engine's mirror HDR intermediate is **pooled by width**, so a
+  same-width mirror writes the latched buffer and a different-width mirror does not `[hypothesis]`. Plugin
+  change queued (`[PD]`): log + amber square when the rebuild width differs from the latched width and no
+  allocation arrived; never auto-clear, because the same-width case recovers by itself.
+- **The sky ladder is the whitening** `[measured 2026-09-05, n=1 sweep]`: sky-band mean 103 at atmo=0,
+  132 at threshold 0.5, 192 at 8, 201 at 12, back to 110 at atmo=0; wb 0.0 throughout. Confirms §7's
+  post-mortem shape and the 2026-09-04 decision to retire the package.
+- **Flat vs VR is decided at launch:** `XR_ERROR_FORM_FACTOR_UNAVAILABLE` from the Virtual Desktop OpenXR
+  runtime when the headset is not connected at process start; the run is then flat for its lifetime
+  `[verified-live 2026-09-05, n=1]` (Tefa, same day: VR cannot be switched on mid-session).
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
