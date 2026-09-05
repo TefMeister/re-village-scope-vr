@@ -164,9 +164,75 @@ Deployed to the game folder and hash-verified against the source. Backups taken 
 normalised. Worth recording, because "every line differs" is exactly what a lost-work collision
 would also look like, and the two are one `tr -d '\r'` apart.
 
+## 4a. The pitch sweep re-measured: the plane-to-view sign, and why the magnitude is not there
+
+The board's row asked for the flat pitch sweep's "view shift per degree of pitch" as the data that
+could pin `k` before a launch. It was measured, from the five `pitch-185..205` captures against
+`base-p180-y90`, with the yaw series as a null control. Evidence and scripts:
+`dev-archive/recon/2026-09-05d-pitch-sweep-measurement/`.
+
+**The sign, and it is the useful half.** Pitching the mirror plane by **+5° swings the view DOWN,
+toward the ground** — the scene inside the disc goes monotonically from upright reeds with distance
+visible past them, to bare ground seen from above, across +5 to +25, and **no sky ever enters the
+frame**. Pitching the view up would have pulled hazy distance and then sky down into the disc; it did
+the opposite. `[measured 2026-09-05, n=6 frames, monotonic]`
+
+**The null control is what makes that trustworthy.** Every yaw frame is the *same picture* as the
+baseline — 100 % patch consensus at all five steps, median NCC up to 0.85, texture orientation flat
+at 1.8–2.9° against the baseline's 3.6°. So yaw does nothing, which independently re-confirms the
+2026-09-05 flat-sweep reading that the plane's normal is local Y, **and** proves the measurement
+pipeline reports a match when one exists. `back-p180` returns to the baseline picture at 97 %
+consensus, so nothing drifted across the sweep.
+
+**The magnitude is not in this data, and the reason matters.** Phase correlation was validated on
+synthetic shifts of the real baseline (exact to 0.01 px out to 150 px) and its detection ceiling
+established at ~300 px on a genuinely re-rendered frame. Against the pitch frames it returns
+peak/rms of 9–12 against a floor of ~68, and a patch-vote search agrees: **0–3 % of patches agree on
+any shift.** So the pitch steps are not a small motion the method missed — **each 5° step replaces the
+picture outright, i.e. more than ~60 px per degree.** No slope can be fitted. `[measured 2026-09-05]`
+
+**A hint worth keeping:** the scene texture's dominant edge direction rotates monotonically with
+pitch, ~1.68° per degree of plane pitch (residual rms 4.0°), and a pure pitch should not rotate the
+picture at all. That is consistent with the earlier flat-sweep observation that pitching the rig
+*rolls* the scope image, and with `roll_k` existing. `[measured 2026-09-05]`, and a proxy rather than
+a pixel shift.
+
+### ⚠️ What this does and does not settle about `steer_k`
+
+It settles the **physical** relation — which way the view goes when the plane turns. It does **not**
+by itself pick the sign of `k`, because that also depends on how `shortest_arc`'s rotation direction
+in the rig's local frame maps onto the harness's `pitch` axis, and that chain has not been measured.
+Asserting a sign from this would be exactly the kind of plausible-looking inference this project has
+been bitten by before. `[hypothesis]` if anyone writes one down.
+
+What it *does* buy is a **prediction to check in one launch** rather than a coin flip: with the
+correct sign, leaning the eye upward should make the picture follow the eye, and with the wrong sign
+it should run away twice as fast. Try `steerk 0.5`, then `steerk -0.5`.
+
+And a caution, from the same numbers: if 5° of plane rotation replaces the picture entirely, then a
+15° head lean at `k = 0.5` is a 7.5° plane rotation — a very large move. **If model 2 overshoots
+wildly in the headset, the reading is not "wrong sign" but "the gain is far higher than the
+half-angle law assumes", and `steerk` should be walked down (0.1, 0.05) before the model is
+doubted.**
+
+### The trap this measurement walked into first
+
+Correlating the whole disc without masking the reticle made the correlator **lock onto the static
+crosshair and report a near-zero shift with high apparent confidence.** Two iterations were spent
+before a scene-only mask (excluding crosshair, bezel and the inner dark sub-disc) exposed it. The
+instrument reported a confident wrong answer, which is this account's own recurring failure shape,
+and it is worth remembering the next time an image measurement here looks too clean.
+
+Secondary finding: the weapon idles, so the whole scope drifts **3.6–17.1 px** on screen between
+captures regardless of the commanded angle — a ±13 px noise floor on any future measurement of this
+kind.
+
 ## 5. What is NOT established
 
-- **The sign of `k`.** Theory gives the magnitude and not the sign.
+- **The sign of `k`.** Theory gives the magnitude and not the sign, and §4a measures the
+  plane-to-view relation without closing the frame-mapping chain that would turn it into one.
+- **The px-per-degree gain.** Bounded below at ~60 px/deg and otherwise unmeasured; a 0.5°
+  sweep would settle it and the roll question together.
 - **That the half-angle law is the right target.** It is the best available model, not a measured
   one.
 - **That the aim pixel's frame and the mirror RT's UV frame agree.** `crop_follow` is the test, not

@@ -1,0 +1,94 @@
+SCOPE PITCH-FIT MEASUREMENT - CONCLUSIONS
+Image convention: x grows RIGHT, y grows DOWN.
+Source: re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures (1280x720 JPEG)
+
+1. SCOPE DISC - LOCATED RELIABLY
+   Outer scope picture: centre (636, 353), usable radius 258 px (bezel highlight fits at R=282).
+   Inner dark sub-disc: centre ~(636, 353), radius ~92 px, grey rim out to ~105 px.
+   Method: max-over-all-13-frames image, radial ray-casting from a seed centre to the last bright
+   radius at 720 angles, least-squares circle fit. Residual rms 3.7 px (rim is a dodecagon).
+   Geometry stable across all frames.
+   TWO DISCS exist; both were measured. The outer annulus (105 < r < 258) carries the scene
+   content and is the one the pitch series changes. A scene-only mask excluding crosshair, bezel
+   and inner disc (114,398 px) was required - without it the correlator locks onto the static
+   reticle and returns a spurious near-zero shift with high apparent confidence.
+
+2. CAMERA DID NOT STAY PERFECTLY STILL
+   Shroud region (r > 300, entirely outside the scope picture) vs baseline: residual shifts of
+   3.6 to 17.1 px, unrelated to commanded angle. back-p180 residual 4.2 px.
+   This is weapon idle sway moving the whole scope on screen: a +/-13 px noise floor on everything.
+   It contaminates precision, not the conclusion.
+
+3. WHAT WAS MEASURED, AND WHAT COULD NOT BE
+   Straightforward translation measurement FAILED for pitch.
+   Phase correlation (numpy FFT, high-pass sigma 6, raised-cosine radial window, parabolic
+   sub-pixel) was validated on synthetic shifts of the baseline: exact to 0.01 px out to 150 px.
+   On real pitch frames it returned peak/rms of 9-12 against a validated floor of ~68 - no match.
+   An 80x80 scene-only patch-vote search over the whole frame confirmed: 0-3 percent of patches
+   agree on any shift.
+   Detection ceiling, established by shifting a real re-rendered frame (back-p180) by known
+   amounts: this pipeline recovers coherent shifts up to ~300 px (58-97 percent consensus) and
+   breaks at 400 px. The pitch series is therefore NOT a small shift the method missed.
+   No px/deg slope could be produced. What could be measured without frame-to-frame overlap is
+   the STRUCTURE-TENSOR ORIENTATION of the scene texture inside the disc.
+
+4. PITCH SERIES (plane pitch 180 + d)
+   Translation: no coherent shift at any step. Patch consensus 0,0,0,0,0 percent; median NCC 0.47
+   (chance level for grass on grass); vote spread IQR 274-550 px in x, 158-322 px in y.
+   Texture orientation (dominant gradient direction, deg from horizontal; Jxx/Jyy > 1 means
+   upright reeds dominate):
+        frame   deg   gradAngle   Jxx/Jyy
+        base      0        3.6      1.761
+        P+5       5       15.1      1.352
+        P+10     10       17.2      1.573
+        P+15     15       24.0      1.482
+        P+20     20       42.4      1.047
+        P+25     25       43.4      1.025
+   Monotonic. Least-squares slope +1.68 deg of texture rotation per deg of plane pitch,
+   residual rms 4.0 deg. This is a PROXY, not a pixel shift.
+   Visually (strip-topband.png, strip-pitch.png): base shows upright reeds with distance visible
+   past them; by P+25 the scope shows bare ground seen from above. No sky ever enters the picture.
+
+5. YAW NULL CONTROL - GENUINELY FLAT
+        frame    dx     dy   consensus   medNCC
+        Y+5     +13     -5      100%      0.644
+        Y+10     +1     +4      100%      0.718
+        Y+15    +10      0      100%      0.683
+        Y+20     -2     -3      100%      0.718
+        Y+25    +10    -11      100%      0.852
+   Every yaw frame is the SAME picture as the baseline, shifted only by the +/-13 px weapon sway,
+   with no trend against angle. Texture orientation stays 1.8-2.9 deg (baseline 3.6) and Jxx/Jyy
+   stays 1.62-1.85 (baseline 1.76). Yaw does nothing. The null control also proves the pipeline
+   detects a match when one exists.
+
+6. REPEATABILITY - GOOD
+   back-p180 vs baseline: shift (-5, -10) px, 97 percent patch consensus, median NCC 0.60;
+   texture orientation 1.5 deg vs 3.6, Jxx/Jyy 1.81 vs 1.76. The sweep returns to the baseline
+   picture. Residual is the same +/-13 px sway seen in the yaw controls. Nothing drifted.
+
+7. THE SIGN
+   When the mirror plane is pitched by +5 deg, the scene inside the scope moves UP the image
+   (toward smaller y) - that is, the view direction swings DOWN, toward the ground.
+   Basis: across +5 to +25 the picture goes monotonically from upright reeds with distance
+   visible past them, to bare ground viewed from above, and no sky ever enters the frame.
+   Pitching the view up would have brought hazy distance and then sky down into the disc; it did
+   the opposite.
+   The direction is solid. THE MAGNITUDE IS NOT MEASURABLE from these screenshots - each 5 deg
+   step replaces the picture entirely (> ~300 px equivalent, i.e. > ~60 px/deg), so no px/deg
+   slope can be fitted. To get a number, re-shoot the sweep with steps of ~0.5 deg or finer.
+
+8. CONFIDENCE, AND HOW THIS COULD BE WRONG
+   Sign: high confidence. It rests on the monotonic ordering of six frames plus a flat null
+   control and a clean return-to-baseline, not on one correlation peak.
+   Magnitude: no result - reported as a bound only.
+   Biggest reason it could be wrong: the sign is read from scene semantics (reeds standing up vs
+   ground seen from above), not from a tracked feature. If the mirror render also ROLLS the view -
+   and the texture orientation rotating by ~43 deg hints that it does, which a pure pitch would
+   not produce - then "down" may be down along a rolled axis rather than down in screen space, and
+   the pixel direction the picture actually travels could be off-axis. A finer sweep would settle
+   both this and the magnitude at once.
+
+Artefacts here: corr.py measure.py measure2.py overlap.py vote.py vote2.py ceiling.py sign.py
+mask.py locate*.py validate.py strip.py; results*.txt; check-disc-geometry.png
+check-scene-mask.png strip-pitch.png strip-topband.png diff-*.png max-over-frames.png
+std-over-frames.png

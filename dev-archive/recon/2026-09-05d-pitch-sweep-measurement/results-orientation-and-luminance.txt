@@ -1,0 +1,50 @@
+=== A. "sky / distant haze" content: cool-toned pixels (B-R > -10) inside the scope picture ===
+   The baseline looks at reeds against a cool distant band at the TOP of the disc.
+   skyFrac = fraction of scene pixels that are cool-toned;  skyY = their mean image y (y grows DOWN)
+frame       deg  skyFrac    skyY  skyY-CY  meanLum
+base P180     0    0.000     nan      nan    112.4
+P+5           5    0.000     nan      nan    110.0
+P+10         10    0.000     nan      nan    112.0
+P+15         15    0.000     nan      nan    113.5
+P+20         20    0.000     nan      nan    114.4
+P+25         25    0.000     nan      nan    115.2
+Y+5           5    0.000     nan      nan    110.9
+Y+10         10    0.000     nan      nan    111.5
+Y+15         15    0.000     nan      nan    111.7
+Y+20         20    0.000     nan      nan    111.5
+Y+25         25    0.000     nan      nan    111.5
+back-P180     0    0.000     nan      nan    109.1
+
+=== B. structure-tensor orientation of the scene texture inside the disc ===
+   Reeds seen side-on are VERTICAL lines -> gradient energy is mostly HORIZONTAL (Jxx >> Jyy).
+   Looking straight down at ground, that anisotropy collapses.
+   ratio = Jxx/Jyy (>1 means vertical structures dominate);  angle = dominant EDGE direction, deg from horizontal
+frame       deg  Jxx/Jyy  edgeAng  anisotropy
+base P180     0    1.761      3.6       0.278
+P+5           5    1.352     15.1       0.173
+P+10         10    1.573     17.2       0.270
+P+15         15    1.482     24.0       0.290
+P+20         20    1.047     42.4       0.256
+P+25         25    1.025     43.4       0.225
+Y+5           5    1.807      1.8       0.288
+Y+10         10    1.762      2.3       0.277
+Y+15         15    1.783      2.9       0.283
+Y+20         20    1.846      2.1       0.298
+Y+25         25    1.624      2.5       0.239
+back-P180     0    1.812      1.5       0.289
+
+=== C. vertical luminance profile inside the disc (mean brightness per 40px band of y) ===
+    y bands are image rows; y grows DOWNWARD.  Top of disc ~ y=110, bottom ~ y=595
+frame         110    150    190    230    270    310    350    390    430    470    510    550    590
+base P180    76.9   85.0   99.2  104.8  110.3  113.8  127.8  125.6  130.2  126.4  121.7  109.8  112.4
+P+5          76.7   82.3   98.3   99.4  104.7  110.7  128.2  129.9  131.1  126.2  112.3  105.5   85.4
+P+10         79.1   87.7   98.4  104.5  113.2  119.6  135.8  135.1  127.4  115.6  116.9  108.7   99.0
+P+15         82.5   88.8  102.0  109.2  116.2  121.6  132.6  136.0  124.9  118.3  115.7  109.6  109.0
+P+20         89.5   90.8  101.9  111.3  112.0  113.3  126.4  132.3  129.8  122.7  116.0  116.6  116.4
+P+25         88.2   96.4  101.0  112.1  114.7  112.0  127.1  134.2  128.9  122.4  117.2  118.3  105.3
+Y+5          76.5   84.8   99.6  104.8  111.0  113.9  125.5  124.8  126.7  122.9  116.5  109.4  102.4
+Y+10         77.6   83.4   97.6  103.6  109.0  112.1  126.2  125.0  128.2  125.7  121.1  112.3  116.4
+Y+15         76.8   84.7   98.6  103.7  109.9  113.4  127.4  126.0  128.5  124.5  120.0  113.2  112.5
+Y+20         76.7   84.4   98.5  103.8  109.9  112.0  127.6  124.0  129.1  125.6  120.0  109.8  104.4
+Y+25         77.8   88.6  100.8  104.6  110.4  106.5  128.1  125.1  127.8  124.7  117.2  108.2  105.3
+back-P180    75.6   86.2   96.1  102.6  108.2  112.7  122.2  119.1  125.8  122.9  114.6  107.9  102.1
