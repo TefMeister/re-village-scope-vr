@@ -397,6 +397,40 @@ validated script and results in `dev-archive/recon/2026-09-05e-flat-control-and-
   — larger than the change across the whole sweep** `[measured 2026-09-05]`. A gain measurement here
   needs a much larger step with landmark tracking, or the idle suppressed.
 
+### 8d. Both fixes run: the eye-box is closed, and the steering ray has a measured target (2026-09-05, `/lm`)
+
+Source: `modding-notes/2026-09-05g-both-fixes-run-one-answered-one-was-aimed-at-the-wrong-thing.md`;
+evidence `dev-archive/recon/2026-09-05g-both-fixes-run/`.
+
+- **⭐ `EyeDistortionRange` CANNOT BE WRITTEN through `setMaterialFloat`, and that is now settled
+  rather than suspected.** Holding `0.5` at frame rate for ~1.5 s reads back **`0.100`** on both lens
+  materials — exactly what writing it once did `[verified-live 2026-09-05, n=2 materials]`. The
+  ladder had already killed the min-clamp reading; this kills re-assertion, because **a per-frame
+  writer would have lost the race against a per-frame hold and it did not.** The variable is
+  read-only through this API, driven from somewhere the material does not expose, or we are writing
+  an instance the renderer never samples. **There is no writer to hunt** — the row is closed, and the
+  eye-box has to be approached another way (or lived with) if it matters.
+- **⭐ The steering ray now has a MEASURED target, not a guessed one.** On-axis in flat ADS, the angle
+  between the bore and the eye→target ray, for the three candidates tried:
+
+  | ray aimed at | angle from the bore |
+  | --- | --- |
+  | the rig's parked position | **35.3°** |
+  | the rifle transform's origin | **50.1°** |
+  | **the plugin's lens anchor (its `joint=` field)** | **3.9°** |
+
+  `[verified-live 2026-09-05, n=1]` / `[verified-numerically 2026-09-05]`. The rifle transform origin
+  is the weapon ROOT, down at the grip — `eye→mirror` came out as `(0.64,-0.77,0.07)`, steeply
+  downward. **The lens anchor is the only one that is on-axis when the scope is**, and its 3.9°
+  residual is honest: the scope sits a few centimetres above the barrel.
+  ⚠️ The Lua has no route to that position today; the plugin computes it every frame from the
+  weapon's Body joint plus the mount calibration. Publishing it is the next step.
+- **The cheap on-axis flat control has now caught two wrong steering models in one day**, each of
+  which looked entirely plausible in code, and neither reached a headset. Keep it as the gate in
+  front of every steering change: flat ADS is on-axis, so a correct correction must do **nothing**
+  there, and any implementation that does something is wrong before comfort or feel is even a
+  question.
+
 ## 9. The shipped `.rtex` inventory, and the one named `mirror_env` (`/gr` drop, drained 2026-09-05)
 
 From Ekey's public `RE8_STM_Release.list` path listing — path strings only, no game content read or
