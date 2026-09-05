@@ -332,6 +332,46 @@ Source: `modding-notes/2026-09-05d-model-2-is-built-and-the-eye-box-may-not-need
   **every line** and still be content-identical — CRLF versus LF. That is also what a lost-work
   collision looks like, and the two are one `tr -d '\r'` apart. Normalise before concluding.
 
+### 8b. The steering was fed a 35-degree lie (flat launch, 2026-09-05 evening)
+
+Source: `modding-notes/2026-09-05e-the-flat-control-failed-and-named-the-shared-root-cause.md`;
+evidence `dev-archive/recon/2026-09-05e-flat-control-and-eyebox-ladder/`.
+
+- **⭐ The eye→mirror ray every steering model uses points at the rig's PARKED PLACEMENT, not at the
+  scope glass — and that placement is 35 degrees off the bore by construction.** In flat ADS, where
+  the plugin's own anchor reads `local=(0.00,0.00,-0.22)` and the aim pixel is dead centre, model 2
+  still computed `arc=35.3 deg` and rotated the plane 17.6 degrees, replacing the picture entirely
+  `[verified-live 2026-09-05, n=1]`. The pane is parked at `fwd=1.000 right=-0.715`, and
+  `atan(0.715/1.0) = 35.56 deg`; recomputing the angle between the two vectors the plugin printed
+  gives `35.27 deg` `[verified-numerically 2026-09-05]`. **The arc is the parked offset, in full.**
+- **This is the shared root cause of all three models, and it is upstream of every imaging
+  assumption.** The two models disproved in the headset on 2026-09-05 also derive their direction
+  from `mirror_pos`. That session read the failures as "the imaging model is wrong"; the model was
+  never reached. **Dead end recorded: do not judge a steering model while `v` is measured to the
+  parked rig.** The fix is to aim `v` at the lens anchor the plugin already tracks, which genuinely
+  sits on the bore in ADS.
+- **⭐ `EyeDistortionRange` does NOT min-clamp.** The ladder returned `0.500->0.100  0.050->0.100
+  0.000->0.100` on **both** lens materials `[verified-live 2026-09-05, n=2 materials]`. A clamp at
+  0.1 would have passed 0.5 through, so the long-standing "min-clamps to 0.1, fine" comment is
+  `[disproved 2026-09-05]`. Two readings survive and the ladder does not separate them: the game
+  re-asserts the value every frame, or **the write never lands** — the likelier one, since
+  `set_material_float_verified` tries several encodings and reports failure. **Discriminator: hold
+  it at frame rate for a second and read back.** Either way the hunt for a writer stays cancelled.
+- **✅ An aim/anchor pixel outside the frame is a point outside the frustum, not a second projection
+  space.** First gameplay line of a FLAT launch: `px=(1983,1481) ... proj=1920x1080`
+  `[verified-live 2026-09-05, n=1]`. The 2026-09-05 morning reading is `[disproved]`.
+- **⚠️ Measurement hygiene on this glass — third instance, now a rule.** Any image measurement here
+  must be masked to the scope disc itself. Masks built from "high variance" lock onto the animated
+  world OUTSIDE the scope, which does not move with the plane, and return a confident `(0,0)` with a
+  peak/rms near 500. **Whole-frame mean-abs is worse than useless**: the model-2 test, whose frames
+  differ unmistakably by eye, scores 14.6 against a same-state noise floor of 10.0. Prefer a large
+  unmistakable action and look at it — a 40-degree pitch step settled in one move what two
+  correlators could not.
+- **The pitch slider does reach the rig**: `rq=(-0.05,0.34,0.94,0.02)` at pitch 220 against
+  `(-0.05,0.00,1.00,0.00)` at 180 `[verified-live 2026-09-05, n=1]`.
+- **Launch trap:** `start steam://rungameid/1196590` issued while Steam is still starting produces no
+  process and no log growth at all — silently. Steam must already be up.
+
 ## 9. The shipped `.rtex` inventory, and the one named `mirror_env` (`/gr` drop, drained 2026-09-05)
 
 From Ekey's public `RE8_STM_Release.list` path listing — path strings only, no game content read or
