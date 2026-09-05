@@ -1,0 +1,127 @@
+====================================================================================================
+SCOPE PITCH-FIT MEASUREMENT   image coords: x -> RIGHT, y -> DOWN
+(dx,dy) = displacement of scene CONTENT from the baseline frame to the named frame
+scope picture: centre=(636.0,353.0) px, outer usable radius 258 px, inner sub-disc radius ~92 px
+correlator: high-pass(sigma 6) + raised-cosine radial window + phase correlation, parabolic sub-pixel
+validation on synthetic shifts of the baseline: exact to 0.01 px out to 150 px, peak/rms >= 68
+====================================================================================================
+
+########## REGION: outside ##########
+  --- PITCH (plane pitch 180+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  pitch-185.jpg         5      3.12      9.12     9.64   0.1046     78.0
+  pitch-190.jpg        10     -6.95     -7.94    10.56   0.0756     56.1
+  pitch-195.jpg        15     10.75      0.05    10.75   0.2415    190.7
+  pitch-200.jpg        20     -3.07      1.80     3.56   0.2312    183.4
+  pitch-205.jpg        25      8.14      2.53     8.52   0.1454    111.3
+  --- YAW (null control, yaw 90+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  yaw-95.jpg            5     12.08     -8.33    14.67   0.1112     82.9
+  yaw-100.jpg          10      0.03      5.85     5.85   0.2858    226.8
+  yaw-105.jpg          15     10.41     -3.86    11.11   0.1362    102.7
+  yaw-110.jpg          20     -2.94      2.14     3.64   0.1302    102.6
+  yaw-115.jpg          25     10.70    -13.33    17.09   0.0827     60.9
+  --- CONTROLS (back to 180/90) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  back-p180.jpg         0     -2.78     -3.15     4.20   0.0819     61.8
+  back-y90.jpg          0      3.04      8.63     9.15   0.1516    114.6
+  --- least-squares fit, PITCH, region=outside ---
+    dx: slope=  +0.278 px/deg  intercept=  -1.78  residual rms=  6.34  max|res|=  8.35  (origin-forced slope=  +0.181)
+        residuals:   +3.51   -7.96   +8.35   -6.86   +2.96
+    dy: slope=  -0.069 px/deg  intercept=  +2.14  residual rms=  5.45  max|res|=  9.40  (origin-forced slope=  +0.048)
+        residuals:   +7.32   -9.40   -1.06   +1.03   +2.10
+  --- least-squares fit, YAW, region=outside ---
+    dx: slope=  -0.115 px/deg  intercept=  +7.78  residual rms=  6.18  max|res|=  8.43  (origin-forced slope=  +0.309)
+        residuals:   +4.88   -6.60   +4.36   -8.43   +5.79
+    dy: slope=  -0.274 px/deg  intercept=  +0.60  residual rms=  6.64  max|res|=  7.98  (origin-forced slope=  -0.241)
+        residuals:   -7.56   +7.98   -0.36   +7.02   -7.08
+
+########## REGION: annulus ##########
+  --- PITCH (plane pitch 180+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  pitch-185.jpg         5      7.14      7.08    10.06   0.0153      9.2
+  pitch-190.jpg        10     -3.84     -2.98     4.86   0.0156      9.4
+  pitch-195.jpg        15     11.02      0.86    11.06   0.0192     11.5
+  pitch-200.jpg        20     -2.24      2.02     3.01   0.0147      8.8
+  pitch-205.jpg        25      7.58      0.98     7.64   0.0163      9.8
+  --- YAW (null control, yaw 90+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  yaw-95.jpg            5     12.21     -5.84    13.54   0.0462     27.9
+  yaw-100.jpg          10      0.48      4.92     4.94   0.0412     24.9
+  yaw-105.jpg          15      8.10     -0.04     8.10   0.0701     42.4
+  yaw-110.jpg          20     -2.10     -2.36     3.16   0.0486     29.5
+  yaw-115.jpg          25     10.58    -10.02    14.57   0.0689     42.2
+  --- CONTROLS (back to 180/90) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  back-p180.jpg         0     -3.87    -10.15    10.86   0.0357     21.6
+  back-y90.jpg          0      3.69      7.71     8.54   0.0678     41.2
+  --- least-squares fit, PITCH, region=annulus ---
+    dx: slope=  +0.049 px/deg  intercept=  +3.19  residual rms=  5.86  max|res|=  7.53  (origin-forced slope=  +0.224)
+        residuals:   +3.70   -7.53   +7.09   -6.42   +3.15
+    dy: slope=  -0.144 px/deg  intercept=  +3.75  residual rms=  3.06  max|res|=  5.29  (origin-forced slope=  +0.061)
+        residuals:   +4.05   -5.29   -0.73   +1.15   +0.83
+  --- least-squares fit, YAW, region=annulus ---
+    dx: slope=  -0.117 px/deg  intercept=  +7.60  residual rms=  5.60  max|res|=  7.37  (origin-forced slope=  +0.298)
+        residuals:   +5.19   -5.96   +2.25   -7.37   +5.90
+    dy: slope=  -0.312 px/deg  intercept=  +2.02  residual rms=  4.57  max|res|=  6.30  (origin-forced slope=  -0.202)
+        residuals:   -6.30   +6.02   +2.62   +1.87   -4.22
+
+########## REGION: inner ##########
+  --- PITCH (plane pitch 180+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  pitch-185.jpg         5      1.14      1.93     2.24   0.0537     14.2
+  pitch-190.jpg        10     -2.19      0.25     2.20   0.0491     12.9
+  pitch-195.jpg        15      5.98      0.06     5.98   0.0673     17.8
+  pitch-200.jpg        20     -1.11      1.00     1.49   0.0515     13.6
+  pitch-205.jpg        25      3.74     -0.04     3.74   0.0490     12.9
+  --- YAW (null control, yaw 90+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  yaw-95.jpg            5      6.57     -1.82     6.81   0.1390     38.0
+  yaw-100.jpg          10      0.53      1.32     1.43   0.1506     41.5
+  yaw-105.jpg          15      3.37     -1.00     3.52   0.1119     30.5
+  yaw-110.jpg          20     -1.54      0.04     1.54   0.1773     49.0
+  yaw-115.jpg          25      5.04     -2.87     5.80   0.2725     78.6
+  --- CONTROLS (back to 180/90) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  back-p180.jpg         0     -2.17     -1.31     2.53   0.1015     27.2
+  back-y90.jpg          0      2.17      2.16     3.06   0.1583     43.2
+  --- least-squares fit, PITCH, region=inner ---
+    dx: slope=  +0.126 px/deg  intercept=  -0.37  residual rms=  2.89  max|res|=  4.47  (origin-forced slope=  +0.105)
+        residuals:   +0.88   -3.07   +4.47   -3.25   +0.97
+    dy: slope=  -0.064 px/deg  intercept=  +1.60  residual rms=  0.59  max|res|=  0.71  (origin-forced slope=  +0.023)
+        residuals:   +0.65   -0.71   -0.58   +0.68   -0.04
+  --- least-squares fit, YAW, region=inner ---
+    dx: slope=  -0.102 px/deg  intercept=  +4.33  residual rms=  2.86  max|res|=  3.82  (origin-forced slope=  +0.134)
+        residuals:   +2.75   -2.78   +0.58   -3.82   +3.27
+    dy: slope=  -0.068 px/deg  intercept=  +0.15  residual rms=  1.37  max|res|=  1.85  (origin-forced slope=  -0.060)
+        residuals:   -1.63   +1.85   -0.14   +1.24   -1.33
+
+########## REGION: disc ##########
+  --- PITCH (plane pitch 180+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  pitch-185.jpg         5      1.33      1.91     2.33   0.1028     62.7
+  pitch-190.jpg        10     -2.22      0.15     2.23   0.1109     67.6
+  pitch-195.jpg        15      6.04      0.07     6.04   0.1326     80.9
+  pitch-200.jpg        20     -1.15      1.10     1.59   0.1018     61.9
+  pitch-205.jpg        25      3.42     -0.09     3.42   0.0839     50.9
+  --- YAW (null control, yaw 90+d) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  yaw-95.jpg            5      6.53     -1.92     6.80   0.1126     69.2
+  yaw-100.jpg          10      0.59      1.73     1.82   0.1339     83.1
+  yaw-105.jpg          15      3.27     -1.86     3.76   0.1125     68.9
+  yaw-110.jpg          20     -1.77      2.03     2.69   0.1152     70.6
+  yaw-115.jpg          25      5.08     -2.63     5.72   0.1441     89.9
+  --- CONTROLS (back to 180/90) ---
+  frame               deg        dx        dy      |d|     peak   pk/rms
+  back-p180.jpg         0     -2.25      1.17     2.54   0.1020     62.1
+  back-y90.jpg          0      2.31      2.26     3.23   0.1209     74.6
+  --- least-squares fit, PITCH, region=disc ---
+    dx: slope=  +0.105 px/deg  intercept=  -0.09  residual rms=  2.91  max|res|=  4.55  (origin-forced slope=  +0.100)
+        residuals:   +0.90   -3.18   +4.55   -3.15   +0.88
+    dy: slope=  -0.061 px/deg  intercept=  +1.54  residual rms=  0.63  max|res|=  0.78  (origin-forced slope=  +0.023)
+        residuals:   +0.67   -0.78   -0.56   +0.78   -0.11
+  --- least-squares fit, YAW, region=disc ---
+    dx: slope=  -0.105 px/deg  intercept=  +4.31  residual rms=  2.91  max|res|=  3.98  (origin-forced slope=  +0.130)
+        residuals:   +2.74   -2.68   +0.53   -3.98   +3.39
+    dy: slope=  -0.023 px/deg  intercept=  -0.19  residual rms=  1.98  max|res|=  2.67  (origin-forced slope=  -0.033)
+        residuals:   -1.61   +2.14   -1.33   +2.67   -1.88

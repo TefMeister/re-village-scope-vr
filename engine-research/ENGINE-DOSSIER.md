@@ -303,12 +303,34 @@ Source: `modding-notes/2026-09-05d-model-2-is-built-and-the-eye-box-may-not-need
   is re-assertion (fix is a per-frame **hold**, the pattern already in this file for
   `Reticle_Emissive`); `0.500→0.500` with `0.050→0.050` means something later in the frame
   overwrites it, and only then is finding the writer the right step.
+- **The plane-to-view sign is measured: pitching the mirror plane +5° swings the view DOWN.**
+  Re-measured from the 2026-09-05 flat sweep's own captures, monotonic across +5 to +25°, with no
+  sky ever entering the disc `[measured 2026-09-05, n=6 frames]`. The yaw series is a genuine null
+  control — every yaw frame is the *same picture* as the baseline at 100 % patch consensus — which
+  **independently re-confirms that the plane's normal is local Y** and proves the measurement finds a
+  match when one exists. ⚠️ This settles the physics, **not** the sign of `steer_k`: that also needs
+  how `shortest_arc`'s direction in the rig's local frame maps onto the harness `pitch` axis, which
+  is unmeasured.
+- **The gain is far higher than a slope fit can capture: each 5° of plane pitch replaces the picture
+  outright, i.e. > ~60 px/deg** `[measured 2026-09-05]`. Phase correlation validated to 0.01 px on
+  synthetic shifts and to a ~300 px ceiling on a real re-rendered frame still finds 0–3 % patch
+  agreement on the pitch steps. Consequence for tuning: **if model 2 overshoots in the headset, read
+  it as excess gain and walk `steerk` down (0.1, 0.05) before doubting the model.** A 0.5° sweep is
+  what would give a number.
+- **Pitching the plane also ROLLS the picture** — the scene texture's dominant edge direction turns
+  ~1.68° per degree of plane pitch `[measured 2026-09-05]`, which a pure pitch should not do.
+  Consistent with the earlier flat-sweep observation and with `roll_k` existing.
+- **⚠️ Instrument trap, recorded because it produced a confident wrong answer:** correlating the whole
+  scope disc without masking the reticle makes the correlator **lock onto the static crosshair and
+  report a near-zero shift with high apparent confidence.** Any image measurement on this glass must
+  mask crosshair, bezel and the inner dark sub-disc first. The weapon also idles, drifting the whole
+  scope 3.6–17.1 px between captures — a ±13 px noise floor independent of any commanded angle.
 - **`crop_follow`** (settings key, default 0) makes the mirror crop centre the aim pixel, with
   `mir_cx`/`mir_cy` re-read as a delta from 0.5. The sampled window is clamped inside the source
   unconditionally, so a wrong frame mis-aims but cannot sample out of bounds.
 - **Practical trap worth keeping:** a deployed script diffed against its repo copy can differ on
   **every line** and still be content-identical — CRLF versus LF. That is also what a lost-work
-  collision looks like, and the two are one `tr -d ''` apart. Normalise before concluding.
+  collision looks like, and the two are one `tr -d '\r'` apart. Normalise before concluding.
 
 ## 9. The shipped `.rtex` inventory, and the one named `mirror_env` (`/gr` drop, drained 2026-09-05)
 
