@@ -1,0 +1,125 @@
+[2026-09-05 15:36:27.850] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched (1280-wide): 1920x1080 fmt=28 flags=0x1 -> 0000019BFFB2FF30 (numpad . re-arms this latch if it grabbed the wrong one)
+[2026-09-05 15:37:17.620] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 steer=false ads=false
+[2026-09-05 15:37:17.673] [REFramework] [info] [m6_mirror] mirror RT: using movie/rtex/movie_1920_1080.rtex (1920x1080)
+[2026-09-05 15:37:17.674] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched (1280-wide): 1920x1088 fmt=29 flags=0x1 -> 0000019F054317A0 (numpad . re-arms this latch if it grabbed the wrong one)
+[2026-09-05 15:37:17.679] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 0000019F17573DC0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-05 15:37:21.700] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 steer=false ads=false
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_Resource         absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate getResource          absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_ResourceHolder   absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_Texture          absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate getTexture           absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_Handle           absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_NativeResource   absent
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[2] slot 1 (original saved for restore)
+[2026-09-05 15:37:24.666] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[3] slot 1 (original saved for restore)
+[2026-09-05 15:37:27.227] [REFramework] [info] [Plugin] [re-scope-vr] glass: no stable identity for the bound texture -- the bind-order guard is DISABLED this session rather than re-binding on a comparison that cannot succeed. See the candidate-accessor probe above; name a working accessor and the guard comes back.
+[2026-09-05 15:37:27.785] [REFramework] [info] [re8-harness] harness: model 1  -> pitch=180.0 yaw=90.0 steer=false ads=false
+[2026-09-05 15:37:27.785] [REFramework] [info] [re8-harness] harness: steer 1  -> pitch=180.0 yaw=90.0 steer=true ads=false
+[2026-09-05 15:37:27.785] [REFramework] [info] [m6_mirror] steer: mirror normal = local +Y (MEASURED by the 2026-09-05 flat yaw sweep, not searched; sign picked by dot 0.274). Panel: "steer: relearn axis" then "next axis" to override.
+[2026-09-05 15:37:27.785] [REFramework] [info] [m6_mirror] steer: model=fwd n=(-0.01,0.08,1.00) cam-fwd=(0.59,0.75,0.30) bore=(0.60,0.69,-0.41) axis +Y pre-dot 0.274
+[2026-09-05 15:37:32.788] [REFramework] [info] [m6_mirror] steer: model=fwd n=(-0.09,0.04,1.00) cam-fwd=(0.62,0.69,0.38) bore=(0.68,0.66,-0.32) axis +Y pre-dot 0.270
+[2026-09-05 15:37:37.803] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.10,0.07,0.99) cam-fwd=(0.65,0.73,0.24) bore=(0.58,0.68,-0.46) axis +Y pre-dot 0.258
+[2026-09-05 15:37:42.817] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.07,0.07,1.00) cam-fwd=(0.64,0.72,0.25) bore=(0.60,0.67,-0.44) axis +Y pre-dot 0.248
+[2026-09-05 15:37:47.819] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.03,0.06,1.00) cam-fwd=(0.65,0.70,0.29) bore=(0.63,0.66,-0.41) axis +Y pre-dot 0.247
+[2026-09-05 15:37:52.826] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.05,0.07,1.00) cam-fwd=(0.64,0.72,0.26) bore=(0.61,0.67,-0.43) axis +Y pre-dot 0.251
+[2026-09-05 15:37:57.829] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.02,0.10,1.00) cam-fwd=(0.60,0.76,0.26) bore=(0.58,0.69,-0.43) axis +Y pre-dot 0.254
+[2026-09-05 15:38:02.840] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.04,0.09,0.99) cam-fwd=(0.60,0.76,0.25) bore=(0.58,0.69,-0.44) axis +Y pre-dot 0.255
+[2026-09-05 15:38:07.855] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.14,0.09,0.99) cam-fwd=(0.64,0.74,0.20) bore=(0.54,0.68,-0.49) axis +Y pre-dot 0.256
+[2026-09-05 15:38:12.864] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.17,0.08,0.98) cam-fwd=(0.65,0.74,0.18) bore=(0.53,0.68,-0.51) axis +Y pre-dot 0.256
+[2026-09-05 15:38:17.875] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.11,-0.83,-0.55) cam-fwd=(1.00,-0.05,0.07) bore=(0.97,0.14,0.19) axis +Y pre-dot 0.745
+[2026-09-05 15:38:22.889] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.08,0.70,0.71) cam-fwd=(1.00,0.03,-0.06) bore=(0.99,-0.06,-0.14) axis +Y pre-dot -0.686
+[2026-09-05 15:38:27.900] [REFramework] [info] [m6_mirror] steer: model=fwd n=(-0.02,1.00,-0.08) cam-fwd=(0.98,0.05,-0.17) bore=(0.99,-0.04,-0.16) axis +Y pre-dot -0.997
+[2026-09-05 15:38:32.912] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.91,-0.42,0.06) cam-fwd=(0.73,0.51,0.45) bore=(-0.14,0.91,0.39) axis +Y pre-dot 0.740
+[2026-09-05 15:38:37.923] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.17,0.40,0.90) cam-fwd=(1.00,-0.04,-0.05) bore=(0.96,-0.13,-0.24) axis +Y pre-dot -0.449
+[2026-09-05 15:38:42.930] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.35,-0.93,0.11) cam-fwd=(0.96,0.19,0.19) bore=(0.84,0.53,0.15) axis +Y pre-dot 0.984
+[2026-09-05 15:38:47.935] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.78,-0.35,-0.51) cam-fwd=(0.72,0.60,0.35) bore=(0.45,0.72,0.53) axis +Y pre-dot -0.611
+[2026-09-05 15:38:52.946] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.17,-0.22,-0.96) cam-fwd=(0.74,0.64,-0.21) bore=(0.67,0.72,0.15) axis +Y pre-dot -0.423
+[2026-09-05 15:38:57.957] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.66,-0.53,-0.54) cam-fwd=(0.84,0.52,0.16) bore=(0.59,0.72,0.36) axis +Y pre-dot -0.800
+[2026-09-05 15:39:02.965] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.65,-0.54,-0.54) cam-fwd=(0.84,0.52,0.15) bore=(0.60,0.72,0.36) axis +Y pre-dot -0.799
+[2026-09-05 15:39:07.970] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.63,-0.50,-0.59) cam-fwd=(0.84,0.53,0.13) bore=(0.60,0.72,0.36) axis +Y pre-dot -0.757
+[2026-09-05 15:39:12.985] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.24,-0.04,0.97) cam-fwd=(0.86,0.48,0.17) bore=(0.68,0.52,-0.52) axis +Y pre-dot 0.240
+[2026-09-05 15:39:17.994] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.26,-0.02,0.97) cam-fwd=(0.85,0.51,0.16) bore=(0.66,0.53,-0.53) axis +Y pre-dot 0.229
+[2026-09-05 15:39:23.003] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.26,-0.02,0.96) cam-fwd=(0.85,0.50,0.15) bore=(0.66,0.52,-0.54) axis +Y pre-dot 0.225
+[2026-09-05 15:39:28.009] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.26,-0.02,0.97) cam-fwd=(0.84,0.52,0.16) bore=(0.66,0.53,-0.53) axis +Y pre-dot 0.229
+[2026-09-05 15:39:33.014] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.28,-0.04,0.96) cam-fwd=(0.86,0.49,0.15) bore=(0.66,0.52,-0.54) axis +Y pre-dot 0.237
+[2026-09-05 15:39:38.024] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.28,-0.06,0.96) cam-fwd=(0.86,0.48,0.15) bore=(0.66,0.52,-0.53) axis +Y pre-dot 0.252
+[2026-09-05 15:39:43.032] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.28,-0.06,0.96) cam-fwd=(0.86,0.49,0.15) bore=(0.66,0.54,-0.53) axis +Y pre-dot 0.272
+[2026-09-05 15:39:48.033] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.35,0.15,0.92) cam-fwd=(0.54,0.84,0.04) bore=(0.29,0.74,-0.61) axis +Y pre-dot 0.272
+[2026-09-05 15:39:53.045] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.23,-0.02,0.97) cam-fwd=(0.80,0.57,0.18) bore=(0.64,0.59,-0.50) axis +Y pre-dot 0.262
+[2026-09-05 15:39:58.054] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.66,0.07,0.75) cam-fwd=(0.67,0.72,-0.19) bore=(0.21,0.67,-0.71) axis +Y pre-dot 0.251
+[2026-09-05 15:40:03.068] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.56,0.07,0.83) cam-fwd=(0.68,0.73,-0.10) bore=(0.29,0.68,-0.68) axis +Y pre-dot 0.248
+[2026-09-05 15:40:08.078] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.52,0.07,0.85) cam-fwd=(0.69,0.72,-0.07) bore=(0.33,0.67,-0.66) axis +Y pre-dot 0.249
+[2026-09-05 15:40:13.090] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.51,0.06,0.86) cam-fwd=(0.71,0.71,-0.06) bore=(0.35,0.66,-0.66) axis +Y pre-dot 0.253
+[2026-09-05 15:40:18.093] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.37,0.03,0.93) cam-fwd=(0.77,0.64,0.05) bore=(0.51,0.62,-0.60) axis +Y pre-dot 0.254
+[2026-09-05 15:40:23.105] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.51,0.09,0.85) cam-fwd=(0.65,0.76,-0.07) bore=(0.29,0.69,-0.66) axis +Y pre-dot 0.256
+[2026-09-05 15:40:28.114] [REFramework] [info] [m6_mirror] steer: model=fwd n=(-0.83,-0.13,0.53) cam-fwd=(0.13,0.32,0.94) bore=(0.72,0.42,0.56) axis +Y pre-dot 0.256
+[2026-09-05 15:40:33.126] [REFramework] [info] [m6_mirror] steer: model=fwd n=(-0.83,-0.15,0.53) cam-fwd=(0.14,0.27,0.95) bore=(0.73,0.38,0.58) axis +Y pre-dot 0.254
+[2026-09-05 15:40:38.131] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.56,0.01,0.83) cam-fwd=(0.80,0.60,-0.12) bore=(0.40,0.59,-0.71) axis +Y pre-dot 0.240
+[2026-09-05 15:40:43.135] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.08,0.06,0.99) cam-fwd=(0.70,0.67,0.26) bore=(0.64,0.63,-0.45) axis +Y pre-dot 0.231
+[2026-09-05 15:40:48.145] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.41,0.08,0.91) cam-fwd=(0.72,0.70,0.01) bore=(0.42,0.64,-0.64) axis +Y pre-dot 0.227
+[2026-09-05 15:40:53.159] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.38,0.05,0.92) cam-fwd=(0.75,0.66,0.04) bore=(0.48,0.62,-0.62) axis +Y pre-dot 0.227
+[2026-09-05 15:40:58.167] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.19,-0.01,0.98) cam-fwd=(0.81,0.54,0.21) bore=(0.67,0.55,-0.49) axis +Y pre-dot 0.226
+[2026-09-05 15:41:03.182] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.45,0.08,0.89) cam-fwd=(0.70,0.72,-0.01) bore=(0.38,0.66,-0.64) axis +Y pre-dot 0.248
+[2026-09-05 15:41:08.190] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.22,-0.02,0.98) cam-fwd=(0.80,0.57,0.20) bore=(0.64,0.58,-0.49) axis +Y pre-dot 0.269
+[2026-09-05 15:41:13.207] [REFramework] [info] [m6_mirror] steer: model=fwd n=(-0.29,-0.07,0.96) cam-fwd=(0.64,0.49,0.60) bore=(0.84,0.54,-0.08) axis +Y pre-dot 0.273
+[2026-09-05 15:41:18.218] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.66,0.07,0.75) cam-fwd=(0.66,0.73,-0.18) bore=(0.20,0.68,-0.70) axis +Y pre-dot 0.262
+[2026-09-05 15:41:23.227] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.58,0.05,0.81) cam-fwd=(0.72,0.69,-0.12) bore=(0.31,0.65,-0.69) axis +Y pre-dot 0.252
+[2026-09-05 15:41:28.240] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.28,0.01,0.96) cam-fwd=(0.77,0.62,0.13) bore=(0.58,0.62,-0.54) axis +Y pre-dot 0.248
+[2026-09-05 15:41:33.248] [REFramework] [info] [m6_mirror] steer: model=fwd n=(0.61,0.05,0.79) cam-fwd=(0.71,0.68,-0.15) bore=(0.29,0.65,-0.70) axis +Y pre-dot 0.250
+[2026-09-05 15:41:34.419] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 steer=true ads=false
+[2026-09-05 15:41:34.419] [REFramework] [info] [m6_mirror] steer: mirror normal = local +Y (MEASURED by the 2026-09-05 flat yaw sweep, not searched; sign picked by dot 0.420). Panel: "steer: relearn axis" then "next axis" to override.
+[2026-09-05 15:41:38.255] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.52,-0.14,0.84) eye->mirror=(0.85,0.53,0.05) bore=(0.42,0.64,-0.64) axis +Y pre-dot 0.419
+[2026-09-05 15:41:43.266] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.46,-0.17,0.87) eye->mirror=(0.84,0.53,0.13) bore=(0.45,0.67,-0.59) axis +Y pre-dot 0.483
+[2026-09-05 15:41:48.273] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.60,-0.13,0.79) eye->mirror=(0.84,0.54,-0.03) bore=(0.34,0.65,-0.67) axis +Y pre-dot 0.432
+[2026-09-05 15:41:53.282] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.61,-0.14,0.78) eye->mirror=(0.85,0.53,-0.04) bore=(0.35,0.64,-0.68) axis +Y pre-dot 0.421
+[2026-09-05 15:41:58.296] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.53,-0.20,0.83) eye->mirror=(0.91,0.42,0.02) bore=(0.48,0.58,-0.66) axis +Y pre-dot 0.429
+[2026-09-05 15:42:03.298] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.54,-0.22,0.82) eye->mirror=(0.92,0.38,0.00) bore=(0.48,0.56,-0.67) axis +Y pre-dot 0.434
+[2026-09-05 15:42:08.311] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.54,-0.22,0.81) eye->mirror=(0.93,0.38,-0.01) bore=(0.48,0.56,-0.67) axis +Y pre-dot 0.440
+[2026-09-05 15:42:13.325] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.54,-0.22,0.81) eye->mirror=(0.93,0.37,-0.01) bore=(0.48,0.56,-0.68) axis +Y pre-dot 0.443
+[2026-09-05 15:42:18.334] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.53,-0.23,0.82) eye->mirror=(0.93,0.37,-0.01) bore=(0.49,0.55,-0.67) axis +Y pre-dot 0.440
+[2026-09-05 15:42:23.342] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.54,-0.22,0.81) eye->mirror=(0.92,0.38,-0.01) bore=(0.48,0.56,-0.67) axis +Y pre-dot 0.440
+[2026-09-05 15:42:28.353] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.54,-0.23,0.81) eye->mirror=(0.93,0.38,-0.00) bore=(0.48,0.57,-0.67) axis +Y pre-dot 0.437
+[2026-09-05 15:42:33.364] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.49,-0.21,0.85) eye->mirror=(0.90,0.43,0.10) bore=(0.48,0.61,-0.64) axis +Y pre-dot 0.435
+[2026-09-05 15:42:38.366] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.16,-0.51,0.84) eye->mirror=(0.86,-0.41,0.30) bore=(0.97,-0.08,-0.24) axis +Y pre-dot 0.425
+[2026-09-05 15:42:43.381] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.71,-0.69,0.13) eye->mirror=(-0.10,-0.23,0.97) bore=(0.40,0.26,0.88) axis +Y pre-dot 0.474
+[2026-09-05 15:42:48.398] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.72,-0.58,0.38) eye->mirror=(0.21,-0.19,0.96) bore=(0.68,0.19,0.71) axis +Y pre-dot 0.438
+[2026-09-05 15:42:53.402] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.65,-0.48,0.58) eye->mirror=(0.40,-0.07,0.91) bore=(0.80,0.22,0.56) axis +Y pre-dot 0.421
+[2026-09-05 15:42:58.405] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.77,-0.56,0.31) eye->mirror=(0.16,-0.23,0.96) bore=(0.63,0.11,0.77) axis +Y pre-dot 0.427
+[2026-09-05 15:43:03.416] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.26,-0.70,0.67) eye->mirror=(0.98,-0.19,-0.00) bore=(0.78,0.35,-0.52) axis +Y pre-dot 0.441
+[2026-09-05 15:43:08.430] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.72,-0.45,-0.52) eye->mirror=(-0.38,-0.24,-0.89) bore=(-0.81,0.03,-0.58) axis +Y pre-dot 0.406
+[2026-09-05 15:43:13.439] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.71,-0.46,-0.54) eye->mirror=(-0.37,-0.15,-0.92) bore=(-0.79,0.13,-0.59) axis +Y pre-dot 0.422
+[2026-09-05 15:43:18.448] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.44,-0.80,-0.42) eye->mirror=(-0.51,-0.40,-0.77) bore=(-0.87,0.26,-0.42) axis +Y pre-dot 0.473
+[2026-09-05 15:43:23.459] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.55,-0.49,-0.68) eye->mirror=(-0.60,-0.22,-0.77) bore=(-0.93,0.07,-0.36) axis +Y pre-dot 0.428
+[2026-09-05 15:43:28.474] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.02,-0.53,-0.85) eye->mirror=(-0.95,-0.13,-0.30) bore=(-0.96,0.18,0.21) axis +Y pre-dot 0.431
+[2026-09-05 15:43:33.475] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.00,-0.51,-0.86) eye->mirror=(-0.94,-0.30,-0.17) bore=(-0.94,0.01,0.35) axis +Y pre-dot 0.420
+[2026-09-05 15:43:38.486] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.08,-0.55,-0.83) eye->mirror=(-0.97,-0.23,-0.11) bore=(-0.92,0.09,0.39) axis +Y pre-dot 0.445
+[2026-09-05 15:43:43.490] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.71,-0.52,-0.48) eye->mirror=(-0.35,-0.22,-0.91) bore=(-0.78,0.09,-0.62) axis +Y pre-dot 0.429
+[2026-09-05 15:43:48.506] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.27,-0.48,-0.84) eye->mirror=(-0.82,-0.40,-0.40) bore=(-0.99,-0.11,0.11) axis +Y pre-dot 0.436
+[2026-09-05 15:43:53.513] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.39,-0.80,-0.45) eye->mirror=(-0.61,-0.46,-0.65) bore=(-0.94,0.22,-0.27) axis +Y pre-dot 0.402
+[2026-09-05 15:43:58.523] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.45,-0.43,-0.78) eye->mirror=(-0.71,-0.43,-0.56) bore=(-0.98,-0.17,-0.09) axis +Y pre-dot 0.438
+[2026-09-05 15:44:03.524] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.09,-0.42,-0.90) eye->mirror=(-0.93,-0.15,-0.35) bore=(-0.98,0.09,0.18) axis +Y pre-dot 0.429
+[2026-09-05 15:44:08.528] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.36,-0.93,-0.06) eye->mirror=(-0.94,-0.13,0.33) bore=(-0.62,0.68,0.38) axis +Y pre-dot -0.028
+[2026-09-05 15:44:13.533] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.66,-0.40,0.63) eye->mirror=(-0.89,0.43,-0.12) bore=(-0.44,0.71,-0.55) axis +Y pre-dot -0.365
+[2026-09-05 15:44:18.539] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.11,-0.98,-0.16) eye->mirror=(-0.88,-0.33,-0.34) bore=(-0.77,0.61,-0.19) axis +Y pre-dot 0.213
+[2026-09-05 15:44:23.550] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.55,-0.41,-0.73) eye->mirror=(-0.62,-0.28,-0.73) bore=(-0.96,-0.03,-0.29) axis +Y pre-dot 0.422
+[2026-09-05 15:44:28.562] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.57,-0.43,-0.70) eye->mirror=(-0.59,-0.23,-0.78) bore=(-0.94,0.03,-0.35) axis +Y pre-dot 0.427
+[2026-09-05 15:44:33.569] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.19,-0.90,-0.38) eye->mirror=(-0.94,-0.15,-0.31) bore=(-0.77,0.64,0.02) axis +Y pre-dot 0.132
+[2026-09-05 15:44:38.578] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.74,-0.33,0.59) eye->mirror=(-0.87,0.46,-0.18) bore=(-0.30,0.71,-0.63) axis +Y pre-dot -0.314
+[2026-09-05 15:44:43.580] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.74,-0.32,0.60) eye->mirror=(-0.87,0.47,-0.18) bore=(-0.30,0.71,-0.63) axis +Y pre-dot -0.301
+[2026-09-05 15:44:48.581] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.74,-0.33,0.59) eye->mirror=(-0.87,0.46,-0.18) bore=(-0.31,0.71,-0.63) axis +Y pre-dot -0.307
+[2026-09-05 15:44:53.581] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.73,-0.32,0.60) eye->mirror=(-0.87,0.47,-0.17) bore=(-0.31,0.71,-0.63) axis +Y pre-dot -0.294
+[2026-09-05 15:44:58.583] [REFramework] [info] [m6_mirror] steer: model=eye n=(-0.73,-0.32,0.60) eye->mirror=(-0.87,0.46,-0.17) bore=(-0.31,0.71,-0.63) axis +Y pre-dot -0.299
+[2026-09-05 15:45:03.599] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.45,-0.26,-0.85) eye->mirror=(-0.47,0.31,-0.82) bore=(-0.84,0.52,-0.13) axis +Y pre-dot 0.433
+[2026-09-05 15:45:08.609] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.47,-0.26,-0.84) eye->mirror=(-0.47,0.29,-0.83) bore=(-0.85,0.50,-0.14) axis +Y pre-dot 0.429
+[2026-09-05 15:45:13.609] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.47,-0.27,-0.84) eye->mirror=(-0.47,0.28,-0.84) bore=(-0.85,0.50,-0.15) axis +Y pre-dot 0.429
+[2026-09-05 15:45:18.624] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.45,-0.26,-0.85) eye->mirror=(-0.49,0.28,-0.83) bore=(-0.86,0.49,-0.13) axis +Y pre-dot 0.426
+[2026-09-05 15:45:23.625] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.46,-0.26,-0.85) eye->mirror=(-0.49,0.28,-0.83) bore=(-0.86,0.49,-0.14) axis +Y pre-dot 0.426
+[2026-09-05 15:45:28.625] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.46,-0.26,-0.85) eye->mirror=(-0.48,0.28,-0.83) bore=(-0.86,0.49,-0.14) axis +Y pre-dot 0.423
+[2026-09-05 15:45:33.639] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.47,-0.27,-0.84) eye->mirror=(-0.47,0.28,-0.84) bore=(-0.86,0.49,-0.15) axis +Y pre-dot 0.422
+[2026-09-05 15:45:38.654] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.34,-0.28,-0.90) eye->mirror=(-0.59,0.27,-0.76) bore=(-0.86,0.50,-0.04) axis +Y pre-dot 0.441
+[2026-09-05 15:45:43.666] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.03,-0.06,-1.00) eye->mirror=(-0.53,0.69,-0.49) bore=(-0.56,0.74,0.37) axis +Y pre-dot 0.503
+[2026-09-05 15:45:48.674] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.29,-0.14,-0.95) eye->mirror=(-0.50,0.54,-0.67) bore=(-0.75,0.65,0.12) axis +Y pre-dot 0.422
+[2026-09-05 15:45:53.679] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.41,-0.20,-0.89) eye->mirror=(-0.49,0.40,-0.77) bore=(-0.82,0.56,-0.06) axis +Y pre-dot 0.405
+[2026-09-05 15:45:58.685] [REFramework] [info] [m6_mirror] steer: model=eye n=(0.65,-0.11,-0.76) eye->mirror=(-0.19,0.59,-0.79) bore=(-0.71,0.68,-0.18) axis +Y pre-dot 0.438
+[2026-09-05 15:45:59.156] [REFramework] [info] [re8-harness] harness: steer 0  -> pitch=180.0 yaw=90.0 steer=false ads=false
