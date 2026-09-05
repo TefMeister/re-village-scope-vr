@@ -51,8 +51,26 @@ def find_window():
     return found[0]
 
 
+# The scope plugin polls GetAsyncKeyState, so numpad keys must go as VIRTUAL KEYS.
+# Until 2026-09-05 this helper handled the DIGITS only (0x60+n), which meant the two
+# keys the cold order actually needs -- numpad . (re-arm the mirror latch) and
+# numpad * (bind the glass) -- had to be sent as the arithmetic "num 14" and
+# "num 10". That works, and it is exactly the kind of thing that gets mistyped once
+# and costs a launch, so they have names now. The old numeric form still works.
+NUMPAD_VK = {
+    ".": 0x6E, "decimal": 0x6E, "dot": 0x6E,
+    "*": 0x6A, "multiply": 0x6A, "star": 0x6A,
+    "+": 0x6B, "add": 0x6B, "plus": 0x6B,
+    "-": 0x6D, "subtract": 0x6D, "minus": 0x6D,
+    "/": 0x6F, "divide": 0x6F, "slash": 0x6F,
+}
+
+
 def num(n, hold=0.07):
-    vk = 0x60 + int(n)
+    key = str(n).strip().lower()
+    vk = NUMPAD_VK.get(key)
+    if vk is None:
+        vk = 0x60 + int(key)
     down = H.INPUT(type=H.INPUT_KEYBOARD, u=H._I(ki=H.KEYBDINPUT(vk, 0, 0, 0, None)))
     up = H.INPUT(type=H.INPUT_KEYBOARD, u=H._I(ki=H.KEYBDINPUT(vk, 0, H.KEYEVENTF_KEYUP, 0, None)))
     u.SendInput(1, ctypes.byref(down), ctypes.sizeof(H.INPUT)); time.sleep(hold)

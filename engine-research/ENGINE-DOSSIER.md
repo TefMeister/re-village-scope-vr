@@ -533,6 +533,37 @@ is **near-square, and both `st.aspect_val` and the latch's size window are writt
 Adopting it is a change to the working display path, not a resolution knob, and it needs its own
 session with its own control.
 
+### 9c. The latch was matching on width alone, and `mirror_env` resolves (2026-09-05 late, `/lm`, one flat launch)
+
+Notes: `modding-notes/2026-09-05j-one-flat-launch-the-latch-was-matching-on-width-alone.md`.
+
+- **⚠️ The mirror-source latch grabbed an engine HDR intermediate instead of our movie target.** On
+  the third and fourth rig rebuilds of one session it latched **1920×1088 fmt=26 flags=0x5**
+  (`R11G11B10_FLOAT`, `ALLOW_RENDER_TARGET | ALLOW_UNORDERED_ACCESS`) and the scope went black;
+  the first rebuild had latched **1920×1088 fmt=29 flags=0x1** and shown the world
+  `[verified-live 2026-09-05, n=4 rebuilds, n=2 wrong]`. `looks_like_mirror_target` checked
+  dimension, width, a height window and `ALLOW_RENDER_TARGET` — both allocations pass all four.
+- **Measured discriminator:** every movie `.rtex` the engine has handed this project is
+  **fmt=29 / flags=0x1 exactly** — 1280×728 (2026-08-24, and again today), 1920×1088 (today)
+  `[verified-live, n=4 latches across 2 launches]`. The predicate now requires
+  `DXGI_FORMAT_R8G8B8A8_UNORM_SRGB` and refuses `ALLOW_UNORDERED_ACCESS`; a movie target in another
+  format yields **no latch line** rather than a black scope `[compile-verified 2026-09-05]`, unrun.
+- **General shape worth keeping:** a latch that identifies by *measurement* is only as specific as
+  the measurements it takes. Width + height + one flag was enough on the day it was written and
+  stopped being enough the moment the engine allocated something the same size.
+- **`mirror_env.rtex` resolves through `create_resource` and binds to the lens (2 slots)**
+  `[verified-live, n=1]`. On the lens: warped environment imagery, sky above / terrain below, that
+  changes with view direction `[verified-live, n=1]` — **not** a live-vs-static discriminator
+  (a static cube map sampled as a reflection does the same). Dimensions/format still unread.
+- **`sdk.find_type_definition("via.render.RenderTargetTextureResource")` returns nil** while
+  `sdk.create_resource` resolves the same string `[verified-live, n=1]`. Resource types are not
+  managed-TDB types on this build; take the type from the returned object.
+- **The REFramework overlay cannot be clicked from outside**: hover registers, clicks do not, via
+  `mouse_event` and `SendInput`+`MOUSEEVENTF_ABSOLUTE` `[disproved 2026-09-05, n=3 attempts]`.
+  So a Lua edit costs a relaunch. A harness `reload` was rejected: re-executing the producer
+  duplicates every `re.on_frame` registration.
+- `EyeDistortionRange` read back 0.100 again on a fresh launch — `[verified-live, n=3 launches]`.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
