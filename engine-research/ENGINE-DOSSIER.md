@@ -226,3 +226,43 @@ term in the package]`. **Keep the package off; treat the black-dome problem it w
 solved by the curve until a spot proves otherwise.** Aspect fix of 2026-09-02 also verified the
 same evening (well square, reticle square with no reticle code touched); scope zeroed at
 `cropY = 0.60`; the crop centre now has a horizontal key (numpad 4/6) and 0.01 steps.
+
+
+## 8. The mirror in the headset: what the eye does to the picture (2026-09-05)
+
+Source: `modding-notes/2026-09-05c-the-headset-says-steering-off-on-axis-is-right.md`; evidence
+`dev-archive/recon/2026-09-05-vr-model-test/`.
+
+- **The flat-tuned rig pose and zero are correct in VR for the on-axis eye.** Steering OFF, scope
+  centred in the view, eye behind the eyepiece: scene ahead, right way up, shots land near the
+  reticle. `[verified-live 2026-09-05, n=1 scene]`
+- **The picture is eye-dependent.** Leaning the head sideways with the rifle still shifts the
+  content. `[verified-live 2026-09-05, n=1]` So the mirror does reflect relative to the viewer,
+  and a per-frame plane correction is needed — but see the next point for its shape.
+- **Deriving the plane from scratch per frame is wrong.** Both `n = normalize(v − d)` (eye→mirror
+  ray) and `n = normalize(f − d)` (camera forward) were tried in the headset; both showed the
+  jacket off-axis, and the first turned a correct on-axis picture upside down and away.
+  `[disproved 2026-09-05, n=1 each]` On-axis these formulas have v ≈ d, so n is a small-difference
+  vector nearly perpendicular to the bore — a large rotation applied exactly where none is needed.
+  The correction must be relative to the baked pose and the identity on-axis; the proposed law is
+  a half-angle slerp of `shortest_arc(bore, eye→mirror)` with the sign as a knob `[hypothesis]`.
+  Dead end recorded so it is not re-derived: any steering that ignores the baked pose.
+- **The crop is the second cause of a wrong picture off-axis.** The compositor samples a fixed
+  point of the mirror RT (`mir_cx/mir_cy`); the plugin's aim pixel is the view centre in flat ADS
+  (`(960,541)`, 15 samples) and far from it in VR (`(302..1400, 870..1190)`)
+  `[measured 2026-09-05]`. Centring the scope in the view cleared the jacket `[verified-live, n=1]`.
+  In VR the aim pixel exceeds 1080 vertically, so the projection space of the aim pixel — and of
+  the mirror RT itself under the VR camera — is not the desktop frame and is not yet identified.
+- **The lens material simulates an exit pupil.** Off-axis the visible disc shrinks and slides and
+  the slot-1 picture is shifted and scaled with view angle; `EyeDistortionRange` reads back 0.100
+  under every write (both lens materials, two launches) `[verified-live 2026-09-05, n=2]`. That it
+  is the game's own effect rather than ours is `[hypothesis]` — nothing in our shaders draws a
+  hole that changes size, but the 2026-09-04 pre-steering run was not checked for it.
+- **Two facts about the VR session itself:** the desktop window does not repaint in VR mode, so
+  BitBlt captures are static and the REFramework log is the only oracle
+  `[verified-live 2026-09-05, n=1 launch]`; the 1920×1080 movie `.rtex` is accepted as the mirror
+  RT and the plugin latches the 1920×1088 raw-HDR allocation `[verified-live 2026-09-05, n=2]`.
+- **Texture identity:** `getMaterialTexture` returns a `via.render.TextureResourceHolder` wrapper
+  with none of `get_Resource / getResource / get_ResourceHolder / get_Texture / getTexture /
+  get_Handle / get_NativeResource`, and a fresh wrapper per call `[verified-live 2026-09-05, n=2]`.
+  A bind-order guard cannot be built on wrapper pointers; it is disabled.
