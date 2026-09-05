@@ -1,0 +1,184 @@
+[2026-09-05 17:27:33.255] [REFramework] [info] [re8-harness] harness: pitch 220  -> pitch=220.0 yaw=90.0 steer=false model=corr k=0.500 ads=true
+[2026-09-05 17:27:33.255] [REFramework] [info] [m6_mirror] sliders: pitch=220.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-05 17:27:33.297] [REFramework] [info] [m6_mirror] P-WATCH: frame 68400 (456.66s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:33.587] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.97) local=(0.00,0.00,-0.22) LOCK px=(963,526) axis=2 aim=(959,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:34.353] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,528) axis=2 aim=(963,538) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:35.119] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,532) axis=2 aim=(965,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:35.209] [REFramework] [info] [m6_mirror] P-WATCH: frame 68700 (458.57s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:27:35.876] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(962,533) axis=2 aim=(960,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:36.643] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(956,532) axis=2 aim=(955,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:36.793] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:27:36.822] [REFramework] [info] [m6_mirror] hb rig=(39.65,-34.99,101.69) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:27:37.118] [REFramework] [info] [m6_mirror] P-WATCH: frame 69000 (460.48s) -- alive, draw=true pos=(39.65,-34.99,101.69)
+[2026-09-05 17:27:37.411] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,529) axis=2 aim=(957,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:38.179] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,526) axis=2 aim=(964,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:38.940] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,527) axis=2 aim=(964,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:39.027] [REFramework] [info] [m6_mirror] P-WATCH: frame 69300 (462.39s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:27:39.707] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,531) axis=2 aim=(960,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:40.479] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,534) axis=2 aim=(961,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:40.953] [REFramework] [info] [m6_mirror] P-WATCH: frame 69600 (464.32s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:41.250] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,531) axis=2 aim=(961,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:41.796] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:27:42.016] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(957,530) axis=2 aim=(956,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:42.793] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.97) local=(-0.00,0.00,-0.22) LOCK px=(960,528) axis=2 aim=(957,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:42.881] [REFramework] [info] [m6_mirror] P-WATCH: frame 69900 (466.25s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:43.563] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,526) axis=2 aim=(963,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:44.329] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(970,529) axis=2 aim=(966,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:44.797] [REFramework] [info] [m6_mirror] P-WATCH: frame 70200 (468.16s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:27:45.093] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,534) axis=2 aim=(960,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:45.863] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(958,533) axis=2 aim=(956,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:46.625] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,531) axis=2 aim=(958,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:46.715] [REFramework] [info] [m6_mirror] P-WATCH: frame 70500 (470.08s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:46.800] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:27:46.823] [REFramework] [info] [m6_mirror] hb rig=(39.65,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:27:47.397] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,527) axis=2 aim=(962,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:48.161] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,526) axis=2 aim=(961,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:48.630] [REFramework] [info] [m6_mirror] P-WATCH: frame 70800 (471.99s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:48.922] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(966,529) axis=2 aim=(962,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:49.691] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(966,533) axis=2 aim=(963,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:50.458] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,532) axis=2 aim=(962,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:50.547] [REFramework] [info] [m6_mirror] P-WATCH: frame 71100 (473.91s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:51.225] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(957,531) axis=2 aim=(956,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:51.803] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:27:51.990] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(957,529) axis=2 aim=(956,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:52.462] [REFramework] [info] [m6_mirror] P-WATCH: frame 71400 (475.83s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:52.754] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(967,526) axis=2 aim=(963,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:53.518] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(970,527) axis=2 aim=(966,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:54.283] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,531) axis=2 aim=(961,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:54.372] [REFramework] [info] [m6_mirror] P-WATCH: frame 71700 (477.74s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:55.046] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,534) axis=2 aim=(958,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:55.813] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,532) axis=2 aim=(960,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:56.288] [REFramework] [info] [m6_mirror] P-WATCH: frame 72000 (479.65s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:56.579] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(960,529) axis=2 aim=(959,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:56.827] [REFramework] [info] [m6_mirror] hb rig=(39.65,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:27:57.307] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:27:57.352] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,527) axis=2 aim=(958,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:58.144] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(966,526) axis=2 aim=(961,538) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:58.241] [REFramework] [info] [m6_mirror] P-WATCH: frame 72300 (481.61s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:27:58.926] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(969,530) axis=2 aim=(965,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:27:59.700] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,533) axis=2 aim=(962,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:00.171] [REFramework] [info] [m6_mirror] P-WATCH: frame 72600 (483.54s) -- alive, draw=true pos=(39.65,-35.00,101.70)
+[2026-09-05 17:28:00.462] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(957,532) axis=2 aim=(956,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:01.230] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(956,530) axis=2 aim=(955,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:01.996] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,527) axis=2 aim=(962,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:02.084] [REFramework] [info] [m6_mirror] P-WATCH: frame 72900 (485.45s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:02.310] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:02.762] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(969,525) axis=2 aim=(964,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:03.530] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,529) axis=2 aim=(961,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:04.003] [REFramework] [info] [m6_mirror] P-WATCH: frame 73200 (487.37s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:04.297] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,533) axis=2 aim=(960,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:05.064] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,532) axis=2 aim=(962,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:05.834] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,531) axis=2 aim=(958,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:05.922] [REFramework] [info] [m6_mirror] P-WATCH: frame 73500 (489.29s) -- alive, draw=true pos=(39.65,-35.00,101.69)
+[2026-09-05 17:28:06.602] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(957,529) axis=2 aim=(956,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:06.829] [REFramework] [info] [m6_mirror] hb rig=(39.65,-34.99,101.69) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:28:07.314] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:07.376] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,526) axis=2 aim=(961,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:07.866] [REFramework] [info] [m6_mirror] P-WATCH: frame 73800 (491.23s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:08.160] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(971,527) axis=2 aim=(967,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:08.930] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,532) axis=2 aim=(962,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:09.709] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,533) axis=2 aim=(957,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:09.797] [REFramework] [info] [m6_mirror] P-WATCH: frame 74100 (493.16s) -- alive, draw=true pos=(39.65,-34.99,101.69)
+[2026-09-05 17:28:10.479] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,531) axis=2 aim=(958,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:11.247] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(962,528) axis=2 aim=(961,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:11.723] [REFramework] [info] [m6_mirror] P-WATCH: frame 74400 (495.09s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:12.018] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,526) axis=2 aim=(961,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:12.784] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,527) axis=2 aim=(960,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:13.317] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:13.551] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(967,531) axis=2 aim=(963,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:13.640] [REFramework] [info] [m6_mirror] P-WATCH: frame 74700 (497.00s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:14.316] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(966,533) axis=2 aim=(963,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:15.079] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,532) axis=2 aim=(958,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:15.550] [REFramework] [info] [m6_mirror] P-WATCH: frame 75000 (498.92s) -- alive, draw=true pos=(39.65,-34.99,101.69)
+[2026-09-05 17:28:15.841] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(955,530) axis=2 aim=(954,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:16.606] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,528) axis=2 aim=(961,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:16.832] [REFramework] [info] [m6_mirror] hb rig=(39.64,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:28:17.367] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(970,525) axis=2 aim=(965,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:17.457] [REFramework] [info] [m6_mirror] P-WATCH: frame 75300 (500.82s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:18.128] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(966,529) axis=2 aim=(963,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:18.820] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:18.895] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,534) axis=2 aim=(958,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:19.373] [REFramework] [info] [m6_mirror] P-WATCH: frame 75600 (502.74s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:19.670] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(962,532) axis=2 aim=(960,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:20.430] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(960,530) axis=2 aim=(960,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:21.184] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(960,528) axis=2 aim=(958,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:21.271] [REFramework] [info] [m6_mirror] P-WATCH: frame 75900 (504.64s) -- alive, draw=true pos=(39.65,-34.99,101.69)
+[2026-09-05 17:28:21.943] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,526) axis=2 aim=(959,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:22.704] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(970,528) axis=2 aim=(965,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:23.172] [REFramework] [info] [m6_mirror] P-WATCH: frame 76200 (506.54s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:23.462] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,531) axis=2 aim=(965,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:23.824] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:24.227] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(960,533) axis=2 aim=(958,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:25.013] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(956,532) axis=2 aim=(955,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:25.102] [REFramework] [info] [m6_mirror] P-WATCH: frame 76500 (508.47s) -- alive, draw=true pos=(39.65,-34.99,101.69)
+[2026-09-05 17:28:25.778] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,529) axis=2 aim=(959,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:26.555] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(967,526) axis=2 aim=(963,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:26.835] [REFramework] [info] [m6_mirror] hb rig=(39.64,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:28:27.023] [REFramework] [info] [m6_mirror] P-WATCH: frame 76800 (510.39s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:27.317] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,527) axis=2 aim=(961,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:28.081] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,531) axis=2 aim=(961,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:28.830] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:28.848] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,533) axis=2 aim=(962,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:28.935] [REFramework] [info] [m6_mirror] P-WATCH: frame 77100 (512.30s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:29.607] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(962,531) axis=2 aim=(960,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:30.371] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(955,530) axis=2 aim=(955,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:30.844] [REFramework] [info] [m6_mirror] P-WATCH: frame 77400 (514.21s) -- alive, draw=true pos=(39.65,-34.99,101.69)
+[2026-09-05 17:28:31.136] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,527) axis=2 aim=(958,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:31.898] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(970,526) axis=2 aim=(965,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:32.664] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(969,529) axis=2 aim=(965,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:32.751] [REFramework] [info] [m6_mirror] P-WATCH: frame 77700 (516.12s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:33.430] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(0.00,0.00,-0.22) LOCK px=(961,534) axis=2 aim=(958,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:33.834] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:34.195] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,532) axis=2 aim=(957,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:34.663] [REFramework] [info] [m6_mirror] P-WATCH: frame 78000 (518.03s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:34.953] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(960,530) axis=2 aim=(959,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:35.721] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,528) axis=2 aim=(961,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:36.500] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.97) local=(0.00,0.00,-0.22) LOCK px=(964,526) axis=2 aim=(959,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:36.589] [REFramework] [info] [m6_mirror] P-WATCH: frame 78300 (519.95s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:36.836] [REFramework] [info] [m6_mirror] hb rig=(39.65,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:28:37.265] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(967,529) axis=2 aim=(963,538) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:38.031] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(967,532) axis=2 aim=(964,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:38.507] [REFramework] [info] [m6_mirror] P-WATCH: frame 78600 (521.87s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:38.798] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,532) axis=2 aim=(961,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:38.837] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:39.562] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(955,531) axis=2 aim=(955,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:40.326] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.97) local=(-0.00,0.00,-0.22) LOCK px=(959,529) axis=2 aim=(957,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:40.415] [REFramework] [info] [m6_mirror] P-WATCH: frame 78900 (523.78s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:41.090] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(968,526) axis=2 aim=(964,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:41.855] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(969,527) axis=2 aim=(964,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:42.321] [REFramework] [info] [m6_mirror] P-WATCH: frame 79200 (525.69s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:42.616] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,532) axis=2 aim=(960,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:43.377] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(962,533) axis=2 aim=(960,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:43.841] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:44.139] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(963,531) axis=2 aim=(961,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:44.228] [REFramework] [info] [m6_mirror] P-WATCH: frame 79500 (527.59s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:44.903] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(958,530) axis=2 aim=(957,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:45.667] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.97) local=(-0.00,0.00,-0.22) LOCK px=(960,527) axis=2 aim=(957,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:46.131] [REFramework] [info] [m6_mirror] P-WATCH: frame 79800 (529.50s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:46.426] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(967,526) axis=2 aim=(963,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:46.839] [REFramework] [info] [m6_mirror] hb rig=(39.64,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:28:47.189] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(970,529) axis=2 aim=(967,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:47.951] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(964,534) axis=2 aim=(961,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:48.039] [REFramework] [info] [m6_mirror] P-WATCH: frame 80100 (531.40s) -- alive, draw=true pos=(39.65,-35.00,101.70)
+[2026-09-05 17:28:48.717] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(957,533) axis=2 aim=(956,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:48.845] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:49.477] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(958,531) axis=2 aim=(957,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:49.946] [REFramework] [info] [m6_mirror] P-WATCH: frame 80400 (533.31s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:50.239] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,527) axis=2 aim=(962,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:50.994] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(966,526) axis=2 aim=(962,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:51.756] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,529) axis=2 aim=(961,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:51.844] [REFramework] [info] [m6_mirror] P-WATCH: frame 80700 (535.21s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:52.513] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,533) axis=2 aim=(962,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:53.278] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,532) axis=2 aim=(963,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:53.744] [REFramework] [info] [m6_mirror] P-WATCH: frame 81000 (537.11s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:53.849] [REFramework] [info] Windows message hook is still intact, ignoring...
+[2026-09-05 17:28:54.035] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(958,531) axis=2 aim=(957,543) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:54.795] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(956,529) axis=2 aim=(955,541) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:55.557] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,527) axis=2 aim=(962,539) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:55.646] [REFramework] [info] [m6_mirror] P-WATCH: frame 81300 (539.01s) -- alive, draw=true pos=(39.64,-34.99,101.70)
+[2026-09-05 17:28:56.336] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.61,-34.70,100.98) local=(0.00,0.00,-0.22) LOCK px=(971,526) axis=2 aim=(966,540) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:56.839] [REFramework] [info] [m6_mirror] hb rig=(39.64,-34.99,101.70) rq=(-0.05,0.34,0.94,0.02) rifle=(38.72,-34.79,100.88) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-05 17:28:57.102] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.98) local=(0.00,0.00,-0.22) LOCK px=(965,531) axis=2 aim=(962,542) proj=1920x1080 cropFollow=0
+[2026-09-05 17:28:57.573] [REFramework] [info] [m6_mirror] P-WATCH: frame 81600 (540.94s) -- alive, draw=true pos=(39.65,-34.99,101.70)
+[2026-09-05 17:28:57.863] [REFramework] [info] [Plugin] [re-scope-vr] world[ok-body]: cam=(38.60,-34.64,100.87) fov=49.2 joint=(39.62,-34.71,100.97) local=(-0.00,0.00,-0.22) LOCK px=(960,534) axis=2 aim=(957,540) proj=1920x1080 cropFollow=0
+
