@@ -56,6 +56,21 @@ Note the guard's *behaviour* is only expected to change in the first case. If th
 pointer" and the re-binding continues, that is not this change failing — it is this change
 correctly reporting that we were chasing the wrong thing.
 
+### One behaviour change beyond the fix, stated rather than buried
+
+The old check opened with `if (holder == nullptr || g_glass_binds.empty()) return false;`. I
+dropped the holder half, because the holder is no longer what the comparison uses. So in the corner
+case *"binds exist, our texture is still installed, but `scope_holder` has gone null"*, the guard
+used to answer "not ours" — logging *"our bind was replaced"* and calling `bind_scope_glass()`
+every 1.36 s — and now answers "ours" and stays quiet.
+
+That is the better answer (the guard's own stated job is *"strictly to take a bind back, never to
+create one"*, and our texture really is still on the slot), and the old path was harmless anyway:
+`bind_scope_glass()` opens with its own null-holder check and returns after one log line. Checked
+rather than assumed. In practice `scope_holder` is stored once at creation and not cleared, so this
+case is close to unreachable — it is recorded because it is a real difference, not because it is
+expected to happen.
+
 `[compile-verified 2026-09-05]` — VS2022 Release, zero warnings, both exports
 (`reframework_plugin_initialize`, `reframework_plugin_required_version`) intact.
 
