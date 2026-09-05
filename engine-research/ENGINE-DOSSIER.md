@@ -431,6 +431,33 @@ evidence `dev-archive/recon/2026-09-05g-both-fixes-run/`.
   there, and any implementation that does something is wrong before comfort or feel is even a
   question.
 
+### 8e. The flat control passes: the steering ray is on the scope (2026-09-05 evening, `/lm`)
+
+Source: `modding-notes/2026-09-05h-the-flat-control-passes-at-last.md`; evidence
+`dev-archive/recon/2026-09-05h-the-control-passes/`.
+
+- **⭐⭐ The lens anchor is the weapon's `Body` joint plus the mount offset `(0, 0.151, 0.099)` in that
+  joint's own frame**, and the Lua can compute it directly — no channel from the plugin is needed.
+  With the ray aimed there, on-axis in flat ADS: **`arc = 0.7 deg`, applied `0.3 deg`, picture
+  unchanged** `[verified-live 2026-09-05, n=1 launch, 12 consecutive steer lines under 1 deg]`.
+- **The full progression, all measured on-axis**, is the useful record:
+
+  | ray aimed at | arc from the bore | picture |
+  | --- | --- | --- |
+  | the rig's parked position | 35.3° | replaced |
+  | the rifle transform's root (the grip) | 50.1° | replaced, worse |
+  | **Body joint + mount offset** | **0.7°** | **unchanged** |
+
+- **⚠️ What passing does NOT establish.** On-axis is exactly the case where every value of `k`
+  behaves identically, so `k = 0.5`, its sign and the half-angle law remain untested. The control
+  proves the implementation is sound, not that the model is right.
+- **✅ `EyeDistortionRange` cannot be written through `setMaterialFloat` — now n=2 launches.** A
+  1.5 s frame-rate hold reads back `0.100` on both lens materials on both runs
+  `[verified-live 2026-09-05, n=2 launches, n=2 materials]`.
+- **The on-axis flat control has now caught two wrong rays and confirmed the third, in one day, for
+  the cost of three flat launches and no headset time.** Keep it as the gate in front of every
+  steering change.
+
 ## 9. The shipped `.rtex` inventory, and the one named `mirror_env` (`/gr` drop, drained 2026-09-05)
 
 From Ekey's public `RE8_STM_Release.list` path listing — path strings only, no game content read or
