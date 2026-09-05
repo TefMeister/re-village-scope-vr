@@ -564,6 +564,34 @@ Notes: `modding-notes/2026-09-05j-one-flat-launch-the-latch-was-matching-on-widt
   duplicates every `re.on_frame` registration.
 - `EyeDistortionRange` read back 0.100 again on a fresh launch — `[verified-live, n=3 launches]`.
 
+### 9d. The latch, corrected: `fmt=26` is wrong only as a FIRST source, and re-arm is a pending replacement (2026-09-05 late, `/lm`)
+
+Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
+`modding-notes/2026-09-05k-the-fix-was-a-regression-and-the-record-said-so.md`.
+
+- **§9c's fix was a regression.** The 2026-08-31 design latches the 8-bit `fmt=29` resolve and then
+  **upgrades** to the `fmt=26` raw-HDR scene buffer when it allocates next (§7's GT grading tonemaps
+  that HDR source). The upgrade line is in launch 1 tonight and in the headset run where the shots
+  landed `[verified-live 2026-09-05, n=3 logs]`. A format gate inside `looks_like_mirror_target`
+  refused the upgrade too; the gated launch ran on the SRGB resolve — the 08-31 "golden veil" — and
+  its "good" picture was a whitened wash `[verified-live, n=1 launch]`.
+- **Corrected:** the predicate is geometric; the hook decides "may this be a **first** source"
+  (`fmt=29`, no UAV) `[verified-live, n=7 movie-target latches all fmt=29/0x1]`; the `fmt=26`
+  **upgrade** branch is reachable again. As a *first* source `fmt=26` is a random HDR intermediate
+  and shows black `[verified-live, n=2]`; as an upgrade it is the mirror's scene buffer.
+- **Whether a rebuild allocates at all is not predictable from outside** — one process allocated
+  1280 twice and 1920 once across six cycles `[verified-live, n=6]`. So numpad `.` no longer retires
+  the source; it marks a replacement **pending** and the next acceptable allocation swaps in,
+  otherwise the current picture stays. The HDR early-return yields to a pending re-arm.
+  `[compile-verified 2026-09-05]`, unrun.
+- **The boot latch is never ours:** `1920×1080 fmt=28` (`R8G8B8A8_UNORM`, exact 1080) fires before
+  any rig exists `[verified-live, n=3 launches]`. The cold order's re-arm was displacing it.
+- **Reticle square: green = mirror source latched, blue = none** `[verified-live, n=3]`.
+- **Reflection cannot describe a resource on this build.** `create_resource` returns something
+  with **no type definition** for all nine `.rtex` paths `[verified-live, n=1]`; yesterday the type
+  *name* was unknown, today the *object* is. `mirror_env`'s descriptor needs the D3D12 route — the
+  plugin's existing `CreateShaderResourceView` hook can `GetDesc()` the resource the lens samples.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
