@@ -1,0 +1,8 @@
+[2026-09-05 23:37:12.059] [REFramework] [info] [Plugin] [re-scope-vr] settings loaded: flipH=1 flipV=1 glassFlipV=0 evAuto=1 exposure=0.168 evSlope=2.0 cropY=0.60 grading=GT-CURVE exposureGT=0.511 toneWp=0 rtScale=1.00 rollK=0.00 cropFollow=1
+[2026-09-05 23:37:12.142] [REFramework] [info] [VR] OpenXR system Name: Meta Quest 3
+[2026-09-05 23:38:16.057] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false
+[2026-09-05 23:38:16.115] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched (1280-wide): 1920x1088 fmt=29 flags=0x1 -> 0000013DA1B8A380 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-05 23:38:16.121] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 00000140CF70B910 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-05 23:38:22.094] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false
+[2026-09-05 23:38:22.138] [REFramework] [info] [m6_mirror] steer: lens anchor = Body joint + mount offset (0, 0.151, 0.099) -- the plugin's own construction
+[2026-09-05 23:38:24.469] [REFramework] [info] [Plugin] [re-scope-vr] glass: 2 slot(s) bound on the rifle's own mesh, 2 setMaterialTexture call(s) total. LOOK AT THE SCOPE GLASS. NUMPAD / restores the originals.
