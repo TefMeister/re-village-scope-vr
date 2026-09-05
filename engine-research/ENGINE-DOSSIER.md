@@ -266,3 +266,114 @@ Source: `modding-notes/2026-09-05c-the-headset-says-steering-off-on-axis-is-righ
   with none of `get_Resource / getResource / get_ResourceHolder / get_Texture / getTexture /
   get_Handle / get_NativeResource`, and a fresh wrapper per call `[verified-live 2026-09-05, n=2]`.
   A bind-order guard cannot be built on wrapper pointers; it is disabled.
+
+### 8a. Model 2, and two corrections to the readings above (`/pd`, 2026-09-05 afternoon, static)
+
+Source: `modding-notes/2026-09-05d-model-2-is-built-and-the-eye-box-may-not-need-a-hunt.md`; code
+`staging/re-village-scope-vr` `2a3ec1f`.
+
+- **The steering correction now has a form that is the identity on-axis, and that property is
+  proved rather than intended.** `corr = slerp(identity, shortest_arc(bore, eye→mirror), k)` applied
+  on top of the baked pose. `[verified-numerically 2026-09-05, 71 checks against the shipped text]`
+  — on-axis the returned rotation equals the baked one to 1e-9; the plane turns by exactly
+  `k × angle(bore, eye-ray)`; `+k` and `−k` are exact opposites; degenerate and antiparallel inputs
+  are refused rather than propagated. Test: `scripts/tests/steer_corr_test.lua`, which slices and
+  runs the shipped text, not a transcription.
+- **Why `k = 0.5`, checked independently of our own code:** a plain reflection formula confirms a
+  mirror swings the reflected ray by **twice** the plane's rotation (six angles, to 1e-4)
+  `[verified-numerically 2026-09-05]`. So to swing the view by the eye's angular offset, turn the
+  plane by half of it. **The magnitude is theory; the SIGN is not derivable and is a knob**
+  (`steerk`).
+- **⚠️ Correction — an aim pixel above the frame height is NOT evidence of a second projection
+  space.** §8 records the VR aim values (up to `(302,1188)` against a 1080-high frame) as meaning
+  "the projection space is not the desktop frame". The plugin's own `project()` accepts normalised
+  coordinates out to ±2 before refusing a point, so its output legitimately spans about −0.5·bh to
+  1.5·bh. Running the logged VR values back through that formula against a 1920×1080 frame:
+  `(302,1188)` is `nx=−0.685, ny=−1.200` — inside horizontally, a fifth of a frame below the bottom
+  edge — and `(1400,1007)` is `nx=+0.458, ny=−0.865`, **entirely inside the frame**
+  `[verified-numerically 2026-09-05, n=3]`. Nothing observed requires a second projection space. The narrower open question that survives is whether the aim pixel's
+  frame and the **mirror RT's UV frame** agree — they demonstrably do on the backbuffer path. The
+  world log line now carries `proj=WxH` so this is readable rather than arguable.
+- **⚠️ Correction — the eye-box may have no writer to find.** §8 reads `EyeDistortionRange → 0.000
+  reads back 0.100` as the game re-asserting the value, and queues a hunt for the writer. The
+  plugin's own older comment beside that write reads the same number as a **min clamp at 0.1**. Both
+  are consistent with every observation so far, because every observation so far is that single
+  value. A three-value ladder now runs at bind time and separates them on any launch:
+  `0.500→0.500` with `0.050→0.100` is a clamp (**no writer exists**; cancel the hunt); `0.500→0.100`
+  is re-assertion (fix is a per-frame **hold**, the pattern already in this file for
+  `Reticle_Emissive`); `0.500→0.500` with `0.050→0.050` means something later in the frame
+  overwrites it, and only then is finding the writer the right step.
+- **`crop_follow`** (settings key, default 0) makes the mirror crop centre the aim pixel, with
+  `mir_cx`/`mir_cy` re-read as a delta from 0.5. The sampled window is clamped inside the source
+  unconditionally, so a wrong frame mis-aims but cannot sample out of bounds.
+- **Practical trap worth keeping:** a deployed script diffed against its repo copy can differ on
+  **every line** and still be content-identical — CRLF versus LF. That is also what a lost-work
+  collision looks like, and the two are one `tr -d ''` apart. Normalise before concluding.
+
+## 9. The shipped `.rtex` inventory, and the one named `mirror_env` (`/gr` drop, drained 2026-09-05)
+
+From Ekey's public `RE8_STM_Release.list` path listing — path strings only, no game content read or
+redistributed. Source: `external-research/topics/2026-09-05-the-1920-rtex-path-is-confirmed-and-the-shipped-inventory-holds-a-mirror-env-target.md`.
+
+- **`natives/stm/movie/rtex/movie_1920_1080.rtex.5` exists** `[verified-live 2026-09-05, n=1 file
+  read of the release list]` — the path the plugin guesses was a guess no longer. Our own runs had
+  already confirmed it end to end (`mirror RT: using movie/rtex/movie_1920_1080.rtex`, no fallback,
+  latched at 1920×1088, `[verified-live 2026-09-05, n=2]`), so this arrives as corroboration rather
+  than news. It still buys one thing: **a future 1280 fallback in that log line now means the
+  request or the latch failed, never a missing file.**
+- **⚠️ Corrected inventory.** An earlier note recorded "~30 entries incl. 1920×1080". Actual shape
+  `[verified-live 2026-09-05]`: **56** `.rtex` entries, of which only **five** are generic
+  size-named `movie/rtex` targets — 650×850, 1144×1048, 1170×784, 1280×720, **1920×1080**. The
+  other 51 are purpose-built. **There is no 2048, 2560 or 4096 `.rtex` anywhere in the game.**
+- **So borrowing a bigger shipped target is exhausted at 1920×1080.** Any further resolution step
+  would have to *create* a target, which is the unsolved `⛔ RT GPU BACKING` problem again.
+- **If 1920 still looks mushy, try `movie/rtex/movie_1144_1048.rtex` before concluding anything**
+  `[inferred-static 2026-09-05]`: the scope picture is a circle, and a 16:9 target spends most of
+  its pixels outside it. 1144×1048 inscribes a ~1048 px circle against 1920×1080's ~1080 — near
+  identical detail from **half** the pixels. Assumes the latch tolerates a near-square source.
+- **🔭 `natives/stm/mastermaterial/textures/rendertarget/mirror_env.rtex.5` — a shipped,
+  engine-owned render target named for mirror rendering.** The reopened `via.render.Mirror`
+  candidate's stated weak point is that binding a render target *we* create shows nothing —
+  "backing needs pipeline registration not yet found" (2026-08-24). A target the engine already
+  registers is exactly the trick that made the movie `.rtex` route work, now pointed at the lead
+  that most needs it. **`[hypothesis]`, deliberately:** the name may denote a static environment
+  texture rather than a live Mirror output, and the six `systems/rendering/{xn,xp,yn,yp,zn,zp}.rtex`
+  cube faces in the same inventory are a reminder this engine does static environment capture too.
+  **One reflection read of its type, dimensions and flags settles which** — the same check that
+  proved the 728×1280 `R8G8B8A8_UNORM_SRGB` / `RENDER_TARGET` backing on 2026-08-24.
+
+Credit: **Ekey**, REE.PAK.Tool.
+
+## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
+
+Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
+request; nothing cloned or installed.
+
+- **REFramework PR #1822 (porlock2, opened and merged 2026-09-05) fixes the static offset accessors
+  for `via.render.Texture`** `[reported 2026-09-05]`. A March 2026 Resident Evil 4 update
+  (1.5.9.0) re-laid-out that type to match Street Fighter 6: the description field moved base, and
+  the D3D12 resource container moved **`0xA0` → `0xB8`**. The fix is a per-title branch; the
+  contributor states the offsets were measured, not estimated.
+- **Why it lands here: those accessors are the surface this project's M2 work sits on.** A
+  magnified scene rendered into a render target and composited back is texture-descriptor and
+  resource-container territory — the two things that moved. **Nothing says our build is broken**;
+  RE Village is not RE4 and the fix is title-scoped. What it establishes is that
+  **`via.render.Texture`'s layout is per-title *and* per-game-version.**
+- **Both our builds predate the fix, and on this one point the two machines agree** — the home PC's
+  fork `76298bd` (2026-03-11) is three weeks before the RE4 layout change landed, and the dev PC's
+  nightly `684ca77` (2026-08-20) is before the fix. Worth writing down precisely because the two
+  machines usually differ.
+- **⚠️ The symptom is the part to remember.** The crash this fixed happened **at the Capcom logo
+  during startup, on game worker threads, with no framework frame anywhere in the call stack**,
+  with or without upscaling. Nothing about it pointed at a stale struct offset. **If this project
+  ever meets a startup crash that looks unrelated to the framework, read the offset accessors
+  before debugging our own code** — it is a one-file check and it is upstream of every other
+  hypothesis.
+- **Also on this surface:** upstream `master` gained three Lua data-model commits on 2026-09-04
+  (array element setting, general array handling, string-vs-number ambiguity), the substantive one
+  widening managed-array creation length to signed 64-bit so a negative length cannot wrap into a
+  huge allocation, and making out-of-range indexing return nothing or raise rather than be
+  undefined. **None of that is in either of our builds.** Exposure shape: wrong values rather than
+  errors, landing on recon code rather than shipped scripts.
+
+Credit: **porlock2** (the fix and its measurements), **praydog** (REFramework).
