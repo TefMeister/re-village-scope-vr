@@ -619,6 +619,27 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
   runtime when the headset is not connected at process start; the run is then flat for its lifetime
   `[verified-live 2026-09-05, n=1]` (Tefa, same day: VR cannot be switched on mid-session).
 
+### 9f. `via.render.Mirror` looks where the VIEWING camera looks; the pane sets only roll (2026-09-05 late, `/lm`, headset, three launches)
+
+- **The mirror's reflected view direction belongs to the viewing camera, not to the plane.** With steering off,
+  `dyaw 40` (rotation about the measured mirror normal, local Y) changed nothing in the glass; `dpitch 20` (about
+  local X) rolled the image and moved its direction not at all that the eye could see; a steering rotation of
+  60° (model 3, k=−2) changed nothing `[verified-live 2026-09-05, n=1 each, headset]`. In flat ADS the viewing
+  camera is on the bore, which is why every flat steering control passed: the picture was on the bore because
+  the camera was. In VR the viewing camera is the headset, so the scope picture is tied to the head.
+- **Consequence:** steering the pane (models 0/1/2/3) cannot decouple the picture from the head; `[disproved
+  2026-09-05]` as a VR lever. The pane's remaining job is roll (and the flat control). The lever is the CROP:
+  the scope's content for a given head pose is a region of the head's reflected render. `crop_follow` is that
+  lever; its mapping today uses the eye-projection aim pixel (2688×2880 in VR) against a 1920×1088 render
+  and loses lock at the edges `[measured 2026-09-05, n=1]` — plugin work, game closed.
+- **Model 3 (`ref`)** in the producer: reference ray captured at switch-on (identity there by construction),
+  `anchor_reach` 0.35 m along the bore so a head lean is a small angle (the flat lens anchor sits at the VR eye;
+  a lean swung the raw ray ~95°). Works as designed `[verified-live, n=3 captures]`; moot for VR by the finding
+  above.
+- **Latch notes:** after a Lua reload the recreated holder allocates and the upgrade grabbed a wrong `fmt=26`
+  (black) `[n=1]` — a reload costs a relaunch; no boot latch in VR processes `[n=3]`; the 1280 target crops
+  into the sky in VR `[n=1]`.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
