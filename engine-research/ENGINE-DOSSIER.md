@@ -640,6 +640,44 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
   (black) `[n=1]` — a reload costs a relaunch; no boot latch in VR processes `[n=3]`; the 1280 target crops
   into the sky in VR `[n=1]`.
 
+### 9g. The crop mapping is four candidates, and the 9f reading is stronger than its evidence (2026-09-06, `/pd`, static)
+
+- **Two unknowns hid inside "project into the mirror's render".** (1) `via.render.Mirror`'s projection:
+  either it shares the viewing camera's (then the 1920×1088 target holds the 0.933-aspect VR eye view
+  **anamorphically**, and NDC maps 1:1 onto the texture), or it renders its own 16:9 projection at the same
+  vertical FOV (1.9× wider horizontally). Flat cannot separate them (1920×1080 vs 1920×1088, 0.7 %); VR can.
+  Tefa's "squashed vertically in VR" `[reported 2026-09-05, n=1]` is what the anamorphic reading predicts
+  `[hypothesis]`. (2) Direct point or its reflection across the pane. For the BAKED pane these differ by
+  under a degree at 50 m, because that pane is a **horizontal mirror ~0.2 m under the line of sight**
+  (normal = the rifle's −Y; derived from the shipped sliders `fwd 1.0 / up −0.2 / right −0.715 / pitch 180 /
+  yaw 90` through the Lua's own quaternion convention and, independently, rotation matrices —
+  `plugin/tools/crop_follow_test.cpp` check 4 `[verified-numerically 2026-09-06]`).
+- **Built:** `plugin/src/crop_follow_math.h` computes all four (`crop_mode` 0..3 = direct/reflected ×
+  shared/16:9; default 2), the plugin holds the last good centre across a lock drop, logs the four with an
+  `inside`/`OUT` flag once a second plus the bore's angle off the gaze, and cross-checks its pane against
+  the one the Lua publishes (`agrees`/`DISAGREES`). The producer publishes sliders, pane normal, rigged
+  `.rtex` width, a rebuild counter and a census counter through `reframework/data/re_scope_vr_pane.txt`;
+  the harness switches `cropmode` / `cropfollow` / `aspectmode` live. 31-check suite green; nothing run.
+- **Why 05n's `crop_follow=1` "changed nothing", from its log:** the bore pointed ~40° left of the gaze and
+  13° up while the glass sat 36° right (every `world[]` line: `aim=(−30…−150, 960…1200)`,
+  `px=(2600…3850, …)` of 2688×2880). Under the shared projection the target is at NDC x ≈ −1.06 — just
+  outside the eye image — so the crop clamped to the edge; under 16:9 it lands at u ≈ 0.22, inside
+  (check 9 reproduces both). **The mirror can only show what the (reflected) head camera sees**: the rifle
+  must be inside the head's view. That is a usage limit of the design, now printed in the log.
+- **9f, re-read:** yaw about the normal leaving the plane unchanged, pitch about the bore rolling the image,
+  and the picture turning with the head are each exactly what a true planar reflection of a mirror rigid
+  to the rifle predicts; model 3's zero change at −60° is consistent with its rotation axis being the pane
+  normal for a sideways lean (its own log line defines "swing 0 = about the normal, moves nothing", and
+  the swing value was not quoted). So "the pane sets only roll" is `[hypothesis]`, not disproof of the
+  reflection mechanism — it changes nothing about the lever (crop-follow is cheaper and does not fight the
+  roll law), but a bisector-plane steering (normal along the eye's offset from the bore line, plane through
+  the midpoint, which puts the reflected camera ON the bore line and cancels lean exactly) is not ruled out.
+- **Stranded latch and SRV census** (the other two 05n `[PD]` rows) are built the same session: rebuild
+  counter → ~2 s watch → one of three verdict lines, AMBER indicator on a strand, no auto-clear; `fn sc_next`
+  → 90-tick window describing every RT-flagged resource that gets an SRV. The census verdict is
+  asymmetric by construction (a hit is evidence of a live capture; an empty window is not evidence of a
+  static one) and its close-out line says so.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
