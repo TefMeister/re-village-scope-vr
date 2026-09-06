@@ -716,6 +716,41 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
   widths `[compile-verified 2026-09-06]`. Engine acceptance of a never-shipped size, and the loose loader
   serving a path the pak lacks, are `[hypothesis]` until one flat launch.
 
+### 9i. Both of those hypotheses are now live facts, and the resolution ceiling is gone (2026-09-06 23:06, `/lm`, one VR launch)
+
+- **A `.rtex` we authored is allocated by the engine** `[verified-live 2026-09-06, n=1]`:
+  `mirror RT: using movie/rtex/movie_2560_1440.rtex (2560x1448)` → `MIRROR SOURCE latched: 2560x1448
+  fmt=29 flags=0x1` → `MIRROR SOURCE UPGRADED to raw-HDR allocation: 2560x1448 fmt=26`. So **REFramework's
+  LooseFileLoader serves a path the pak does not contain** (not just an override), the engine honours a
+  width and height it never shipped, and the pre-clip HDR upgrade follows at the new size. The
+  2026-09-05 finding "borrowing a bigger target is exhausted at 1920×1080" stands, but its implied wall
+  does not: **creating one is a 64-byte file**. 3840×2168 is deployed, untested.
+- **Tefa, in the headset:** *"it is way better the quality, if it stayed like this would be great!"*
+  `[verified-live 2026-09-06, n=1 observer]`. **This supersedes the 1920-vs-1280 sharpness row** — three
+  launches failed to settle that by captures, and a bigger jump plus a human eye settled it in one look.
+  Frame cost unmeasured.
+- **VR aiming puts the muzzle joint on the gaze axis** `[verified-live 2026-09-06, n=1 launch]`, closing
+  9h's open hypothesis. Pose table (camera-space joint / bore off the gaze / roll vs camera): **aiming
+  (−0.00, −0.03, −0.30) / 3.5–5.9° / −4 to −14°**; ready-but-not-aimed ~40° / ~−7°; lowered ~40° / **~165°**.
+  Flat ADS for comparison is (0, 0, −0.22) / 0.1–0.3° / ~0. **`bore < 20°` is the one-line gate that says
+  a headset verdict is worth recording** — it caught a bad judging window on the night it was written.
+- **The rifle really rolls against the head in VR** (a few degrees aiming, far more at rest) where flat
+  produces none — 06b §4's `[inferred-static]` reading, now measured. **`roll_k` is therefore a `[VR]`
+  question**; the flat `roll_sim` harness is a rehearsal rig, not the test.
+- **crop_follow does not fix the tracking** `[verified-live 2026-09-06, n=1 observer, 2 of 4 mappings]`:
+  modes 2 and 0 both still swing with head turn and tilt (*"the picture inside is moving where i look and
+  tilt"*), while the numbers looked right (centre ≈ (0.46, 0.53), all four candidates `inside`). ⚠️ I first
+  filed this as `[reported]` with a caveat that the verdict might have been given off-pose, because the log
+  showed the bore at ~40° nearby; Tefa corrected it — those samples were the gaps *between* tests, headset
+  on the forehead, and every verdict was given while looking. **A report from Tefa about what the game
+  looked like is primary evidence; telemetry explains it, never overrules it.** If 1 and 3 also fail, §9g's
+  decision table retires crop-follow as the lever and sends the work to the bisector-plane steering left
+  open there.
+- **Two log defects, found by use** `[measured 2026-09-06]`: the latch line prints a hardcoded
+  `(1280-wide)` next to a 2560×1448 source; and the `lua-pane DISAGREES` warning misfires under rifle
+  motion in VR (13.0° then 3.5° seconds apart — the Lua publishes at ~2 Hz, the plugin recomputes per
+  tick), while its text asserts a derivation error and says "do not tune, fix".
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
