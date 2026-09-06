@@ -89,15 +89,47 @@ ticks before the rebuild counter was read … -- not stranded` and arms no watch
 the old path, so the STRANDED verdict (proven live once, 06b) is untouched. Free check on the next
 launch: the two good rigs of the sharpness recipe should print the new line.
 
-## 4. The 2560 target: not authored, and why — the first step is now concrete
+## 4. The 2560 target: AUTHORED and deployed (second half of the session, 19:23–19:35) — `[compile-verified]`, engine acceptance `[hypothesis]`
 
-No `.rtex` is on disk outside the pak (no `natives/` folder, nothing extracted), and **our notes hold
-nothing about the `.rtex` binary layout** — only paths and sizes from Ekey's list. Authoring a file
-from "the shipped 1920 file's header" needs the shipped file. Ekey's REE.Unpacker IS on this PC
-(`D:\RE2 REFramework builds\tools\REE.PAK.Tool`, RE8 list under `Projects/`), so the row's first step
-is an extraction of `movie/rtex/movie_1920_1080.rtex.5` from `re_chunk_000.pak` and a header read —
-game content read locally, never committed. Deferred from this pass on size (a pak unpack is minutes
-and tens of GB), not on feasibility; recorded as the `[PD]` row's opening move.
+Tefa said "continue with PD", so the extraction happened after all — without unpacking anything.
+
+- **`dev-archive/tools/ree_pak_extract.py`** pulls named files out of the paks by name hash
+  (murmur3 of the UTF-16 path, lower- and upper-cased, seed −1), reading the format off Ekey's public
+  REE.Unpacker source on this PC (credit: Ekey). It scanned `re_chunk_000.pak` + 13 patch paks in a
+  few seconds; all six `.rtex` files of interest live in the main chunk, deflate-compressed, and every
+  one is **64 bytes**. Extracted copies stayed in the scratchpad — game content, never committed.
+- **The `.rtex` is a 64-byte descriptor, nothing more** `[measured 2026-09-06, n=6 files]`: `RTEX`,
+  version 5, a constant 4, the DXGI format (29 = R8G8B8A8_UNORM_SRGB for all five movie targets —
+  the plugin's first-source "fmt=29" rule was reading this field's consequence all along; 26 =
+  R11G11B10_FLOAT for `mirror_env`), width, height, then 1/0/0/1/0/0/0, 1.0f, 1.0f, 0. The engine
+  allocates the surface at load from these numbers.
+- **The "padded" heights were in the file the whole time:** `movie_1920_1080` is **1920×1088**,
+  `movie_1280_720` is **1280×728**, `movie_1144_1048` is 1144×**808**, `movie_650_850` is 650×858,
+  `mirror_env` is 1024×1024. So the latch's height windows describe the descriptors, not runtime
+  rounding, and a file's name is not a contract for its size.
+- **`dev-archive/tools/rtex_author.py <w> <h> <out>`** writes the structure from scratch (no game
+  bytes in the script). Authoring 1920 1088 and 1280 728 reproduces the shipped files **byte for
+  byte** `[verified-numerically 2026-09-06]`, which is the whole proof that the field reading is
+  right. Deployed as loose files: `<game>/natives/stm/movie/rtex/movie_2560_1440.rtex.5` (2560×**1448**)
+  and `movie_3840_2160.rtex.5` (3840×**2168**), following the +8 convention so their aspect (1.768)
+  matches the shipped ones (1.765) and the aspect path stays untouched.
+- **Prerequisite flipped, with a backup:** `re2_fw_config.txt` had `LooseFileLoader_Enabled=false`;
+  now `true` (one line changed, bytes otherwise identical; backup
+  `re2_fw_config.txt.pre-looseloader-backup-2026-09-06`). Without it the loose descriptors are never
+  seen. Whether REFramework's loader serves a file the pak does NOT contain (as opposed to overriding
+  one it does) is part of the launch's question `[hypothesis]`.
+- **Producer:** `MIRROR_RTEX` entries 3 and 4 (marked `authored`), `fn rtex_2560` / `fn rtex_3840`;
+  an authored pick falls back to 1920 then 1280 when `create_resource` returns nil, and the default
+  order (1920 first) is unchanged, so nothing regresses unless selected. **Plugin:**
+  `looks_like_mirror_target` accepts 2560×1400–1460 and 3840×2120–2200 with the same fmt=29 /
+  no-UAV first-source rule. Rebuilt clean, deployed (`.pre-rtex-author-backup-2026-09-06`), hash-verified.
+- **The launch:** fresh process → reach the level → `fn rtex_2560` → `.` (re-arm BEFORE the first rig)
+  → `fn p10` → `fn drive_on` → `*` → `ads 1`. Outcomes: `mirror RT: using movie/rtex/movie_2560_1440.rtex`
+  + `REPLACED (2560x1448 fmt=29)` + `UPGRADED` = the engine took a home-made descriptor and the detail
+  ceiling just rose; `did not resolve, trying the next candidate` = the loader did not serve the loose
+  file (check `LooseFileLoader_LogLooseFiles=true` next); `using …2560…` but no `REPLACED` line = the
+  resource resolved but no 2560-wide allocation arrived (the engine ignored the size or clamped it).
+  Frame cost is a second full-scene render at that size; read the frame rate before judging the glass.
 
 ## 5. Not established
 
@@ -108,6 +140,9 @@ and tens of GB), not on feasibility; recorded as the `[PD]` row's opening move.
 - Whether the VR aim pose puts the muzzle joint at the flat ADS offset (0, 0, −0.22) is unknown; the
   VR row now asks for that line to be read before any crop-follow verdict.
 
-**GATE: PD — 1 ITEM STILL DOABLE WITH NO GAME** (the 2560 extraction + header read). Everything else
-on the board is a flat launch, and the row that matters is the headset one, now with a pose check in
-front of it.
+- Whether the engine allocates a 2560-wide surface from a descriptor it never shipped, and whether the
+  loose-file loader serves a path absent from the pak, are both `[hypothesis]` until the launch above.
+
+**GATE: FLAT — NOTHING FURTHER WITHOUT THE GAME RUNNING.** No `[PD]` rows remain. Cheapest next: the
+2560 launch (one cold order, three outcomes above), then the roll sweeps and the sharpness pair; the
+row that matters is the headset one, now with a pose check in front of it.
