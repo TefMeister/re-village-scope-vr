@@ -87,8 +87,14 @@ compared first.
 - Tefa's aim anchor read `local=(0.13,-0.13,-0.15)` at fov 51.3 — the crouched-aim values from
   the deferred row, while standing. The crouch row's anchor discriminator may be weaker than
   recorded `[n=1]`.
-- The "wash over the lens" Tefa saw while lining up the door frame: not investigated (quota).
-  Candidate causes: the game's lens glare, or our GT grading on a bright sky source. Ask first.
+- The "wash over the lens" Tefa saw is NOT a wash: indoors, the glass shows SKY in its upper
+  part and the room in its lower part, on the 1280 rig, flat `[reported 2026-09-06, n=1]`. Two
+  readings, not separated: (a) the crop window sits too high in the mirror image (this launch's
+  `crop-follow:` centre at v ~ 0.37 and u ~ 0.003 -- section 5), so the horizon crosses the glass;
+  (b) the 1280 path is the one the producer notes as carrying an engine-drawn SKY+HORIZON image,
+  and the 05c headset run said "1280 crops into the sky, use 1920". A camera inside a room should
+  see no sky, so (b) says the 1280 source is not a plain reflection of the room. Separator, one
+  launch: rig 1920 first, same doorway -- sky gone = (b); sky still there = (a), the bore-axis fix.
 
 **GATE: PD** — three static rows are now open (harness `roll` + `roll_sim`; the crop-follow
 bore axis; the watcher ordering). The game was left running at Tefa's end.
