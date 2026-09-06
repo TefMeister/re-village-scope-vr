@@ -96,5 +96,12 @@ compared first.
   see no sky, so (b) says the 1280 source is not a plain reflection of the room. Separator, one
   launch: rig 1920 first, same doorway -- sky gone = (b); sky still there = (a), the bore-axis fix.
 
+- **Tefa (15:45): "what if we push it past that to 2560?"** Right lever. The shipped 1280/1920
+  `.rtex` files are the ceiling on scope detail; the plugin comment already names "a larger .rtex
+  for the mirror to latch" as the only route to real detail. No shipped 2560 target is known, so
+  the `[PD]` row is to AUTHOR one as a loose file from the 1920 header (2560x1440, then 4K), add it
+  to `MIRROR_RTEX` + `fn rtex_2560`, and confirm crop-follow scales by width. Engine acceptance of
+  a home-made `.rtex` is `[hypothesis]`; cost is a second full-scene render at that size per frame.
+
 **GATE: PD** — three static rows are now open (harness `roll` + `roll_sim`; the crop-follow
 bore axis; the watcher ordering). The game was left running at Tefa's end.
