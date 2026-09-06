@@ -1,0 +1,904 @@
+[2026-09-06 14:51:35.068] [REFramework] [info] [Plugin] [re-scope-vr] settings loaded: flipH=1 flipV=1 glassFlipV=0 evAuto=1 exposure=0.168 evSlope=2.0 cropY=0.60 grading=GT-CURVE exposureGT=0.511 toneWp=0 rtScale=1.00 rollK=0.00 cropFollow=1 cropMode=2 aspectMode=0
+[2026-09-06 14:51:35.068] [REFramework] [info] [Plugin] [re-scope-vr] M2a build loaded (renderer=D3D12, device=00000228CA479490, swapchain=00000228F4330010, cmdqueue=00000228CDA22610)
+[2026-09-06 14:51:35.095] [REFramework] [info] [re8-harness] loaded — writes go to reframework/data/re_scope_cmd.txt
+[2026-09-06 14:51:35.101] [REFramework] [info] [m6_mirror] LAYER: hook set_Mirror -> true
+[2026-09-06 14:51:35.101] [REFramework] [info] [m6_mirror] LAYER: hook get_Mirror -> true
+[2026-09-06 14:51:35.101] [REFramework] [info] [m6_mirror] loaded — open the REFramework menu, Script Generated UI -> 'M6 — Mirror as producer (scope)'
+[2026-09-06 14:51:35.133] [REFramework] [info] [Plugin] [re-scope-vr] first BeginRendering entry observed — frame-boundary hook is live
+[2026-09-06 14:51:35.133] [REFramework] [info] [Plugin] [re-scope-vr] live exposure online: ToneMapping.get_EV=4.000 (auto-grading ON; numpad 5 cycles the grading mode while source=MIRROR)
+[2026-09-06 14:51:35.133] [REFramework] [info] [Plugin] [re-scope-vr] tone curve online: triple=1 m=0.220 l=0.400 sdrToe=1.00 hdrToe=1.33 contrast=1.00 whitePoint min=11.00 max=25.00 range=0.98 (applied) EV=4.00
+[2026-09-06 14:51:35.137] [REFramework] [info] [Plugin] [re-scope-vr] first LockScene entry observed
+[2026-09-06 14:51:36.344] [REFramework] [info] [Plugin] [re-scope-vr] [hook] D3D12 device hooks installed: OK
+[2026-09-06 14:51:36.344] [REFramework] [info] [Plugin] [re-scope-vr] swapchain format=28 -> tone-curve toe=SDRToe [hypothesis: the swapchain format tells which of SDRToe/HDRToe the game itself uses]
+[2026-09-06 14:51:36.468] [REFramework] [info] [Plugin] [re-scope-vr] M2a GPU init OK (bb 1920x1080 fmt=28, RT 480x360, zoom=2.40, pipeline built)
+[2026-09-06 14:51:36.492] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2368923002896 (total 1)
+[2026-09-06 14:51:41.681] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-09-06 14:51:41.682] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-09-06 14:51:41.689] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-09-06 14:51:41.689] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-09-06 14:51:41.691] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-09-06 14:51:41.691] [REFramework] [info] [Plugin] [re-scope-vr] on_device_reset — releasing GPU resources for lazy re-init
+[2026-09-06 14:51:41.697] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched (1280-wide): 1920x1080 fmt=29 flags=0x1 -> 0000022BE1E65D60 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-06 14:51:41.699] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1080 fmt=26 -> 0000022BE1E683A0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-06 14:51:41.760] [REFramework] [info] [Plugin] [re-scope-vr] swapchain format=28 -> tone-curve toe=SDRToe [hypothesis: the swapchain format tells which of SDRToe/HDRToe the game itself uses]
+[2026-09-06 14:51:41.802] [REFramework] [info] [Plugin] [re-scope-vr] M2a GPU init OK (bb 1920x1080 fmt=28, RT 480x360, zoom=2.40, pipeline built)
+[2026-09-06 14:51:42.677] [REFramework] [info] [Plugin] [re-scope-vr] deep: cam type=via.Camera get_FOV raw=0x404F800000000000 (f=0.000000)
+[2026-09-06 14:51:42.677] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PropsSpawnInfoHolder inst=00000227EDE235B0
+[2026-09-06 14:51:42.677] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PlayerInfoHolder inst=00000227EDE222F0
+[2026-09-06 14:51:42.677] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PropsSpawnPrefabSwapManager inst=00000227EDE24640
+[2026-09-06 14:51:42.678] [REFramework] [info] [Plugin] [re-scope-vr] deep: singleton app.PropsManager inst=00000227EDE23520
+[2026-09-06 14:51:43.782] [REFramework] [info] [Plugin] [re-scope-vr] tone curve CHANGED: triple=1 m=0.220 l=0.400 sdrToe=1.00 hdrToe=1.33 contrast=1.00 whitePoint min=5.60 max=15.00 range=0.80 (applied) EV=3.00
+[2026-09-06 14:51:49.192] [REFramework] [info] [Plugin] [re-scope-vr] tone curve CHANGED: triple=1 m=0.220 l=0.400 sdrToe=1.00 hdrToe=1.33 contrast=1.00 whitePoint min=5.60 max=15.00 range=0.90 (applied) EV=3.00
+[2026-09-06 14:51:53.401] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370501110272 (total 2)
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2: gun_go type=app.PlayerGun
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[0]=app.WeaponGunCore
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method get_muzzleJoint
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method gatherJoints
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field ObjectEffectManager
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[1]=app.WeaponShootableCore
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[2]=app.WeaponCore
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method get_cartridgeJoint
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method set_cartridgeJoint
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   method requestStartVfxObjectLanding
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field WpLockObject
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field _VfxObjectLanding
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2: weapon type[3]=app.ItemCore
+[2026-09-06 14:51:53.407] [REFramework] [info] [Plugin] [re-scope-vr] deep2:   field LockObject
+[2026-09-06 14:51:53.408] [REFramework] [info] [Plugin] [re-scope-vr] weapon changed: scoped=1 (wgo=00000227ED3F8510 name=00000227ED3FB260)
+[2026-09-06 14:51:53.408] [REFramework] [info] [Plugin] [re-scope-vr] tube: no scoped rifle resolvable -- lens materials unchanged
+[2026-09-06 14:51:53.408] [REFramework] [info] [Plugin] [re-scope-vr] scoped rifle in hand -- press NUMPAD * to bind the scope glass, NUMPAD / to restore it
+[2026-09-06 14:51:53.438] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370495135216 (total 3)
+[2026-09-06 14:51:53.668] [REFramework] [info] [Plugin] [re-scope-vr] aspect: source 1920x1080 = 1.778 -> uvHalf u=0.1172 v=0.2083 (picture was 1.78x too tall before this correction)
+[2026-09-06 14:51:53.668] [REFramework] [info] [Plugin] [re-scope-vr] first MIRROR-sourced scope frame (src=0000022BE1E683A0 exposure=0.17 flipH=1 flipV=1) -- the glass (numpad * bind) should now show the corrected mirror view
+[2026-09-06 14:51:53.668] [REFramework] [info] [Plugin] [re-scope-vr] [hook] auto-created scope target resource -> committed=0000000000000000 holder=00000227E5886650
+[2026-09-06 14:51:53.669] [REFramework] [info] [Plugin] [re-scope-vr] [hook] LATCHED our render target (1170-wide): 1170x784 fmt=29 flags=0x1 -> 000002279A8B52F0
+[2026-09-06 14:51:53.669] [REFramework] [info] [Plugin] [re-scope-vr] M2a: first zoom composite — the corner box should show a 2.4x magnified live view
+[2026-09-06 14:51:53.673] [REFramework] [info] [Plugin] [re-scope-vr] blit: pso_blit (re)built for target fmt=29 784x1170
+[2026-09-06 14:51:53.674] [REFramework] [info] [Plugin] [re-scope-vr] blit: first continuous scope-image write into the engine target (fmt=29 784x1170) -- if a mesh is bound to it via setMaterialTexture (F4/F3), it should now show the LIVE scope image, not a static test pattern.
+[2026-09-06 14:52:06.050] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370396448992 (total 4)
+[2026-09-06 14:52:06.057] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370396523216 (total 5)
+[2026-09-06 14:52:52.436] [REFramework] [info] [Plugin] [re-scope-vr] mirror-source re-arm PENDING -- current source kept (latched=1); the next acceptable 1280/1920-wide fmt=29 allocation replaces it
+[2026-09-06 14:53:23.019] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:53:23.019] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:53:23.021] [REFramework] [info] [m6_mirror] P6/P7: spawning from the GAME THREAD (UpdateBehavior)
+[2026-09-06 14:53:23.021] [REFramework] [info] [m6_mirror] P: via.Prefab created, set_Path -> true  read-back: environment/props/prefab/dynamic/sm8x/sm80_382_totemeveryware/swing/sm80_382_totemeveryware_00_swing.pfb
+[2026-09-06 14:53:23.021] [REFramework] [info] [m6_mirror] P: get_Exist = true
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Folder)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.Folder)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3, via.Folder)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: called instantiate(via.vec3, via.Folder) -> ret=sol.REManagedObject*: 00000227ACE855D8 err=nil
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: SPAWNED 'sm80_382_TotemEveryware_00_Swing' draw=true pos=(8.74, -36.02, 97.50)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: -- birth state --
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P:   Valid=true  Draw=true  DrawSelf=true  Update=true  Folder=sol.REManagedObject*: 00000227ACE71AB8
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P:   (component list empty/unreadable at birth)
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: death-watch armed -- the log will name the exact frame Valid flips false.
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P: LOOK 1.5m IN FRONT OF YOU. A visible object = the M18-M26 wall is down.
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P9: woke the fresh spawn -- DrawSelf=true
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P2: the spawned prop is now THE RIG (mesh component found: true).
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] P2: now R (mirror on it), D (drive from rifle pose), E (bind glass),
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror]     then sweep pitch/yaw. The grey half MOVING with pitch = the clip
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror]     plane is finally ours. 'Tear down rig' destroys the prop when done.
+[2026-09-06 14:53:23.066] [REFramework] [info] [m6_mirror] mirror RT: using movie/rtex/movie_1920_1080.rtex (1920x1080)
+[2026-09-06 14:53:23.067] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm (1280-wide): 1920x1088 fmt=29 flags=0x1 -> 000002279A6CDA00 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] holder ready: movie/rtex/movie_1920_1080.rtex
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] Mirror component created on the RIG
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] fresh mirror LightWeightMode = false
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   mirror.get_Visible = true
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   mirror.get_LightWeightMode = false
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] ==== via.render.Mirror ====
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Boolean isRegisteredScene(via.render.layer.Scene)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Void registerScene(via.render.layer.Scene, via.render.layer.Scene)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Void unregisterScene(via.render.layer.Scene)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Boolean get_Visible()
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Boolean get_LightWeightMode()
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Void set_LightWeightMode(System.Boolean)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   via.render.RenderTargetTextureResourceHolder get_RenderTarget()
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   System.Void set_RenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] ==== SKY probe: which via.render.layer.* types exist + yield instances ====
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   via.render.layer.Scene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   via.render.layer.SmallScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   via.render.layer.SubScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] SKY probe done: 0 layer instance(s) fetched. Button SKY cycles them.
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror] ==== SKY probe: 0 fetched -- dumping the REAL accessor surfaces ====
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   -- via.SceneView methods mentioning layer:
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 14:53:23.067] [REFramework] [info] [m6_mirror]   -- via.Scene methods mentioning layer:
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]   -- via.render.layer.Scene FULL method list:
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void getDepthBoundTestParam(System.Single, System.Single, via.AABB, via.mat4, System.Single)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void swapDeinterlaceTarget()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.UInt32 get_ViewID()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_ViewID(System.UInt32)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_Enable()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Size get_Size()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Size get_FilterSize()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Size get_PostSize()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Camera get_Camera()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_Camera(via.Camera)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.render.Mirror get_Mirror()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_Mirror(via.render.Mirror)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.vec3 get_BackgroundColor()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_BackgroundColor(via.vec3)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.render.DistortionType get_DistortionType()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_DistortionType(via.render.DistortionType)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_Cutscene()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_Cutscene(System.Boolean)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.render.HMDResolutionType get_HMDResolutionType()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.UInt32 get_MultiResolutionFlip()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.UInt32 get_SharedTag()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.UInt32 get_ResizeFrame()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_LightWeightMode()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Float2 get_LODBias()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Single get_ImageQuality()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_ImageQuality(System.Single)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Single get_HorizontalScreenScale()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_HorizontalScreenScale(System.Single)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_Interleave()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_Interleave(System.Boolean)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Rect get_ImageQualityRegion()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.Rect get_Region()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_UpdateHorizontalScreenScale()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_TemporalDeinterlace()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.render.RenderTargetTextureResourceHolder get_OutputRenderTarget()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_OutputRenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.UInt32 get_OddFrame()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      via.vec4 get_ClipPlane()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_ClipPlane(via.vec4)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_ClippingEnable()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_ClippingEnable(System.Boolean)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_ManualAspect()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_ManualAspect(System.Boolean)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_Independent()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Boolean get_Cut()
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror]      System.Void set_Cut(System.Boolean)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror] rig mirror set_RenderTarget(our holder) -> true
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror] Visible=true (do NOT touch LightWeightMode while it is live — crash, 2026-08-26)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror] Now: D (drive), E (bind glass), then sweep pitch/yaw. The grey half
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror] MOVING when pitch changes = the clip plane is ours. That alone is a win.
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror] P10: pane defaults set — pitch=180 yaw=90 fwd=1.0 up=-0.2 right=-0.715 (user-found 2026-08-30)
+[2026-09-06 14:53:23.068] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+[2026-09-06 14:53:23.071] [REFramework] [info] [m6_mirror] P-WATCH: frame 1 (0.00s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:23.071] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370492066064 (total 6)
+[2026-09-06 14:53:23.073] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 000002279A8B5C80 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-06 14:53:23.099] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2368928418208 (total 7)
+[2026-09-06 14:53:23.111] [REFramework] [info] [Plugin] [re-scope-vr] aspect: source 1920x1088 = 1.765 -> uvHalf u=0.1181 v=0.2083 (picture was 1.76x too tall before this correction)
+[2026-09-06 14:53:23.149] [REFramework] [info] [m6_mirror] P-WATCH: frame 5 (0.08s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:23.149] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #1 seen (Lua rigged a 1920-wide target; latched source is 1920 wide, re-arm pending=0) -- watching ~2 s for the latch to follow
+[2026-09-06 14:53:23.262] [REFramework] [info] [m6_mirror] AUTO-NOCLIP: our mirror layer's ClippingEnable is OFF (the 08-28 structural blocker, gone by default)
+[2026-09-06 14:53:23.388] [REFramework] [info] [m6_mirror] P-WATCH: frame 30 (0.32s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:25.457] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #1 at the latched width (1920) and the latch did not change: if the picture is LIVE this is the same pooled buffer (the 22:22 recovery); if it is frozen or wrong, the latched source was never this rig's (a boot latch) -- numpad . and rebuild
+[2026-09-06 14:53:25.973] [REFramework] [info] [m6_mirror] P-WATCH: frame 300 (2.91s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:28.835] [REFramework] [info] [m6_mirror] P-WATCH: frame 600 (5.77s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:31.685] [REFramework] [info] [m6_mirror] P-WATCH: frame 900 (8.62s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:34.496] [REFramework] [info] [m6_mirror] P-WATCH: frame 1200 (11.43s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:53:37.137] [REFramework] [info] [m6_mirror] rig drive = true (harness)
+[2026-09-06 14:53:37.137] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:53:37.137] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:53:37.175] [REFramework] [info] [m6_mirror] steer: lens anchor = Body joint + mount offset (0, 0.151, 0.099) -- the plugin's own construction
+[2026-09-06 14:53:37.175] [REFramework] [info] [m6_mirror] rig: transform axis accessors OK
+[2026-09-06 14:53:37.175] [REFramework] [info] [m6_mirror] hb rig=(8.63,-36.34,97.24) rq=(-0.42,-0.09,0.90,0.00) rifle=(8.52,-35.94,96.06) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:53:37.412] [REFramework] [info] [m6_mirror] P-WATCH: frame 1500 (14.34s) -- alive, draw=true pos=(8.63,-36.34,97.24)
+[2026-09-06 14:53:38.465] [REFramework] [info] [Plugin] [re-scope-vr] glass: bind requested (numpad *)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass: rifle mesh has 4 material(s) -- scanning for the lens
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[0] it02_070_Sniperrifle_01_A_Mat
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[1] it02_070_Sniperrifle_01_B_Mat
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[2] it02_070_Sniperrifle_01_Lens_Mat  <-- LENS
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass: read-back wrapper type = via.render.TextureResourceHolder; probing for a stable identity accessor
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_Resource         absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate getResource          absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_ResourceHolder   absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_Texture          absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate getTexture           absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_Handle           absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   candidate get_NativeResource   absent
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[2] slot 1 token: holder=00000227E5886650 read-back=00000227EC6BE240 re-read=00000227EC6BE270 (FRESH WRAPPER PER CALL -- wrapper pointers are useless); identity=0000000000000000 -- NO accessor worked; the guard disables itself
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[2] slot 1 (original saved for restore)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[3] it02_070_Sniperrifle_01_Lens2_Mat  <-- LENS
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[3] slot 1 token: holder=00000227E5886650 read-back=00000227EC6BFEE0 re-read=00000227EC6BFF10 (FRESH WRAPPER PER CALL -- wrapper pointers are useless); identity=0000000000000000 -- NO accessor worked; the guard disables itself
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[3] slot 1 (original saved for restore)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] glass: 2 slot(s) bound on the rifle's own mesh, 2 setMaterialTexture call(s) total. LOOK AT THE SCOPE GLASS. NUMPAD / restores the originals.
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] setMaterialFloat ABI SOLVED: encoding 0 (double bits in slot) verifies -- every scalar float write until now had been landing as 0.0
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] EyeDistortionRange       -> 0.000 reads back 0.100  <-- STILL FAILS UNDER EVERY ENCODING
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] eye-box ladder [2]:  0.500->0.100  0.050->0.100  0.000->0.100   (0.500->0.500 with 0.050->0.100 = MIN CLAMP, no writer to find; 0.500->0.100 = re-asserted, needs a per-frame HOLD)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] EyeDistortionRange       -> 0.000 reads back 0.100  <-- STILL FAILS UNDER EVERY ENCODING
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] eye-box ladder [3]:  0.500->0.100  0.050->0.100  0.000->0.100   (0.500->0.500 with 0.050->0.100 = MIN CLAMP, no writer to find; 0.500->0.100 = re-asserted, needs a per-frame HOLD)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:53:38.470] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:53:39.348] [REFramework] [info] [Plugin] [re-scope-vr] eye-box HOLD [2]: 0.500 written every frame for ~1.5 s, reads back 0.100   (0.500 = the game re-asserts it and a HOLD is the fix; 0.100 = the write never lands, so the var index or encoding is wrong)
+[2026-09-06 14:53:39.348] [REFramework] [info] [Plugin] [re-scope-vr] eye-box HOLD [3]: 0.500 written every frame for ~1.5 s, reads back 0.100   (0.500 = the game re-asserts it and a HOLD is the fix; 0.100 = the write never lands, so the var index or encoding is wrong)
+[2026-09-06 14:53:40.250] [REFramework] [info] [Plugin] [re-scope-vr] glass: no stable identity for the bound texture -- the bind-order guard is DISABLED this session rather than re-binding on a comparison that cannot succeed. See the candidate-accessor probe above; name a working accessor and the guard comes back.
+[2026-09-06 14:53:40.405] [REFramework] [info] [m6_mirror] P-WATCH: frame 1800 (17.34s) -- alive, draw=true pos=(8.66,-36.33,97.24)
+[2026-09-06 14:53:40.673] [REFramework] [info] [re8-harness] ads hook installed on HIDPadManager.doUpdate (LTrigBottom=512)
+[2026-09-06 14:53:40.673] [REFramework] [info] [re8-harness] harness: ads 1  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=true cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:53:40.673] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:53:43.310] [REFramework] [info] [m6_mirror] P-WATCH: frame 2100 (20.24s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:53:46.170] [REFramework] [info] [m6_mirror] P-WATCH: frame 2400 (23.10s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:53:47.180] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.27,97.06) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:53:48.955] [REFramework] [info] [m6_mirror] P-WATCH: frame 2700 (25.89s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:53:51.731] [REFramework] [info] [m6_mirror] P-WATCH: frame 3000 (28.67s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:53:54.512] [REFramework] [info] [m6_mirror] P-WATCH: frame 3300 (31.45s) -- alive, draw=true pos=(8.01,-36.27,97.07)
+[2026-09-06 14:53:57.182] [REFramework] [info] [m6_mirror] hb rig=(8.02,-36.27,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:53:57.283] [REFramework] [info] [m6_mirror] P-WATCH: frame 3600 (34.22s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:00.056] [REFramework] [info] [m6_mirror] P-WATCH: frame 3900 (36.99s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:02.829] [REFramework] [info] [m6_mirror] P-WATCH: frame 4200 (39.76s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:05.602] [REFramework] [info] [m6_mirror] P-WATCH: frame 4500 (42.54s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:07.187] [REFramework] [info] [m6_mirror] hb rig=(8.02,-36.27,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:54:08.364] [REFramework] [info] [m6_mirror] P-WATCH: frame 4800 (45.30s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:11.124] [REFramework] [info] [m6_mirror] P-WATCH: frame 5100 (48.06s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:13.831] [REFramework] [info] [Plugin] [re-scope-vr] mirror-source re-arm PENDING -- current source kept (latched=1); the next acceptable 1280/1920-wide fmt=29 allocation replaces it
+[2026-09-06 14:54:13.907] [REFramework] [info] [m6_mirror] P-WATCH: frame 5400 (50.84s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:54:15.460] [REFramework] [info] [m6_mirror] rig destroyed via via.GameObject.destroy(via.GameObject)
+[2026-09-06 14:54:15.460] [REFramework] [info] [m6_mirror] rig down. Nothing was ever attached to the rifle, so the rifle is untouched.
+[2026-09-06 14:54:15.460] [REFramework] [info] [m6_mirror] (The native plugin now holds its own reference on latched resources, so a
+[2026-09-06 14:54:15.460] [REFramework] [info] [m6_mirror]  teardown can no longer kill its rendering -- the glass just freezes until
+[2026-09-06 14:54:15.460] [REFramework] [info] [m6_mirror]  numpad . re-arms the mirror latch and a new producer appears.)
+[2026-09-06 14:54:15.460] [REFramework] [info] [re8-harness] harness: fn destroy_rig  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=true cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:54:15.460] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:54:15.467] [REFramework] [error] [m6_mirror] P-WATCH: the spawned prop DIED -- get_Valid=false at frame 5568, 52.40s after birth
+[2026-09-06 14:54:17.466] [REFramework] [info] [m6_mirror] RT: next holder will prefer [2] movie/rtex/movie_1280_720.rtex (1280x720) -- now: fn p10, fn drive_on, numpad *, ads 1
+[2026-09-06 14:54:17.466] [REFramework] [info] [m6_mirror] RT: the plugin latch identifies the source BY MEASUREMENT, so press numpad . to re-arm it before rebuilding the rig, or it will keep showing the old one
+[2026-09-06 14:54:17.466] [REFramework] [info] [re8-harness] harness: fn rtex_1280  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=true cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:54:17.466] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:54:18.463] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=true cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:54:18.463] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:54:18.465] [REFramework] [info] [m6_mirror] P6/P7: spawning from the GAME THREAD (UpdateBehavior)
+[2026-09-06 14:54:18.465] [REFramework] [info] [m6_mirror] P: get_Exist = true
+[2026-09-06 14:54:18.506] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3)
+[2026-09-06 14:54:18.506] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion)
+[2026-09-06 14:54:18.506] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Folder)
+[2026-09-06 14:54:18.506] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.Folder)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3, via.Folder)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: called instantiate(via.vec3, via.Folder) -> ret=sol.REManagedObject*: 0000022D3A604F28 err=nil
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: SPAWNED 'sm80_382_TotemEveryware_00_Swing' draw=true pos=(8.74, -36.02, 97.50)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: -- birth state --
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P:   Valid=true  Draw=true  DrawSelf=true  Update=true  Folder=sol.REManagedObject*: 0000022D3A623FB8
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P:   (component list empty/unreadable at birth)
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: death-watch armed -- the log will name the exact frame Valid flips false.
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P: LOOK 1.5m IN FRONT OF YOU. A visible object = the M18-M26 wall is down.
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P9: woke the fresh spawn -- DrawSelf=true
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P2: the spawned prop is now THE RIG (mesh component found: true).
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] P2: now R (mirror on it), D (drive from rifle pose), E (bind glass),
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror]     then sweep pitch/yaw. The grey half MOVING with pitch = the clip
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror]     plane is finally ours. 'Tear down rig' destroys the prop when done.
+[2026-09-06 14:54:18.507] [REFramework] [info] [m6_mirror] mirror RT: using movie/rtex/movie_1280_720.rtex (1280x720)  <- SELECTED deliberately (fn rtex_1920 / fn rtex_1280)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] holder ready: movie/rtex/movie_1280_720.rtex
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] Mirror component created on the RIG
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] fresh mirror LightWeightMode = false
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   mirror.get_Visible = true
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   mirror.get_LightWeightMode = false
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] ==== via.render.Mirror ====
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Boolean isRegisteredScene(via.render.layer.Scene)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Void registerScene(via.render.layer.Scene, via.render.layer.Scene)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Void unregisterScene(via.render.layer.Scene)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Boolean get_Visible()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Boolean get_LightWeightMode()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Void set_LightWeightMode(System.Boolean)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   via.render.RenderTargetTextureResourceHolder get_RenderTarget()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   System.Void set_RenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] ==== SKY probe: which via.render.layer.* types exist + yield instances ====
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   via.render.layer.Scene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   via.render.layer.SmallScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   via.render.layer.SubScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] SKY probe done: 0 layer instance(s) fetched. Button SKY cycles them.
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] ==== SKY probe: 0 fetched -- dumping the REAL accessor surfaces ====
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   -- via.SceneView methods mentioning layer:
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   -- via.Scene methods mentioning layer:
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]   -- via.render.layer.Scene FULL method list:
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void getDepthBoundTestParam(System.Single, System.Single, via.AABB, via.mat4, System.Single)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void swapDeinterlaceTarget()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.UInt32 get_ViewID()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_ViewID(System.UInt32)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_Enable()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Size get_Size()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Size get_FilterSize()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Size get_PostSize()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Camera get_Camera()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_Camera(via.Camera)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.render.Mirror get_Mirror()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_Mirror(via.render.Mirror)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.vec3 get_BackgroundColor()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_BackgroundColor(via.vec3)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.render.DistortionType get_DistortionType()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_DistortionType(via.render.DistortionType)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_Cutscene()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_Cutscene(System.Boolean)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.render.HMDResolutionType get_HMDResolutionType()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.UInt32 get_MultiResolutionFlip()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.UInt32 get_SharedTag()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.UInt32 get_ResizeFrame()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_LightWeightMode()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Float2 get_LODBias()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Single get_ImageQuality()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_ImageQuality(System.Single)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Single get_HorizontalScreenScale()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_HorizontalScreenScale(System.Single)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_Interleave()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_Interleave(System.Boolean)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Rect get_ImageQualityRegion()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.Rect get_Region()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_UpdateHorizontalScreenScale()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_TemporalDeinterlace()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.render.RenderTargetTextureResourceHolder get_OutputRenderTarget()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_OutputRenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.UInt32 get_OddFrame()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      via.vec4 get_ClipPlane()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_ClipPlane(via.vec4)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_ClippingEnable()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_ClippingEnable(System.Boolean)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_ManualAspect()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_ManualAspect(System.Boolean)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_Independent()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Boolean get_Cut()
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror]      System.Void set_Cut(System.Boolean)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] rig mirror set_RenderTarget(our holder) -> true
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] Visible=true (do NOT touch LightWeightMode while it is live — crash, 2026-08-26)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] Now: D (drive), E (bind glass), then sweep pitch/yaw. The grey half
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] MOVING when pitch changes = the clip plane is ours. That alone is a win.
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] P10: pane defaults set — pitch=180 yaw=90 fwd=1.0 up=-0.2 right=-0.715 (user-found 2026-08-30)
+[2026-09-06 14:54:18.508] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+[2026-09-06 14:54:18.511] [REFramework] [info] [m6_mirror] P-WATCH: frame 1 (0.00s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:54:18.511] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370376023872 (total 8)
+[2026-09-06 14:54:18.512] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm (1280-wide): 1280x728 fmt=29 flags=0x1 -> 0000022989B11290 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-06 14:54:18.513] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1280x728 fmt=26 -> 0000022904804470 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-06 14:54:18.537] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2368929074480 (total 9)
+[2026-09-06 14:54:18.545] [REFramework] [info] [Plugin] [re-scope-vr] aspect: source 1280x728 = 1.758 -> uvHalf u=0.1185 v=0.2083 (picture was 1.76x too tall before this correction)
+[2026-09-06 14:54:18.576] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #2 seen (Lua rigged a 1280-wide target; latched source is 1280 wide, re-arm pending=0) -- watching ~2 s for the latch to follow
+[2026-09-06 14:54:18.584] [REFramework] [info] [m6_mirror] P-WATCH: frame 5 (0.08s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:54:18.796] [REFramework] [info] [m6_mirror] P-WATCH: frame 30 (0.29s) -- alive, draw=true pos=(8.74,-36.02,97.50)
+[2026-09-06 14:54:19.966] [REFramework] [info] [m6_mirror] rig drive = true (harness)
+[2026-09-06 14:54:19.966] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=true cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:54:19.966] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:54:20.004] [REFramework] [info] [m6_mirror] steer: lens anchor = Body joint + mount offset (0, 0.151, 0.099) -- the plugin's own construction
+[2026-09-06 14:54:20.005] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.27,97.06) rq=(-0.70,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:54:20.102] [REFramework] [info] [Plugin] [re-scope-vr] glass: bind requested (numpad *)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass: restored 2/2 original texture(s)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass: rifle mesh has 4 material(s) -- scanning for the lens
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[0] it02_070_Sniperrifle_01_A_Mat
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[1] it02_070_Sniperrifle_01_B_Mat
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[2] it02_070_Sniperrifle_01_Lens_Mat  <-- LENS
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[2] slot 1 token: holder=00000227E5886650 read-back=00000227E509CA00 re-read=00000227E509CA30 (FRESH WRAPPER PER CALL -- wrapper pointers are useless); identity=0000000000000000 -- NO accessor worked; the guard disables itself
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[2] slot 1 (original saved for restore)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[3] it02_070_Sniperrifle_01_Lens2_Mat  <-- LENS
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[3] slot 1 token: holder=00000227E5886650 read-back=00000227E509D0B0 re-read=00000227E509D0E0 (FRESH WRAPPER PER CALL -- wrapper pointers are useless); identity=0000000000000000 -- NO accessor worked; the guard disables itself
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[3] slot 1 (original saved for restore)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] glass: 2 slot(s) bound on the rifle's own mesh, 2 setMaterialTexture call(s) total. LOOK AT THE SCOPE GLASS. NUMPAD / restores the originals.
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] EyeDistortionRange       -> 0.000 reads back 0.100  <-- STILL FAILS UNDER EVERY ENCODING
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] eye-box ladder [2]:  0.500->0.100  0.050->0.100  0.000->0.100   (0.500->0.500 with 0.050->0.100 = MIN CLAMP, no writer to find; 0.500->0.100 = re-asserted, needs a per-frame HOLD)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] EyeDistortionRange       -> 0.000 reads back 0.100  <-- STILL FAILS UNDER EVERY ENCODING
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] eye-box ladder [3]:  0.500->0.100  0.050->0.100  0.000->0.100   (0.500->0.500 with 0.050->0.100 = MIN CLAMP, no writer to find; 0.500->0.100 = re-asserted, needs a per-frame HOLD)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:54:20.111] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:54:20.674] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #2 at the latched width (1280) and the latch did not change: if the picture is LIVE this is the same pooled buffer (the 22:22 recovery); if it is frozen or wrong, the latched source was never this rig's (a boot latch) -- numpad . and rebuild
+[2026-09-06 14:54:20.869] [REFramework] [info] [Plugin] [re-scope-vr] eye-box HOLD [2]: 0.500 written every frame for ~1.5 s, reads back 0.100   (0.500 = the game re-asserts it and a HOLD is the fix; 0.100 = the write never lands, so the var index or encoding is wrong)
+[2026-09-06 14:54:20.869] [REFramework] [info] [Plugin] [re-scope-vr] eye-box HOLD [3]: 0.500 written every frame for ~1.5 s, reads back 0.100   (0.500 = the game re-asserts it and a HOLD is the fix; 0.100 = the write never lands, so the var index or encoding is wrong)
+[2026-09-06 14:54:21.151] [REFramework] [info] [m6_mirror] P-WATCH: frame 300 (2.64s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:22.488] [REFramework] [info] [re8-harness] harness: ads 1  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=true cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:54:22.488] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:54:23.711] [REFramework] [info] [m6_mirror] P-WATCH: frame 600 (5.20s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:26.274] [REFramework] [info] [m6_mirror] P-WATCH: frame 900 (7.77s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:28.996] [REFramework] [info] [m6_mirror] P-WATCH: frame 1200 (10.49s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:54:30.011] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.27,97.06) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:54:31.529] [REFramework] [info] [m6_mirror] P-WATCH: frame 1500 (13.02s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:34.051] [REFramework] [info] [m6_mirror] P-WATCH: frame 1800 (15.54s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:36.587] [REFramework] [info] [m6_mirror] P-WATCH: frame 2100 (18.08s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:39.119] [REFramework] [info] [m6_mirror] P-WATCH: frame 2400 (20.61s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:40.017] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.27,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:54:41.667] [REFramework] [info] [m6_mirror] P-WATCH: frame 2700 (23.16s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:44.232] [REFramework] [info] [m6_mirror] P-WATCH: frame 3000 (25.72s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:46.769] [REFramework] [info] [m6_mirror] P-WATCH: frame 3300 (28.26s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:49.482] [REFramework] [info] [m6_mirror] P-WATCH: frame 3600 (30.97s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:54:50.020] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.27,97.06) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:54:52.137] [REFramework] [info] [m6_mirror] P-WATCH: frame 3900 (33.63s) -- alive, draw=true pos=(8.01,-36.27,97.07)
+[2026-09-06 14:54:54.742] [REFramework] [info] [m6_mirror] P-WATCH: frame 4200 (36.23s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:54:57.274] [REFramework] [info] [m6_mirror] P-WATCH: frame 4500 (38.77s) -- alive, draw=true pos=(8.01,-36.27,97.07)
+[2026-09-06 14:54:59.832] [REFramework] [info] [m6_mirror] P-WATCH: frame 4800 (41.33s) -- alive, draw=true pos=(8.02,-36.27,97.06)
+[2026-09-06 14:55:00.026] [REFramework] [info] [m6_mirror] hb rig=(8.02,-36.27,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:55:02.358] [REFramework] [info] [m6_mirror] P-WATCH: frame 5100 (43.85s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:55:04.881] [REFramework] [info] [m6_mirror] P-WATCH: frame 5400 (46.37s) -- alive, draw=true pos=(7.99,-36.27,97.05)
+[2026-09-06 14:55:07.410] [REFramework] [info] [m6_mirror] P-WATCH: frame 5700 (48.90s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:10.004] [REFramework] [info] [m6_mirror] P-WATCH: frame 6000 (51.50s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:55:10.030] [REFramework] [info] [m6_mirror] hb rig=(8.02,-36.27,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:55:12.505] [REFramework] [info] [m6_mirror] P-WATCH: frame 6300 (54.00s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:14.959] [REFramework] [info] [m6_mirror] P-WATCH: frame 6600 (56.45s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:55:17.400] [REFramework] [info] [m6_mirror] P-WATCH: frame 6900 (58.89s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:19.854] [REFramework] [info] [m6_mirror] P-WATCH: frame 7200 (61.35s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:55:20.036] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.27,97.06) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:55:22.309] [REFramework] [info] [m6_mirror] P-WATCH: frame 7500 (63.80s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:24.768] [REFramework] [info] [m6_mirror] P-WATCH: frame 7800 (66.26s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:55:27.222] [REFramework] [info] [m6_mirror] P-WATCH: frame 8100 (68.71s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:29.670] [REFramework] [info] [m6_mirror] P-WATCH: frame 8400 (71.16s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:55:30.037] [REFramework] [info] [m6_mirror] hb rig=(8.02,-36.27,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:55:32.131] [REFramework] [info] [m6_mirror] P-WATCH: frame 8700 (73.62s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:34.600] [REFramework] [info] [m6_mirror] P-WATCH: frame 9000 (76.09s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:55:37.065] [REFramework] [info] [m6_mirror] P-WATCH: frame 9300 (78.56s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:39.545] [REFramework] [info] [m6_mirror] P-WATCH: frame 9600 (81.04s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:55:40.043] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.26,97.07) rq=(-0.69,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:55:42.108] [REFramework] [info] [m6_mirror] P-WATCH: frame 9900 (83.60s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:55:44.599] [REFramework] [info] [m6_mirror] P-WATCH: frame 10200 (86.09s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:55:47.107] [REFramework] [info] [m6_mirror] P-WATCH: frame 10500 (88.60s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:49.614] [REFramework] [info] [m6_mirror] P-WATCH: frame 10800 (91.11s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:50.046] [REFramework] [info] [m6_mirror] hb rig=(8.01,-36.26,97.06) rq=(-0.70,-0.09,0.71,0.09) rifle=(8.71,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:55:52.133] [REFramework] [info] [m6_mirror] P-WATCH: frame 11100 (93.63s) -- alive, draw=true pos=(8.01,-36.26,97.06)
+[2026-09-06 14:55:54.617] [REFramework] [info] [m6_mirror] P-WATCH: frame 11400 (96.11s) -- alive, draw=true pos=(8.02,-36.27,97.07)
+[2026-09-06 14:55:57.116] [REFramework] [info] [m6_mirror] P-WATCH: frame 11700 (98.61s) -- alive, draw=true pos=(8.01,-36.27,97.06)
+[2026-09-06 14:55:59.700] [REFramework] [info] [m6_mirror] P-WATCH: frame 12000 (101.19s) -- alive, draw=true pos=(7.94,-36.28,97.01)
+[2026-09-06 14:56:00.054] [REFramework] [info] [m6_mirror] hb rig=(7.94,-36.30,97.00) rq=(-0.72,-0.10,0.68,0.10) rifle=(8.69,-35.82,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:56:02.279] [REFramework] [info] [m6_mirror] P-WATCH: frame 12300 (103.77s) -- alive, draw=true pos=(8.02,-36.24,97.08)
+[2026-09-06 14:56:04.805] [REFramework] [info] [m6_mirror] P-WATCH: frame 12600 (106.30s) -- alive, draw=true pos=(8.02,-36.24,97.08)
+[2026-09-06 14:56:07.507] [REFramework] [info] [m6_mirror] P-WATCH: frame 12900 (109.00s) -- alive, draw=true pos=(8.03,-36.24,97.08)
+[2026-09-06 14:56:10.061] [REFramework] [info] [m6_mirror] hb rig=(8.06,-36.13,97.14) rq=(-0.68,-0.05,0.73,0.05) rifle=(8.72,-35.80,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:56:10.208] [REFramework] [info] [m6_mirror] P-WATCH: frame 13200 (111.70s) -- alive, draw=true pos=(8.06,-36.12,97.14)
+[2026-09-06 14:56:12.812] [REFramework] [info] [m6_mirror] P-WATCH: frame 13500 (114.30s) -- alive, draw=true pos=(8.05,-36.19,97.12)
+[2026-09-06 14:56:15.395] [REFramework] [info] [m6_mirror] P-WATCH: frame 13800 (116.89s) -- alive, draw=true pos=(8.05,-36.17,97.12)
+[2026-09-06 14:56:18.012] [REFramework] [info] [m6_mirror] P-WATCH: frame 14100 (119.51s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:20.068] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:56:20.625] [REFramework] [info] [m6_mirror] P-WATCH: frame 14400 (122.12s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:23.135] [REFramework] [info] [m6_mirror] P-WATCH: frame 14700 (124.63s) -- alive, draw=true pos=(8.04,-36.17,97.12)
+[2026-09-06 14:56:25.637] [REFramework] [info] [m6_mirror] P-WATCH: frame 15000 (127.13s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:28.167] [REFramework] [info] [m6_mirror] P-WATCH: frame 15300 (129.66s) -- alive, draw=true pos=(8.04,-36.17,97.12)
+[2026-09-06 14:56:30.069] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:56:30.686] [REFramework] [info] [m6_mirror] P-WATCH: frame 15600 (132.18s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:33.262] [REFramework] [info] [m6_mirror] P-WATCH: frame 15900 (134.76s) -- alive, draw=true pos=(8.05,-36.17,97.12)
+[2026-09-06 14:56:35.775] [REFramework] [info] [m6_mirror] P-WATCH: frame 16200 (137.27s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:38.265] [REFramework] [info] [m6_mirror] P-WATCH: frame 16500 (139.76s) -- alive, draw=true pos=(8.04,-36.17,97.12)
+[2026-09-06 14:56:40.072] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:56:40.802] [REFramework] [info] [m6_mirror] P-WATCH: frame 16800 (142.29s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:43.314] [REFramework] [info] [m6_mirror] P-WATCH: frame 17100 (144.81s) -- alive, draw=true pos=(8.04,-36.17,97.12)
+[2026-09-06 14:56:45.823] [REFramework] [info] [m6_mirror] P-WATCH: frame 17400 (147.32s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:48.323] [REFramework] [info] [m6_mirror] P-WATCH: frame 17700 (149.82s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:50.079] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:56:50.819] [REFramework] [info] [m6_mirror] P-WATCH: frame 18000 (152.31s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:53.328] [REFramework] [info] [m6_mirror] P-WATCH: frame 18300 (154.82s) -- alive, draw=true pos=(8.04,-36.18,97.12)
+[2026-09-06 14:56:55.837] [REFramework] [info] [m6_mirror] P-WATCH: frame 18600 (157.33s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:56:58.473] [REFramework] [info] [m6_mirror] P-WATCH: frame 18900 (159.97s) -- alive, draw=true pos=(8.04,-36.18,97.12)
+[2026-09-06 14:57:00.087] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.72,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:57:01.178] [REFramework] [info] [m6_mirror] P-WATCH: frame 19200 (162.67s) -- alive, draw=true pos=(8.05,-36.17,97.12)
+[2026-09-06 14:57:03.791] [REFramework] [info] [m6_mirror] P-WATCH: frame 19500 (165.28s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:57:06.396] [REFramework] [info] [m6_mirror] P-WATCH: frame 19800 (167.89s) -- alive, draw=true pos=(8.05,-36.17,97.12)
+[2026-09-06 14:57:09.066] [REFramework] [info] [m6_mirror] P-WATCH: frame 20100 (170.56s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:57:10.095] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:57:11.650] [REFramework] [info] [m6_mirror] P-WATCH: frame 20400 (173.14s) -- alive, draw=true pos=(8.04,-36.18,97.12)
+[2026-09-06 14:57:14.313] [REFramework] [info] [m6_mirror] P-WATCH: frame 20700 (175.81s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:57:17.017] [REFramework] [info] [m6_mirror] P-WATCH: frame 21000 (178.51s) -- alive, draw=true pos=(8.04,-36.17,97.11)
+[2026-09-06 14:57:19.722] [REFramework] [info] [m6_mirror] P-WATCH: frame 21300 (181.22s) -- alive, draw=true pos=(8.05,-36.18,97.12)
+[2026-09-06 14:57:20.100] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.18,97.12) rq=(-0.69,-0.06,0.72,0.06) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:57:22.457] [REFramework] [info] [m6_mirror] P-WATCH: frame 21600 (183.95s) -- alive, draw=true pos=(8.04,-36.17,97.12)
+[2026-09-06 14:57:25.090] [REFramework] [info] [m6_mirror] P-WATCH: frame 21900 (186.58s) -- alive, draw=true pos=(8.05,-36.17,97.12)
+[2026-09-06 14:57:25.473] [REFramework] [info] [re8-harness] harness: ads 0  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:57:25.473] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:57:27.728] [REFramework] [info] [m6_mirror] P-WATCH: frame 22200 (189.22s) -- alive, draw=true pos=(7.90,-36.21,97.11)
+[2026-09-06 14:57:30.099] [REFramework] [info] [m6_mirror] hb rig=(8.71,-36.24,97.27) rq=(-0.40,-0.06,0.92,-0.01) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:57:30.402] [REFramework] [info] [m6_mirror] P-WATCH: frame 22500 (191.90s) -- alive, draw=true pos=(8.70,-36.24,97.27)
+[2026-09-06 14:57:33.098] [REFramework] [info] [m6_mirror] P-WATCH: frame 22800 (194.59s) -- alive, draw=true pos=(8.67,-36.23,97.28)
+[2026-09-06 14:57:35.807] [REFramework] [info] [m6_mirror] P-WATCH: frame 23100 (197.30s) -- alive, draw=true pos=(8.68,-36.20,97.28)
+[2026-09-06 14:57:38.488] [REFramework] [info] [m6_mirror] P-WATCH: frame 23400 (199.98s) -- alive, draw=true pos=(8.69,-36.23,97.28)
+[2026-09-06 14:57:40.102] [REFramework] [info] [m6_mirror] hb rig=(8.70,-36.23,97.28) rq=(-0.40,-0.05,0.91,-0.02) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:57:41.202] [REFramework] [info] [m6_mirror] P-WATCH: frame 23700 (202.70s) -- alive, draw=true pos=(8.67,-36.23,97.28)
+[2026-09-06 14:57:43.926] [REFramework] [info] [m6_mirror] P-WATCH: frame 24000 (205.42s) -- alive, draw=true pos=(8.70,-36.25,97.27)
+[2026-09-06 14:57:46.686] [REFramework] [info] [m6_mirror] P-WATCH: frame 24300 (208.18s) -- alive, draw=true pos=(8.67,-36.24,97.28)
+[2026-09-06 14:57:49.537] [REFramework] [info] [m6_mirror] P-WATCH: frame 24600 (211.03s) -- alive, draw=true pos=(8.70,-36.23,97.28)
+[2026-09-06 14:57:50.104] [REFramework] [info] [m6_mirror] hb rig=(8.68,-36.20,97.28) rq=(-0.41,-0.04,0.91,-0.02) rifle=(8.53,-35.93,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:57:52.453] [REFramework] [info] [m6_mirror] P-WATCH: frame 24900 (213.95s) -- alive, draw=true pos=(8.68,-36.23,97.28)
+[2026-09-06 14:57:55.371] [REFramework] [info] [m6_mirror] P-WATCH: frame 25200 (216.86s) -- alive, draw=true pos=(8.68,-36.23,97.28)
+[2026-09-06 14:57:58.243] [REFramework] [info] [m6_mirror] P-WATCH: frame 25500 (219.74s) -- alive, draw=true pos=(8.70,-36.25,97.27)
+[2026-09-06 14:58:00.112] [REFramework] [info] [m6_mirror] hb rig=(8.68,-36.23,97.28) rq=(-0.41,-0.05,0.91,-0.02) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:58:01.081] [REFramework] [info] [m6_mirror] P-WATCH: frame 25800 (222.57s) -- alive, draw=true pos=(8.67,-36.23,97.28)
+[2026-09-06 14:58:03.833] [REFramework] [info] [m6_mirror] P-WATCH: frame 26100 (225.33s) -- alive, draw=true pos=(8.70,-36.22,97.28)
+[2026-09-06 14:58:06.496] [REFramework] [info] [m6_mirror] P-WATCH: frame 26400 (227.99s) -- alive, draw=true pos=(8.68,-36.23,97.28)
+[2026-09-06 14:58:09.163] [REFramework] [info] [m6_mirror] P-WATCH: frame 26700 (230.66s) -- alive, draw=true pos=(8.68,-36.21,97.28)
+[2026-09-06 14:58:10.116] [REFramework] [info] [m6_mirror] hb rig=(8.67,-36.24,97.28) rq=(-0.41,-0.05,0.91,-0.01) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:58:11.843] [REFramework] [info] [m6_mirror] P-WATCH: frame 27000 (233.34s) -- alive, draw=true pos=(8.69,-36.24,97.28)
+[2026-09-06 14:58:14.672] [REFramework] [info] [m6_mirror] P-WATCH: frame 27300 (236.17s) -- alive, draw=true pos=(8.67,-36.24,97.28)
+[2026-09-06 14:58:17.526] [REFramework] [info] [m6_mirror] P-WATCH: frame 27600 (239.02s) -- alive, draw=true pos=(8.71,-36.24,97.27)
+[2026-09-06 14:58:20.119] [REFramework] [info] [m6_mirror] hb rig=(8.67,-36.23,97.28) rq=(-0.41,-0.05,0.91,-0.01) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:58:20.389] [REFramework] [info] [m6_mirror] P-WATCH: frame 27900 (241.88s) -- alive, draw=true pos=(8.67,-36.23,97.28)
+[2026-09-06 14:58:23.262] [REFramework] [info] [m6_mirror] P-WATCH: frame 28200 (244.76s) -- alive, draw=true pos=(8.68,-36.20,97.28)
+[2026-09-06 14:58:26.032] [REFramework] [info] [m6_mirror] P-WATCH: frame 28500 (247.53s) -- alive, draw=true pos=(8.69,-36.24,97.28)
+[2026-09-06 14:58:28.702] [REFramework] [info] [m6_mirror] P-WATCH: frame 28800 (250.20s) -- alive, draw=true pos=(8.67,-36.23,97.28)
+[2026-09-06 14:58:30.120] [REFramework] [info] [m6_mirror] hb rig=(8.68,-36.23,97.28) rq=(-0.41,-0.05,0.91,-0.01) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:58:31.361] [REFramework] [info] [m6_mirror] P-WATCH: frame 29100 (252.85s) -- alive, draw=true pos=(8.70,-36.25,97.27)
+[2026-09-06 14:58:34.024] [REFramework] [info] [m6_mirror] P-WATCH: frame 29400 (255.52s) -- alive, draw=true pos=(8.67,-36.24,97.28)
+[2026-09-06 14:58:36.683] [REFramework] [info] [m6_mirror] P-WATCH: frame 29700 (258.18s) -- alive, draw=true pos=(8.70,-36.23,97.27)
+[2026-09-06 14:58:39.450] [REFramework] [info] [m6_mirror] P-WATCH: frame 30000 (260.94s) -- alive, draw=true pos=(8.68,-36.23,97.28)
+[2026-09-06 14:58:40.120] [REFramework] [info] [m6_mirror] hb rig=(8.69,-36.23,97.28) rq=(-0.40,-0.05,0.91,-0.01) rifle=(8.53,-35.94,96.08) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:58:42.230] [REFramework] [info] [m6_mirror] P-WATCH: frame 30300 (263.72s) -- alive, draw=true pos=(8.68,-36.21,97.28)
+[2026-09-06 14:58:45.174] [REFramework] [info] [m6_mirror] P-WATCH: frame 30600 (266.67s) -- alive, draw=true pos=(8.77,-36.14,97.30)
+[2026-09-06 14:58:47.991] [REFramework] [info] [m6_mirror] P-WATCH: frame 30900 (269.49s) -- alive, draw=true pos=(8.05,-36.16,97.12)
+[2026-09-06 14:58:50.130] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.19,97.11) rq=(-0.69,-0.06,0.72,0.07) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:58:50.922] [REFramework] [info] [m6_mirror] P-WATCH: frame 31200 (272.41s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:58:53.833] [REFramework] [info] [m6_mirror] P-WATCH: frame 31500 (275.33s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:58:56.604] [REFramework] [info] [m6_mirror] P-WATCH: frame 31800 (278.10s) -- alive, draw=true pos=(8.05,-36.19,97.12)
+[2026-09-06 14:58:59.280] [REFramework] [info] [m6_mirror] P-WATCH: frame 32100 (280.77s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:59:00.132] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.19,97.11) rq=(-0.69,-0.06,0.72,0.07) rifle=(8.71,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:59:02.244] [REFramework] [info] [m6_mirror] P-WATCH: frame 32400 (283.74s) -- alive, draw=true pos=(8.05,-36.19,97.12)
+[2026-09-06 14:59:05.028] [REFramework] [info] [m6_mirror] P-WATCH: frame 32700 (286.52s) -- alive, draw=true pos=(8.05,-36.19,97.12)
+[2026-09-06 14:59:07.605] [REFramework] [info] [m6_mirror] P-WATCH: frame 33000 (289.10s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:59:10.088] [REFramework] [info] [m6_mirror] P-WATCH: frame 33300 (291.58s) -- alive, draw=true pos=(8.05,-36.20,97.11)
+[2026-09-06 14:59:10.136] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.20,97.11) rq=(-0.69,-0.06,0.72,0.07) rifle=(8.72,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:59:12.573] [REFramework] [info] [m6_mirror] P-WATCH: frame 33600 (294.07s) -- alive, draw=true pos=(8.04,-36.19,97.11)
+[2026-09-06 14:59:15.191] [REFramework] [info] [m6_mirror] P-WATCH: frame 33900 (296.68s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:59:17.822] [REFramework] [info] [m6_mirror] P-WATCH: frame 34200 (299.32s) -- alive, draw=true pos=(8.04,-36.19,97.11)
+[2026-09-06 14:59:20.142] [REFramework] [info] [m6_mirror] hb rig=(8.06,-36.19,97.12) rq=(-0.68,-0.06,0.72,0.07) rifle=(8.72,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:59:20.367] [REFramework] [info] [m6_mirror] P-WATCH: frame 34500 (301.86s) -- alive, draw=true pos=(8.06,-36.19,97.12)
+[2026-09-06 14:59:22.840] [REFramework] [info] [m6_mirror] P-WATCH: frame 34800 (304.33s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:59:25.340] [REFramework] [info] [m6_mirror] P-WATCH: frame 35100 (306.83s) -- alive, draw=true pos=(8.05,-36.20,97.12)
+[2026-09-06 14:59:27.810] [REFramework] [info] [m6_mirror] P-WATCH: frame 35400 (309.30s) -- alive, draw=true pos=(8.04,-36.19,97.11)
+[2026-09-06 14:59:30.146] [REFramework] [info] [m6_mirror] hb rig=(8.05,-36.19,97.11) rq=(-0.69,-0.06,0.72,0.07) rifle=(8.72,-35.81,96.13) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:59:30.311] [REFramework] [info] [m6_mirror] P-WATCH: frame 35700 (311.80s) -- alive, draw=true pos=(8.05,-36.19,97.11)
+[2026-09-06 14:59:31.105] [REFramework] [info] [Plugin] [re-scope-vr] mirror-source re-arm PENDING -- current source kept (latched=1); the next acceptable 1280/1920-wide fmt=29 allocation replaces it
+[2026-09-06 14:59:32.549] [REFramework] [info] [m6_mirror] rig destroyed via via.GameObject.destroy(via.GameObject)
+[2026-09-06 14:59:32.549] [REFramework] [info] [m6_mirror] rig down. Nothing was ever attached to the rifle, so the rifle is untouched.
+[2026-09-06 14:59:32.549] [REFramework] [info] [m6_mirror] (The native plugin now holds its own reference on latched resources, so a
+[2026-09-06 14:59:32.549] [REFramework] [info] [m6_mirror]  teardown can no longer kill its rendering -- the glass just freezes until
+[2026-09-06 14:59:32.549] [REFramework] [info] [m6_mirror]  numpad . re-arms the mirror latch and a new producer appears.)
+[2026-09-06 14:59:32.549] [REFramework] [info] [re8-harness] harness: fn destroy_rig  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:59:32.549] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:59:32.556] [REFramework] [error] [m6_mirror] P-WATCH: the spawned prop DIED -- get_Valid=false at frame 35968, 314.05s after birth
+[2026-09-06 14:59:34.559] [REFramework] [info] [m6_mirror] RT: next holder will prefer [1] movie/rtex/movie_1920_1080.rtex (1920x1080) -- now: fn p10, fn drive_on, numpad *, ads 1
+[2026-09-06 14:59:34.559] [REFramework] [info] [m6_mirror] RT: the plugin latch identifies the source BY MEASUREMENT, so press numpad . to re-arm it before rebuilding the rig, or it will keep showing the old one
+[2026-09-06 14:59:34.559] [REFramework] [info] [re8-harness] harness: fn rtex_1920  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:59:34.559] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:59:36.068] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:59:36.068] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:59:36.070] [REFramework] [info] [m6_mirror] P6/P7: spawning from the GAME THREAD (UpdateBehavior)
+[2026-09-06 14:59:36.070] [REFramework] [info] [m6_mirror] P: get_Exist = true
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Folder)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.Folder)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3, via.Folder)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: called instantiate(via.vec3, via.Folder) -> ret=sol.REManagedObject*: 00000227ACB5A238 err=nil
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: SPAWNED 'sm80_382_TotemEveryware_00_Swing' draw=true pos=(8.76, -35.90, 97.51)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: -- birth state --
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P:   Valid=true  Draw=true  DrawSelf=true  Update=true  Folder=sol.REManagedObject*: 00000227ACB58168
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P:   (component list empty/unreadable at birth)
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: death-watch armed -- the log will name the exact frame Valid flips false.
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P: LOOK 1.5m IN FRONT OF YOU. A visible object = the M18-M26 wall is down.
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P9: woke the fresh spawn -- DrawSelf=true
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P2: the spawned prop is now THE RIG (mesh component found: true).
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] P2: now R (mirror on it), D (drive from rifle pose), E (bind glass),
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror]     then sweep pitch/yaw. The grey half MOVING with pitch = the clip
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror]     plane is finally ours. 'Tear down rig' destroys the prop when done.
+[2026-09-06 14:59:36.112] [REFramework] [info] [m6_mirror] mirror RT: using movie/rtex/movie_1920_1080.rtex (1920x1080)  <- SELECTED deliberately (fn rtex_1920 / fn rtex_1280)
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] holder ready: movie/rtex/movie_1920_1080.rtex
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] Mirror component created on the RIG
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] fresh mirror LightWeightMode = false
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   mirror.get_Visible = true
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   mirror.get_LightWeightMode = false
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] ==== via.render.Mirror ====
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Boolean isRegisteredScene(via.render.layer.Scene)
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Void registerScene(via.render.layer.Scene, via.render.layer.Scene)
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Void unregisterScene(via.render.layer.Scene)
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Boolean get_Visible()
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Boolean get_LightWeightMode()
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Void set_LightWeightMode(System.Boolean)
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   via.render.RenderTargetTextureResourceHolder get_RenderTarget()
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   System.Void set_RenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] ==== SKY probe: which via.render.layer.* types exist + yield instances ====
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   via.render.layer.Scene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   via.render.layer.SmallScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   via.render.layer.SubScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] SKY probe done: 0 layer instance(s) fetched. Button SKY cycles them.
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror] ==== SKY probe: 0 fetched -- dumping the REAL accessor surfaces ====
+[2026-09-06 14:59:36.113] [REFramework] [info] [m6_mirror]   -- via.SceneView methods mentioning layer:
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]   -- via.Scene methods mentioning layer:
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]   -- via.render.layer.Scene FULL method list:
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void getDepthBoundTestParam(System.Single, System.Single, via.AABB, via.mat4, System.Single)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void swapDeinterlaceTarget()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.UInt32 get_ViewID()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_ViewID(System.UInt32)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_Enable()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Size get_Size()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Size get_FilterSize()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Size get_PostSize()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Camera get_Camera()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_Camera(via.Camera)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.render.Mirror get_Mirror()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_Mirror(via.render.Mirror)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.vec3 get_BackgroundColor()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_BackgroundColor(via.vec3)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.render.DistortionType get_DistortionType()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_DistortionType(via.render.DistortionType)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_Cutscene()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_Cutscene(System.Boolean)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.render.HMDResolutionType get_HMDResolutionType()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.UInt32 get_MultiResolutionFlip()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.UInt32 get_SharedTag()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.UInt32 get_ResizeFrame()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_LightWeightMode()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Float2 get_LODBias()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Single get_ImageQuality()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_ImageQuality(System.Single)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Single get_HorizontalScreenScale()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_HorizontalScreenScale(System.Single)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_Interleave()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_Interleave(System.Boolean)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Rect get_ImageQualityRegion()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.Rect get_Region()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_UpdateHorizontalScreenScale()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_TemporalDeinterlace()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.render.RenderTargetTextureResourceHolder get_OutputRenderTarget()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_OutputRenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.UInt32 get_OddFrame()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      via.vec4 get_ClipPlane()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_ClipPlane(via.vec4)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_ClippingEnable()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_ClippingEnable(System.Boolean)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_ManualAspect()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_ManualAspect(System.Boolean)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_Independent()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Boolean get_Cut()
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror]      System.Void set_Cut(System.Boolean)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror] rig mirror set_RenderTarget(our holder) -> true
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror] Visible=true (do NOT touch LightWeightMode while it is live — crash, 2026-08-26)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror] Now: D (drive), E (bind glass), then sweep pitch/yaw. The grey half
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror] MOVING when pitch changes = the clip plane is ours. That alone is a win.
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror] P10: pane defaults set — pitch=180 yaw=90 fwd=1.0 up=-0.2 right=-0.715 (user-found 2026-08-30)
+[2026-09-06 14:59:36.114] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+[2026-09-06 14:59:36.117] [REFramework] [info] [m6_mirror] P-WATCH: frame 1 (0.00s) -- alive, draw=true pos=(8.76,-35.90,97.51)
+[2026-09-06 14:59:36.117] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370478625024 (total 10)
+[2026-09-06 14:59:36.135] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2368929042896 (total 11)
+[2026-09-06 14:59:36.181] [REFramework] [info] [m6_mirror] P-WATCH: frame 5 (0.07s) -- alive, draw=true pos=(8.76,-35.90,97.51)
+[2026-09-06 14:59:36.270] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #3 seen (Lua rigged a 1920-wide target; latched source is 1280 wide, re-arm pending=1) -- watching ~2 s for the latch to follow
+[2026-09-06 14:59:36.400] [REFramework] [info] [m6_mirror] P-WATCH: frame 30 (0.29s) -- alive, draw=true pos=(8.76,-35.90,97.51)
+[2026-09-06 14:59:38.334] [REFramework] [info] [Plugin] [re-scope-vr] STRANDED LATCH: rig rebuild #3 rigged a 1920-wide target but the latch still holds the 1280-wide source and no acceptable allocation arrived (re-arm pending=1). The glass is showing that OLD buffer's last frame, frozen -- indicator AMBER until the latch changes. Recover in a FRESH process: numpad . BEFORE the first fn p10 on the
+[2026-09-06 14:59:38.724] [REFramework] [info] [m6_mirror] P-WATCH: frame 300 (2.61s) -- alive, draw=true pos=(8.76,-35.90,97.51)
+[2026-09-06 14:59:41.330] [REFramework] [info] [m6_mirror] P-WATCH: frame 600 (5.22s) -- alive, draw=true pos=(8.76,-35.90,97.51)
+[2026-09-06 14:59:43.099] [REFramework] [info] [m6_mirror] rig drive = true (harness)
+[2026-09-06 14:59:43.099] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 14:59:43.099] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 14:59:43.137] [REFramework] [info] [m6_mirror] steer: lens anchor = Body joint + mount offset (0, 0.151, 0.099) -- the plugin's own construction
+[2026-09-06 14:59:43.137] [REFramework] [info] [m6_mirror] hb rig=(7.78,-36.25,96.97) rq=(-0.72,-0.07,0.69,0.07) rifle=(8.54,-35.85,96.06) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:59:43.403] [REFramework] [info] [Plugin] [re-scope-vr] glass: bind requested (numpad *)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass: restored 2/2 original texture(s)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass: rifle mesh has 4 material(s) -- scanning for the lens
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[0] it02_070_Sniperrifle_01_A_Mat
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[1] it02_070_Sniperrifle_01_B_Mat
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[2] it02_070_Sniperrifle_01_Lens_Mat  <-- LENS
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[2] slot 1 token: holder=00000227E5886650 read-back=00000227E4FE0F20 re-read=00000227E4FE0F50 (FRESH WRAPPER PER CALL -- wrapper pointers are useless); identity=0000000000000000 -- NO accessor worked; the guard disables itself
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[2] slot 1 (original saved for restore)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[3] it02_070_Sniperrifle_01_Lens2_Mat  <-- LENS
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   material[3] slot 1 token: holder=00000227E5886650 read-back=00000227E4FE15D0 re-read=00000227E4FE1600 (FRESH WRAPPER PER CALL -- wrapper pointers are useless); identity=0000000000000000 -- NO accessor worked; the guard disables itself
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass:   BOUND material[3] slot 1 (original saved for restore)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] glass: 2 slot(s) bound on the rifle's own mesh, 2 setMaterialTexture call(s) total. LOOK AT THE SCOPE GLASS. NUMPAD / restores the originals.
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] EyeDistortionRange       -> 0.000 reads back 0.100  <-- STILL FAILS UNDER EVERY ENCODING
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] eye-box ladder [2]:  0.500->0.100  0.050->0.100  0.000->0.100   (0.500->0.500 with 0.050->0.100 = MIN CLAMP, no writer to find; 0.500->0.100 = re-asserted, needs a per-frame HOLD)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] EyeDistortionRange       -> 0.000 reads back 0.100  <-- STILL FAILS UNDER EVERY ENCODING
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] eye-box ladder [3]:  0.500->0.100  0.050->0.100  0.000->0.100   (0.500->0.500 with 0.050->0.100 = MIN CLAMP, no writer to find; 0.500->0.100 = re-asserted, needs a per-frame HOLD)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:59:43.412] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-06 14:59:44.076] [REFramework] [info] [m6_mirror] P-WATCH: frame 900 (7.96s) -- alive, draw=true pos=(8.87,-36.26,97.26)
+[2026-09-06 14:59:44.233] [REFramework] [info] [Plugin] [re-scope-vr] eye-box HOLD [2]: 0.500 written every frame for ~1.5 s, reads back 0.100   (0.500 = the game re-asserts it and a HOLD is the fix; 0.100 = the write never lands, so the var index or encoding is wrong)
+[2026-09-06 14:59:44.233] [REFramework] [info] [Plugin] [re-scope-vr] eye-box HOLD [3]: 0.500 written every frame for ~1.5 s, reads back 0.100   (0.500 = the game re-asserts it and a HOLD is the fix; 0.100 = the write never lands, so the var index or encoding is wrong)
+[2026-09-06 14:59:46.983] [REFramework] [info] [m6_mirror] P-WATCH: frame 1200 (10.87s) -- alive, draw=true pos=(8.93,-36.25,97.26)
+[2026-09-06 14:59:49.871] [REFramework] [info] [m6_mirror] P-WATCH: frame 1500 (13.76s) -- alive, draw=true pos=(8.88,-36.16,97.29)
+[2026-09-06 14:59:52.661] [REFramework] [info] [m6_mirror] P-WATCH: frame 1800 (16.55s) -- alive, draw=true pos=(8.84,-36.14,97.30)
+[2026-09-06 14:59:53.139] [REFramework] [info] [m6_mirror] hb rig=(8.85,-36.14,97.30) rq=(-0.35,-0.02,0.94,-0.03) rifle=(8.55,-35.94,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 14:59:55.466] [REFramework] [info] [m6_mirror] P-WATCH: frame 2100 (19.35s) -- alive, draw=true pos=(8.85,-36.12,97.30)
+[2026-09-06 14:59:58.347] [REFramework] [info] [m6_mirror] P-WATCH: frame 2400 (22.24s) -- alive, draw=true pos=(8.86,-36.15,97.29)
+[2026-09-06 15:00:01.138] [REFramework] [info] [m6_mirror] P-WATCH: frame 2700 (25.03s) -- alive, draw=true pos=(8.84,-36.15,97.30)
+[2026-09-06 15:00:03.140] [REFramework] [info] [m6_mirror] hb rig=(8.86,-36.15,97.29) rq=(-0.34,-0.03,0.94,-0.03) rifle=(8.55,-35.94,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 15:00:03.893] [REFramework] [info] [m6_mirror] P-WATCH: frame 3000 (27.78s) -- alive, draw=true pos=(8.88,-36.16,97.29)
+[2026-09-06 15:00:06.648] [REFramework] [info] [m6_mirror] P-WATCH: frame 3300 (30.54s) -- alive, draw=true pos=(8.84,-36.15,97.30)
+[2026-09-06 15:00:09.431] [REFramework] [info] [m6_mirror] P-WATCH: frame 3600 (33.32s) -- alive, draw=true pos=(8.86,-36.12,97.30)
+[2026-09-06 15:00:09.807] [REFramework] [info] [m6_mirror] rig destroyed via via.GameObject.destroy(via.GameObject)
+[2026-09-06 15:00:09.807] [REFramework] [info] [m6_mirror] rig down. Nothing was ever attached to the rifle, so the rifle is untouched.
+[2026-09-06 15:00:09.807] [REFramework] [info] [m6_mirror] (The native plugin now holds its own reference on latched resources, so a
+[2026-09-06 15:00:09.807] [REFramework] [info] [m6_mirror]  teardown can no longer kill its rendering -- the glass just freezes until
+[2026-09-06 15:00:09.807] [REFramework] [info] [m6_mirror]  numpad . re-arms the mirror latch and a new producer appears.)
+[2026-09-06 15:00:09.807] [REFramework] [info] [re8-harness] harness: fn destroy_rig  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 15:00:09.807] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 15:00:09.815] [REFramework] [error] [m6_mirror] P-WATCH: the spawned prop DIED -- get_Valid=false at frame 3641, 33.70s after birth
+[2026-09-06 15:00:11.818] [REFramework] [info] [m6_mirror] RT: next holder will prefer [2] movie/rtex/movie_1280_720.rtex (1280x720) -- now: fn p10, fn drive_on, numpad *, ads 1
+[2026-09-06 15:00:11.818] [REFramework] [info] [m6_mirror] RT: the plugin latch identifies the source BY MEASUREMENT, so press numpad . to re-arm it before rebuilding the rig, or it will keep showing the old one
+[2026-09-06 15:00:11.818] [REFramework] [info] [re8-harness] harness: fn rtex_1280  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 15:00:11.818] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 15:00:12.823] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 15:00:12.823] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 15:00:12.826] [REFramework] [info] [m6_mirror] P6/P7: spawning from the GAME THREAD (UpdateBehavior)
+[2026-09-06 15:00:12.826] [REFramework] [info] [m6_mirror] P: get_Exist = true
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Folder)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.Folder)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: overload found: instantiate(via.vec3, via.Quaternion, via.vec3, via.Folder)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 15:00:12.868] [REFramework] [info] [m6_mirror] P: skipping instantiate (parameter type I can't supply)
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P: called instantiate(via.vec3, via.Folder) -> ret=sol.REManagedObject*: 00000227ACA98D48 err=nil
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P: SPAWNED 'sm80_382_TotemEveryware_00_Swing' draw=true pos=(8.98, -35.79, 97.49)
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P: -- birth state --
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P:   Valid=true  Draw=true  DrawSelf=true  Update=true  Folder=sol.REManagedObject*: 00000227ACA97998
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P:   (component list empty/unreadable at birth)
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P: death-watch armed -- the log will name the exact frame Valid flips false.
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P: LOOK 1.5m IN FRONT OF YOU. A visible object = the M18-M26 wall is down.
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P9: woke the fresh spawn -- DrawSelf=true
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P2: the spawned prop is now THE RIG (mesh component found: true).
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] P2: now R (mirror on it), D (drive from rifle pose), E (bind glass),
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror]     then sweep pitch/yaw. The grey half MOVING with pitch = the clip
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror]     plane is finally ours. 'Tear down rig' destroys the prop when done.
+[2026-09-06 15:00:12.869] [REFramework] [info] [m6_mirror] mirror RT: using movie/rtex/movie_1280_720.rtex (1280x720)  <- SELECTED deliberately (fn rtex_1920 / fn rtex_1280)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] holder ready: movie/rtex/movie_1280_720.rtex
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] Mirror component created on the RIG
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] fresh mirror LightWeightMode = false
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   mirror.get_Visible = true
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   mirror.get_LightWeightMode = false
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] ==== via.render.Mirror ====
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Boolean isRegisteredScene(via.render.layer.Scene)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Void registerScene(via.render.layer.Scene, via.render.layer.Scene)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Void unregisterScene(via.render.layer.Scene)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Boolean get_Visible()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Boolean get_LightWeightMode()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Void set_LightWeightMode(System.Boolean)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   via.render.RenderTargetTextureResourceHolder get_RenderTarget()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   System.Void set_RenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] ==== SKY probe: which via.render.layer.* types exist + yield instances ====
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   via.render.layer.Scene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   via.render.layer.SmallScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   via.render.layer.SubScene: typedef=true typeof=true fetch=type exists, no accessor returned an instance
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] SKY probe done: 0 layer instance(s) fetched. Button SKY cycles them.
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] ==== SKY probe: 0 fetched -- dumping the REAL accessor surfaces ====
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   -- via.SceneView methods mentioning layer:
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   -- via.Scene methods mentioning layer:
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      (none)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]   -- via.render.layer.Scene FULL method list:
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void getDepthBoundTestParam(System.Single, System.Single, via.AABB, via.mat4, System.Single)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void swapDeinterlaceTarget()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.UInt32 get_ViewID()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_ViewID(System.UInt32)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_Enable()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Size get_Size()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Size get_FilterSize()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Size get_PostSize()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Camera get_Camera()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_Camera(via.Camera)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.render.Mirror get_Mirror()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_Mirror(via.render.Mirror)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.vec3 get_BackgroundColor()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_BackgroundColor(via.vec3)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.render.DistortionType get_DistortionType()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_DistortionType(via.render.DistortionType)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_Cutscene()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_Cutscene(System.Boolean)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.render.HMDResolutionType get_HMDResolutionType()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.UInt32 get_MultiResolutionFlip()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.UInt32 get_SharedTag()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.UInt32 get_ResizeFrame()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_LightWeightMode()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Float2 get_LODBias()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Single get_ImageQuality()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_ImageQuality(System.Single)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Single get_HorizontalScreenScale()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_HorizontalScreenScale(System.Single)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_Interleave()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_Interleave(System.Boolean)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Rect get_ImageQualityRegion()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.Rect get_Region()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_UpdateHorizontalScreenScale()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_TemporalDeinterlace()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.render.RenderTargetTextureResourceHolder get_OutputRenderTarget()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_OutputRenderTarget(via.render.RenderTargetTextureResourceHolder)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.UInt32 get_OddFrame()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      via.vec4 get_ClipPlane()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_ClipPlane(via.vec4)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_ClippingEnable()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_ClippingEnable(System.Boolean)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_ManualAspect()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_ManualAspect(System.Boolean)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_Independent()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Boolean get_Cut()
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror]      System.Void set_Cut(System.Boolean)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] rig mirror set_RenderTarget(our holder) -> true
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] Visible=true (do NOT touch LightWeightMode while it is live — crash, 2026-08-26)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] Now: D (drive), E (bind glass), then sweep pitch/yaw. The grey half
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] MOVING when pitch changes = the clip plane is ours. That alone is a win.
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] P10: pane defaults set — pitch=180 yaw=90 fwd=1.0 up=-0.2 right=-0.715 (user-found 2026-08-30)
+[2026-09-06 15:00:12.870] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+[2026-09-06 15:00:12.874] [REFramework] [info] [m6_mirror] P-WATCH: frame 1 (0.00s) -- alive, draw=true pos=(8.98,-35.79,97.49)
+[2026-09-06 15:00:12.874] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2370492099264 (total 12)
+[2026-09-06 15:00:12.890] [REFramework] [info] [m6_mirror] LAYER captured: via.render.layer.Scene @ 2368929791632 (total 13)
+[2026-09-06 15:00:12.939] [REFramework] [info] [m6_mirror] P-WATCH: frame 5 (0.07s) -- alive, draw=true pos=(8.98,-35.79,97.49)
+[2026-09-06 15:00:12.974] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #4 seen (Lua rigged a 1280-wide target; latched source is 1280 wide, re-arm pending=1) -- watching ~2 s for the latch to follow
+[2026-09-06 15:00:13.157] [REFramework] [info] [m6_mirror] P-WATCH: frame 30 (0.29s) -- alive, draw=true pos=(8.98,-35.79,97.49)
+[2026-09-06 15:00:15.067] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #4 at the latched width (1280) and the latch did not change: if the picture is LIVE this is the same pooled buffer (the 22:22 recovery); if it is frozen or wrong, the latched source was never this rig's (a boot latch) -- numpad . and rebuild
+[2026-09-06 15:00:15.512] [REFramework] [info] [m6_mirror] P-WATCH: frame 300 (2.64s) -- alive, draw=true pos=(8.98,-35.79,97.49)
+[2026-09-06 15:00:16.854] [REFramework] [info] [m6_mirror] rig drive = true (harness)
+[2026-09-06 15:00:16.854] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1
+[2026-09-06 15:00:16.854] [REFramework] [info] [m6_mirror] sliders: pitch=180.0 yaw=90.0 fwd=1.000 up=-0.200 right=-0.715
+[2026-09-06 15:00:16.893] [REFramework] [info] [m6_mirror] steer: lens anchor = Body joint + mount offset (0, 0.151, 0.099) -- the plugin's own construction
+[2026-09-06 15:00:16.893] [REFramework] [info] [m6_mirror] hb rig=(8.85,-36.14,97.30) rq=(-0.35,-0.02,0.94,-0.03) rifle=(8.55,-35.94,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 15:00:18.272] [REFramework] [info] [m6_mirror] P-WATCH: frame 600 (5.40s) -- alive, draw=true pos=(8.88,-36.15,97.29)
+[2026-09-06 15:00:21.139] [REFramework] [info] [m6_mirror] P-WATCH: frame 900 (8.27s) -- alive, draw=true pos=(8.84,-36.14,97.30)
+[2026-09-06 15:00:23.888] [REFramework] [info] [m6_mirror] P-WATCH: frame 1200 (11.02s) -- alive, draw=true pos=(8.85,-36.11,97.30)
+[2026-09-06 15:00:26.627] [REFramework] [info] [m6_mirror] P-WATCH: frame 1500 (13.76s) -- alive, draw=true pos=(8.86,-36.14,97.30)
+[2026-09-06 15:00:26.898] [REFramework] [info] [m6_mirror] hb rig=(8.87,-36.15,97.29) rq=(-0.34,-0.03,0.94,-0.03) rifle=(8.55,-35.94,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 15:00:29.380] [REFramework] [info] [m6_mirror] P-WATCH: frame 1800 (16.51s) -- alive, draw=true pos=(8.84,-36.14,97.30)
+[2026-09-06 15:00:32.057] [REFramework] [info] [m6_mirror] P-WATCH: frame 2100 (19.19s) -- alive, draw=true pos=(8.87,-36.16,97.29)
+[2026-09-06 15:00:34.721] [REFramework] [info] [m6_mirror] P-WATCH: frame 2400 (21.85s) -- alive, draw=true pos=(8.84,-36.15,97.30)
+[2026-09-06 15:00:36.903] [REFramework] [info] [m6_mirror] hb rig=(8.87,-36.16,97.29) rq=(-0.34,-0.03,0.94,-0.02) rifle=(8.55,-35.93,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 15:00:37.390] [REFramework] [info] [m6_mirror] P-WATCH: frame 2700 (24.52s) -- alive, draw=true pos=(8.87,-36.15,97.29)
+[2026-09-06 15:00:40.070] [REFramework] [info] [m6_mirror] P-WATCH: frame 3000 (27.20s) -- alive, draw=true pos=(8.84,-36.14,97.30)
+[2026-09-06 15:00:42.742] [REFramework] [info] [m6_mirror] P-WATCH: frame 3300 (29.87s) -- alive, draw=true pos=(8.86,-36.12,97.30)
+[2026-09-06 15:00:45.410] [REFramework] [info] [m6_mirror] P-WATCH: frame 3600 (32.54s) -- alive, draw=true pos=(8.85,-36.14,97.30)
+[2026-09-06 15:00:46.911] [REFramework] [info] [m6_mirror] hb rig=(8.87,-36.14,97.29) rq=(-0.34,-0.03,0.94,-0.03) rifle=(8.55,-35.93,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 15:00:48.062] [REFramework] [info] [m6_mirror] P-WATCH: frame 3900 (35.19s) -- alive, draw=true pos=(8.85,-36.13,97.30)
+[2026-09-06 15:00:50.773] [REFramework] [info] [m6_mirror] P-WATCH: frame 4200 (37.90s) -- alive, draw=true pos=(8.87,-36.16,97.29)
+[2026-09-06 15:00:53.498] [REFramework] [info] [m6_mirror] P-WATCH: frame 4500 (40.63s) -- alive, draw=true pos=(8.84,-36.15,97.30)
+[2026-09-06 15:00:56.163] [REFramework] [info] [m6_mirror] P-WATCH: frame 4800 (43.29s) -- alive, draw=true pos=(8.88,-36.15,97.29)
+[2026-09-06 15:00:56.916] [REFramework] [info] [m6_mirror] hb rig=(8.86,-36.12,97.30) rq=(-0.35,-0.02,0.94,-0.03) rifle=(8.55,-35.93,96.11) update=true draw=true rt=false fov=n/a dbg=false asp=false vert=false
+[2026-09-06 15:00:58.830] [REFramework] [info] [m6_mirror] P-WATCH: frame 5100 (45.96s) -- alive, draw=true pos=(8.84,-36.14,97.30)
+[2026-09-06 15:01:01.501] [REFramework] [info] [m6_mirror] P-WATCH: frame 5400 (48.63s) -- alive, draw=true pos=(8.86,-36.12,97.30)
