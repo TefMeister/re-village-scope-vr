@@ -703,11 +703,18 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
 - **Stranded-latch watcher** `[compile-verified]`: a latch move to the rigged width within 150 ticks BEFORE
   the rebuild counter is read now counts as "followed" (the allocation lands inside `fn p10`, ahead of the
   ~0.25 s file poll — 06b's wrong-verdict-on-a-good-rig). The STRANDED path is untouched.
-- **`.rtex` authoring is blocked on the header, not on the idea:** no `.rtex` exists outside the pak and
-  nothing in our notes records the binary layout. Ekey's REE.Unpacker is on the home PC
-  (`D:\RE2 REFramework builds\tools\REE.PAK.Tool`, `Projects/RE8_STM_Release.list`) but unpacks whole paks
-  only (`re_chunk_000.pak` is 29.5 GB) `[verified-live 2026-09-06, README]`. First move recorded as the
-  `[PD]` row.
+- **The `.rtex` is a 64-byte descriptor** `[measured 2026-09-06, n=6 files]`, pulled from the pak by name
+  hash with `dev-archive/tools/ree_pak_extract.py` (format from Ekey's public REE.Unpacker source; credit
+  Ekey): `RTEX`, v5, 4, DXGI format, width, height, 1, 0, 0, 1, 0, 0, 0, 1.0f, 1.0f, 0. All five movie
+  targets are format 29 (R8G8B8A8_UNORM_SRGB — the plugin's fmt=29 rule was this field), `mirror_env` is
+  26 (R11G11B10_FLOAT) at 1024×1024. **The shipped heights are name + 8:** 1920×1088, 1280×728 — the
+  "padded" sizes the latch sees are in the file, not runtime rounding; 1144×1048 is really 1144×808.
+  `rtex_author.py` writes the structure from scratch and reproduces the shipped 1920 and 1280 files byte
+  for byte `[verified-numerically 2026-09-06]`. Authored 2560×1448 and 3840×2168 descriptors are deployed
+  as loose files under `natives/stm/movie/rtex/`, `LooseFileLoader_Enabled` flipped to true (config
+  backed up), producer `fn rtex_2560` / `fn rtex_3840` with fallback to 1920, latch widened to both
+  widths `[compile-verified 2026-09-06]`. Engine acceptance of a never-shipped size, and the loose loader
+  serving a path the pak lacks, are `[hypothesis]` until one flat launch.
 
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
