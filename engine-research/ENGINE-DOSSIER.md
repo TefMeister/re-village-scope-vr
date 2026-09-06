@@ -678,6 +678,37 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
   asymmetric by construction (a hit is evidence of a live capture; an empty window is not evidence of a
   static one) and its close-out line says so.
 
+### 9h. The bore was never wrong — FOV 51.3 is the hip carry, and the roll lever is now flat-testable (2026-09-06 evening, `/pd`, static)
+
+- **Crop-follow reads dead centre in real ADS** `[verified-live 2026-09-06, n=1 launch, 300+ one-second
+  samples]`: after the harness's `ads 1` the FOV drops 51.3 → 48.6, the muzzle joint moves to camera-space
+  (0.00, 0.00, −0.22), and every `crop-follow:` line reads the bore 0.1–0.3° off the gaze with the centre at
+  (0.50, 0.51) — all four candidates. The 06b "40° off in flat ADS" `[measured]` was real but mis-labelled:
+  every such sample sits at **FOV 51.3 with the joint at (0.13, −0.13, −0.15)** — Ethan carrying the rifle
+  across his body, not aiming. The bore-axis hypothesis is `[disproved 2026-09-06]`; no code changed.
+- **Pose signature, for every future log read** `[verified-live 2026-09-06 flat]`: hip carry = FOV 51.3,
+  `local≈(0.13,−0.13,−0.15)`, bore ~40° off; ADS = FOV 48.6 (zoom suppressed), `local≈(0,0,−0.22)`, bore
+  <1° off. The 05n headset log shows the hip signature on 29 of 41 samples (fov 81.1), so 06a's "rifle held
+  across the body" reading of that run stands `[inferred-static 2026-09-06]`; the VR row now demands the
+  ADS signature in the `world[]` line before any crop-follow verdict. The crouched-aim row's "(0.13, −0.13,
+  −0.09) at FOV 51.3" is the same hip pose seen crouched `[n=1]` — that discriminator is weak.
+- **Simulated rifle roll** `[compile-verified 2026-09-06]`, not run: the producer's `rot_roll` turns the
+  whole rig about the bore (rot = root · roll(Z) · yaw(Y) · pitch(X), offsets rotated about az);
+  `roll_sim` replaces the plugin's measured `g_roll_rad` while non-zero; harness `roll` / `rollpane` /
+  `rollsim` / `droll`; the `crop-follow:` line now ends `roll meas/sim/k -> applied`. Sign pinned against
+  the shipped `roll_signed_angle`: a rifle rolled +20° about its bore measures +20°, so the feed is
+  +deg → +rad (`crop_follow_test.cpp` §11, 40/40 `[verified-numerically 2026-09-06]`).
+  `dev-archive/tools/roll_sweep.py OUT roll|rollpane|rollsim`. Expected: picture rolls 2× the rig's roll
+  `[hypothesis]`, sign by `flip_h/flip_v`.
+- **Stranded-latch watcher** `[compile-verified]`: a latch move to the rigged width within 150 ticks BEFORE
+  the rebuild counter is read now counts as "followed" (the allocation lands inside `fn p10`, ahead of the
+  ~0.25 s file poll — 06b's wrong-verdict-on-a-good-rig). The STRANDED path is untouched.
+- **`.rtex` authoring is blocked on the header, not on the idea:** no `.rtex` exists outside the pak and
+  nothing in our notes records the binary layout. Ekey's REE.Unpacker is on the home PC
+  (`D:\RE2 REFramework builds\tools\REE.PAK.Tool`, `Projects/RE8_STM_Release.list`) but unpacks whole paks
+  only (`re_chunk_000.pak` is 29.5 GB) `[verified-live 2026-09-06, README]`. First move recorded as the
+  `[PD]` row.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
