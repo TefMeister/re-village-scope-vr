@@ -3,6 +3,20 @@
 **Status:** 🆕 new · **Priority:** high — it proposes a `[PD]` route to the one unknown the board
 currently schedules a headset launch for, and the machinery it needs is already built and running.
 
+> ⚠️ **Superseded in framing, later the same day, by
+> [*REFramework forces the eye projection onto every camera*](2026-09-07-reframework-forces-the-eye-projection-onto-every-camera-including-the-mirrors.md).**
+> That topic answers the question this one proposes a way to ask: praydog's own source shows the
+> Mirror renders with **its own** camera and projection, and that **REFramework's VR mod then
+> overwrites that projection with the HMD's** for every camera in the process. So the dichotomy below
+> ("the viewing camera's, or its own?") is the wrong shape — the live answer is "its own, then
+> overwritten".
+>
+> **The route below is not superseded; it is corroborated and improved.** praydog's code walks the
+> Scene layers and reads `get_Camera()` exactly as proposed here, and the stronger version of this
+> proposal is to read the layer's **`SceneInfo`** — the actual `projection_matrix`, `view_matrix` and
+> `screen_size` the engine used — rather than to infer them. The `get_Size` / `get_ViewID` /
+> `get_HorizontalScreenScale` reads argued for below remain worth taking on the same line.
+
 ## Why this was looked up
 
 The board's ⭐ `[VR]` row is the most expensive item on this project: finish the crop-mapping sweep
