@@ -807,8 +807,16 @@ a read of the enum.
 question became: *does the multipass texture setup succeed, and does the swing change when it does?*
 ⚠️ **Not established:** whether the fallback persisted past 23:04:26 — the warnings appear only in
 the first 22 seconds of an 11-minute session and never repeat, which is consistent with either a
-startup-only stumble that later succeeded **or** a silent permanent fallback. Deciding that is one
-log read on the next launch, not a headset judgement.
+startup-only stumble that later succeeded **or** a silent permanent fallback. Deciding that is one log read — but ⚠️ **it must be a VR launch.**
+The warning is emitted from the VR path, ~1.7 s after `VR::on_initialize()`, so a **flat run cannot
+produce it** and would return a *vacuous* "no warnings" indistinguishable from the good outcome.
+Checked here before it cost anything: the 2026-09-06 headset log has **148** `[VR]` lines and the
+multipass warnings; the 2026-08-26 flat log has **5** `[VR]` lines and **no multipass lines at all**
+`[verified-live 2026-09-09, n=2 logs]`. It rides along with any other headset run at no extra launch.
+
+⚠️ Recorded because the board row for this was first written `[FLAT]`, on the reasoning that a log
+read is cheaper flat — and that was wrong in the one way that matters: **the cheap run returns the
+same output as success.**
 
 #### Two more things worth more than the row they came from
 
