@@ -751,6 +751,90 @@ Supersedes: §9c, bullets 1–3 (the predicate-level format gate). Notes:
   motion in VR (13.0° then 3.5° seconds apart — the Lua publishes at ~2 Hz, the plugin recomputes per
   tick), while its text asserts a derivation error and says "do not tune, fix".
 
+### 9j. ⭐⭐ §9g IS ANSWERED, AND CROP-FOLLOW WAS NEVER THE LEVER: REFramework FORCES THE HMD EYE PROJECTION ONTO THE MIRROR CAMERA (inbox drained 2026-09-09, `/lm`)
+
+Four `/gr` and `/sr` drops dated 2026-09-07 folded in here as one finding. They form a supersedes
+chain — `2026-09-07-gr` → `2026-09-07b-gr` → `2026-09-07-sr` → `2026-09-07c-gr` — and were read in
+full before any of it was written down, per the claim-hygiene rule. The net position:
+
+**§9g asked the wrong question.** It asked whether `via.render.Mirror` renders with the viewing
+camera's projection or its own. The answer is **"its own — and then REFramework overwrites it."**
+
+1. **Natively the Mirror renders with its own camera and projection.** `via.render.layer.Scene`
+   holds a `via.Camera*` immediately followed by a `via.render.Mirror*`, and REFramework's own
+   `is_fully_rendered()` requires `get_mirror() == nullptr` — praydog's code treats a mirror-bearing
+   layer as *not the main view* by construction. praydog, issue #698: *"The way scopes work is they
+   create a separate scene, yes."* `[inferred-static 2026-09-07]`
+2. **🎯 But `VR::on_camera_get_projection_matrix` has its primary-camera guard COMMENTED OUT, while
+   the matching guard in `on_camera_get_view_matrix` is LIVE.** So the mirror render receives the
+   current eye's **asymmetric off-centre HMD projection** on top of the mirror camera's **own,
+   non-eye view matrix**. **A projection that changes with head pose over a view matrix that does
+   not is exactly "the picture inside is moving where I look and tilt."** `[inferred-static 2026-09-07]`
+3. **praydog hit this on RE4's scope and fixed it by EXEMPTION** — commit `20a3ec5442`, 2023-04-06,
+   *"VR (RE4): Fix scope not being zoomed in"*: match the camera GameObject's name prefix
+   `ScopeCamera` and return without overriding. `[reported]` RE8 uses a Mirror where RE4 uses a
+   ScopeCamera, so the *match condition* differs; **the remedy does not.**
+
+**⇒ This retires crop-follow as the lever on its own terms.** Every one of the four candidate
+mappings tried to *describe* the mirror's projection. If the projection is being overwritten with a
+head-pose-dependent one each frame, no fixed mapping can describe it, and both headset launches
+swinging is the predicted result rather than a puzzle. The board's ⭐ `[VR]` row is re-written
+accordingly.
+
+#### ⚠️ AND THE PROPOSED REMEDY WAS ALREADY IN FORCE WHEN THE SWING WAS SEEN — it is failing, not absent
+
+The `/gr` drop's best paragraph was that `pd-upscaler`'s `RenderingTechnique_V2` **MULTIPASS** mode
+erases every mirror-bearing layer from the override list, so "under MULTIPASS the mirror keeps its
+own projection". `/sr` then established the home PC runs exactly that branch (`76298bd`, tag
+`v1.5.9.1` + 671 commits, branch `pd-upscaler`), and the third `/gr` drop removed the
+"reproduce the swing on the home PC first" step because the swing **was** seen here.
+
+**Checked on this machine, 2026-09-09, with no launch — and it does not say what the chain expects:**
+
+- `re2_fw_config.txt` line 99 reads **`VR_RenderingTechnique_V2=2`**.
+- The framework log from the **23:03:59 launch of 2026-09-06 — the swing session itself** — carries
+  **8 warnings** between 23:04:04.9 and 23:04:26.6:
+  `[VR] Multipass textures are not setup correctly.` and
+  `[VR] Multipass textures are not setup correctly: Re-using backbuffer.`
+  `[verified-live 2026-09-06, n=1 log]`
+
+So the multipass code path **was selected and running while the swing was observed**, and it
+**degraded to re-using the backbuffer** rather than doing the thing the remedy depends on.
+`[inferred-static 2026-09-09]` for "value 2 selects MULTIPASS" — the warnings are the evidence, not
+a read of the enum.
+
+**⚠️ Do NOT write the next VR row as "switch to MULTIPASS and look." It is already on.** The live
+question became: *does the multipass texture setup succeed, and does the swing change when it does?*
+⚠️ **Not established:** whether the fallback persisted past 23:04:26 — the warnings appear only in
+the first 22 seconds of an 11-minute session and never repeat, which is consistent with either a
+startup-only stumble that later succeeded **or** a silent permanent fallback. Deciding that is one
+log read on the next launch, not a headset judgement.
+
+#### Two more things worth more than the row they came from
+
+- **⭐⭐ RE8 SHIPS CAPCOM'S OWN VR SNIPER SCOPE, and it works unlike all four of our candidates.**
+  `app.VrWeaponSniperScopeLensUpdater` (hash `e6d05808`) is in RE8's type DB with `DistortionBegin`
+  (float), `ExpansionRate` (float), `ReticlePosition`, and — the point — **`LensLeftPosition`** and
+  **`LensRightPosition`**, both `via.GameObjectRef`. `[reported 2026-09-07]` That is **per-eye lens
+  position anchors against a fixed rendered image**, plus a radial distortion term — *not* a per-eye
+  reprojection. It addresses Tefa's **first** symptom, *"moving around the pipe of the scope"*,
+  which **none of our four candidates ever addressed**; they all only ever went at the second.
+  RE8 has no `_ScopeCameraObject`-style field where RE4 does, which is consistent with RE8 handling
+  the eyes **at the lens** rather than at the render.
+- **A second independent suspect for a head-tracking lag:** the right eye is produced by replaying
+  `WaitRendering`→`EndRendering` a second time with an erase list that includes **`UpdateMovie`**
+  (praydog: *"Causes movies to play twice as fast if ran again"*). **Our target is a `movie/rtex`
+  target.** If its refresh runs under `UpdateMovie` the right eye sees a **stale image**, presenting
+  as lag that tracks head motion. `[hypothesis]` Cheap to separate: log the target or a frame
+  counter on both passes.
+
+#### One engine fact to pin beside the crop maths
+
+praydog's own comment: *"the game **always** uses the main camera when calling this function, even
+though it's rendering the other camera."* **The camera a pass calls a getter on does not identify
+the camera that pass is rendering.** Any instrumentation that assumes otherwise misleads — worth
+re-reading our own `crop-follow:` instrumentation against.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
