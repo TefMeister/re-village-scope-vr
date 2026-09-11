@@ -256,3 +256,7 @@ no code copied.
   instead. Settling it needs a `.scn`/`.pfb` inspection, which is outside a web-only pass.
 - **Web search was consistently weak here**, returning SourceForge REFramework mirrors and Unity
   planar-reflection pages. Every substantive finding above came from source code.
+
+## Re-check, 2026-09-11 (`/gr` CHECK-IN)
+
+Read again from `src/mods/VR.cpp` on `master` today: the `on_camera_get_projection_matrix` primary-camera guard is **still commented out**, the `on_camera_get_view_matrix` guard is **still live**, and neither function carries any scope, mirror or RE8-specific exemption `[reported 2026-09-11]`. Nothing upstream has retired the mirror-camera-exemption `[PD]` row.

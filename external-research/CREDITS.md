@@ -37,6 +37,7 @@ ourselves, plus third-party components whose licenses permit redistribution
 | RE_RSZ — the RE8 RSZ template carrying every serialized field name, incl. `via.render.Mirror`'s two fields and **`app.VrWeaponSniperScopeLensUpdater`** (Capcom's own VR sniper-scope component) (2026-09-07) | alphaZomega (alphazolam) | https://github.com/alphazolam/RE_RSZ |
 | REFramework Object Explorer documentation — the "Dump SDK" route to a full `il2cpp_dump.json` (2026-09-07) | cursey | https://cursey.github.io/reframework-book/object_explorer/object_explorer.html |
 | MHWildsHighQualityPhoto — a worked native-plugin example of swapping `via.render.RenderTargetTextureResource` inside a `RenderTargetTextureResourceHolder` to redirect a capture to a different-resolution `.rtex` (2026-09-07) | hcdd0304 | https://github.com/hcdd0304/MHWildsHighQualityPhoto |
+| RE9_ScopeResolutionFix and RE9_SensitivityScalingFix — public REFramework Lua/C# scope work on Resident Evil Requiem (`app.ScopeCameraControllerV3` lens-image scale fields), read online as prior art for how Capcom's later scopes magnify (2026-09-11) | TonWonton | https://github.com/TonWonton/RE9_ScopeResolutionFix |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
