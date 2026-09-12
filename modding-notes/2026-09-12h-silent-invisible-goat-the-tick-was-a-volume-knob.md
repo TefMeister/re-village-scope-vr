@@ -124,3 +124,48 @@ never asked for. Ask what a symptom is **not** before ranking causes for what it
 
 Aim at something **near** — a wall, a cart, a fence a few metres away — and strafe sideways. Near geometry has
 real parallax; if the picture shifts, the view is live. Distant scenery can never answer that question.
+
+
+---
+
+## ⭐ 00:50 — THE BEST DESCRIPTION OF THE FAULT YET, AND THE ONE MEASUREMENT THAT CONSTRAINS IT
+
+Tefa, verbatim: *"i can look through the scope and if i turn around, the picture in the scope moves as well, i
+can see birds flying in the distance at some angles. but to me it looks like the goat is not riding the weapon
+at the moment, it's just twisting and turning where it got spawned and the further away i go, the more things
+get nonsensical, lot of sky and stuff, when i get closer to the goat spawn point the more it looks like the
+world through the scope."*
+
+**The prop IS riding the rifle — measured, not argued.** From the log of the 23:45 launch:
+
+| time | rig | rifle | gap |
+| --- | --- | --- | --- |
+| 23:48 | (39.59, -33.75, 100.79) | (38.96, -34.78, 101.07) | ~1.2 m |
+| 00:29 | (13.55, -40.48, 124.68) | (13.73, -40.26, 123.47) | ~1.2 m |
+
+The pair travelled ~30 m together from the spawn at (40.01, -35.11, 100.83) and kept a constant ~1.2 m
+offset, with `rq` (the rig's live quaternion) changing throughout. So "it stays where it spawned" is
+`[disproved 2026-09-13, from the log]` — **but the impression behind it is not.**
+
+**What is left to explain, and it is now sharp:** the *content* of the reflection degrades with distance from
+the SPAWN POINT, not from the player. Near it, the disc looks like the world; far from it, sky and nonsense,
+with distant birds visible at some angles. The prop's position cannot cause that — it is riding. Something
+else is still anchored to where the rig was built.
+
+### Candidates for that anchor — all `[hypothesis]`, none checked
+
+1. **The reflection has a limited draw range fixed at build time.** RE Engine mirrors commonly cull what they
+   draw; if that volume was sized or placed when the rig was created, everything outside it falls back to sky.
+   Cheapest probe: rebuild the rig (`fn destroy_rig` ⇒ `fn p10`) **where the player is standing now**, far from
+   the original spawn, and see whether the good region moves with it. If it does, the anchor is the build site.
+2. **A captured scene layer still points at a camera left at the spawn.** The producer re-points scene layers at
+   our camera, and the cleanup path already knows about "dangling cameras" from an earlier lesson. If one layer
+   kept the original, part of the picture is being drawn from the old place.
+3. **The reflection plane's origin is right but its scene reference is not** — i.e. the mirror reflects across a
+   plane that travels with us while drawing a scene resolved once.
+
+Test 1 is the one to run first: it is two commands, needs no rebuild, and it separates "anchored to the build
+site" from "anchored to something else" in a single look.
+
+⚠️ And it is the same trap as the freeze: a true observation whose obvious explanation ("it is not riding") was
+already contradicted by data we had. Read the log before ranking causes.
