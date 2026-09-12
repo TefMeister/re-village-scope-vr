@@ -1268,6 +1268,33 @@ reading the code.
   to follow both smooth-turn and physical turning, and getting only one right looks fine standing still
   and wrong in play.
 
+### 9u. ⭐ THE TICK IS A VOLUME KNOB ON THE PENDULUM; DISABLING THE PENDULUM UN-HOOKS THE GOAT; THE GLASS BIND CAN NEED PRESSING TWICE (2026-09-12 night, `/lm`, Tefa wearing)
+
+Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-knob.md`.
+
+- **`app.SimplePendulum` owns the sound.** Live field dump (`fn goat_pend_dump`, 23:32): `IsWwiseTrigger`,
+  `TriggerHash 2156741340`, `WwiseContainerApp`, `SoundMaxDistance 14`, `Gain 1.0`, `DistanceGain`,
+  `Gravity 9.8`, `PendulumList`, `TargetTransform`, `MaxUpdateDist*`, `Override*Gain`. **`Gain = 0`
+  silences the tick; `Gain = 1` brings it back** `[verified-live 2026-09-12, n=2, A→B→A]`. `IsWwiseTrigger =
+  false` alone: no effect `[verified-live, n=1]`. Harness: `pendset <field> <value>` (writes + reads back).
+- **Do NOT disable the pendulum.** Two runs with it disabled (22:26 strip, 22:38 vanish) showed a
+  full-size goat frozen in mid-air while the rig root read 0.001 and tracked the rifle; the run with it
+  enabled (22:04) and tonight's final run showed the goat tiny on the rifle. The 22:38 run had exactly
+  one `SPAWNED`, so the floater was not a stray. Reading: the visible mesh is a child the pendulum poses
+  from the root each frame. `[hypothesis, n=2 consistent]` Supersedes the "stray from an un-destroyed
+  earlier rig" reading in §9t / the 22:34 code comment.
+- **The glass bind can be undone between the bind and the look.** 23:46 run: `glass: 2 slot(s) bound`
+  logged, mirror latched, rig alive — Tefa saw the **stock** lens (red crosshair, beige). A second
+  numpad-`*` after the shrink stuck. `[verified-live, n=1]` The guard that would re-bind is disabled
+  (no stable texture identity — see the guard comment in `Plugin.cpp`), so the bring-up must bind late,
+  and re-bind if the stock reticle is visible. Who undoes it is not known (`app.VrWeaponSniperScopeLensUpdater`
+  is the obvious suspect and is untested) `[hypothesis]`.
+- **Can enemies break the goat? Unknown.** It is a breakable prop and the rig keeps `app.HitController`,
+  `app.ProcDamage` and `via.physics.Colliders`; disabling those three is known-safe for the rig (the 22:26
+  strip did it) and is the cheap insurance. `[hypothesis]`
+- **Final state 23:53** `[verified-live, n=1 wearer]`: goat ×0.001 on the rifle, silent, picture live.
+  **Open:** the picture still rotates with head and rifle; the `mrollsym` left/right A/B is unanswered.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
