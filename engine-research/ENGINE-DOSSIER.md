@@ -953,6 +953,50 @@ quantities the user reports while actually wearing it. `[reported 2026-09-12]`
 Also seen once: a launch came up with a **completely black picture** in the headset and needed a game
 restart `[reported 2026-09-12, n=1]` — cause unknown, no log read taken.
 
+### 9n. ⭐⭐⭐ THE "SWING" IS THE IMAGE'S PLACEMENT IN THE TUBE, NOT THE IMAGE'S CONTENT (2026-09-12, `/lm`, the test that reframed the project)
+
+After three worn tests all came back "exactly the same", `fn destroy_rig` was sent purely as a
+control — to find out whether Tefa was looking at OUR picture at all. The answer settled two
+questions at once, and the second one is the important one.
+
+**1. We WERE seeing our picture, so today's negatives are real.** Tefa, immediately after the
+teardown: *"picture inside the headset is now a still picture … i can see some rails and the goat"* —
+the producer's own warning (*"teardown can no longer kill its rendering — the glass just freezes"*)
+made flesh. So the glass bind works, the mirror feeds the lens, and §9l / §9m's disproofs stand
+`[verified-live 2026-09-12, n=1 wearer]`.
+
+**2. 🎯 With the image FROZEN, the complaint persists:** *"the scope still moves around in the scope
+tube when i move my head or the weapon, but the image inside the scope is still."*
+`[verified-live 2026-09-12, n=1 wearer]`
+
+⇒ **A frozen image cannot re-aim. So what moves is the DISC OF PICTURE relative to the scope tube —
+its placement — not the scene inside it.** Every attack this project has mounted since 2026-09-05
+(the four crop mappings, the steering models, the roll law, §9j's projection override, §9l's
+exemption, §9m's plan C) aimed at the *content's* projection. **The symptom was never there.**
+
+That also explains, exactly, why `steerk 0.5 → 3.0` and a deliberate `dyaw 25` were all indistinguishable
+to the wearer: they move the content, and the content was not what was wrong.
+
+**⭐ And this is precisely the problem Capcom's own VR scope solves.** §9k read
+`app.VrWeaponSniperScopeLensUpdater` live: **`LensLeftPosition` / `LensRightPosition`** (per-eye lens
+position anchors), `ExpansionRate`, `DistortionBegin` — *placement and magnification of a lens image
+against a fixed rendered picture*, per eye. The 2026-09-07 research note already said this addressed
+Tefa's FIRST symptom, *"moving around the pipe of the scope"*, *"which none of our four candidates
+ever addressed"*. It was right, and it was filed under an idea we then retired for a different reason.
+
+**What this means for the next attempt** (`[hypothesis]`, none of it run):
+- Our composited picture is blitted into one engine texture drawn on the glass mesh, so **both eyes
+  sample the same texture on the same quad** — it behaves like a sticker on the glass rather than an
+  image formed by optics, and a sticker slides against the tube as the eye moves. That is the defect.
+- The fix is per-eye: the sampled crop centre must shift with **the eye's position relative to the
+  lens axis**. The `crop-follow` machinery already computes an eye→mirror crop centre (it logs four
+  candidates every second) — it was built for the right geometry and judged against the wrong symptom.
+  **First cheap test: turn `cropfollow` ON and judge it against TUBE ALIGNMENT, not content.**
+- If one texture cannot serve two eyes, the honest route is our own material on the glass with an
+  eye-aware shader — i.e. rebuilding Capcom's design with the four ingredients §9k already gave us.
+
+⚠️ The rig is destroyed and the glass is frozen; `numpad .` re-arms the latch and a new producer appears.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
