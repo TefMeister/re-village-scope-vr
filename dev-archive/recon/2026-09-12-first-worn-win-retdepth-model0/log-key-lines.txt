@@ -1,0 +1,46 @@
+[2026-09-12 15:10:21.830] [REFramework] [info] [Plugin] [re-scope-vr] settings loaded: flipH=1 flipV=1 glassFlipV=0 evAuto=1 exposure=0.168 evSlope=2.0 cropY=0.60 grading=GT-CURVE exposureGT=0.511 toneWp=0 rtScale=1.00 rollK=0.00 cropFollow=1 cropMode=2 aspectMode=0 eyeDist=-1.00 retDepth=0.00
+[2026-09-12 15:13:48.852] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x6E from the Lua panel
+[2026-09-12 15:13:48.852] [REFramework] [info] [Plugin] [re-scope-vr] mirror-source re-arm PENDING -- current source kept (latched=0); the next acceptable 1280/1920-wide fmt=29 allocation replaces it
+[2026-09-12 15:13:56.118] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00
+[2026-09-12 15:13:56.170] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 00000188B1A56B00 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-12 15:13:56.171] [REFramework] [info] [m6_mirror] P10: pane defaults set — pitch=180 yaw=90 fwd=1.0 up=-0.2 right=-0.715 (user-found 2026-08-30)
+[2026-09-12 15:13:56.171] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+[2026-09-12 15:13:56.176] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 00000188B1A57E20 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-12 15:13:56.369] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #1: the latch had already followed 7 ticks before the rebuild counter was read (latch gen 2, source 1920 wide = the rigged width) -- not stranded
+[2026-09-12 15:14:05.724] [REFramework] [info] [m6_mirror] rig drive = true (harness)
+[2026-09-12 15:14:05.724] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x6A from the Lua panel
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_Depth_Min        authored 0.388 -> 0.000 reads back 0.000   (this pair scales the shader's eye-position UV offset; 0/0 kills it)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_Depth_Max        authored 500.000 -> 0.000 reads back 0.000   (this pair scales the shader's eye-position UV offset; 0/0 kills it)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] EyeDistortionRange shipped (0.100,0.300,0.000,0.000)  -> (0.100,0.300,0.000,0.000) reads back (0.100,0.300,0.000,0.000)   (the float4 path REACHES it -- 8d's 'unwritable' was a scalar write to a float4 slot)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [2] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_Emissive         -> 1.000 reads back 1.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_AddColor    -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_Height      -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FakeSpecular_RangeLimit  -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Height         -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] ConvexNormal_Intenisty   -> 0.000 reads back 0.000
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_Depth_Min        authored 0.388 -> 0.000 reads back 0.000   (this pair scales the shader's eye-position UV offset; 0/0 kills it)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_Depth_Max        authored 500.000 -> 0.000 reads back 0.000   (this pair scales the shader's eye-position UV offset; 0/0 kills it)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] EyeDistortionRange shipped (0.100,0.300,0.000,0.000)  -> (0.100,0.300,0.000,0.000) reads back (0.100,0.300,0.000,0.000)   (the float4 path REACHES it -- 8d's 'unwritable' was a scalar write to a float4 slot)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] TransparentColor         -> (0.00,0.00,0.00,1.00) reads back (0.00,0.00,0.00,1.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] Reticle_UV_Scale_Offset  -> (0.80,0.80,0.00,0.00) reads back (0.80,0.80,0.00,0.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Inner    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-12 15:14:13.858] [REFramework] [info] [Plugin] [re-scope-vr] look: [3] FrontHole_Color_Outer    -> (0.00,0.00,0.00,0.00) reads back (0.00,0.00,0.00,0.00)
+[2026-09-12 15:24:41.007] [REFramework] [info] [re8-harness] harness: retdepth -1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-1.00
+[2026-09-12 15:24:41.173] [REFramework] [info] [Plugin] [re-scope-vr] eye-offset: retdepth < 0 -- authored 0.388 / 500.000 restored and left alone (the A/B control)
+[2026-09-12 15:28:04.715] [REFramework] [info] [re8-harness] harness: retdepth 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=0.00
+[2026-09-12 15:28:57.004] [REFramework] [info] [re8-harness] harness: cropfollow 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-1 eyedist=-9.00 retdepth=0.00
+[2026-09-12 15:36:08.583] [REFramework] [info] [re8-harness] harness: model 2  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=corr k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-1 eyedist=-9.00 retdepth=0.00
+[2026-09-12 15:36:08.583] [REFramework] [info] [re8-harness] harness: steerk 0.5  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=corr k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-1 eyedist=-9.00 retdepth=0.00
+[2026-09-12 15:36:08.583] [REFramework] [info] [re8-harness] harness: steer 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=corr k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-1 eyedist=-9.00 retdepth=0.00
+[2026-09-12 15:41:44.509] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-1 eyedist=-9.00 retdepth=0.00
