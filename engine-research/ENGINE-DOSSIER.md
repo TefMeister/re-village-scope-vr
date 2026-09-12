@@ -399,6 +399,12 @@ validated script and results in `dev-archive/recon/2026-09-05e-flat-control-and-
 
 ### 8d. Both fixes run: the eye-box is closed, and the steering ray has a measured target (2026-09-05, `/lm`)
 
+> ⚠️ **The first bullet below is WITHDRAWN. See §9o (2026-09-12, `/pd`).** The reading was
+> right and the conclusion was wrong: `EyeDistortionRange` is a **float4** and every write in
+> that experiment went through the **scalar** setter, so none of them reached the material.
+> "There is no writer to hunt" happens to be true, for a different reason; "cannot be written"
+> is not. Nothing else in §8d is affected.
+
 Source: `modding-notes/2026-09-05g-both-fixes-run-one-answered-one-was-aimed-at-the-wrong-thing.md`;
 evidence `dev-archive/recon/2026-09-05g-both-fixes-run/`.
 
@@ -996,6 +1002,50 @@ ever addressed"*. It was right, and it was filed under an idea we then retired f
   eye-aware shader — i.e. rebuilding Capcom's design with the four ingredients §9k already gave us.
 
 ⚠️ The rig is destroyed and the glass is frozen; `numpad .` re-arms the latch and a new producer appears.
+
+### 9o. ⭐⭐⭐ THE LENS EYE-BOX WAS NEVER UNWRITABLE — IT IS A FLOAT4 AND WE KEPT WRITING IT AS A FLOAT (2026-09-12, `/pd`, no launch)
+
+Supersedes: §8d, bullet 1 (`EyeDistortionRange` "cannot be written / the row is closed").
+Source: `modding-notes/2026-09-12b-the-eye-box-was-never-unwritable.md`.
+
+- **⭐ The variable is a `float4`, authored 0.1 / 0.3, and the plugin has always written it with
+  `setMaterialFloat`** — the scalar setter — and read it with `getMaterialFloat`. A scalar write into
+  a float4 slot lands nowhere; the read returns the x lane. **The `0.100` that five sessions read as
+  "the game refuses our value" is Capcom's authored `x`, handed straight back.**
+  `[inferred-static 2026-09-12]`
+  - Structural evidence: §9k's pak read of `Weapon_SniperScopeLens2.mmtr` `[verified-numerically 2026-09-12]`.
+  - Behavioural evidence, independent of any file: the same call, same mesh, same material, same
+    learned ABI encoding, **verifies on all five other scalars written in that loop**
+    (`ConvexNormal_Intenisty`, `FrontHole_Height`, three × `FakeSpecular_*`) and fails only on this one
+    `[verified-live 2026-09-05, n=2 materials × 3 launches]`. The plugin's float4 path is known good in
+    the same logs (`FrontHole_Color_*` read back exactly what they are given).
+- **⭐ It is the leading candidate for §9n's placement defect, and the chain is end to end.** Our picture
+  is bound into the lens material's `Reticle_BaseAlphaMap`; the shipped lens shader carries an
+  eye-direction term scaled by `EyeDistortionRange` `[reported 2026-09-12]`; §8 measured in the headset
+  that "off-axis the visible disc shrinks and **slides** … with view angle"
+  `[verified-live 2026-09-05, n=2]`; §9n measured with our image **frozen** that what moves in the tube
+  is the disc's placement `[verified-live 2026-09-12, n=1 wearer]`. **⚠️ Which sampler's UV the
+  `eye_dir` term perturbs is read from a note, not from the shader, so "zeroing it removes the swing"
+  stays `[hypothesis]`.** What is established is that the write can now reach the variable at all.
+- **⭐ `crop_follow` CANNOT move the disc in the tube, at any setting** `[inferred-static 2026-09-12]`.
+  In `ps_main` the lens circle, its edge, the reticle and the mode tab are all drawn from the
+  **destination** pixel's `i.uv`; `uvCenter` (the only thing `crop_follow` sets) appears solely in the
+  **source** sample `suv = uvCenter + pr * 2 * uvHalf`; and `blit_rt_into_target` fills the whole
+  target viewport 1:1 with no offset. The crop moves the picture *inside* the hole; it cannot move the
+  hole. ⇒ §9n's "cheapest first step (a), turn `cropfollow` on and judge tube alignment" would have
+  returned "no change" by construction. **Row re-ordered; that launch is saved.**
+- **Built, compile-verified, deployed, NOT run:** float4 material accessors with the same
+  verified-read-back contract as the scalar ones; `EyeDistortionRange` moved to a float4 block that
+  logs all four authored lanes at every bind; the 2026-09-05 scalar ladder and its hold window
+  retired; a frame-rate `eyedist_hold_tick`; and one live knob `eyedist` (harness → pane file →
+  plugin, persisted): `0` = off and held, `-1` = the authored value restored and left alone,
+  `-9`/absent = not commanded. `[compile-verified 2026-09-12]`
+- **The one wear that decides it:** `eyedist 0` then `eyedist -1`, judging TUBE ALIGNMENT only. Disc
+  still at `0` and sliding at `-1` ⇒ solved. No difference, with the log saying the float4 write
+  verified ⇒ not the cause, and §9n route (b) (our own material, eye-aware shader) is the remaining
+  route. Bind-time log line to read either way:
+  `look: [2] EyeDistortionRange shipped (0.100,0.300,…) -> … reads back …` — the `shipped` tuple is
+  also the live check on §9k's file read.
 
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
