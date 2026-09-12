@@ -1292,6 +1292,17 @@ Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-kno
 - **Can enemies break the goat? Unknown.** It is a breakable prop and the rig keeps `app.HitController`,
   `app.ProcDamage` and `via.physics.Colliders`; disabling those three is known-safe for the rig (the 22:26
   strip did it) and is the cheap insurance. `[hypothesis]`
+- **⚠️ 00:28 — THE PICTURE IS FROZEN, AND THAT RETROSPECTIVELY WEAKENS "picture live" ABOVE.** Two stills ten
+  seconds and a long walk apart show the same mountain and sky inside the scope `[verified-live 2026-09-13,
+  n=1 wearer, 2 stills]`. Tefa: *"the picture does not change when i change locations."* So the 23:53 "both
+  wells" reading is also consistent with a **stale frame**, and tonight's rotation work may have been chasing
+  the rotation of a still image. Candidates, cheapest first: **(1) the engine stops updating a mirror whose
+  host prop is 0.001 across** — this prefab already carries distance gating (`MaxUpdateDistCommon=13`) and the
+  shrink is new tonight; **(2) the plugin's latched source is a stale allocation** — this launch logged
+  `rig rebuild #1: the latch had already followed 3 ticks before the rebuild counter was read`; **(3) the
+  mirror camera is not ticked** — weakest, the rig heartbeat read `update=true draw=true` all evening. All
+  `[hypothesis]`. First test: `fn goat_unshrink`, walk, look. ⚠️ `rt=false` in the heartbeat is not evidence
+  either way — it printed `false` while the picture was live.
 - **Final state 23:53** `[verified-live, n=1 wearer]`: goat ×0.001 on the rifle, silent, picture live.
   **`mrollsym 1` (side-flip) judged 00:05** `[reported, n=1]`: less chaotic, kept on. Remaining: picture sideways, not showing where the scope points; turning left rotates it counter-clockwise, and at the far end of a right turn it rotates back. That reversal at one extreme is the next session's spec.
 
