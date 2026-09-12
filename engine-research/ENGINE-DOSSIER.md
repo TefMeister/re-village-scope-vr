@@ -1183,6 +1183,51 @@ traces and a headset frame in `dev-archive/recon/2026-09-12-mroll-first-wear-and
 - Wearer's summary of the state on v2: *"honest feel of it is like aiming down a scope now. just needs
   to be right, but it feels good."*
 
+### 9s. ⭐⭐ THE CONSTANT TILT GETS A KNOB THAT MEASURES ITS OWN VALUE (2026-09-12 night, `/pd`, no launch)
+
+Source: `modding-notes/2026-09-12f-the-constant-tilt-gets-a-knob-that-measures-itself.md`.
+Closes all three `[PD]` rows §9r queued — two as built, one **corrected**.
+
+- **⭐⭐ `mrolloff <deg>`: the constant added to the applied angle.** §9r's cancel is the excess over
+  the BAKED pane, so it is zero by construction whatever roll the baked picture itself carries —
+  **a fixed tilt is invisible to it by design.** Harness ⇒ pane file ⇒ plugin, persisted.
+  ⚠️ Its "not commanded" sentinel is **—999, not —9**, because **0 is a real value** here unlike the
+  0/1 knobs beside it.
+- **⭐ And the knob's value is MEASURED, not swept.** The plugin now computes the roll the **baked pane
+  alone** gives against the rifle's up — the same quantity the cancel subtracts — and prints it once a
+  second as **`baked-roll`**. Never applied; it exists to be read. **Non-zero and steady with the rifle
+  held still ⇒ `mrolloff` is minus that number.** That turns a three-wear sweep into "read one number,
+  set the knob, one wear".
+- **⭐ `n-vs-lua`: is the plugin's recomputed normal the one the Lua applies?** The per-tick normal
+  (§9r, `mrollsrc 1`) assumes the plugin's joint anchor and muzzle axis reproduce the Lua's `"eye"`
+  model, which uses its own `anchor_pos` and can flip the bore (`flip_d`). If they differ the cancel's
+  **magnitude** is off by exactly that angle — **indistinguishable in the headset from a wrong
+  coefficient**, and that is the other reading of "—1 over-corrects, —0.5 under". Now printed as the
+  angle between the two, compared **as planes** (a normal's sign is arbitrary, so the Lua's is flipped to
+  the same side first, or a perfect match would read 180°). Never acted on.
+- **⚠️ THE GOAT ROW WAS NOT THE FREE COSMETIC CHANGE IT WAS WRITTEN AS.** §9r said *"hide the rig prop's
+  mesh — cosmetic; the pane must stay"*. `rig_mesh_draw()` has existed since M19, but **the producer's
+  own comment has asked since 2026-08-27 whether the mirror keeps PRODUCING with its host mesh hidden**,
+  and nothing in the dossier or the notes answers it — no run has ever tested it. Hiding it by default
+  could blank the scope. **Corrected to a one-command test:** `fn goat_hide` / `fn goat_show` published to
+  the harness (the function existed; nothing driven could reach it), default unchanged. `[hypothesis]`
+  that hiding is safe.
+- **Verification:** all three numeric suites re-run against the changed source — `mirror_roll_test`
+  **176/176**, `crop_follow_test` **40/40**, `roll_math_test` **20/20** `[verified-numerically 2026-09-12]`;
+  both Lua files parse and both `string.format` calls arity-checked (the pane file is 26 lines and carries
+  `mroll_off`); and **the C log line tokenised: 35 specifiers, 35 arguments**, last five aligned.
+  ⚠️ `LOGI` is a variadic wrapper, so the compiler does **not** check that pair — and two earlier
+  attempts at the check produced confident wrong numbers (one matched a different `crop-follow:` `LOGI`,
+  the other was fooled by string literals inside the *arguments*). Worth knowing before trusting a
+  quick grep on any `LOGI` in this file.
+- **Deployed and stamped, NOT run.** The install was verified current first: a rebuild hashed identical
+  to the installed DLL before any edit.
+- **The next wear reads two numbers before it touches a knob:** `baked-roll` non-zero and steady ⇒
+  set `mrolloff` to minus it; ~0 ⇒ the tilt is not the baked pane and `roll_k` (the rifle's own roll,
+  3—6° measured today, never applied) is the next suspect. `n-vs-lua` ~0° ⇒ the strength is a real
+  coefficient question, sweep `mrollk`; tens of degrees ⇒ fix the anchor/`flip_d` mismatch instead of
+  tuning around it.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
