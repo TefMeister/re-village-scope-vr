@@ -1141,6 +1141,48 @@ evidence `dev-archive/recon/2026-09-12-first-worn-win-retdepth-model0/`.
   keys `106` → `cropfollow 0` → `model 0` → `steer 1`; then `mrollk 1` / `-1` / `0` judging only the
   spin, `mrollmode 0` only if head tilt now rolls it. Log: `crop-follow: … | mroll X deg mode M k K`.
 
+### 9r. ⭐⭐ FOUR WEARS: THE SPIN CANCEL GOES FROM "SPINS AND SNAPS" TO "HALF STRENGTH, NO SNAPS, ONE STEADY TILT" (2026-09-12 evening, `/lm`, Tefa wearing)
+
+Source: `modding-notes/2026-09-12e-four-wears-the-spin-cancel-goes-from-snapping-to-half-strength.md`;
+traces and a headset frame in `dev-archive/recon/2026-09-12-mroll-first-wear-and-the-spin-trace/`.
+
+- **⭐ The roll lives in the MIRROR IMAGE, not downstream of the compositor.** Our crosshair is
+  drawn upright in the render target; worn, *"the crosshair just sits there without moving at all"*
+  while the picture behind it turns `[verified-live 2026-09-12, n=1 wearer]`. So the thing to cancel
+  is the mirror-law roll of §9q — §9q's idea stands, its v1 maths did not.
+- **v1 (world up, about the reflected forward) was wrong in both reference choices.** Worn: spins AND
+  snaps at `mrollk 1`; spins without snapping at `0`. Trace: the term sat near **—134°** while still
+  and jumped 26° in a second when the pane moved — with the head 40° off the bore the reflected
+  forward points steeply down and "world up perpendicular to a near-vertical axis" is ill-conditioned
+  `[verified-live 2026-09-12, n=1]`. ⚠️ A stable-looking large value is not a small correction.
+- **v2: about the BORE, from the RIFLE'S up, as the excess over the BAKED pane computed at the same
+  instant** (zero by construction when steered = baked; no baseline state to go stale). Worn:
+  `mrollk 1` "less, sometimes not rotating at all on pure left/right"; **`mrollk -1` "rotates, then snaps
+  back to the right way up"** ⇒ **—1 is the sign**, and the snap-back is LAG: the plugin read the
+  steered normal from the Lua's pane file (~2 Hz publish / ~4 Hz read) `[verified-live 2026-09-12, n=1]`.
+- **v3: the plugin recomputes the Lua "eye" model's normal EVERY TICK** (§9q's `mrollsrc 1`):
+  `v = normalize(anchor — eye)`, `d = bore`, `n = normalize(v — d)`, with the plugin's joint as the
+  anchor and the **verified muzzle axis** as both the bore and the roll axis (not the root's +Z).
+  Tests: 176/176 `[verified-numerically 2026-09-12]` — baked pane → 0 at 35 poses, normal turned by
+  alpha about the bore → 2 alpha, pane PITCHED toward the eye → 0 (the case v1 broke on; bounded
+  at |pitch| < 45°, beyond which the reflection genuinely inverts), whole rifle rolled → 0, and for
+  eyes all round the rifle the recomputed normal reflects the eye ray onto the bore with the roll even
+  in the sign of `n`. Worn: the term reads **—7 to —37°** as the head moves; **no snapping**.
+  `mrollk -1` over-corrects (still swings), **`mrollk -0.5` swings less with a steady tilt left over**
+  `[verified-live 2026-09-12, n=1 wearer]`. **Shipped default —0.5 / src 1 / mode 1.**
+- **What is left, separated:** (a) the moving part's STRENGTH — between —0.5 and —1, or a magnitude
+  error in the recomputed normal (Lua anchor vs plugin joint, `flip_d`); (b) a **constant tilt** the
+  excess-over-baked construction cannot see by design — the baked picture's own roll, or `roll_k`
+  (still 0), or a fixed compositor-to-glass offset — one offset knob decides it; (c) **warp/stretch
+  while rotating** — an obliquely tilted planar mirror reprojects the scene and a rotated rectangular
+  crop of a 16:9 render cannot undo that; not a roll problem. Also verbatim for the content line:
+  *"moving my head is inverted left and right in game, moving my head up and down causes the picture
+  inside the scope to snap to where it is pointing"* — the mirror's AIM steps and yaw is mirrored.
+- Cosmetic, seen twice: the goat rig prop turning on the side of the rifle as the pane steers; the goat
+  visible through the lens with the rifle turned far right.
+- Wearer's summary of the state on v2: *"honest feel of it is like aiming down a scope now. just needs
+  to be right, but it feels good."*
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
