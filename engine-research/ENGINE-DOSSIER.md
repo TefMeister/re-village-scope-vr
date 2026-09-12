@@ -1228,6 +1228,46 @@ Closes all three `[PD]` rows §9r queued — two as built, one **corrected**.
   coefficient question, sweep `mrollk`; tens of degrees ⇒ fix the anchor/`flip_d` mismatch instead of
   tuning around it.
 
+### 9t. ⭐ THE RIG PROP: SHRINK IT, DO NOT MOVE IT — AND WHAT THE PROP ACTUALLY IS (2026-09-12 night, `/pd`, no launch)
+
+Source: `modding-notes/2026-09-12g-shrink-the-prop-instead-of-hiding-it.md`. Tefa's idea, reshaped by
+reading the code.
+
+- **What the "goat" IS, since it keeps being misread as scenery:** a prefab borrowed from the game
+  (`sm80_382_totemeveryware_00_swing`, a hanging totem), spawned only because the engine will not let us
+  create a bare `via.render.Mirror` from nothing — we need a real object to bolt components onto. The
+  prop is scaffolding; the mirror is the point.
+- **⚠️ PARKING IT AWAY CANNOT WORK.** `rig_pose_once()` copies the RIFLE's transform onto the prop every
+  frame, so **the prop's position IS the mirror's position**. Above the head ⇒ the scope shows a
+  reflection taken from above the head. Tefa's idea was to park it *"slightly behind the player and above
+  the head"*; this is why that specific form of it fails, and it is worth having written down.
+- **⭐ But the same function gives the version that works.** `rig_pose_once` writes `set_Position` and
+  `set_Rotation` and **nothing else** — and that is not a reading of one function but an exhaustive
+  grep: **the only scale write anywhere in the producer, the harness or the plugin is the one added
+  today** `[verified-numerically 2026-09-12]`. A scale written once has nothing in our code to undo it,
+  and a plane is a point plus a normal, neither of which has a size `[hypothesis]`.
+  ⇒ **Shrink the prop, do not move it.**
+- **Strictly better than hiding the mesh.** `fn goat_hide` disables the mesh component, and whether the
+  mirror keeps PRODUCING with its host mesh hidden has been open in the producer **since 2026-08-27 and
+  has never been tested**. Shrinking never touches the mesh.
+- **Built:** `fn goat_shrink` (×0.001), `fn goat_shrink2` (×0.05, deliberately visible — it tells "the
+  shrink worked" apart from "the prop was never in view"), `fn goat_unshrink`. The prefab's OWN scale is
+  captured once on the first shrink (these props are not all unit-scaled, and the capture-once guard
+  stops a second shrink stranding the restore); every write is read back and logged; a failed read
+  refuses rather than writing something it could not undo; `destroy_rig` forgets the capture.
+- **⭐ Re-assertion is visible without a wear:** while a shrink is in force the periodic `sliders:` line
+  echoes the live scale and prints `<-- SCALE RE-ASSERTED` if it climbs back. If the game owns the scale,
+  that shows up in the log rather than as a prop quietly returning in the headset — and the fix would
+  then be a per-frame hold, exactly like `Reticle_Emissive`.
+- **The test, three commands, any launch:** `fn goat_shrink2` ⇒ `fn goat_shrink` ⇒ `fn goat_unshrink`.
+  Picture unchanged ⇒ ship the shrink at rig build. Picture dies ⇒ the mirror scales with its
+  object (worth knowing beyond this project), fall back to `goat_hide`. `WRITE DID NOT LAND` ⇒ wrong
+  setter, the log names the next step. Prop returns ⇒ per-frame hold.
+- **Not addressed, and deliberately:** Tefa's roomscale/stick constraint. It does not apply while the prop
+  rides the rifle, but it becomes real the day anything is parked relative to the PLAYER — it would have
+  to follow both smooth-turn and physical turning, and getting only one right looks fine standing still
+  and wrong in play.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
