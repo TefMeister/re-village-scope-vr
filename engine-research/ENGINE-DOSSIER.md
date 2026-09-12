@@ -1100,6 +1100,47 @@ evidence and the reproduction recipe in `dev-archive/recon/2026-09-12-lens-shade
   Bind-time lines: `look: [2] Reticle_Depth_Min authored 0.388 -> 0.000 reads back 0.000` and the
   matching `_Max`, which also check the material-file read live.
 
+### 9q. ⭐⭐⭐ WORN: THE DISC SITS STILL (A→B→A), AND WITH IT GONE THE GUN STEERS THE PICTURE UNDER MODEL 0 (2026-09-12, Tefa wearing, then `/pd`)
+
+Source: `modding-notes/2026-09-12d-first-worn-win-the-disc-sits-still-and-the-gun-steers-the-picture.md`;
+evidence `dev-archive/recon/2026-09-12-first-worn-win-retdepth-model0/`.
+
+- **⭐⭐⭐ §9p's off switch works in the headset, blind, both directions.** `retdepth 0`: *"it does not
+  slide around the tube anymore, the scope glass is actually the scope glass, right where it has to be"*;
+  `retdepth -1`: *"it slides around the tube again"*; `0` again: still.
+  `[verified-live 2026-09-12, n=1 wearer, A→B→A]`. The placement row is CLOSED; `retdepth 0` is the boot
+  default. Both scalar writes land (`authored 0.388 / 500 → 0.000 reads back 0.000`, both materials), and
+  `EyeDistortionRange` reads live as the float4 `(0.1, 0.3, 0, 0)` — §8d's "cannot be written" is now
+  disproved in the game, not only on paper `[verified-live 2026-09-12, n=2 materials]`.
+- **⚠️ Consequence for everything since 2026-09-05: the content-line disproofs are void in BOTH
+  directions.** They were judged with the disc sliding, so a model that worked could not have been seen to.
+  Steering model 0, "DISPROVED" in §8, is un-disproved by this — and, below, it works.
+- **The horizontal-mirror signature, described by the wearer without knowing the law.** `cropfollow 0`,
+  baked pane: *"left and right with head movement, not gun movement; up and down with gun movement, and
+  head movement is inverted — head up moves the picture down"* `[verified-live 2026-09-12, n=1]`. A flat
+  mirror under the line of sight preserves yaw and inverts pitch; its viewpoint is the eye's, never the
+  rifle's. The plane has to be steered.
+- **Model 2 (identity on-axis): no change**, pane within ~6° of −Y — it is built to do nothing where the eye
+  is when aiming `[verified-live 2026-09-12, n=1]`. Wrong tool for this symptom.
+- **⭐⭐ Model 0 (the exact reflection law): THE GUN STEERS THE PICTURE.** *"aiming with gun also moves the
+  picture left right up down and Ethan's clothes do rarely show on the scope"* — the 2026-09-05 jacket goes
+  with it. Remaining: *"turning my head rotates the picture … rotating as I look and aim"*; *"both head and
+  gun roll the picture, but head tilting does not seem to"* `[verified-live 2026-09-12, n=1 wearer, tilt
+  part hedged]`. That is the mirror law: a plane that swings by α about the bore turns its image by 2α.
+  One flat mirror cannot be direction-correct and roll-free; the roll is computable and is cancelled in
+  the compositor.
+- **Built with nothing running (`/pd`): the steered-mirror roll cancel.** `src/mirror_roll_math.h`
+  (reflect camera forward/up across the pane in use, signed angle from world-up about the reflected
+  forward, minus the 180° that `flip_h + flip_v` already pay for, so the baked pane returns 0);
+  `tools/mirror_roll_test.cpp` **89/89** `[verified-numerically 2026-09-12]` (horizontal → 0 at 35 poses,
+  turned-by-α → 2α against first principles, degenerate → `ok = 0`; the first run's 8 failures were a
+  hand-waved sign in the test's expectation, fixed in the test). Applied as
+  `roll_k·rifle_roll + mroll_k·mirror_roll`; live knobs `mrollk` (signed, default 1) and `mrollmode`
+  (1 = world-up camera, default; 0 = real camera up). Deployed, stamped, **not run**.
+- **Next wear, exact order (nothing steering-side persists):** keys `110` → `fn p10` → `fn drive_on` →
+  keys `106` → `cropfollow 0` → `model 0` → `steer 1`; then `mrollk 1` / `-1` / `0` judging only the
+  spin, `mrollmode 0` only if head tilt now rolls it. Log: `crop-follow: … | mroll X deg mode M k K`.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
