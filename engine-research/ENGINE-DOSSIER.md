@@ -843,6 +843,34 @@ though it's rendering the other camera."* **The camera a pass calls a getter on 
 the camera that pass is rendering.** Any instrumentation that assumes otherwise misleads — worth
 re-reading our own `crop-follow:` instrumentation against.
 
+### 9k. ⭐⭐ Capcom's VR scope is a DEAD END on PC, and §9j is measured (2026-09-12, `/lm`, headset on a stand)
+
+- `app.VrWeaponSniperScopeLensUpdater : via.Behavior` read live: the five researched fields **plus**
+  `_mesh` (`via.render.Mesh`), `_materialIndex`, and six material-variable indices
+  (`_lensCenterPosIndex`, `_distortionBeginIndex`, `_reticlePosIndex`, `_lensLeftPosIndex`,
+  `_lensRightPosIndex`, `_expantionRateIndex`); methods `start`/`lateUpdate`. It is a **per-frame
+  material driver** for a lens shader. `[verified-live 2026-09-12, n=1]`
+- **0 live instances** in the loaded village scene with the rifle equipped `[verified-live 2026-09-12, n=2]`.
+- **The shader it drives is not shipped on PC.** `it02_070_sniperrifle_01.mdf2.19` puts both lens
+  materials on `Weapon_SniperScopeLens2.mmtr`, whose variables are `ConvexNormal_CenterPos`,
+  `EyeDistortionRange` (float4, 0.1/0.3) and `Reticle_*` only — none of the six the component writes.
+  The release list holds one "scope" master material. `[verified-numerically 2026-09-12]`
+  ⇒ turning Capcom's VR scope on would mean writing the lens shader; **row retired**.
+- **§9j in numbers:** with the rig up, `MainCamera` and `MainCamera (Clone)` both return
+  `m00=0.9848 m11=1.1696 m20=+0.1736 m21=-0.2111` from `get_ProjectionMatrix`, every second — an
+  off-centre HMD eye projection on a camera that is not an eye `[verified-live 2026-09-12, n=1 launch]`.
+  Which of the two is the mirror's camera is **not** identified (`findComponents(via.render.Mirror)`
+  returns nothing). Pass/fail for the exemption: the mirror camera's `m20/m21` → 0 while
+  `MainCamera` keeps the asymmetry — readable with nobody wearing the headset.
+- Multipass warnings: 8 per launch, all before gameplay, `[verified-live 2026-09-12, n=2]` (n=3 with
+  2026-09-06). `rtex_3840`: allocates, latches, upgrades to fmt=26, not stranded
+  `[verified-live 2026-09-12, n=1]`; frame cost still has no readout.
+- Lua API note: `get_ProjectionMatrix` returns a sol-bound glm `mat4`; read rows as `m[r]` and
+  components as `.x/.y/.z/.w` — integer `[r][c]` is nil `[verified-live 2026-09-12]`.
+- Headset on a stand with the proximity sensor taped: REFramework opens the OpenXR session on the
+  Quest 3 with nobody wearing it, and the whole driving profile works in VR mode
+  `[verified-live 2026-09-12, n=3 launches]`. Unattended VR runs are a thing now.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
