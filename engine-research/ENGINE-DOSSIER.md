@@ -1040,12 +1040,65 @@ Source: `modding-notes/2026-09-12b-the-eye-box-was-never-unwritable.md`.
   retired; a frame-rate `eyedist_hold_tick`; and one live knob `eyedist` (harness → pane file →
   plugin, persisted): `0` = off and held, `-1` = the authored value restored and left alone,
   `-9`/absent = not commanded. `[compile-verified 2026-09-12]`
-- **The one wear that decides it:** `eyedist 0` then `eyedist -1`, judging TUBE ALIGNMENT only. Disc
+- ⚠️ **WITHDRAWN by §9p, later the same day: `eyedist 0` is the WRONG direction.** The shader
+  guards `EyeDistortionRange.y == .x` with `hi = x + 1e-4`, so all-zeros pins the smoothstep at
+  **1** — the largest offset, permanently. Default corrected to `-1`. The float4 finding itself,
+  and the `crop_follow` disproof, are unaffected. The superseded test read:
+- ~~**The one wear that decides it:** `eyedist 0` then `eyedist -1`, judging TUBE ALIGNMENT only.~~ Disc
   still at `0` and sliding at `-1` ⇒ solved. No difference, with the log saying the float4 write
   verified ⇒ not the cause, and §9n route (b) (our own material, eye-aware shader) is the remaining
   route. Bind-time log line to read either way:
   `look: [2] EyeDistortionRange shipped (0.100,0.300,…) -> … reads back …` — the `shipped` tuple is
   also the live check on §9k's file read.
+
+### 9p. ⭐⭐⭐ THE LENS SHADER, READ: THE ENGINE MOVES OUR PICTURE WITH THE HEAD, AND TWO SCALARS SWITCH IT OFF (2026-09-12, `/pd`, no launch)
+
+Supersedes: §9o, final bullet (the `eyedist 0` test).
+Source: `modding-notes/2026-09-12c-the-lens-shader-says-exactly-what-slides-and-what-stops-it.md`;
+evidence and the reproduction recipe in `dev-archive/recon/2026-09-12-lens-shader-read/`.
+
+- **⭐ `weapon_sniperscopelens2.mmtr` opens.** 7 MB, **378 ordinary DXBC blobs with reflection
+  intact**, nine mentioning this material's variables; the lit pixel shader disassembles cleanly
+  through `D3DDisassemble`. Tool: `dev-archive/tools/mmtr_shaders.py` (carve / find / dump / disasm).
+  ⚠️ The in-pak version suffix is a 10-digit number (`.2102188797`) — the entry point is the
+  community file list inside the REE.PAK.Tool checkout on this machine, not guessing.
+  `[verified-numerically 2026-09-12]`
+- **⭐⭐⭐ What the lens does to our picture:**
+  ```
+  uv = base_uv * Reticle_UV_Scale + Reticle_UV_Offset + (dot(T,d), -dot(B,d)) * k
+  d  = s * viewDir - (1 - s) * cameraForward
+  s  = smoothstep(EyeDistortionRange.x, EyeDistortionRange.y, distance(camera, lens pixel))
+  k  = lerp(Reticle_Depth_Max, Reticle_Depth_Min, pow(saturate(dot(cameraForward, N)), Reticle_DepthCurve))
+  colour = Reticle_BaseAlphaMap.Sample(uv)          // t18 = the slot OUR picture is bound into
+  ```
+  `T`/`B`/`N` are the lens's tangent frame, welded to the rifle; `s`, `viewDir` and `cameraForward`
+  all move with the head, and `viewDir` differs between the two eyes. **The engine slides our
+  picture inside the lens. It was never our compositor.** Authored `Reticle_Depth_Min = 0.388`,
+  `Reticle_Depth_Max = 500.0`, so on-axis `k ≈ 0.388` — a displacement of ~40% of the texture.
+  `[verified-numerically 2026-09-12]` for the maths; that it is *the* wearer's complaint is
+  `[hypothesis]` until worn.
+- **⭐ The off switch is `Reticle_Depth_Min` + `Reticle_Depth_Max` = 0.** The whole offset is
+  multiplied by `k`. Neither variable appears anywhere else in the shader — `cb6[9].w` on one
+  instruction and `cb6[10].x` on two, all three inside this term, counted in the disassembly — and
+  **both are plain scalars**, so the plugin's verified scalar writer reaches them today. That is
+  exactly what `EyeDistortionRange` could not do. `[verified-numerically 2026-09-12]`
+- **⚠️ `eyedist 0` was the wrong direction and is corrected.** `if (EDR.y == EDR.x) hi = x + 1e-4`
+  makes all-zeros saturate the smoothstep to `s = 1` — the largest offset, held there. Default is
+  now `-1` (leave the authored value alone); the knob is kept for sweeps. Nothing was ever run
+  with the bad default, but it had been deployed and was the next thing on the board.
+- **Also in the same excerpt:** `FrontHole_Height` multiplies the **same** 2D offset for the painted
+  tube-hole. We have zeroed that one successfully since August — so one of the offset's two
+  consumers has been off all along, and the one carrying our picture has not.
+- **Built, compile-verified, deployed, stamped, NOT run:** the `retdepth` knob (harness → pane file
+  → plugin, persisted; `0` = offset dead and held, `-1` = authored values back and left alone),
+  `ret_depth_hold_tick` at frame rate because the `Reticle_*` family is re-asserted every frame, and
+  a bind-time log of the authored values before they are overwritten. `[compile-verified 2026-09-12]`
+- **The one wear:** `retdepth 0` then `retdepth -1`, judging TUBE ALIGNMENT only. Still at `0` and
+  sliding at `-1` ⇒ solved. No difference with both writes verifying ⇒ the term is off and the
+  remaining candidate is plain geometry (a flat picture on a plane recessed behind the tube rim),
+  i.e. §9n route (b). Writes not verifying ⇒ the hold has to move earlier in the frame.
+  Bind-time lines: `look: [2] Reticle_Depth_Min authored 0.388 -> 0.000 reads back 0.000` and the
+  matching `_Max`, which also check the material-file read live.
 
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
