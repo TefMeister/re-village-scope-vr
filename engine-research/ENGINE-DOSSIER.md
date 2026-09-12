@@ -904,7 +904,14 @@ The getters ARE called inside the window and ARE exempted. On the same run the p
 (fork) DLL is `dinput8.dll.pre-mirror-exemption-backup-2026-09-12` beside it — and that backup is
 the only copy of what was running (MD5 `41af4484…`, not the labelled `DLSS-capable` file).
 
-**Not established:** the swing itself, which needs a head. If a wearer still sees it: (1) set
+**⚠️ WORN 12:00 — the swing is UNCHANGED, and the eyes DOUBLED** `[verified-live 2026-09-12, n=1 wearer]`.
+So with both getters exempted inside the mirror window the picture still moves with the head: the
+getter override is **not** the swing's cause, or not its only one — §9j's "exactly the reported swing"
+is `[disproved 2026-09-12]` as the sole cause. The double eye is the address stage exempting the
+multipass duplicate eye camera (`by camera=95002`). Original DLL restored 12:05; any rebuild is
+window-only. Next candidates: plan B(1) below, or the pane re-aiming with the head (§9f).
+
+**Was not established before the wear:** the swing itself, which needs a head. If a wearer still sees it: (1) set
 `VR_ExemptMirrorCamerasSticky=true` with the STICKY DLL; (2) plan B(1), restore the native
 projection into the mirror layer's `SceneInfo` post-update (`Renderer.cpp:1897-1915`, restore point
 `VR::on_scene_layer_update` `VR.cpp:664`) `[hypothesis]`; (3) do NOT give the layer its own camera —

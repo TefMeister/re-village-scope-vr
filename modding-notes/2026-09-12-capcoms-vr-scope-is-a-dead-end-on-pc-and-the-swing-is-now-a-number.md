@@ -128,3 +128,20 @@ And the probe's pass criterion from §2 is met on the same run:
 
 **What is NOT established:** whether the picture in the scope has stopped swinging with the head.
 Nobody wore the headset. The game was left running in VR with the rig up for exactly that look.
+
+## 6. Tefa wore it (12:00): swing unchanged, eyes doubled — reverted
+
+*"it still moves inside the headset like it did before, stubborn bastard!"* and *"the eyes are off
+now like i'm seeing two pictures on either lens, quite close to each other, but off"*
+`[verified-live 2026-09-12, n=1 wearer]`.
+
+- **Swing:** unchanged with both getter hooks provably exempted inside the mirror window (§5). So the
+  projection override is **not** the swing's cause, or not its only one — `[disproved 2026-09-12]` for
+  §9j's "this is exactly the reported swing". Next: plan B(1) (the layer's `SceneInfo` is rebuilt
+  inside `update()` from something the hooks never see), or the pane itself re-aiming with the head
+  (§9f). A probe logging the mirror's effective view direction against the head pose separates them.
+- **Double eyes:** the reader's own caveat, come true — the address stage exempted a non-primary
+  camera the mirror layer reported (`by camera=95002`), i.e. the multipass duplicate eye camera, and
+  the right eye lost its projection. Any rebuild is window-only, and must log `by camera=0`.
+- Original `dinput8.dll` restored from the backup and re-stamped at 12:05. The tested DLL is kept as
+  `D:\RE2 REFramework builds\dinput8_…TESTED-swing-unchanged-double-eye.dll`.
