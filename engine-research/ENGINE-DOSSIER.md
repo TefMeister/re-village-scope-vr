@@ -1315,6 +1315,16 @@ Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-kno
 - **The real fault, stated sharply:** the disc shows the horizon rather than where the barrel points, and rotates
   with head and rifle. Same fault as `n-vs-lua ≈ 38°` — the plugin's recomputed plane is tens of degrees from the
   Lua's. Fix the plane, not the roll knob.
+- **⭐ 00:50 — THE REFLECTION DEGRADES WITH DISTANCE FROM THE SPAWN POINT, AND THE PROP IS NOT THE CAUSE.**
+  Tefa: *"the further away i go, the more things get nonsensical, lot of sky and stuff, when i get closer to the
+  goat spawn point the more it looks like the world"* — with birds visible at distance at some angles, so the
+  view is live. **The prop is riding the rifle**, measured from the log: rig↔rifle gap a constant ~1.2 m at both
+  23:48 and 00:29, the pair ~30 m from the spawn, `rq` changing throughout `[verified-numerically 2026-09-13]`.
+  So something OTHER than the prop is anchored to where the rig was built. Candidates, all `[hypothesis]`:
+  (1) the reflection's draw volume was fixed at build time; (2) a captured scene layer still points at a camera
+  left at the spawn (the dangling-camera lesson); (3) the plane travels but the scene reference was resolved
+  once. **First test, two commands, no rebuild:** destroy and re-create the rig far from the original spawn and
+  see whether the good region moves with it.
 - **Final state 23:53** `[verified-live, n=1 wearer]`: goat ×0.001 on the rifle, silent, picture live.
   **`mrollsym 1` (side-flip) judged 00:05** `[reported, n=1]`: less chaotic, kept on. Remaining: picture sideways, not showing where the scope points; turning left rotates it counter-clockwise, and at the far end of a right turn it rotates back. That reversal at one extreme is the next session's spec.
 
