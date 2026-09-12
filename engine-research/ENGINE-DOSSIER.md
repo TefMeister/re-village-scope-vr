@@ -1292,7 +1292,7 @@ Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-kno
 - **Can enemies break the goat? Unknown.** It is a breakable prop and the rig keeps `app.HitController`,
   `app.ProcDamage` and `via.physics.Colliders`; disabling those three is known-safe for the rig (the 22:26
   strip did it) and is the cheap insurance. `[hypothesis]`
-- **⚠️ 00:28 — THE PICTURE IS FROZEN, AND THAT RETROSPECTIVELY WEAKENS "picture live" ABOVE.** Two stills ten
+- **⛔ 00:28 — "THE PICTURE IS FROZEN" — `[disproved 2026-09-13 00:40]`, see the bullet below it.** Two stills ten
   seconds and a long walk apart show the same mountain and sky inside the scope `[verified-live 2026-09-13,
   n=1 wearer, 2 stills]`. Tefa: *"the picture does not change when i change locations."* So the 23:53 "both
   wells" reading is also consistent with a **stale frame**, and tonight's rotation work may have been chasing
@@ -1303,6 +1303,18 @@ Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-kno
   mirror camera is not ticked** — weakest, the rig heartbeat read `update=true draw=true` all evening. All
   `[hypothesis]`. First test: `fn goat_unshrink`, walk, look. ⚠️ `rt=false` in the heartbeat is not evidence
   either way — it printed `false` while the picture was live.
+- **✅ 00:40 — THE PICTURE IS LIVE; IT IS AIMED AT THE HORIZON.** Tefa: *"the picture still moves when i turn my
+  head or the weapon … only moved forward … but if i move the gun or my head, it still changes and rotates"*
+  `[verified-live 2026-09-13, n=1 wearer]`. **Rotation changes it, translation does not** — which is what a live
+  mirror looking at sky and far mountains does, since distant geometry has no parallax. Both 00:28 stills showed
+  a ridge and sky and nothing near the player, so they matched. The freeze reading and its three candidates are
+  withdrawn. ⚠️ **Method note:** the freeze hypothesis was ranked and boarded on ten seconds of evidence and
+  removed by one sentence from the next look; the check that would have pre-empted it is *does it respond to
+  rotation?* To test "is it live" properly, aim at something a few metres away and strafe — near geometry has
+  parallax, distant scenery cannot answer the question.
+- **The real fault, stated sharply:** the disc shows the horizon rather than where the barrel points, and rotates
+  with head and rifle. Same fault as `n-vs-lua ≈ 38°` — the plugin's recomputed plane is tens of degrees from the
+  Lua's. Fix the plane, not the roll knob.
 - **Final state 23:53** `[verified-live, n=1 wearer]`: goat ×0.001 on the rifle, silent, picture live.
   **`mrollsym 1` (side-flip) judged 00:05** `[reported, n=1]`: less chaotic, kept on. Remaining: picture sideways, not showing where the scope points; turning left rotates it counter-clockwise, and at the far end of a right turn it rotates back. That reversal at one extreme is the next session's spec.
 

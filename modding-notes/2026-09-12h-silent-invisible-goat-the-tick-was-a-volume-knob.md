@@ -85,3 +85,42 @@ plugin's D3D-level latch is being written. Do not chase it.
 
 `fn goat_unshrink` ⇒ walk ⇒ look. One command, one answer, and it separates candidate 1 from the other two
 before anything is rebuilt.
+
+
+---
+
+## ✅ 00:40 — WITHDRAWN: the picture is NOT frozen. It is live and pointed at the horizon.
+
+Tefa, on the very next look: *"the picture still moves when i turn my head or the weapon, i just hold the
+weapon in the same position and only moved forward as much as possible, but if i move the gun or my head, it
+still changes and rotates."*
+
+**That is a different signature entirely, and it disproves all three candidates above.** A dead picture cannot
+respond to rotation. What was actually measured is: **rotation changes it, translation does not.**
+
+**And that is exactly what a live mirror aimed at the sky and the far mountains looks like.** Distant geometry
+has almost no parallax — walk twenty metres toward a mountain ridge and the image is unchanged to the pixel,
+which is why two stills a long walk apart matched. Both stills show a ridge and sky; nothing near the player
+was in the disc at all.
+
+So the frozen-picture reading is **`[disproved 2026-09-13]`**, and the three candidates in the section above
+(prop too small to render, stale latch, camera not ticked) are withdrawn with it. Nothing is wrong with the
+shrink, the latch, or the mirror's ticking.
+
+**What remains is the problem we already had, now with a sharper description:** the scope does not show where
+the barrel points — it is aimed high, at the horizon — and the view rotates as the head or rifle moves. That is
+the steered-normal error, and the `n-vs-lua ≈ 38°` reading from earlier in the evening is the same fault seen
+in numbers: our recomputed mirror plane is tens of degrees away from the one the Lua publishes.
+
+### The lesson worth keeping
+
+**"The picture does not change when I move" was a true observation with a false conclusion, and the conclusion
+was mine, not Tefa's.** Three hypotheses, a ranked test plan and a board row that outranked everything else were
+written on ten seconds of evidence, and one sentence from the next look removed all of it. The cheap check that
+would have caught it before any of that was written: *does it respond to rotation?* — which is one look, and was
+never asked for. Ask what a symptom is **not** before ranking causes for what it is.
+
+### The test that settles "live" properly, if it is ever needed again
+
+Aim at something **near** — a wall, a cart, a fence a few metres away — and strafe sideways. Near geometry has
+real parallax; if the picture shifts, the view is live. Distant scenery can never answer that question.
