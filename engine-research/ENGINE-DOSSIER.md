@@ -871,6 +871,48 @@ re-reading our own `crop-follow:` instrumentation against.
   Quest 3 with nobody wearing it, and the whole driving profile works in VR mode
   `[verified-live 2026-09-12, n=3 launches]`. Unattended VR runs are a thing now.
 
+### 9l. ⭐⭐ THE MIRROR-CAMERA EXEMPTION IS BUILT, DEPLOYED AND FIRES (2026-09-12, `/lm` + reader; drained from two reader inbox drops the same day)
+
+**Why a praydog-style name match could never work here:** the mirror layer's camera **is the main
+camera, same address** (2026-08-30 sky-hunt §1 `[verified-live, n=1]`), and REFramework's MULTIPASS
+filter admits the primary camera on purpose (`VR.cpp:272-276`; `m_multipass_cameras` = `{primary,
+duplicate}`, `VR.cpp:794-798`; the duplicator clones only the primary, `CameraDuplicator.cpp:83-96`).
+So inside `on_camera_get_projection_matrix` (`VR.cpp:255`, guard commented out at :259-261) and
+`on_camera_get_view_matrix` (`VR.cpp:326`, guard live at :335-339) the camera argument is identical
+for the main pass and the mirror pass `[inferred-static 2026-09-12, reader]`.
+
+**The fix exempts the PASS, not the camera.** Patch `D:\RE2 REFramework builds\tools\REFramework-src\mirror-exemption.patch`
+(322 lines, against fork `76298bd` = `gmankab/reframework-pd-upscaler-build` `pd-upscaler`,
+v1.5.9.1 + 671 — the exact build this PC runs): a thread-local flag is raised in
+`on_pre_scene_layer_update`/`_draw` when `layer->get_mirror() != nullptr` and dropped in the post
+callbacks; while it is up, both getter hooks return without overriding. Fallbacks: camera address
+(4 slots) and name prefixes `ScopeCamera`/`MirrorCamera`/`ScopeMirror`. Toggle `VR_ExemptMirrorCameras`
+(default on) + UI checkbox; a second toggle `VR_ExemptMirrorCamerasSticky` (default off) keeps the
+window open until the next non-mirror layer, for the case where the getters land between layer
+calls. Counters and two log lines fire before the HMD check, so a flat run can read them.
+Build: CMake 4.4.3 + VS 2022 BuildTools, target `RE8`, Release, 0 errors (C# language stripped
+from `cmake.toml` locally; DirectXTK shaders compiled by hand once). DLLs, labelled, in
+`D:\RE2 REFramework builds\`: `…mirror-exemption_2026-09-12…` (22,745,600 B, MD5 `9f90b183…`) and
+`…STICKY-OPTION…` (MD5 `54836923…`). `[verified-numerically 2026-09-12]`
+
+**Live, VR, rig up, 11:49** `[verified-live 2026-09-12, n=1 launch]`:
+`Mirror-bearing scene layer seen (update): … camera_is_primary=true camera_go="MainCamera"` and
+`Mirror layer windows=1200 get_ProjectionMatrix calls inside=600 get_ViewMatrix calls inside=600 exempted proj=48101 view=48101 (by window=1200 camera=95002 name=0) hmd_active=true`.
+The getters ARE called inside the window and ARE exempted. On the same run the probe reads
+`'MainCamera (Clone)' m00=1.7527 m11=2.0815 m20=0 m21=0` (its own symmetric 51.3° projection) while
+`'MainCamera'` keeps `m20=+0.1736 m21=-0.2111`. Deployed as the game's `dinput8.dll`; the previous
+(fork) DLL is `dinput8.dll.pre-mirror-exemption-backup-2026-09-12` beside it — and that backup is
+the only copy of what was running (MD5 `41af4484…`, not the labelled `DLSS-capable` file).
+
+**Not established:** the swing itself, which needs a head. If a wearer still sees it: (1) set
+`VR_ExemptMirrorCamerasSticky=true` with the STICKY DLL; (2) plan B(1), restore the native
+projection into the mirror layer's `SceneInfo` post-update (`Renderer.cpp:1897-1915`, restore point
+`VR::on_scene_layer_update` `VR.cpp:664`) `[hypothesis]`; (3) do NOT give the layer its own camera —
+tried 2026-08-30, the host object freezes. Full reader text: modding-notes 2026-09-12 §5.
+
+**Frame cost, measured** (plugin `frame:` line, VR, standing, VD cap 72): no rig 13.9 ms; 1280
+15.0; 1920 15.5; 2560 16.1; 3840 18.0 `[verified-live 2026-09-12, n=1 launch]`.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull

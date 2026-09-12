@@ -73,6 +73,58 @@ movie/rtex/movie_3840_2160.rtex (3840x2168)`, `MIRROR SOURCE REPLACED … 3840x2
 The frame-time half of that row is not answered: nothing logs a frame time. That needs a readout
 (one log line from the plugin, or REFramework's stats) before anyone can say what 2560 or 3840 costs.
 
-## 5. What the reader returned
+## 4b. Frame cost, finally a number
 
-_(filled in below when its report arrived)_
+The plugin now logs one line a second (`[re-scope-vr] frame: N presents … avg ms … max ms`,
+staging `86ae02b`). VR, village save, standing still, Virtual Desktop capped at 72 fps
+`[verified-live 2026-09-12, n=1 launch, ~8 samples per row]`:
+
+| scope target | avg frame | fps |
+| --- | --- | --- |
+| no rig | 13.9 ms | 72 (cap) |
+| 1280 wide | 15.0 ms | 66 |
+| 1920 wide | 15.5 ms | 64 |
+| 2560 wide | 16.1 ms | 62 |
+| 3840 wide | 18.0 ms | 56 |
+
+So the second scene render costs about 1 ms at 1280 and 4 ms at 3840, and only 3840 drops the
+headset below its 72 → ~60 comfort band. 2560 is affordable.
+
+## 5. What the reader returned — and it WORKS
+
+The reader cloned the exact fork the home PC runs (`gmankab/reframework-pd-upscaler-build`
+`76298bd`, v1.5.9.1 + 671 commits), read the hooks, and found the thing the plan had missed: **the
+mirror layer's camera IS the main camera, same address** (our own 2026-08-30 note said so), so no
+name or address test inside the getter hooks can tell the mirror pass from the main pass. Its patch
+(`D:\RE2 REFramework builds\tools\REFramework-src\mirror-exemption.patch`) therefore exempts by
+**pass window**: a thread-local flag set while a mirror-bearing `via.render.layer.Scene` is inside
+its `update`/`draw`, during which both getter hooks return without overriding; plus address and
+name-prefix fallbacks, a toggle `VR_ExemptMirrorCameras` (default on), a UI checkbox, and counters
+that log whether the getters are even called inside that window — the one hypothesis the fix rested
+on. Build: target `RE8`, Release, 0 errors, 2 min 55 s, 22,745,600 B
+`[verified-numerically 2026-09-12]`. Details: `engine-research/inbox/2026-09-12-reader-reframework-mirror-exemption-patch.md`
+(drained into dossier §9k).
+
+**Deployed 11:46** (installed `dinput8.dll` backed up beside it as
+`dinput8.dll.pre-mirror-exemption-backup-2026-09-12`; note its MD5 `41af4484…` is NOT the labelled
+`DLSS-capable` copy in `D:\RE2 REFramework builds\` (`e0c306df…`), so that backup is the only copy of
+what was actually running) and **run in VR with the rig up, 11:49:**
+
+```
+[VR] Mirror-bearing scene layer seen (update): … camera_is_primary=true camera_go="MainCamera" exempt_enabled=true
+[VR] Mirror layer windows=1200 get_ProjectionMatrix calls inside=600 get_ViewMatrix calls inside=600
+     exempted proj=48101 view=48101 (by window=1200 camera=95002 name=0) hmd_active=true
+```
+
+**The getters ARE called inside the mirror window and ARE exempted** `[verified-live 2026-09-12, n=1]`.
+And the probe's pass criterion from §2 is met on the same run:
+
+```
+'MainCamera (Clone)'  m00=1.7527 m11=2.0815 m20=0.0000 m21=0.0000    (its own symmetric 51.3° projection)
+'MainCamera'          m00=0.9848 m11=1.1696 m20=+0.1736 m21=-0.2111  (the HMD eye, as before)
+```
+
+`[verified-live 2026-09-12, n=1]`. Frame cost with the 1920 target under the patched build: 15.5 ms.
+
+**What is NOT established:** whether the picture in the scope has stopped swinging with the head.
+Nobody wore the headset. The game was left running in VR with the rig up for exactly that look.
