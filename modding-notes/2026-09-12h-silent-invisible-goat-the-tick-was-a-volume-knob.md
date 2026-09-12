@@ -41,3 +41,47 @@ the one problem left, and it is the next session's whole job. `[verified-live 20
 
 *"ticking is gone! nice another success today, it has been a good day."* And on the picture: *"the one
 in scope does move around with both head and weapon movement still."*
+
+
+---
+
+## ⚠️ 00:28 — THE PICTURE IS FROZEN. Two screenshots, ten seconds and a long walk apart, show the SAME mountain and sky.
+
+Tefa, unprompted, after the session had moved on to publishing: *"the picture does not change when i change locations. i only tested in one spot, so the goat must not be on the weapon i think."*
+Evidence: `VirtualDesktop.Android-20260913-002850.jpg` and `-002900.jpg` — the player is in two clearly
+different places (a yard with chairs and a gate; then under a hay cart by a fence), and the disc inside
+the scope is pixel-for-pixel the same mountain ridge and sky in both. `[verified-live 2026-09-13, n=1 wearer, 2 stills]`
+
+**This changes the reading of the whole evening.** Everything at 23:53 that looked like success — *"you can
+see both wells, one in the world other in the scope"* — is also consistent with a **stale frame that happened
+to match**, because the scene behind the rifle at that moment contained a well. The rotation we spent the
+night chasing may therefore be the rotation of a **still picture being re-projected**, not of a live view.
+⚠️ Do not treat "the picture rotates" as a live-view symptom again until this is settled.
+
+### Three candidates, cheapest test first. None is checked.
+
+1. **The engine stops updating the mirror because its host prop is 0.001 across.** Mirrors are expensive;
+   RE Engine has screen-size and distance culling, and a prop that small has a near-zero bounding box. The
+   prop's own pendulum even carries `IsMaxUpdateDist=true` / `MaxUpdateDistCommon=13.0`, so distance gating
+   on this prefab is not hypothetical. **Test: `fn goat_unshrink`, walk two paces, look.** Alive ⇒ this is it,
+   and the shrink needs replacing with something that hides without shrinking (`fn goat_hide`, or moving the
+   mesh rather than scaling the object). `[hypothesis]` — the strongest of the three, because the shrink
+   is new tonight and the freeze was not reported before it.
+2. **The plugin's latched source texture is a stale allocation.** The plugin latches one engine texture by
+   width and keeps it; if the engine re-allocated the mirror's target after our rig rebuild, we would hold a
+   surface nothing writes to any more — which looks exactly like a frozen picture. The log already carries a
+   warning from this launch: `rig rebuild #1: the latch had already followed 3 ticks before the rebuild counter
+   was read`. **Test: numpad `.` (ask for the NEXT acceptable source), then look.** `[hypothesis]`
+3. **The mirror camera is not being ticked at all** — e.g. our camera lost its target, or the component was
+   switched off by one of the evening's strips. **Test: read `hb` in the log — `update=`/`draw=` on the rig —
+   and watch whether the plugin's `first MIRROR-sourced scope frame` counter advances.** Weakest: the rig
+   heartbeat was reading `update=true draw=true` and tracking the rifle all evening. `[hypothesis]`
+
+⚠️ **`rt=false` in the heartbeat is NOT evidence for any of these.** It has printed `false` while the picture
+was demonstrably live (23:32 onwards), so the Lua-side `get_RenderTarget` read says nothing about whether the
+plugin's D3D-level latch is being written. Do not chase it.
+
+### What to do first, next session
+
+`fn goat_unshrink` ⇒ walk ⇒ look. One command, one answer, and it separates candidate 1 from the other two
+before anything is rebuilt.
