@@ -1293,7 +1293,7 @@ Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-kno
   `app.ProcDamage` and `via.physics.Colliders`; disabling those three is known-safe for the rig (the 22:26
   strip did it) and is the cheap insurance. `[hypothesis]`
 - **Final state 23:53** `[verified-live, n=1 wearer]`: goat ×0.001 on the rifle, silent, picture live.
-  **Open:** the picture still rotates with head and rifle; the `mrollsym` left/right A/B is unanswered.
+  **`mrollsym 1` (side-flip) judged 00:05** `[reported, n=1]`: less chaotic, kept on. Remaining: picture sideways, not showing where the scope points; turning left rotates it counter-clockwise, and at the far end of a right turn it rotates back. That reversal at one extreme is the next session's spec.
 
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
