@@ -920,6 +920,39 @@ tried 2026-08-30, the host object freezes. Full reader text: modding-notes 2026-
 **Frame cost, measured** (plugin `frame:` line, VR, standing, VD cap 72): no rig 13.9 ms; 1280
 15.0; 1920 15.5; 2560 16.1; 3840 18.0 `[verified-live 2026-09-12, n=1 launch]`.
 
+### 9m. ⭐⭐ THE SWING IS NOT IN THE HOOKED GETTERS AT ALL (2026-09-12, `/lm`, two worn tests)
+
+Two builds, two negatives, both with the mechanism proven to fire:
+
+1. **v1, projection+view exemption inside the mirror window** — counters showed 48,101 exemptions,
+   the mirror-side camera read a symmetric projection, **swing unchanged** `[disproved 2026-09-12, n=1 wearer]`.
+   Side effect: the camera-ADDRESS stage caught the multipass duplicate eye camera and **doubled the
+   eyes** (*"two pictures on either lens, quite close to each other, but off"*).
+2. **v2, window-only + plan C** (inside a mirror window, `on_camera_get_view_matrix` returns
+   `view_native * W_hmd * inverse(W_orig)`, i.e. the game's own un-HMD'd pose): counters
+   `un-HMD'd 1800 times, skipped 0`, `by camera=0` — **swing unchanged again**
+   `[disproved 2026-09-12, n=1 wearer]`.
+
+⇒ **The mirror's image is not derived from `via.Camera::get_ViewMatrix`/`get_ProjectionMatrix` calls
+made on the calling thread inside the layer's update/draw window.** Both of REFramework's overrides
+are now ruled out as the swing's cause. What is left is §9f, measured in the headset three launches
+ago: **`via.render.Mirror` looks where the VIEWING camera looks** — which in VR is the eye, so the
+reflection re-aims with the head natively, inside the engine, below anything REFramework hooks.
+
+⭐ **And that un-blocks the steering family.** `steer`/`model 2`/`steerk` were built to cancel exactly
+a geometric head-dependence, and were retired in §9j only because a projection rewritten every frame
+made them undescribable. That confound is gone in the v2 build, so the steering test is newly valid
+and costs no rebuild — harness `model 2` + `steerk ±0.5` + `steer 1`.
+
+⚠️ **Unattended-VR reading rule (Tefa, 2026-09-12):** when the headset is handed over it sits on a
+table and **the motion controllers are parked side by side on a shelf**. So every controller-derived
+number — hand positions, grip, dock distance, wrist poses, rifle-from-controller pose — is
+meaningless on these runs, and hands may look twisted. Judge only head-independent quantities, or
+quantities the user reports while actually wearing it. `[reported 2026-09-12]`
+
+Also seen once: a launch came up with a **completely black picture** in the headset and needed a game
+restart `[reported 2026-09-12, n=1]` — cause unknown, no log read taken.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
