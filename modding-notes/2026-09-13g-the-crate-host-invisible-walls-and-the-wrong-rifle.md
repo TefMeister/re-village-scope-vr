@@ -77,3 +77,14 @@ Tefa picked `sm08_045_madterritoryhand` from the shortlist.
   deserves a second look next launch.
 - `bringup` now defaults to candidate 15 and shows the host after `drive_on` (staging; test 29/29;
   deployed once the game is closed). `host_follow` is not needed for the hand.
+
+## 21:21 — the hand made invisible, the scope still works
+
+`fn goat_matoff` on the hand (2 materials on its 1 mesh off). Asked: hand gone / scope picture still
+working. Tefa: *"like it should."* `[verified-live 2026-09-13, n=1 wearer]`. `bringup` now hides every
+host again (staging, 29/29). **Not deployed at write-up: the game was still running** — copy
+`staging/re-village-scope-vr/scripts/re8_scope_harness.lua` into the game's `reframework/autorun/`
+before the next launch (the deployed producer and `re8_scope_host_follow.lua` already match staging).
+
+The winning state now: hand host (candidate 15) + drive + the "this is the one" sliders + materials
+off + glass binds. Left on the board: the slight shake (jitter) and the one-frame rifle flicker.
