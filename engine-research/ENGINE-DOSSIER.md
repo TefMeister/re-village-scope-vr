@@ -1394,6 +1394,21 @@ Note: `modding-notes/2026-09-13c-first-wear-of-the-exact-map-steering-off-is-the
   frame (last night: +4 s / +20 s) `[hypothesis]`.
 - `bringup` now boots `steer 0` + `glassaspect 1.0`.
 
+### 9y. THE HEADSET EYE IS NOT A SYMMETRIC PINHOLE; THE "HALF-TURN" WAS PROBABLY A MIRROR; THE FRAME DUMP (2026-09-13 evening, `/pd`, no launch)
+
+Note: `modding-notes/2026-09-13d-the-headsets-real-lens-shape-two-frame-knobs-and-a-frame-dump.md`. Built, deployed, stamped, **NOT run**.
+
+- **The VR eye projection is asymmetric and its tan-aspect is not the pixel aspect:** the game's own matrix
+  (vrlens probe 2026-09-12) `m00 0.985 m11 1.170 m20 0.174 m21 −0.211` → ~91° × 81°, tan-aspect 1.19 vs 0.93 in
+  pixels, offset ~0.17 NDC `[verified-numerically 2026-09-13]`. The map now reads `get_ProjectionMatrix` every
+  tick (row-vector form; transposed input detected) and logs it. The fov guess stays as `geomusep 0`.
+- **§9x's "rotated ~180°" is demoted to "mirrored in one axis" `[inferred, n=1 log]`:** the map's roll read-out
+  was undefined (jumping −113…180°), which is what an improper 2×2 gives; the new build prints `IMPROPER`.
+  Which input is reversed — `get_AxisY` vs the quaternion, or the lens material mirroring u (only v was ever
+  checked, §9x's look-back) — is printed by the new `geomdbg:` line. Knobs `geomrot` / `geomflip` fix the
+  picture meanwhile without touching the exact head/rifle behaviour.
+- **`bringup` staggered** (drive +3 s, shrink +5 s more, then `goat_pend_dump`) for the floating goat `[hypothesis]`.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
