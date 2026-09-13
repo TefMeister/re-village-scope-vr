@@ -200,3 +200,22 @@ the frame's scene is built, so the mirror plane is always a frame behind the rif
 lagging plane see the rifle `[hypothesis]`. Built: `posehook 1` also copies the pose at
 `on_pre_application_entry("BeginRendering")`, default off, logs its first copy. The shake may be the same lag
 `[hypothesis]`. Also installed: the plugin with the worn frame (rot 180 / flip 0) as its built-in default.
+
+## 17:41–18:02 — fifth launch: the SHRINK detaches the goat; the timing hook does not fix the flicker; the blocker hides the world
+
+- **`bringup` with shrink + mute (no armour):** goat-watch said our root was 1.25 m from the rifle at scale
+  0.001 — and Tefa saw the goat floating and the security-camera picture. `fn goat_unshrink`: still floating.
+  A fresh rig with **no shrink, no mute, no armour** (`p10` → +4 s `drive_on` → `bind` ×2): *"yep all working
+  now"* `[verified-live 2026-09-13, n=2 launches]`. **So the shrink cuts the visible goat loose, not (only) the
+  armour**; the 22:26/22:38 floats of 2026-09-12 and every float today had one of the two. `bringup` no longer
+  shrinks (deployed; test 25/25). ⚠️ `goat-watch` matched only the root, which rides either way — the visible
+  goat is not a separate `via.render.Mesh` object it can see; the watch is not the detector it was meant to be.
+- **`posehook 1`:** Tefa filmed again — the one-frame intrusions are now **Ethan's clothes** and **the fence**
+  (near geometry), the picture *"not steadier, still jittery"* (`flicker-frames-posehook-on/`)
+  `[verified-live, n=1]`. The pose lag is not the cause; turned off.
+- **The invisible blocker (`fn pfb_occ`):** spawns (`sm00_189_Plocc_00occ`, has a mesh component), takes the
+  mirror, latches, rides (`hb` 1.2 m). But **the world disappears around the player** and the blocker shows as
+  a **black rectangle** (`blocker-180115/180126/180130.jpg`) — it is an occlusion blocker, so the renderer culls
+  everything behind it `[verified-live 2026-09-13, n=1]`. The scope was not checked. Next try, not run: `fn
+  goat_strip` on it (switch off every component except transform/mesh/mirror/camera — the occluder part
+  should be among them) and `fn goat_hide`. The game was closed before the command landed.
