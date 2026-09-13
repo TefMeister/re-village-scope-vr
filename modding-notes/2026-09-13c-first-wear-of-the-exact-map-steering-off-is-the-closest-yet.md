@@ -153,3 +153,24 @@ plain, spawnable, non-interactive thing in the list. Plain scenery is baked into
 Added as candidate 5 (`fn pfb_occ`). Whether it spawns and whether a `via.render.Mirror` produces on it
 (it is probably invisible — no render mesh) is `[hypothesis]`; the goat was chosen in August because it
 *drew*, which the host no longer needs to do.
+
+## 17:01–17:10 — fourth wear: THE GOAT RIDES AND THE PICTURE IS RIGHT (bar upside down) — "very clearly a win now"
+
+Fresh launch (16:58, the no-armour scripts loaded; the blocker prefab not yet). Manual: `fn p10` → +4 s
+`fn drive_on` → `bind` ×2 → `geomflip 1`, `steer 0`, `model 0`, `glassaspect 1.0`. **No armour, no shrink,
+no mute** — the goat full-size beside the rifle, ticking. `goat-watch:` (the mesh object's own transform):
+`dist-to-rifle 1.25 m, scale 1.000` throughout `[measured 2026-09-13]`.
+
+Tefa, verbatim: *"the picture in it is upside down, but it very clearly a win now! … picture does not move
+when i move my head and the weapon is still, and moves the right way up, down, left and right. and it rides
+along the rifle where i walk. this is really getting good now."* Also: slider tweaks in the REFramework UI
+snap back — the picture stays put on the scope. `[verified-live 2026-09-13, n=1 wearer]`
+
+**So, settled:** the exact map + baked pane + `geomflip 1` + glass aspect 1.0 gives a head-stable,
+rifle-steered, correctly-aiming picture that travels with the player. **The armour was the whole goat
+problem** (`[verified-live, n=2 launches: with = floats, without = rides]`). Left: upside down — `geomvflip 1`
+sent at 17:10 for the first honest judgement of it.
+
+**The winning state, for bringup:** as today's bringup minus armour (already), and the shrink/mute are now
+the only untested-in-this-state steps (both rode on 2026-09-12 with the goat; the blocker prefab may
+retire them entirely).
