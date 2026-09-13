@@ -74,3 +74,27 @@ all `[hypothesis]`: the render is one eye of a stereo pair or a wider/offset per
 projection is asymmetric and the map assumes symmetric); the camera transform read is not the one the mirror
 used; or the v direction of the render is the other way (which would give the 180° with a correct u).
 Next is desk work: a `geomvflip` knob plus reading the camera's real projection matrix into the map.
+
+## 15:20–15:45 — second wear, on the evening /pd build (Tefa wearing; stills `-152353` … `-154151`)
+
+- **`geomdbg` answered the mirror question:** the rifle root's +X points to the player's LEFT (bore = +Z,
+  up = +Y), and accessor axes equal quaternion axes. `sg_rifle_frame` aligned the map's "right" with +X, so
+  the map was mirrored (`IMPROPER`). `geomflip 1` → proper, roll ≈ 0, stretch ≈ 1.05 `[verified-live
+  2026-09-13, log]`. Code fix for later: rx = d × ry, drop the alignment to +X.
+- **Wearer, `flip 1`:** still upside down; **the smeared trail gone**; head movement no longer moves the
+  picture, only a small jitter `[verified-live, n=1 wearer]`.
+- **The projection matrix alternates eyes every tick** (m20 = ±0.1736): the primary camera is one eye per
+  frame, so H is computed for whichever eye that tick is. Likely source of the jitter `[hypothesis]`.
+- **Goat, reversed order** (armour + shrink + silence at the spawn, `drive_on` 5 s later — Tefa's idea): all
+  three armour parts off (`ProcDamage` found this time), but the goat **still floats**, right way up.
+  With `bringup`'s staggered order it rode briefly, then came off and floated upside down, at the world's
+  upside-down angle. So the goat leaves the rifle whatever the order `[verified-live, n=3 rigs tonight]`.
+- **`geomrot 180` (with flip 1):** Tefa: *"right way up"* — **but aiming inverted left-right AND up-down**,
+  the glass shows sky where ground should be (`-153532`: house upside down at the top, sky at the bottom),
+  and pointing the rifle far down still gives the trail at the top of the glass. A frame rotation cannot fix
+  orientation without inverting aim — they are the same rotation. So the remaining fault is not a frame
+  convention: the render's vertical relation to the world is wrong — most likely the baked pane (pitch 180 /
+  yaw 90) is reflecting across the wrong plane for this map, or the render's v runs the other way. Desk
+  work: derive what the baked pane's normal actually is from the `geomdbg` `n` (read (0.00, −0.99, −0.13) =
+  the rifle's −Y, horizontal) and test the map with v reversed at the render, not at the frame.
+- **Left in the game:** `geomflip 1`, `geomrot 180`. Next session starts from `bringup` anyway.
