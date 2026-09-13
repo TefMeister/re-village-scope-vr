@@ -1374,6 +1374,26 @@ Note: `modding-notes/2026-09-13b-the-exact-map-one-formula-instead-of-a-roll-kno
 - **Limits:** which eye rendered the render (3 cm ≈ up to 8° of picture roll; `eye moved` in the `geom:` log
   line measures it); far field only; symmetric projection assumed.
 
+### 9x. ⭐⭐⭐ WORN: STEERING OFF + THE EXACT MAP = "THE CLOSEST TO WHAT IT SHOULD BE LIKE" — 180° OFF, AND THE GOAT FLOATS (2026-09-13, `/ms`, Tefa wearing)
+
+Note: `modding-notes/2026-09-13c-first-wear-of-the-exact-map-steering-off-is-the-closest-yet.md`; stills in `dev-archive/recon/2026-09-13-exact-map-first-wear/`.
+
+- **`steer 1` + `geom 1`: still spins** — no improvement over 2026-09-12 `[verified-live 2026-09-13, n=1 wearer]`.
+  The eye→lens ray sat 65–90° from the bore in VR carry; the steered plane tilts by half that.
+- **`steer 0` + `geom 1` + `glassaspect 1.0`: the picture barely moves with the head and follows the rifle
+  naturally** — first time the head stopped moving the world in the scope `[verified-live 2026-09-13, n=1
+  wearer]`. Remaining: **rotated ~180°** (still `-142808`: roof down AND lantern swapped; log `exact-roll`
+  174–180° throughout, stretch ~1.3, skew ~0) and **map centre at u ≈ 1.0** (half the samples off the render
+  edge = the smeared "trail following my head"). One sign in H is wrong `[hypothesis]`; `geomhm 1` is the
+  first A/B, a v-flip knob the second.
+- **§9w's steered-plane premise is therefore demoted:** the exact map is right to use, but the plane it maps
+  should be the BAKED one. The steered plane was the spin's source `[verified-live, n=1]`.
+- **Duplex bars left/right longer at `glassaspect 1.333`** — as predicted for a ~1:1 glass `[verified-live, n=1]`.
+- **The goat floats in BOTH rigs this launch, with and without armour** — armour cleared `[verified-live, n=2
+  rigs]`; the root rides (hb ~1.2 m), the visible goat does not. Leading suspect: drive + shrink in the spawn
+  frame (last night: +4 s / +20 s) `[hypothesis]`.
+- `bringup` now boots `steer 0` + `glassaspect 1.0`.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
