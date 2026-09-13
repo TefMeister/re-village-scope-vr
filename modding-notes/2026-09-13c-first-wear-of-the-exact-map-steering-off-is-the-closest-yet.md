@@ -190,3 +190,13 @@ this state as improper, so the flag's baseline is what is wrong, not the picture
 **Locked in:** plugin defaults `geom_rot 180`, `geom_flip 0`; `bringup` sends them; the settings file carries
 them. Left, in Tefa's words: a white flicker for a millisecond now and then, a slight shake (the per-eye
 projection alternating, `eye moved`), and the goat itself — the invisible blocker next, or hide it.
+
+## 17:40 — the "white flicker" is the RIFLE, for exactly one frame (Tefa filmed it)
+
+Tefa recorded the headset and stepped the video frame by frame: world, **the rifle itself inside the scope for
+one frame**, world again (six stills with the editor's frame counter, `flicker-frames/`)
+`[verified-live 2026-09-13, n=1 video]`. Reading: `rig_pose_once` runs from `re.on_frame` (present time), after
+the frame's scene is built, so the mirror plane is always a frame behind the rifle; a quick rifle move lets the
+lagging plane see the rifle `[hypothesis]`. Built: `posehook 1` also copies the pose at
+`on_pre_application_entry("BeginRendering")`, default off, logs its first copy. The shake may be the same lag
+`[hypothesis]`. Also installed: the plugin with the worn frame (rot 180 / flip 0) as its built-in default.
