@@ -88,3 +88,26 @@ before the next launch (the deployed producer and `re8_scope_host_follow.lua` al
 
 The winning state now: hand host (candidate 15) + drive + the "this is the one" sliders + materials
 off + glass binds. Left on the board: the slight shake (jitter) and the one-frame rifle flicker.
+
+## 21:34–22:20 — zeroing the scope, and a save reload that broke the picture
+
+- Tefa: *"the crosshair is pointing down and left from the actual muzzle direction."* Built `zeroup` /
+  `zeroright` (plugin `g_zero_*`, `sg_zero_bore`: tilts the bore the exact map shows; + = crosshair up /
+  right as seen). geom_test 124/124 `[compile-verified 2026-09-13]`; deployed and stamped.
+- Door-ruler measurements from Tefa's circled screenshots, same spot, ~10–15 steps
+  `[verified-live 2026-09-13, n=1 wearer each]`: zero 0/0 → hole +164 px right, −325 px up; zero 6/3 →
+  +152, −173; zero 13/6.5 (new spot, slightly farther) → +60, −75. So `zeroup` moves the hole
+  ~25 px/deg in the right direction; `zeroright` 3° barely moved it (+12 px) — unexplained.
+  Setting at write-up: **13 up / 6.5 right** ("better"). The bullets fly ~13–16° above and ~6–9° right
+  of the muzzle joint's axis `[inferred from the above]` — why is open (Fable).
+- Tefa ran out of bullets and **reloaded a save**. After it: `rig pose: no transform` every ~8 s (the
+  old hand died with the scene), `fn destroy_rig` + `bringup` rebuilt it, the heartbeat rode the rifle,
+  mirror still latched at 1920 wide, the same Lua holder reused (no `rig rebuild #2` line). But the
+  glass now showed a **grey wash over the top ~45–70% and Ethan's clothing**, worst turning right —
+  none of it at the same zero before the reload (Tefa's screenshot 22:03, and *"it was not present at
+  all"*) `[verified-live 2026-09-13, n=1 wearer]`.
+- I chased it as a mirror-coverage limit (pane `pitch 186`/`196`, `yaw 96`: less wash, not gone). Tefa
+  called it: *"i got this feeling that we are chasing the wrong thing."* The reload is the variable
+  that changed, not the angle. Suspect `[hypothesis]`: Lua state that outlives a scene reload — the
+  captured scene layers / layer camera (`st.scene_layers`, `st.layer_cam`) or the reused holder — now
+  pointing at the old scene's objects. Test: Reset Scripts after the reload, then a clean `bringup`.
