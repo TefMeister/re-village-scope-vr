@@ -143,3 +143,13 @@ game must be relaunched to load it. Test 26/26.
 **Next wear:** relaunch, `bringup`, watch the goat; read `goat-watch:` lines (dist-to-rifle should be ~1 m and
 the scale 0.001 on our root); then look through the scope while walking — the picture should finally move
 with you. Only then judge `geomvflip`.
+
+## 17:20 — Tefa: "use something that is not interactable" — the props list, scanned
+
+`RE8_STM_Release.list`: 2,670 `.pfb` under `environment/props/prefab/`, of which 2,283 are `dynamic` (every
+folder is a behaviour: break 313, detailsearch 295, swing 42, push, open, keylock, puzzle, event…), 622
+`item`, 67 `template`, **1 `static`**: `sm0x/sm00_189_plocc_00occ.pfb`, an occlusion blocker — the only
+plain, spawnable, non-interactive thing in the list. Plain scenery is baked into the levels, not a prefab.
+Added as candidate 5 (`fn pfb_occ`). Whether it spawns and whether a `via.render.Mirror` produces on it
+(it is probably invisible — no render mesh) is `[hypothesis]`; the goat was chosen in August because it
+*drew*, which the host no longer needs to do.
