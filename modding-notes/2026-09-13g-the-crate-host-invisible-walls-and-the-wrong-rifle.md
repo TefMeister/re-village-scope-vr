@@ -55,3 +55,25 @@ something other than `sm80_382_totemeveryware`.
 The community file list names only ~20 non-item prop prefabs. Item models (`*_detailsearch`,
 `*_inventory`, ~690) are reaped by the item system at frame 3 (2026-08-29), so they are out unless
 that is solved. Most non-item props are breakable boxes with physics — the crate's problem.
+
+## 21:11–21:20 — THE HAND IS THE HOST. Tefa: *"it's perfect!"*
+
+Tefa picked `sm08_045_madterritoryhand` from the shortlist.
+
+- The plain path gave `get_Exist = false`; the file list names it only under `natives/stm/_ge/`,
+  and **`_ge/environment/props/prefab/dynamic/sm0x/sm08_045/madterritoryhand/sm08_045_madterritoryhand.pfb`
+  resolves** (candidate 15) `[verified-live 2026-09-13, n=1]`. So expansion-folder prefabs spawn
+  with the `_ge/` prefix.
+- Census: the mesh is on the root itself; components `via.Transform, via.render.Mesh,
+  app.ObjectDefinition, via.motion.Motion, via.motion.MotionFsm2, app.MotionController,
+  app.MadTerritoryHand` (+ our Mirror). **No colliders, no rigid body, no hit/damage parts, no
+  children** `[verified-live 2026-09-13, n=1]`. So enemies have nothing to break `[inferred-static]`.
+- Its own script hid it within 5 frames (`draw=false`, moved to the origin). `drive_on` + `fn goat_show`
+  brought it back; the death-watch then read it alive, drawn and travelling with the rifle
+  (heartbeat rig ~1 m from the real rifle across a walk) `[verified-live 2026-09-13, n=1]`.
+- Worn with the usual sliders and two glass binds. Asked: hand visible / moves with the rifle /
+  walking normal / scope picture. Answer: *"it's perfect!"* — taken as yes to all four
+  `[verified-live 2026-09-13, n=1 wearer]`. Not asked separately, so the scope picture in particular
+  deserves a second look next launch.
+- `bringup` now defaults to candidate 15 and shows the host after `drive_on` (staging; test 29/29;
+  deployed once the game is closed). `host_follow` is not needed for the hand.
