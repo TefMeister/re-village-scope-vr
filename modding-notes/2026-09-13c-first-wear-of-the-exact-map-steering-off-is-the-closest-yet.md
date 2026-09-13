@@ -174,3 +174,19 @@ sent at 17:10 for the first honest judgement of it.
 **The winning state, for bringup:** as today's bringup minus armour (already), and the shrink/mute are now
 the only untested-in-this-state steps (both rode on 2026-09-12 with the goat; the blocker prefab may
 retire them entirely).
+
+## 17:20 — "THIS IS THE ONE!!!" — rot 180 + flip 0 on the riding goat
+
+Sequence of looks on the riding goat (all `[verified-live 2026-09-13, n=1 wearer]`):
+- `geomvflip 1`: **sideways, and head pitch moves the picture** — wrong on both counts, reverted for good
+  (still `fourth-wear-vflip1-sideways.jpg`).
+- `geomrot 180` + `geomflip 1`: right way up, head-stable, **left/right aim inverted**.
+- `geomrot 180` + `geomflip 0`: **right way up, head-stable, aims right in all four directions, travels with
+  the player.** Tefa: *"this is the one!!! … it really is the scope now, showing on the scope glass."*
+
+So the working frame is a half-turn of my assumed glass frame with no mirror — i.e. the glass's U runs along
+the rifle's −X and V along −Y relative to what `sg_rifle_frame` assumed. (The map's own "IMPROPER" flag reads
+this state as improper, so the flag's baseline is what is wrong, not the picture; note for the header.)
+**Locked in:** plugin defaults `geom_rot 180`, `geom_flip 0`; `bringup` sends them; the settings file carries
+them. Left, in Tefa's words: a white flicker for a millisecond now and then, a slight shake (the per-eye
+projection alternating, `eye moved`), and the goat itself — the invisible blocker next, or hide it.
