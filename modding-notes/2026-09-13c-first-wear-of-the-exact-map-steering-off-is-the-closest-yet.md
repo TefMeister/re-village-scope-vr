@@ -120,3 +120,26 @@ Build: the late `/pd` (`geomvflip`), `bringup` with `geomflip 1`, then `geomvfli
   moves.
 - **Stopped here** on purpose: this is a design question (what the engine's mirror actually renders from, and
   whether a mirror can ever show the view down a hand-held bore in VR), not another knob. Desk work, Fable.
+
+## 17:05 — re-read with Tefa's push ("the goat is still hanging in the air — fix that"): THE ARMOUR DETACHES THE GOAT (`/pd`, Fable, no launch)
+
+The 15:20 wear said it plainly and I read past it: *"the goat got spawned then jumped to the weapon and the next
+step after that, came off the weapon again."* In that `bringup`, the step after `drive_on` was **`goat_armour`**
+(then `goat_vanish` in the same second). The 15:33 rig had armour BEFORE drive and never rode; 16:38 had armour
+and floated. Last night's rig (rode, tiny, silent) had shrink and `Gain 0` but **no armour** — and the 22:26
+"strip", which also switched off the colliders, was the first floating goat. So: **switching off
+`via.physics.Colliders` / `app.HitController` / `app.ProcDamage` detaches the visible goat** `[verified-live
+2026-09-13, n=1 direct observation + 3 consistent rigs]`, and the "pendulum off = float" reading of 2026-09-12
+was the same effect seen through the strip. The security-camera picture follows: a mirror on a goat that is
+not on the rifle IS a fixed camera. So today's "design question" row is premature — the mirror was never
+given a chance to ride.
+
+**Changed:** `bringup` no longer applies armour (`fn goat_armour` stays as a hand command with a warning).
+**Added:** `goat-watch` — every ~5 s, and `fn goat_watch` on demand, the log prints where every
+`TotemEveryware` mesh object ACTUALLY is, its scale, its distance to the rifle, and whether it is the root we
+move. This is the first "riding" measurement that is not our own write read back. Deployed + stamped; the
+game must be relaunched to load it. Test 26/26.
+
+**Next wear:** relaunch, `bringup`, watch the goat; read `goat-watch:` lines (dist-to-rifle should be ~1 m and
+the scale 0.001 on our root); then look through the scope while walking — the picture should finally move
+with you. Only then judge `geomvflip`.
