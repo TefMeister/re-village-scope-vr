@@ -111,3 +111,31 @@ off + glass binds. Left on the board: the slight shake (jitter) and the one-fram
   that changed, not the angle. Suspect `[hypothesis]`: Lua state that outlives a scene reload — the
   captured scene layers / layer camera (`st.scene_layers`, `st.layer_cam`) or the reused holder — now
   pointing at the old scene's objects. Test: Reset Scripts after the reload, then a clean `bringup`.
+
+## 22:24–23:10 — the reload cause pinned, the scope zeroed, and what un-binds the glass
+
+- **Save reload = "the security camera".** With the correction OFF the wash stayed; Tefa: *"it's because
+  the hand is not riding the weapon. it's the security camera again"*, then with the hand made visible:
+  *"the hand was riding the gun, but the picture in the scope was not moving with me"*
+  `[verified-live 2026-09-13, n=1 wearer]`. Reset Scripts after the reload did NOT fix it; a full game
+  relaunch did (*"the scope is fine again"*). Plugin lines: fresh launch → `rig rebuild #1: the latch
+  followed (gen 1 -> 2)`; after the reload → `at the latched width (1920) and the latch did not change`.
+  So after a save reload the plugin keeps reading the old mirror's pooled buffer while the new rig
+  renders elsewhere `[inferred-static from those lines + the wearer]`. The grey wash and clothing
+  were that stale picture, not the zero angle — the pane-tilt chase (`pitch 186/196`, `yaw 96`) was
+  the wrong thing, as Tefa said.
+- **Zeroing, fresh launches, circled screenshots:** 13/6.5 → +64 px right, −40 up (porch post);
+  14.5/9 → +7, −46; 16.3/9 → +27, +14 (overshot); 15.8/10 crouched + aim button, 3 shots → a little low
+  and left; 15.0/9.7 → a little left, ~3× that low (wall); **14.4/9.5 → Tefa played it "for real":
+  *"the values are accurate"*** `[verified-live 2026-09-13, n=1 wearer, several spots]`. Now the
+  `bringup` default; deployed + stamped.
+- **The glass reverts to stock whenever the rifle leaves the hands and comes back** — weapon switch
+  (log: `weapon changed: scoped=0` → `glass: restored 2/2` → `scoped=1 … press NUMPAD *`), and per Tefa
+  also when grabbed by an enemy, maybe when hit `[verified-live 2026-09-13 for the switch, n=1;
+  grab/hit reported]`. `bind` fixes it each time. Wanted: re-bind automatically on `scoped=1`.
+- Tefa on the lag: the game gets laggier the longer it runs in VR, *"that has always been the case"*.
+  Frame lines held 62–70 fps across 21:47–22:25 and private memory was flat over 30 s — not
+  reproduced in the log `[measured 2026-09-13, one launch]`; worth a start/end memory reading on a long
+  session.
+- Tefa, at the end: *"finally got it to a point where i really think that now there is just tweaking
+  and polishing work to be done."*
