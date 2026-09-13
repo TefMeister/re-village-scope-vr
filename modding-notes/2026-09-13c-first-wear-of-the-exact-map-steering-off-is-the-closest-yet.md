@@ -220,3 +220,25 @@ lagging plane see the rifle `[hypothesis]`. Built: `posehook 1` also copies the 
   notification in captures — Tefa's correction — not the blocker; the blocker itself was not seen.) The scope was not checked. Next try, not run: `fn
   goat_strip` on it (switch off every component except transform/mesh/mirror/camera — the occluder part
   should be among them) and `fn goat_hide`. The game was closed before the command landed.
+
+## 18:07–18:20 — sixth launch: the blocker, stripped, hidden, shrunk — three answers
+
+1. **`fn goat_strip` on the blocker switched off nothing** — its only components are `via.Transform`,
+   `via.render.Mesh` and our `via.render.Mirror`. The occlusion is the mesh itself.
+2. **`fn goat_hide` (mesh draw off): the world stays, but the scope picture FREEZES** on the last frame (Tefa's
+   hands from when the controllers were on the table; `blocker-hidden-frozen-*.jpg`). **So a Mirror stops
+   producing when its host mesh is not drawn** — the question open in the producer since 2026-08-27, answered
+   `[verified-live 2026-09-13, n=1]`. And the frozen picture moved *"soooo smoothly"* under the exact map:
+   **the jitter is not in the map, it is in the live render** `[verified-live, n=1]` — which fits the per-eye
+   camera alternating each tick `[hypothesis]`.
+3. **`fn goat_show` + `fn goat_shrink` (×0.001): the blocker STOPS RIDING** — security-camera view again, the
+   world vanishing at the same spot and popping back further on, nonsense and blue far away; the
+   security-camera picture *"smooth'ish"*, between the frozen still and the riding goat `[verified-live, n=1]`.
+   The blocker has no pendulum, so **the shrink itself detaches a host, not the pendulum** `[verified-live,
+   n=2 hosts]`. Best guess: at scale 0.001 the engine stops updating the object's world transform (a
+   near-singular matrix), so everything that renders from it stays where it was shrunk `[hypothesis]`.
+   Untested middle ground: `fn goat_shrink2` (×0.05).
+
+**Where that leaves hiding the host:** not drawn = frozen picture; shrunk = stops riding; blocker drawn =
+culls the world; goat drawn = visible and ticking. Open: ×0.05; the goat with `pendset Gain 0` only; hiding
+the mesh from the MAIN camera but not the mirror (a render layer / mask, not a disable).
