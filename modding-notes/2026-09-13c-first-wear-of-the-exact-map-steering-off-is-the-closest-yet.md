@@ -250,3 +250,18 @@ the mesh from the MAIN camera but not the mirror (a render layer / mask, not a d
 component rather than the mesh feeding it. Built, not run: `fn goat_matoff` / `goat_maton` (every material on
 the host's Mesh components disabled with `setMaterialsEnable`, proven on the lens materials; object and mesh
 stay drawn) and `fn goat_meshoff` / `goat_meshon` (Mesh component only). Deployed + stamped.
+
+## 19:19–19:30 — seventh launch: THE INVISIBLE GOAT THAT RIDES — materials off works; any pendulum write detaches
+
+- Plain goat (`p10` → +4 s `drive_on`, `steer 0`, `model 0`, `bind` ×2): rides, scope "the one" — Tefa: *yes*.
+- **`fn goat_matoff`** (1 material on 1 mesh disabled via `setMaterialsEnable`): Tefa, *"yes to both! nice"* —
+  **the goat is invisible AND the scope stays live, riding** `[verified-live 2026-09-13, n=1 wearer]`. So the
+  frozen mirror of 18:10 was the GameObject draw flag (or the Mesh component), exactly as M19 suspected in
+  August; the materials can go.
+- **`pendset Gain 0`:** *"that's what makes it come off the gun"* `[verified-live, n=1]`. With the shrink
+  result, **any write to the host's scale or to its pendulum detaches it** (Gain 0, pendulum disable, shrink —
+  the pendulum dump itself may too; `bringup` no longer dumps it). The tick stays for now.
+- Rebuilt: plain goat + `goat_matoff`. `bringup` now does exactly that (no shrink, no mute, no armour, no
+  pendulum dump), test 23/23. Left: **the tick** (find a silencer that does not touch the pendulum — the Wwise
+  container mute did not stop it on 2026-09-12; the sound may be triggered by the pendulum's swing, so a
+  non-swinging prop would be silent by nature) and **the jitter** (the live render; eye alternation).
