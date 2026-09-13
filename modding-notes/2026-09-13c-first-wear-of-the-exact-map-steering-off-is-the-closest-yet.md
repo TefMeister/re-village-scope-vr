@@ -214,8 +214,9 @@ lagging plane see the rifle `[hypothesis]`. Built: `posehook 1` also copies the 
   (near geometry), the picture *"not steadier, still jittery"* (`flicker-frames-posehook-on/`)
   `[verified-live, n=1]`. The pose lag is not the cause; turned off.
 - **The invisible blocker (`fn pfb_occ`):** spawns (`sm00_189_Plocc_00occ`, has a mesh component), takes the
-  mirror, latches, rides (`hb` 1.2 m). But **the world disappears around the player** and the blocker shows as
-  a **black rectangle** (`blocker-180115/180126/180130.jpg`) — it is an occlusion blocker, so the renderer culls
-  everything behind it `[verified-live 2026-09-13, n=1]`. The scope was not checked. Next try, not run: `fn
+  mirror, latches, rides (`hb` 1.2 m). But **the world disappears around the player**
+  (`blocker-180115/180126/180130.jpg`) — it is an occlusion blocker, so the renderer culls everything behind
+  it `[verified-live 2026-09-13, n=1]`. (The black rectangle in `-180130` is the Quest 3 redacting a
+  notification in captures — Tefa's correction — not the blocker; the blocker itself was not seen.) The scope was not checked. Next try, not run: `fn
   goat_strip` on it (switch off every component except transform/mesh/mirror/camera — the occluder part
   should be among them) and `fn goat_hide`. The game was closed before the command landed.
