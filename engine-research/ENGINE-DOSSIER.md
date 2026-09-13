@@ -1348,6 +1348,32 @@ Note: `modding-notes/2026-09-13a-the-whole-setup-is-one-command.md`. Built, depl
   first measurement of when the undo happens. Keys go through the producer's VK queue
   (`_G.re8_scope_vk_push`), so the keys file still has one writer.
 
+### 9w. ⭐⭐⭐ THE EXACT MAP: ONE HOMOGRAPHY FROM THE GLASS TO THE RENDER; FOUR FAULTS FOUND BY READING (2026-09-13, `/pd`, no launch)
+
+Note: `modding-notes/2026-09-13b-the-exact-map-one-formula-instead-of-a-roll-knob.md`. Built, deployed, stamped, **NOT run**.
+
+- **What a `via.render.Mirror` render IS:** the eye's view of the reflected world, in the eye's own screen
+  coordinates (that is what lets the surface be textured by screen UV). So the picture's orientation at a pixel
+  is the eye's screen orientation plus that pixel's perspective skew — §9r's v3 ("reflected up about the bore")
+  equals it only with the gaze on the lens; 9–18° off and up to 23 % stretch at 20–40° off `[verified-numerically
+  2026-09-13, geom_test case 6]`. **And the render is stored mirrored in u**: a horizontal mirror alone only
+  inverts vertically, yet flat needs `flip_h` too `[inferred-static 2026-09-13]` — so every u read from it is
+  1 − u, and the crop-follow centres never were. That is the "head left/right inverted" report.
+- **`scope_geom_math.h`:** K = R_camᵀ·Refl_n·[rx ry d]; H maps glass tangent coordinates to render UV; the
+  shader evaluates it per pixel (`geom 1`, boot default). Roll, warp, off-axis magnification, centre and flips
+  are all inside H. 103/103 against an oracle built from `cf_reflect_point` + `cf_project_ndc`.
+- **Four faults, all in the inputs and the sampler, none in v3's formula on-gaze:** (1) the plugin's plane
+  recompute used the MUZZLE as the anchor, the Lua the LENS → the 12–53° `n-vs-lua`; (2) crop-centre u not
+  mirrored; (3) the bore axis picked against the camera forward flips past 45° off-gaze → `roll meas` 148–168°;
+  (4) the sampler rotates in a 4:3 frame while the in-world glass shows the RT's UV square as ~1:1 (the
+  2026-09-12 headset frame's duplex bars: 0.6 R vs 0.82 R, ratio 0.73 ≈ 0.75 predicted `[measured 2026-09-13,
+  n=1 frame]`) → a rotation becomes a shear = "warps while it turns". All four fixed or knobbed: `geom`,
+  `glassaspect` (boot 1.333, judge by equal duplex bars), `geomhm`, `geomproj`, `crophm`; `flip_d` published.
+- **§9s's `mrolloff` / `baked-roll` procedure is legacy-path only now** (`geom 0`). On the exact path there is
+  no roll knob to set.
+- **Limits:** which eye rendered the render (3 cm ≈ up to 8° of picture roll; `eye moved` in the `geom:` log
+  line measures it); far field only; symmetric projection assumed.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
