@@ -1328,6 +1328,26 @@ Note: `modding-notes/2026-09-12h-silent-invisible-goat-the-tick-was-a-volume-kno
 - **Final state 23:53** `[verified-live, n=1 wearer]`: goat ×0.001 on the rifle, silent, picture live.
   **`mrollsym 1` (side-flip) judged 00:05** `[reported, n=1]`: less chaotic, kept on. Remaining: picture sideways, not showing where the scope points; turning left rotates it counter-clockwise, and at the far end of a right turn it rotates back. That reversal at one extreme is the next session's spec.
 
+### 9v. THE BRING-UP IS ONE COMMAND: `bringup` (2026-09-13, `/pd`, no launch)
+
+Note: `modding-notes/2026-09-13a-the-whole-setup-is-one-command.md`. Built, deployed, stamped, **NOT run**.
+
+- **`bringup`** in `re_scope_cmd.txt` replays §9u's working order through the harness's own `apply()`:
+  `pfb_goat` → `p10` → (wait for rig, 10 s fail) → `drive_on`, `model 0`, `steer 1`, `mrollsym 1` →
+  `goat_armour` → `goat_vanish` → (wait for `mirror_latched=1` in the plugin status file, 10 s warn) →
+  numpad `*` → `*` again at +5 s and +20 s → `pendset Gain 0` → `bringup: DONE`. Refuses if a rig exists.
+  `[verified-numerically 2026-09-13]` for the ORDER only (`scripts/tests/bringup_sequence_test.lua`, 23/23).
+- **Only non-persisted settings are set.** The plugin persists `crop_follow`, `mroll_k/mode/src/off`,
+  `ret_depth`, `eyedist` in `reframework/re_scope_vr_settings.txt`; the Lua's `steer`/`model` and the plugin's
+  `mroll_sym` are not persisted, so those three are what `bringup` sets.
+- **`goat_vanish` now silences** (`Gain 0` via the extracted `pend_set`, read-back checked). **`goat_armour`**
+  disables `app.HitController`, `app.ProcDamage`, `via.physics.Colliders` on the ROOT only and reports (does
+  not touch) matches on children. `[hypothesis]` that this stops enemies breaking the prop.
+- **The re-binds are blind:** the undo §9u saw cannot be detected, and its timing was never measured, so
+  +5 s / +20 s may be too early. Stock crosshair after `DONE` ⇒ send `bind` and note the time — that is the
+  first measurement of when the undo happens. Keys go through the producer's VK queue
+  (`_G.re8_scope_vk_push`), so the keys file still has one writer.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
