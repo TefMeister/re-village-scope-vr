@@ -242,3 +242,11 @@ lagging plane see the rifle `[hypothesis]`. Built: `posehook 1` also copies the 
 **Where that leaves hiding the host:** not drawn = frozen picture; shrunk = stops riding; blocker drawn =
 culls the world; goat drawn = visible and ticking. Open: ×0.05; the goat with `pendset Gain 0` only; hiding
 the mesh from the MAIN camera but not the mirror (a render layer / mask, not a disable).
+
+## 18:35 — `/pd`, no launch: the hide switch, split in two
+
+`goat_hide` = GameObject `set_DrawSelf(false)` + `set_Draw(false)` + Mesh `set_Enabled(false)`, all at once
+(`rig_mesh_draw`). Its own M19 comment (2026-08-28) suspected the GameObject draw flag gates the Mirror
+component rather than the mesh feeding it. Built, not run: `fn goat_matoff` / `goat_maton` (every material on
+the host's Mesh components disabled with `setMaterialsEnable`, proven on the lens materials; object and mesh
+stay drawn) and `fn goat_meshoff` / `goat_meshon` (Mesh component only). Deployed + stamped.
