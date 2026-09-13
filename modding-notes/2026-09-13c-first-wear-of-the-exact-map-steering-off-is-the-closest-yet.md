@@ -59,3 +59,18 @@ stills): `dev-archive/recon/2026-09-13-exact-map-first-wear/`. Dossier §9x.
   night; and `fn goat_pend_dump` on a floating goat to see where the child is.
 - **[PD, Fable] Tefa's suggestion:** go back through the old attempts on GitHub knowing what is known now — the
   project moved every time that was done.
+
+## 14:41 — the `geomhm 1` A/B: WORSE, reverted
+
+Tefa: *"still the same as before, only worse as now head turns picture left and right again"*
+`[verified-live 2026-09-13, n=1 wearer]`. Log: the map centre jumped from u ≈ 1.02 to u ≈ −0.02 — the other edge
+— and `exact-roll` stayed 176–178°. Reverted to `geomhm -1` at once.
+
+**What that settles:** the render IS mirrored in u (`hm = -1` is right; §9w's inference survives its first
+test). So the 180° and the edge centre are **not** the left/right sign. With the rifle held level and aimed
+ahead, the reflected bore lands at the eye's horizontal edge (|ndc x| ≈ 1.05) under both signs — the eye
+geometry fed to H disagrees with the eye the render was drawn from by roughly half a view width. Candidates,
+all `[hypothesis]`: the render is one eye of a stereo pair or a wider/offset per-eye projection (the VR eye
+projection is asymmetric and the map assumes symmetric); the camera transform read is not the one the mirror
+used; or the v direction of the render is the other way (which would give the 180° with a correct u).
+Next is desk work: a `geomvflip` knob plus reading the camera's real projection matrix into the map.
