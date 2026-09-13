@@ -98,3 +98,25 @@ Next is desk work: a `geomvflip` knob plus reading the camera's real projection 
   work: derive what the baked pane's normal actually is from the `geomdbg` `n` (read (0.00, −0.99, −0.13) =
   the rifle's −Y, horizontal) and test the map with v reversed at the render, not at the frame.
 - **Left in the game:** `geomflip 1`, `geomrot 180`. Next session starts from `bringup` anyway.
+
+## 16:38–16:55 — third wear: THE PICTURE IS A FIXED CAMERA LOOKING BACK AT ETHAN (Tefa wearing)
+
+Build: the late `/pd` (`geomvflip`), `bringup` with `geomflip 1`, then `geomvflip 1`, then `fn goat_pend_off`.
+
+- Tefa, verbatim: *"the picture is 100% coming from a goat that is not riding the weapon. i just saw Ethan walk
+  in the scope in real time, move as i moved, like a footage in a stationary security camera."* Stills
+  `third-wear-arm-in-scope-a/b.jpg`: the glass shows **Ethan's own arm, hand and rifle barrel seen from
+  outside, close range** `[verified-live 2026-09-13, n=1 wearer, 2 stills]`.
+- After `goat_pend_off` (read back false): *"picture is exactly the same … it does change based on where the gun
+  is pointed … but this camera picture also depends on where Ethan is, and when i'm away from the goat, then the
+  picture becomes a mess of things disappearing from the world"* (`-165015.jpg`); *"looking up and down now
+  moves the picture inside the scope, but looking left and right doesn't."* Goat still floating.
+- **What this reframes.** Every orientation fix today (flip, half-turn, v-flip) was tuning the view of a mirror
+  that shows the PLAYER, not the scene ahead. Two separable facts, both `[hypothesis]` until measured:
+  (1) the reflection's viewpoint/plane is such that it looks back at Ethan — a plane below and beside the
+  rifle, reflecting the eye, sees the arm and rifle, not the world down the bore; (2) something the mirror
+  draws is still anchored at the spawn (the "mess away from the goat" = the 2026-09-13 00:50 row, now seen
+  directly). The log's `hb rig … rifle …` "riding" reads back our own write and is **not** proof the mirror
+  moves.
+- **Stopped here** on purpose: this is a design question (what the engine's mirror actually renders from, and
+  whether a mirror can ever show the view down a hand-held bore in VR), not another knob. Desk work, Fable.
