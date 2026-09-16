@@ -1,0 +1,331 @@
+diff --git a/src/mods/VR.cpp b/src/mods/VR.cpp
+index 736bcc08..93fd76b6 100644
+--- a/src/mods/VR.cpp
++++ b/src/mods/VR.cpp
+@@ -50,6 +50,7 @@
+ #include "sdk/Renderer.hpp"
+ #include "sdk/REMath.hpp"
+ #include "sdk/REGameObject.hpp"
++#include "sdk/REComponent.hpp"
+ 
+ #include "utility/Scan.hpp"
+ #include "utility/FunctionHook.hpp"
+@@ -252,7 +253,124 @@ void VR::on_view_get_size(REManagedObject* scene_view, float* result) {
+     }
+ }
+ 
++// Mirror-camera exemption.
++// Set while a via.render.layer.Scene that carries a via.render.Mirror is inside its update() or draw()
++// on this thread (see begin_mirror_layer_window / end_mirror_layer_window). RE8's scope mirror layer
++// renders with the MAIN camera object (same address), so the camera argument of the getters cannot
++// tell the mirror pass from the main pass; the window can. praydog's RE4 ScopeCamera exemption below
++// keys on the camera's GameObject name instead, which only works when the scope has its own camera.
++static thread_local sdk::renderer::layer::Scene* s_mirror_layer_active{nullptr};
++
++void VR::begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const char* phase) {
++    if (layer == nullptr) {
++        return;
++    }
++
++    const auto mirror = layer->get_mirror();
++
++    if (mirror == nullptr) {
++        // Sticky mode: a non-mirror layer starting is what closes the window.
++        s_mirror_layer_active = nullptr;
++        return;
++    }
++
++    s_mirror_layer_active = layer;
++    const auto windows = m_mirror_exemption.windows_seen.fetch_add(1, std::memory_order_relaxed) + 1;
++
++    const auto camera = layer->get_camera();
++    const auto primary = sdk::get_primary_camera();
++    // (v2) no camera-address recording: exempting by camera identity hit the multipass duplicate eye camera.
++
++    // One-time sighting log, then two progress lines so a flat (non-VR) run can tell whether the
++    // camera getters are called inside the window at all.
++    if (!m_mirror_exemption.logged_layer.exchange(true)) {
++        std::wstring_view go_name{L""};
++
++        if (camera != nullptr) {
++            if (const auto go = utility::re_component::get_game_object((REComponent*)camera); go != nullptr) {
++                go_name = utility::re_string::get_view(go->name);
++            }
++        }
++
++        spdlog::info("[VR] Mirror-bearing scene layer seen ({}): layer={:x} mirror={:x} camera={:x} primary={:x} camera_is_primary={} camera_go=\"{}\" exempt_enabled={} sticky={}",
++            phase, (uintptr_t)layer, (uintptr_t)mirror, (uintptr_t)camera, (uintptr_t)primary, camera == primary, utility::narrow(go_name), m_exempt_mirror_cameras->value(), m_exempt_mirror_cameras_sticky->value());
++    }
++
++    if (windows % 600 == 0 && windows <= 3600) {
++        spdlog::info("[VR] Mirror window: camera view un-HMD'd {} times, skipped {} (no original pose), plan C enabled={}",
++            m_mirror_exemption.view_unhmd.load(), m_mirror_exemption.view_unhmd_skipped.load(), m_mirror_uses_original_camera->value());
++    }
++
++    if (windows == 120 || windows == 1200) {
++        spdlog::info("[VR] Mirror layer windows={} get_ProjectionMatrix calls inside={} get_ViewMatrix calls inside={} exempted proj={} view={} (by window={} camera={} name={}) hmd_active={}",
++            windows,
++            m_mirror_exemption.proj_calls_in_window.load(), m_mirror_exemption.view_calls_in_window.load(),
++            m_mirror_exemption.proj_exempted.load(), m_mirror_exemption.view_exempted.load(),
++            m_mirror_exemption.exempted_by_window.load(), m_mirror_exemption.exempted_by_camera.load(), m_mirror_exemption.exempted_by_name.load(),
++            is_hmd_active());
++    }
++}
++
++void VR::end_mirror_layer_window(sdk::renderer::layer::Scene* layer) {
++    if (m_exempt_mirror_cameras_sticky->value()) {
++        return; // closed by the next non-mirror layer's begin instead
++    }
++
++    if (s_mirror_layer_active != nullptr && s_mirror_layer_active == layer) {
++        s_mirror_layer_active = nullptr;
++    }
++}
++
++bool VR::is_camera_exempt(REManagedObject* camera, bool projection) {
++    if (!m_exempt_mirror_cameras->value()) {
++        return false;
++    }
++
++    auto count = [&]() {
++        (projection ? m_mirror_exemption.proj_exempted : m_mirror_exemption.view_exempted).fetch_add(1, std::memory_order_relaxed);
++    };
++
++    // 1. A mirror-bearing scene layer is updating/drawing on this thread (RE8: shared main camera).
++    if (s_mirror_layer_active != nullptr) {
++        m_mirror_exemption.exempted_by_window.fetch_add(1, std::memory_order_relaxed);
++        count();
++        return true;
++    }
++
++    if (camera == nullptr) {
++        return false;
++    }
++
++    // 2. (v2) camera-identity stage removed on purpose; exempted_by_camera stays 0.
++
++    // 3. Name prefix on the camera's GameObject, the way praydog exempted RE4's ScopeCamera.
++    if (const auto go = utility::re_component::get_game_object((REComponent*)camera); go != nullptr) {
++        const auto name = utility::re_string::get_view(go->name);
++
++        static const std::vector<std::wstring> exempt_prefixes = {
++            L"ScopeCamera",
++            L"MirrorCamera",
++            L"ScopeMirror",
++        };
++
++        for (const auto& prefix : exempt_prefixes) {
++            if (name.starts_with(prefix)) {
++                m_mirror_exemption.exempted_by_name.fetch_add(1, std::memory_order_relaxed);
++                count();
++                return true;
++            }
++        }
++    }
++
++    return false;
++}
++
+ void VR::on_camera_get_projection_matrix(REManagedObject* camera, Matrix4x4f* result) {
++    // Counted before every early-out so a flat run measures whether this getter fires inside a mirror window.
++    if (s_mirror_layer_active != nullptr) {
++        m_mirror_exemption.proj_calls_in_window.fetch_add(1, std::memory_order_relaxed);
++    }
++
+     if (result == nullptr || !g_framework->is_ready() || !is_hmd_active() || m_disable_projection_matrix_override) {
+         return;
+     }
+@@ -269,6 +387,13 @@ void VR::on_camera_get_projection_matrix(REManagedObject* camera, Matrix4x4f* re
+         //return original_func(camera, result);
+     }
+ 
++    // Mirror-camera exemption: leave the mirror pass on the camera's native projection.
++    // Checked before the multipass filter on purpose: that filter passes m_multipass_cameras[0],
++    // which is the main camera, and the RE8 mirror layer renders with the main camera.
++    if (is_camera_exempt(camera, true)) {
++        return;
++    }
++
+     if (is_using_multipass()) {
+         if (camera != m_multipass_cameras[0] && camera != m_multipass_cameras[1]) {
+             return;
+@@ -324,6 +449,10 @@ Matrix4x4f* VR::gui_camera_get_projection_matrix_hook(REManagedObject* camera, M
+ }
+ 
+ void VR::on_camera_get_view_matrix(REManagedObject* camera, Matrix4x4f* result) {
++    if (s_mirror_layer_active != nullptr) {
++        m_mirror_exemption.view_calls_in_window.fetch_add(1, std::memory_order_relaxed);
++    }
++
+     if (result == nullptr || !g_framework->is_ready()) {
+         return;
+     }
+@@ -332,6 +461,37 @@ void VR::on_camera_get_view_matrix(REManagedObject* camera, Matrix4x4f* result)
+         return;
+     }
+ 
++    // Plan C: inside a mirror window, replace the view matrix the mirror layer receives with the one the
++    // game's own (un-HMD'd) camera pose would give. The native getter derives view = F * inverse(W_current)
++    // for some fixed convention F, and W_current is the HMD pose REFramework wrote into the camera joint
++    // (apply_hmd_transform); m_render_camera_matrix is REFramework's own render-time snapshot of that joint
++    // pose and m_original_camera_matrix the pose the game had before the write. So
++    //   view_orig = view_native * W_hmd * inverse(W_orig)
++    // holds independently of F. Done here, on the thread and at the call where the layer asks for it,
++    // rather than by writing the joint from a render-thread layer callback (the game thread rewrites and
++    // restores that joint every frame: update_camera / restore_camera).
++    if (s_mirror_layer_active != nullptr && m_mirror_uses_original_camera->value()) {
++        const auto& w_orig = m_original_camera_matrix;
++        const auto& w_hmd = m_render_camera_matrix;
++        const bool have_orig = w_orig != glm::identity<Matrix4x4f>() && w_hmd != glm::identity<Matrix4x4f>();
++
++        if (have_orig) {
++            *result = *result * w_hmd * glm::inverse(w_orig);
++            m_mirror_exemption.view_unhmd.fetch_add(1, std::memory_order_relaxed);
++        } else {
++            m_mirror_exemption.view_unhmd_skipped.fetch_add(1, std::memory_order_relaxed);
++        }
++
++        m_mirror_exemption.exempted_by_window.fetch_add(1, std::memory_order_relaxed);
++        m_mirror_exemption.view_exempted.fetch_add(1, std::memory_order_relaxed);
++        return;
++    }
++
++    // Mirror-camera exemption: the mirror pass keeps the camera's native view matrix.
++    if (is_camera_exempt(camera, false)) {
++        return;
++    }
++
+     auto cameras = get_cameras();
+ 
+     if (camera != cameras[0] && camera != cameras[1]) {
+@@ -546,9 +706,15 @@ bool VR::on_pre_post_effect_layer_update(sdk::renderer::layer::PostEffect* layer
+ }
+ 
+ bool VR::on_pre_scene_layer_draw(sdk::renderer::layer::Scene* layer, void* render_ctx) {
++    // Mirror-camera exemption: the draw window too, in case the matrices are fetched there rather than in update.
++    begin_mirror_layer_window(layer, "draw");
+     return true;
+ }
+ 
++void VR::on_scene_layer_draw(sdk::renderer::layer::Scene* layer, void* render_ctx) {
++    end_mirror_layer_window(layer);
++}
++
+ void VR::on_prepare_output_layer_draw(sdk::renderer::layer::PrepareOutput* layer, void* render_context) {
+     if (!is_hmd_active()) {
+         return;
+@@ -615,6 +781,9 @@ bool VR::on_pre_scene_layer_update(sdk::renderer::layer::Scene* layer, void* ren
+     REF_PROFILE_FUNCTION();
+ 
+     m_scene_update_mtx.lock();
++
++    // Mirror-camera exemption: open the window before the HMD check so the counters also work flat.
++    begin_mirror_layer_window(layer, "update");
+     
+     if (!is_hmd_active()) {
+         return true;
+@@ -665,6 +834,7 @@ void VR::on_scene_layer_update(sdk::renderer::layer::Scene* layer, void* render_
+     REF_PROFILE_FUNCTION();
+ 
+     utility::ScopeGuard ___([&]() {
++        end_mirror_layer_window(layer);
+         m_scene_update_mtx.unlock();
+     });
+ 
+@@ -4247,6 +4417,20 @@ void VR::on_draw_ui() {
+ 
+     m_rendering_technique->draw("Rendering Technique");
+     m_decoupled_pitch->draw("Decoupled Camera Pitch");
++    m_exempt_mirror_cameras->draw("Exempt Mirror Cameras (scope)");
++    m_exempt_mirror_cameras_sticky->draw("Exempt Mirror Cameras: sticky window (plan B)");
++    m_mirror_uses_original_camera->draw("Mirror Uses Original Camera Pose (plan C)");
++
++    if (ImGui::TreeNode("Mirror Exemption Stats")) {
++        const auto& me = m_mirror_exemption;
++        ImGui::Text("Mirror layer windows seen: %u", me.windows_seen.load());
++        ImGui::Text("get_ProjectionMatrix calls inside window: %u", me.proj_calls_in_window.load());
++        ImGui::Text("get_ViewMatrix calls inside window: %u", me.view_calls_in_window.load());
++        ImGui::Text("Exempted: projection %u, view %u", me.proj_exempted.load(), me.view_exempted.load());
++        ImGui::Text("By window %u, by camera %u, by name %u", me.exempted_by_window.load(), me.exempted_by_camera.load(), me.exempted_by_name.load());
++        ImGui::Text("Plan C view un-HMD'd %u, skipped %u", me.view_unhmd.load(), me.view_unhmd_skipped.load());
++        ImGui::TreePop();
++    }
+ 
+     if (ImGui::Checkbox("Positional Tracking", &m_positional_tracking)) {
+     }
+diff --git a/src/mods/VR.hpp b/src/mods/VR.hpp
+index 0cf532e7..8632dd1f 100644
+--- a/src/mods/VR.hpp
++++ b/src/mods/VR.hpp
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include <chrono>
++#include <atomic>
+ #include <bitset>
+ #include <memory>
+ #include <shared_mutex>
+@@ -274,6 +275,7 @@ private:
+     bool on_pre_scene_layer_update(sdk::renderer::layer::Scene* layer, void* render_context) override;
+     void on_scene_layer_update(sdk::renderer::layer::Scene* layer, void* render_context) override;
+     bool on_pre_scene_layer_draw(sdk::renderer::layer::Scene* layer, void* render_context) override;
++    void on_scene_layer_draw(sdk::renderer::layer::Scene* layer, void* render_context) override;
+ 
+     void on_prepare_output_layer_draw(sdk::renderer::layer::PrepareOutput* layer, void* render_context) override;
+ 
+@@ -568,6 +570,17 @@ private:
+     const ModKey::Ptr m_set_standing_key{ ModKey::create(generate_name("SetStandingOriginKey")) };
+     const ModKey::Ptr m_recenter_view_key{ ModKey::create(generate_name("RecenterViewKey")) };
+     const ModToggle::Ptr m_decoupled_pitch{ ModToggle::create(generate_name("DecoupledPitch"), false) };
++    // Mirror-camera exemption: keep the HMD eye projection/view override away from cameras that render a
++    // via.render.Mirror (RE8 sniper scope). Config key: VR_ExemptMirrorCameras. See is_camera_exempt().
++    const ModToggle::Ptr m_exempt_mirror_cameras{ ModToggle::create(generate_name("ExemptMirrorCameras"), true) };
++    // Plan B: keep the mirror window open after the mirror layer's update()/draw() returns, until the next
++    // NON-mirror scene layer begins (the way m_multipass.pass is maintained). For the case where the engine
++    // fetches the camera matrices between layers rather than inside the layer call. Config key: VR_ExemptMirrorCamerasSticky.
++    const ModToggle::Ptr m_exempt_mirror_cameras_sticky{ ModToggle::create(generate_name("ExemptMirrorCamerasSticky"), false) };
++    // Plan C: inside a mirror window, hand the mirror layer the view matrix of the game's OWN camera pose
++    // (m_original_camera_matrix, saved before REFramework writes the HMD pose into the camera joint) instead of
++    // the HMD pose the joint currently holds. Config key: VR_MirrorUsesOriginalCamera.
++    const ModToggle::Ptr m_mirror_uses_original_camera{ ModToggle::create(generate_name("MirrorUsesOriginalCamera"), true) };
+     const ModCombo::Ptr m_rendering_technique{ 
+         ModCombo::create(generate_name("RenderingTechnique_V2"),
+         {
+@@ -623,6 +636,27 @@ private:
+     const ModToggle::Ptr m_enable_asynchronous_rendering{ ModToggle::create(generate_name("AsyncRendering_V3"), true) };
+ #endif
+ 
++    // Mirror-camera exemption state. Written on the render thread from the scene-layer hooks,
++    // read from the camera getter hooks (any thread) -> atomics.
++    struct MirrorExemption {
++        // (v2) the camera-address stage was removed: it exempted the multipass duplicate eye camera and doubled the eyes.
++        std::atomic<uint32_t> windows_seen{};              // mirror-bearing scene layer update()/draw() windows seen (cumulative)
++        std::atomic<uint32_t> proj_calls_in_window{};      // via.Camera.get_ProjectionMatrix calls made inside such a window
++        std::atomic<uint32_t> view_calls_in_window{};      // via.Camera.get_ViewMatrix calls made inside such a window
++        std::atomic<uint32_t> proj_exempted{};             // overrides actually skipped (HMD active)
++        std::atomic<uint32_t> view_exempted{};
++        std::atomic<uint32_t> exempted_by_window{};
++        std::atomic<uint32_t> exempted_by_camera{};             // structurally 0 since v2, kept so the log format is stable
++        std::atomic<uint32_t> view_unhmd{};                    // plan C: mirror-window view matrices rewritten to the game's own camera pose
++        std::atomic<uint32_t> view_unhmd_skipped{};            // plan C: skipped because no original pose was available
++        std::atomic<uint32_t> exempted_by_name{};
++        std::atomic<bool> logged_layer{false};
++    } m_mirror_exemption{};
++
++    void begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const char* phase);
++    void end_mirror_layer_window(sdk::renderer::layer::Scene* layer);
++    bool is_camera_exempt(REManagedObject* camera, bool projection);
++
+     bool m_disable_projection_matrix_override{ false };
+     bool m_disable_gui_camera_projection_matrix_override{ false };
+     bool m_disable_view_matrix_override{false};
+@@ -634,6 +668,9 @@ private:
+         *m_set_standing_key,
+         *m_recenter_view_key,
+         *m_decoupled_pitch,
++        *m_exempt_mirror_cameras,
++        *m_exempt_mirror_cameras_sticky,
++        *m_mirror_uses_original_camera,
+         *m_rendering_technique,
+         *m_use_custom_view_distance,
+         *m_hmd_oriented_audio,
