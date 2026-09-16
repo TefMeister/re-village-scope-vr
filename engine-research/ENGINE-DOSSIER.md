@@ -1448,6 +1448,14 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   `staging/…/natives/`. The **patched REFramework (`mirror-exemption.patch`, v2 + plan C) exists only
   on the home PC**, nowhere in git — a `[PD @home]` row.
 
+- **The save-reload "security camera" is the same weakness in slow motion (2026-09-16b, `/pd`):** a
+  rebuild after a reload REUSES the path-cached holder (no new allocation), so the retired 8-bit
+  resolve keeps receiving the new mirror's picture while the upgraded HDR buffer is left aimed at
+  nothing — `the latch did not change` `[inferred-static 2026-09-16, from the 2026-09-13 log lines]`.
+  Built (default ON, `rbfb 0` off): on every rig rebuild the plugin swaps back to the kept 8-bit
+  resolve, retires the HDR buffer, and the upgrade watch reopens for the next fmt-26 allocation.
+  Harness `rerig` = teardown + `bringup` in one word. Note: `modding-notes/2026-09-16b-the-save-reload-security-camera-falls-back-to-the-buffer-that-follows.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
