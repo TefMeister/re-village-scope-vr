@@ -1462,6 +1462,14 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   cancels it if the same rifle returns first. Not established: whether the old rifle's mesh is still alive
   when a delayed restore runs `[hypothesis]` — binds hold no ref on it. Note: `modding-notes/2026-09-16c-the-weapon-switch-glass-flash-a-restore-that-waits.md`. **Not run.**
 
+- **Which scope is fitted is not on disk (2026-09-16d, `/pd`):** the rifle's in-hand prefab references ONE
+  mesh, `it02_070_Sniperrifle_01`, whose material file holds `A_Mat`, `B_Mat`, `Lens_Mat` and `Lens2_Mat`;
+  both lens materials use `Weapon_SniperScopeLens2.mmtr` and the same `Reticle_Low_ALBA` texture; the
+  configuration `.user` names no scope part `[inferred-static 2026-09-16]`. So unless the high-magnification
+  scope is a separate attached object, the scopes differ by a runtime switch `[hypothesis]`. Built: a
+  read-only `scope-signature:` log line on every glass bind (per-material enable flags; part bits only if a
+  part-enable call AND a count accessor exist). Note: `modding-notes/2026-09-16d-zoom-per-scope-which-scope-is-fitted-is-a-runtime-switch.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
