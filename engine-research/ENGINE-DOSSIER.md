@@ -1485,6 +1485,16 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   weapon object's numeric fields with values, one level into parameter-like sub-objects (capped 220).
   Reading `[hypothesis]`: "holding RG first" is the aim state that narrows spread. Note: `modding-notes/2026-09-16f-scope-spread-no-field-on-disk-so-a-read-only-probe.md`. **Not run.**
 
+- **The jitter, read (2026-09-16g, `/pd`, Fable):** the exact map is directions-only, the mirror's viewpoint is
+  the REFLECTED EYE, and in the headset the rendering eye alternates every tick (`eye moved` ≈ IPD, 2026-09-13c
+  log) — so a fixed bore direction from a hopping viewpoint lands on a different world point each frame: 0.37°
+  at 10 m for 64 mm, ~3% of the 2.4× disc `[hypothesis, fits the "slight shake" and the frozen-picture test]`.
+  The board's "H for the other eye" reading would be a jump of ~a fifth of the render (the 0.17 off-axis term)
+  and does not fit the size. Built, off by default: `sg_eye_bore` + `eyepar 1` aims the frame at the bore's far
+  point from this tick's reflected eye; `eye_parallax_test.cpp` 14/14 `[verified-numerically 2026-09-16]`
+  (identity with an independent R(F) − E; 0.363° hop; 0.33° centre shift = the re-zero to expect). Residual
+  parallax at other depths remains. Note: `modding-notes/2026-09-16g-the-jitter-is-the-eye-hopping-behind-the-mirror-and-a-per-eye-aim.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
