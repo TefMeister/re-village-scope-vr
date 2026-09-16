@@ -1470,6 +1470,14 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   read-only `scope-signature:` log line on every glass bind (per-material enable flags; part bits only if a
   part-enable call AND a count accessor exist). Note: `modding-notes/2026-09-16d-zoom-per-scope-which-scope-is-fitted-is-a-runtime-switch.md`. **Not run.**
 
+- **The hidden prop was parked 1.245 m from the rifle, and only its drop moves the mirror (2026-09-16e, `/pd`):**
+  the producer adds 1.0 m forward, 0.2 m down, 0.715 m left to the rifle pose (the 2026-08-30 flat tuning).
+  The worn pane's normal is the rifle's up/down axis, so forward and left lie IN the plane and cannot change
+  a planar reflection; `plugin/tools/prop_offset_check.cpp` on the shipped `cf_pane_from_rig`, 5/5
+  `[verified-numerically 2026-09-16]`. The exact map uses the plane direction only `[inferred-static 2026-09-16]`.
+  Built: harness `propnear` (in `bringup`) / `propoff` / `propf|propu|propr`. Open: whether the engine's mirror
+  clips by its host's bounds, and whether a host out of view stops the mirror `[hypothesis]`. Note: `modding-notes/2026-09-16e-the-hidden-prop-was-parked-a-metre-away-and-only-its-height-matters.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
