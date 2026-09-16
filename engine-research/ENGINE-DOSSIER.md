@@ -1495,6 +1495,16 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   (identity with an independent R(F) − E; 0.363° hop; 0.33° centre shift = the re-zero to expect). Residual
   parallax at other depths remains. Note: `modding-notes/2026-09-16g-the-jitter-is-the-eye-hopping-behind-the-mirror-and-a-per-eye-aim.md`. **Not run.**
 
+- **The worn half-turn, explained (2026-09-16h, `/pd`, Fable):** the rifle root's +X points LEFT (geomdbg
+  2026-09-13), so the frame builder's "follow the rifle's X" rule mirrors the map's upright (raw = `IMPROPER`,
+  `geomflip 1` = proper roll 0 `[verified-live 2026-09-13, n=1 log]`), and the in-world glass shows the composite
+  v-reversed (the 2026-08-28 `glass_flip_v` finding, never modelled). u-flip + v-flip = the worn `rot 180`.
+  Built, off by default: `framev 2` builds that frame directly (`sg_rifle_frame_rh`: right = bore × up, up
+  negated when the glass v-flips; `geomrot`/`geomflip` ignored) and `sg_rebase` makes roll / `IMPROPER`
+  meaningful against it; `frame_v2_test.cpp` 25/25 reproduces the log's readings and proves the maps identical
+  `[verified-numerically 2026-09-16]`. One look decides: identical picture + proper/roll 0 ⇒ make 2 the boot.
+  Note: `modding-notes/2026-09-16h-the-worn-frame-explained-a-left-pointing-x-and-a-v-flipped-glass.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
