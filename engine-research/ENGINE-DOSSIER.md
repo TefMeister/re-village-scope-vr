@@ -1478,6 +1478,13 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   Built: harness `propnear` (in `bringup`) / `propoff` / `propf|propu|propr`. Open: whether the engine's mirror
   clips by its host's bounds, and whether a host out of view stops the mirror `[hypothesis]`. Note: `modding-notes/2026-09-16e-the-hidden-prop-was-parked-a-metre-away-and-only-its-height-matters.md`. **Not run.**
 
+- **Scoped spread: no field is named on disk (2026-09-16f, `/pd`):** the rifle's files reference only
+  `app.WeaponGunCore` among gameplay types; field names live in the running game's type database
+  `[inferred-static 2026-09-16]`. Built: harness `spreadprobe`, read-only — the plugin logs every `app.*`
+  gun/weapon/aim type's spread/recoil/accuracy-like fields and methods (capped 160), then the equipped
+  weapon object's numeric fields with values, one level into parameter-like sub-objects (capped 220).
+  Reading `[hypothesis]`: "holding RG first" is the aim state that narrows spread. Note: `modding-notes/2026-09-16f-scope-spread-no-field-on-disk-so-a-read-only-probe.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
