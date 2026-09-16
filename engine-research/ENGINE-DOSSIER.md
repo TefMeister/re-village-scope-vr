@@ -1409,6 +1409,45 @@ Note: `modding-notes/2026-09-13d-the-headsets-real-lens-shape-two-frame-knobs-an
   picture meanwhile without touching the exact head/rifle behaviour.
 - **`bringup` staggered** (drive +3 s, shrink +5 s more, then `goat_pend_dump`) for the floating goat `[hypothesis]`.
 
+### 9z. THE ONE-FRAME FLICKER, READ FROM THE CODE: A DIFFERENT PICTURE FOR ONE FRAME, PROBABLY A POOLED BUFFER (2026-09-16, `/pd`, dev PC, no launch)
+
+Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-three-knobs.md`. Built, deployed on the dev PC, stamped, **NOT run**.
+
+- **What the stills show, re-cropped:** the flicker frame is not the mirror picture with a rifle added;
+  it is **another framing** (pedestal moved a third of the disc, a grey shape / a sleeve across it) while
+  the frames either side are identical to each other `[inferred-static 2026-09-16, n=2 flicker frames]`.
+  So the glass shows a *different render* for one frame with nothing moving.
+- **The chain:** the Lua's holder is `movie_1920_1080.rtex` → the engine allocates an 8-bit sRGB target
+  (fmt 29, flags 0x1) for that path; the plugin latches it, then **upgrades** to the next 1920×1088
+  **R11G11B10_FLOAT, flags 0x5 (RT + UAV)** allocation — an engine intermediate that is path-bound to
+  nothing of ours — and samples it directly at present time. Taken as a *first* source that kind of
+  allocation showed **black** twice `[verified-live 2026-09-05, n=2]`, i.e. it is not always the mirror's.
+- **Leading reading `[hypothesis]`:** the raw-HDR source is a **pooled** engine buffer that another pass
+  sometimes writes; we then sample that pass's picture (a main-view framing with the rifle, sleeve,
+  fence). Fits "random", fits `posehook` changing nothing. Alternatives ranked in the note: the other
+  eye camera's mirror pass (B), a one-frame wrong mirror pose (C), the stock glass (D — does not fit).
+- **Built, all off by default, all live through the pane file:**
+  - `hold 1|2` — a 16×12 frame-change measure (mean |luma delta| vs the last *shown* scope image,
+    read back each present). 1 = log spikes + a 25 s summary (`frames/spikes/holds/avg/max`, plus the
+    eye-phase sign for reading B); 2 = re-show the last good frame on a spike, never twice in a row.
+    `plugin/src/hold_math.h`, `tools/hold_test.cpp` 16/16 `[verified-numerically 2026-09-16]` — the
+    first draft held every other frame of a steady pan (36 Hz judder); the test caught it, the frame
+    after a spike is now always shown and the average adapts to it. `holdt` sets the threshold (0.08).
+  - `src8 1` — the 8-bit resolve is now **kept** on upgrade (`hook::mirror_sdr`) and can be sampled
+    live. Path-bound, so nothing else writes it: **flicker gone on `src8 1` ⇒ the pooled buffer is
+    the cause.** Sunlight clips to white there (§4's 2026-08-31 finding), so it is the test, not the fix.
+  - `fn rtex_hdr` (before `bringup`) — an authored **float `.rtex`** (`scope_1920_1080_hdr.rtex.5`,
+    1920×1088, format 26 = what `mirror_env.rtex` ships in). Raw HDR without the upgrade. The plugin
+    takes a fmt-26 first source only while the Lua says it rigged this (pane `rtex_hdr=1`) and never
+    with UAV. Expected log: `latched: 1920x1088 fmt=26 flags=0x1`, no `UPGRADED`. `[hypothesis: the
+    engine allocates a float .rtex as flags 0x1]`.
+- **The diagnostic that would show the derivation wrong:** `hold 1` logs no spikes while flickers are
+  seen ⇒ the change happens *after* our blit (the lens material / the engine's own glass draw).
+- Also: the dev PC now runs the home PC's build (scripts identical, plugin from the same source) plus
+  these knobs, stamped 14/14; the 2026-09-06 authored 2560/3840 descriptors re-authored into
+  `staging/…/natives/`. The **patched REFramework (`mirror-exemption.patch`, v2 + plan C) exists only
+  on the home PC**, nowhere in git — a `[PD @home]` row.
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
