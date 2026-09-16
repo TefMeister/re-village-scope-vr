@@ -1505,6 +1505,13 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   `[verified-numerically 2026-09-16]`. One look decides: identical picture + proper/roll 0 ⇒ make 2 the boot.
   Note: `modding-notes/2026-09-16h-the-worn-frame-explained-a-left-pointing-x-and-a-v-flipped-glass.md`. **Not run.**
 
+- **Hand height (2026-09-16i, `/pd`):** REFramework's VR module reads `re8vr.left_hand_position_offset` /
+  `right_hand_position_offset` (both names in `dinput8.dll`; no Lua defines `re8vr`). praydog's `re8_vr.lua` sets
+  them once at load; its menu's "Hand Position Offset" sliders only replace a local copy, so they most likely
+  never reach the hands `[inferred-static 2026-09-16]`. Built: harness `handhigher L|R <m>` writes the offset
+  directly (up lowered by `<m>`, original remembered, 0 restores); stubbed test 5/5. Open: the offset's axis, and
+  whether the module reads it every frame. Note: `modding-notes/2026-09-16i-hand-height-the-menu-slider-is-disconnected-so-a-direct-write.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
