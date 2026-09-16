@@ -1456,6 +1456,12 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
   resolve, retires the HDR buffer, and the upgrade watch reopens for the next fmt-26 allocation.
   Harness `rerig` = teardown + `bringup` in one word. Note: `modding-notes/2026-09-16b-the-save-reload-security-camera-falls-back-to-the-buffer-that-follows.md`. **Not run.**
 
+- **The weapon-switch glass flash (2026-09-16c, `/pd`):** the plugin restored the stock glass the tick the
+  equipped weapon changed, while the rifle stays in view ~1 s being put away `[inferred-static 2026-09-16]`.
+  Built, off by default: `swdelay <ms>` schedules that restore instead (the glass holds its last frame), and
+  cancels it if the same rifle returns first. Not established: whether the old rifle's mesh is still alive
+  when a delayed restore runs `[hypothesis]` — binds hold no ref on it. Note: `modding-notes/2026-09-16c-the-weapon-switch-glass-flash-a-restore-that-waits.md`. **Not run.**
+
 ## 10. The framework's offset table is an assumption with a date on it (`/sr` drop, drained 2026-09-05)
 
 Source: `flat-to-vr-cross-engine-research` → RE Engine family page. Read from the merged pull
