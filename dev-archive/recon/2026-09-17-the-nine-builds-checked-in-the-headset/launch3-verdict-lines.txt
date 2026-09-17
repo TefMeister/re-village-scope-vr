@@ -1,0 +1,108 @@
+# launch 3 (23:30-23:59), the only launch whose log survived -- REFramework truncates the log at every launch, the lines each verdict rests on
+[2026-09-17 23:30:38.356] [REFramework] [info] [Plugin] [re-scope-vr] settings loaded: flipH=1 flipV=1 glassFlipV=1 evAuto=1 exposure=0.168 evSlope=2.0 cropY=0.59 grading=GT-CURVE exposureGT=0.511 toneWp=0 rtScale=1.00 rollK=0.00 cropFollow=1 cropMode=2 aspectMode=0 eyeDist=-1.00 retDepth=0.00 mrollK=-0.70 mrollMode=1 geom=1 gla
+[2026-09-17 23:31:07.817] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 0000022FC6B49970 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-17 23:31:07.824] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 0000022B84799B20 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-17 23:31:07.930] [REFramework] [info] [Plugin] [re-scope-vr] rig rebuild #1: the latch had already followed 3 ticks before the rebuild counter was read (latch gen 2, source 1920 wide = the rigged width) -- not stranded
+[2026-09-17 23:30:38.360] [REFramework] [info] [re8-harness] loaded — writes go to reframework/data/re_scope_cmd.txt
+[2026-09-17 23:31:07.768] [REFramework] [info] [re8-harness] bringup: START -- rig, drive, sliders, armour, shrink+silence, bind, re-bind at +5 s and +20 s
+[2026-09-17 23:31:07.768] [REFramework] [info] [re8-harness] harness: pfb 15  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=
+[2026-09-17 23:31:07.768] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=
+[2026-09-17 23:31:07.768] [REFramework] [info] [re8-harness] harness: bringup  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode
+[2026-09-17 23:31:10.768] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+[2026-09-17 23:31:10.768] [REFramework] [info] [re8-harness] harness: fn goat_show  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspec
+[2026-09-17 23:31:10.768] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode
+[2026-09-17 23:31:10.768] [REFramework] [info] [re8-harness] harness: steer 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode
+[2026-09-17 23:31:10.769] [REFramework] [info] [re8-harness] harness: mrollsym 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectm
+[2026-09-17 23:31:10.770] [REFramework] [info] [re8-harness] harness: glassaspect 1.0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 as
+[2026-09-17 23:31:10.770] [REFramework] [info] [re8-harness] harness: geomflip 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectm
+[2026-09-17 23:31:10.771] [REFramework] [info] [re8-harness] harness: geomrot 180  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+[2026-09-17 23:31:10.772] [REFramework] [info] [re8-harness] harness: geomvflip 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+[2026-09-17 23:31:10.772] [REFramework] [info] [re8-harness] zero: up 14.40 right 0.00
+[2026-09-17 23:31:10.772] [REFramework] [info] [re8-harness] harness: zeroup 14.4  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+[2026-09-17 23:31:10.772] [REFramework] [info] [re8-harness] zero: up 14.40 right 9.50
+[2026-09-17 23:31:10.773] [REFramework] [info] [re8-harness] harness: zeroright 9.5  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspe
+[2026-09-17 23:31:10.773] [REFramework] [info] [re8-harness] prop: pulled in to the rifle -- fwd 0, up -0.200, right 0 (the plane is unchanged; propoff restores 1.0 / -0.2 / -0.715)
+[2026-09-17 23:31:10.773] [REFramework] [info] [re8-harness] harness: propnear  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmod
+[2026-09-17 23:31:15.850] [REFramework] [info] [re8-harness] harness: fn goat_matoff  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 asp
+[2026-09-17 23:31:15.877] [REFramework] [info] [re8-harness] bind: numpad * queued (bringup, first press)
+[2026-09-17 23:31:20.883] [REFramework] [info] [re8-harness] bind: numpad * queued (bringup, re-press 1 at +5 s)
+[2026-09-17 23:31:27.563] [REFramework] [info] [re8-harness] framev 2 -> the worn frame built directly; the picture must look IDENTICAL, and the geom line should read proper, roll ~0
+[2026-09-17 23:31:27.563] [REFramework] [info] [re8-harness] harness: framev 2  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmod
+[2026-09-17 23:31:35.880] [REFramework] [info] [re8-harness] bind: numpad * queued (bringup, re-press 2 at +20 s)
+[2026-09-17 23:31:35.896] [REFramework] [info] [re8-harness] bringup: DONE. Stock crosshair still on the glass? send `bind`. (The tick is expected: any pendulum write detaches the goat.)
+[2026-09-17 23:37:27.136] [REFramework] [info] [re8-harness] framev 1 -> the old frame + geomrot/geomflip
+[2026-09-17 23:37:27.136] [REFramework] [info] [re8-harness] harness: framev 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmod
+[2026-09-17 23:38:24.383] [REFramework] [info] [re8-harness] eyepar 1 -> the picture is aimed at the bore's far point from this tick's eye (re-check the zero)
+[2026-09-17 23:38:24.384] [REFramework] [info] [re8-harness] harness: eyepar 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmod
+[2026-09-17 23:43:22.765] [REFramework] [info] [re8-harness] prop: fwd 0.000, up -0.400, right 0.000 -- UP is the one that moves the mirror plane; judge near clutter in the scope
+[2026-09-17 23:43:22.765] [REFramework] [info] [re8-harness] harness: propu -0.4  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectm
+[2026-09-17 23:43:47.131] [REFramework] [info] [re8-harness] prop: fwd 0.000, up 0.100, right 0.000 -- UP is the one that moves the mirror plane; judge near clutter in the scope
+[2026-09-17 23:43:47.132] [REFramework] [info] [re8-harness] harness: propu 0.1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmo
+[2026-09-17 23:45:59.505] [REFramework] [info] [re8-harness] prop: fwd 0.000, up -0.200, right 0.000 -- UP is the one that moves the mirror plane; judge near clutter in the scope
+[2026-09-17 23:45:59.505] [REFramework] [info] [re8-harness] harness: propu -0.2  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectm
+[2026-09-17 23:46:08.136] [REFramework] [info] [re8-harness] swdelay 1500 ms -> the stock glass comes back only after the rifle is put away
+[2026-09-17 23:46:08.137] [REFramework] [info] [re8-harness] harness: swdelay 1500  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspec
+[2026-09-17 23:50:32.274] [REFramework] [info] [re8-harness] spreadprobe #1: the plugin lists spread/recoil/accuracy names and the weapon's live values (read-only; look for spread-probe lines)
+[2026-09-17 23:50:32.274] [REFramework] [info] [re8-harness] harness: spreadprobe  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+[2026-09-17 23:54:57.781] [REFramework] [info] [re8-harness] handhigher L 0.050 m: left_hand_position_offset y 0.0450 -> -0.0050 (reads back -0.0050). If the hand moved UP instead of down, use a negat
+[2026-09-17 23:54:57.781] [REFramework] [info] [re8-harness] harness: handhigher L 0.05  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 
+[2026-09-17 23:55:38.797] [REFramework] [info] [re8-harness] handhigher L 0.000 m: left_hand_position_offset y 0.0450 -> 0.0450 (reads back 0.0450). If the hand moved UP instead of down, use a negativ
+[2026-09-17 23:55:38.797] [REFramework] [info] [re8-harness] harness: handhigher L 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 asp
+[2026-09-17 23:56:00.571] [REFramework] [info] [re8-harness] handhigher L 0.050 m: left_hand_position_offset y 0.0450 -> -0.0050 (reads back -0.0050). If the hand moved UP instead of down, use a negat
+[2026-09-17 23:56:00.571] [REFramework] [info] [re8-harness] harness: handhigher L 0.05  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 
+[2026-09-17 23:46:18.251] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:19.752] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:20.993] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:46:21.983] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:46:23.378] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:24.875] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:26.893] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:46:27.892] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:46:30.300] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:31.793] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:32.877] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:46:33.870] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:46:37.036] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:38.530] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:39.419] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:46:40.424] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:46:44.424] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 2 of 2
+[2026-09-17 23:46:45.653] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:47.161] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:49.387] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:46:50.391] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:46:53.388] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:54.893] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:55.005] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:46:56.010] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:46:56.925] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:46:58.418] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:46:59.321] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:47:00.319] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:47:01.900] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:47:03.395] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:47:04.091] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:47:05.099] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:47:09.094] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 2 of 2
+[2026-09-17 23:47:11.333] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:47:12.825] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:47:15.554] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:47:16.544] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:47:20.542] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 2 of 2
+[2026-09-17 23:48:05.519] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:48:07.014] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:48:07.249] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:48:08.254] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:48:09.584] [REFramework] [info] [Plugin] [re-scope-vr] switch: rifle leaving the hands -- glass restore deferred 1500 ms (the picture holds its last frame meanwhile)
+[2026-09-17 23:48:11.076] [REFramework] [info] [Plugin] [re-scope-vr] switch: deferred glass restore now
+[2026-09-17 23:48:11.392] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: rifle back in hand, binding the glass at +1 s and +5 s
+[2026-09-17 23:48:12.388] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 1 of 2
+[2026-09-17 23:48:16.395] [REFramework] [info] [Plugin] [re-scope-vr] auto re-bind: press 2 of 2
+[2026-09-17 23:31:15.926] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x6A from the Lua panel
+[2026-09-17 23:31:20.997] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x6A from the Lua panel
+[2026-09-17 23:31:35.971] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x6A from the Lua panel
+[2026-09-17 23:34:43.735] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x67 from the Lua panel
+[2026-09-17 23:37:09.643] [REFramework] [info] [Plugin] [re-scope-vr] virtual key 0x67 from the Lua panel
+[2026-09-17 23:34:43.735] [REFramework] [info] [Plugin] [re-scope-vr] mirror compositor: grading=GT-CURVE exposure=0.511 (exp knob 0.168, GT knob 0.511) evAuto=1 evSlope=2.0 wb=0.5 EV=3.00(live) atmo=0 skyThresh=0.500 flipH=1 flipV=1 glassFlipV=0 cropY=0.59 (numpad 8/2 exposure of the active mode, 5 grading cycle GT / EXP / EXP-
+[2026-09-17 23:37:09.643] [REFramework] [info] [Plugin] [re-scope-vr] mirror compositor: grading=GT-CURVE exposure=0.511 (exp knob 0.168, GT knob 0.511) evAuto=1 evSlope=2.0 wb=0.5 EV=3.00(live) atmo=0 skyThresh=0.500 flipH=1 flipV=1 glassFlipV=1 cropY=0.59 (numpad 8/2 exposure of the active mode, 5 grading cycle GT / EXP / EXP-
+[2026-09-17 23:48:16.395] [REFramework] [info] [Plugin] [re-scope-vr] scope-signature: materials-enabled [m0=1 m1=1 m2=1 m3=1] parts=present-but-no-count (not read)  (compare stock scope vs high-magnification scope)

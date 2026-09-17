@@ -14,18 +14,44 @@ on the desktop through Virtual Desktop is the practical way to change a knob mid
 | `FLICKER-2-HIDE.bat` | `hold 2` | hides the flicker by re-showing the last good frame, whatever its cause |
 | `FLICKER-3-EIGHTBIT.bat` | `hold 1` + `src8 1` | takes the picture from the path-bound 8-bit copy. If the flicker stops here, a pooled buffer is the cause. Sunlight clips to white on this path — it is the test, not the fix |
 | `FLICKER-OFF.bat` | `hold 0` + `src8 0` | back to the shipped behaviour |
+| `FLICKER-1B-SENSITIVE.bat` | `hold 1` + `holdt 0.005` | the counter at its most sensitive. ✔ run |
+| `TEST-1-RERIG.bat` | `rerig` | after loading a save: rebuild the scope picture. ✘ never run |
+| `TEST-2-SWITCH-DELAY-ON.bat` | `swdelay 1500` | the weapon-switch glass flash fix. ✔ run; it works, and is now the boot value |
+| `TEST-2-SWITCH-DELAY-OFF.bat` | `swdelay 0` | back to the instant glass restore. ✘ never run |
+| `TEST-3-PROP-NEAR.bat` / `TEST-3-PROP-OFF.bat` | `propnear` / `propoff` | the hidden mirror host pulled in to the rifle, or parked where it used to be. ✘ never run |
+| `TEST-3B-DROP-NORMAL.bat` / `-LEVEL` / `-UP` / `-DOWN` | `propu -0.2` / `0` / `0.1` / `-0.4` | the host's height against the rifle. ✔ all four run; none is clean |
+| `TEST-4-SPREAD-PROBE.bat` | `spreadprobe` | lists the weapon's spread-like values in the log. Read-only. ✔ run |
+| `TEST-5-EYE-AIM-ON.bat` / `-OFF.bat` | `eyepar 1` / `eyepar 0` | the per-eye aim. ✔ ON run, no visible effect; ✘ OFF never run |
+| `TEST-6-FRAME-NEW.bat` / `-OLD.bat` | `framev 2` / `framev 1` | the scope frame built directly, or the worn one. ✔ both run; NEW is upside down |
+| `TEST-7-HAND-DOWN.bat` / `-NORMAL.bat` | `handhigher L 0.05` / `handhigher L 0` | the left hand's drawn height. ✔ both run; the hand does not move |
+| `TEST-8-HDR-BACK.bat` | `rbfb 0` | switches the save-reload fallback off. ✔ run. It does not bring the good source back mid-session; `rb_fb=0` in the settings file and a relaunch does |
 
 The first two were written on 2026-09-14 for the tester package and lived only in the game
 folder and that zip until 2026-09-17; the four `FLICKER-` ones were written on 2026-09-17
 for the flicker session. Both `START-SCOPE.bat` and `FIX-SCOPE-GLASS.bat` are proven in
 the game `[verified-live 2026-09-14, n=1 session]`; the four `FLICKER-` ones have never
 been run `[compile-verified 2026-09-17]` — the batch syntax is checked, what they switch on
-is not.
+is not. **Corrected the same evening:** `FLICKER-1-COUNT.bat` was run and delivered `hold 1`
+`[verified-live 2026-09-17, n=1]`; the other three `FLICKER-` files are still unrun.
+
+The `TEST-` files and `FLICKER-1B-SENSITIVE.bat` were written during the 2026-09-17 evening
+session that checked the nine 2026-09-16 builds. "✔ run" in the table means the click produced
+its `harness:` echo line in the log `[verified-live 2026-09-17, n=1 each]`. It says the command
+arrived. It says nothing about whether the feature behind it works; for that, see
+`modding-notes/2026-09-17c-the-nine-builds-checked-in-the-headset-two-work-and-one-broke-the-sky.md`.
+
+⚠️ **A click that leaves no `harness:` line did not happen.** One did not register through
+Virtual Desktop that evening, and the wearer reported a change that the mod had never made.
 
 ⚠️ Writing the command file is a way of **driving** the mod, so a `/ms` session never runs
 these itself — it creates them and asks the wearer to click.
 
 ## The batch trap worth knowing
+
+When generating these from a shell script, keep the path out of any `printf` format string:
+`e_scope_cmd.txt` starts with ``, which `printf` turns into a carriage return and the file
+quietly becomes `datae_scope_cmd.txt`. Pass the path as a `%s` argument. This has now bitten
+twice (2026-09-17 morning and evening); both times reading the written file back caught it.
 
 `echo hold 1> file` does not do what it looks like: `cmd` reads `1>` as "redirect stream 1",
 so the file gets `hold` and the `1` is lost. Every file here puts the redirect first
