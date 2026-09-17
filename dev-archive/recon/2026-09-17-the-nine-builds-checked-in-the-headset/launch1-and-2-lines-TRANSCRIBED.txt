@@ -1,0 +1,46 @@
+# Launches 1 (22:14-23:0x) and 2 (23:13-23:2x) -- TRANSCRIBED, NOT EXTRACTED
+#
+# REFramework truncates re2_framework_log.txt at every launch, and this session had three.
+# By the write-up only launch 3's log was on disk. The lines below were read from the live
+# log DURING launches 1 and 2 and are copied here from the session's own reads. They are
+# verbatim as far as they go, but most were read through `cut`, so many stop mid-line.
+# Lesson for the next session: copy the log aside BEFORE asking for a relaunch.
+
+## Launch 1 -- the source is demoted 123 ms after it upgrades, and never comes back
+[2026-09-17 22:16:03.981] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 0000026464EC1DA0
+[2026-09-17 22:16:03.987] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 0000026465040640 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-17 22:16:04.110] rig rebuild #1: source fell back to the 8-bit resolve 0000026464EC1DA0 (path-bound, it follows the new rig); the raw-HDR buffer 0000026465040640 is retired and the upgrade watch is open again for the next fmt-26 allocation (rbfb 0 disables this)
+[2026-09-17 22:16:04.110] rig rebuild #1: the latch had already followed 5 ticks before the rebuild counter was read (latch gen 2, source 1920 wide = the rigged width) -- not stranded
+(no further UPGRADED line for the rest of the launch; every hold summary below says src=8-bit)
+
+## Launch 1 -- the prop heights (wearer standing)
+[22:22:14.138] prop: fwd 0.000, up 0.100, right 0.000
+[22:23:14.813] prop: fwd 0.000, up -0.200, right 0.000
+[22:23:30.519] prop: fwd 0.000, up 0.000, right 0.000
+[22:26:16.056] prop: fwd 0.000, up -0.200, right 0.000
+
+## Launch 1 -- hold 1: the measure runs and reads exactly zero
+[22:32:45.968] [re8-harness] hold 1 -> measure + log spikes (see the plugin log)
+[22:33:21.066] hold: summary frames=1800 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.080 src=8-bit
+[22:33:51.155] hold: summary frames=3600 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.080 src=8-bit
+[22:34:44.904] hold: summary frames=5400 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.080 src=8-bit
+[22:35:10.172] hold: summary frames=7200 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.080 src=8-bit
+(then `hold 1` + `holdt 0.005`, the clamp's floor)
+[22:37:43.767] hold: summary frames=18000 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.005 src=8-bit
+[22:38:19.235] hold: summary frames=19800 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.005 src=8-bit
+[22:38:51.954] hold: summary frames=21600 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.005 src=8-bit
+[22:39:45.616] hold: summary frames=23400 spikes=0 holds=0 avg=0.0000 max=0.000 mode=1 t=0.005 src=8-bit
+(zero `hold: SPIKE` lines in the whole launch. Frame-rate lines from the same minutes: 65-73 presents per second, mirror=1 src_w=1920)
+
+## Launch 1 -- the fallback switched off live; the re-arm never completes
+[22:50:07.903] rb_fb -> 0: on a rig rebuild the source is left as it is (the 2026-09-13 behaviour)
+[22:51:17.972] mirror-source re-arm PENDING -- current source kept (latched=1); the next acceptable 1280/1920-wide fmt=29 allocation replaces it
+(no replacement arrived before the game was closed, about 20 minutes later)
+
+## Launch 2 -- rb_fb=0 in the settings file: the upgrade holds
+[2026-09-17 23:13:05.236] settings loaded: flipH=1 flipV=1 glassFlipV=1 evAuto=1 exposure=0.168 ...
+[2026-09-17 23:13:42.791] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 000001C0B32D1C30
+[2026-09-17 23:13:42.798] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 000001C0B3598400
+[2026-09-17 23:13:43.035] rig rebuild #1 seen (Lua rigged a 1920-wide target; latched source is 0 wide, re-arm pending=0) -- watching ~2 s for the latch to follow
+[2026-09-17 23:13:46.440] rig rebuild #1 at the latched width (1920) and the latch did not change: if the picture is LIVE this is the same pooled buffer (the 22:22 recovery); if it is fr...
+(no `fell back` line. Wearer: "sky is back, colours look normal again")
