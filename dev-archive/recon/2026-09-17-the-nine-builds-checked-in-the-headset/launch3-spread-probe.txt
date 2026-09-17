@@ -1,0 +1,244 @@
+# spreadprobe #1: starred lines, then the full dump
+-scope-vr] spread-probe:   *** isReduceRecoil = false (System.Boolean)
+-scope-vr] spread-probe:   *** isRestrictAimShake = true (System.Boolean)
+-scope-vr] spread-probe: live weapon DONE -- lines marked *** have a spread-like name
+--- full ---
+] spreadprobe #1: the plugin lists spread/recoil/accuracy names and the weapon's live values (read-only; look for spread-probe lines)
+-scope-vr] spread-probe #1 requested -- runs on the next game tick
+-scope-vr] spread-probe: [type] app.PlayerGunPl6000
+-scope-vr] spread-probe:     field RecoilBurstTimer : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe: [type] app.pl3000.PlayerGunPl3000.ReticleShrinkTimer
+-scope-vr] spread-probe: [type] app.PlayerReticleController.ReticleDisplayState
+-scope-vr] spread-probe: [type] app.ReticleTypes.Value
+-scope-vr] spread-probe: [type] app.PlayerGun
+-scope-vr] spread-probe:     field RecoilBurstTimer : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe: [type] app.IPlayerGunTPS
+-scope-vr] spread-probe:     method canDispReticle
+-scope-vr] spread-probe: [type] app.PlayerGunPl4000
+-scope-vr] spread-probe:     field RecoilBurstTimer : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe: [type] app.AimAssistController
+-scope-vr] spread-probe: [type] app.ItemSpecificationData.SpecUnit.WeaponSpec
+-scope-vr] spread-probe:     field ReticleTypeHash : System.UInt32
+-scope-vr] spread-probe:     method get_reticleTypeHash
+-scope-vr] spread-probe: [type] app.GUIRogueReticle
+-scope-vr] spread-probe: [type] app.AimAssistMarker
+-scope-vr] spread-probe: [type] app.PlayerCamera.AimAssistTargetInfo
+-scope-vr] spread-probe:     field <aimAssistMarker>k__BackingField : app.AimAssistController.Unit
+-scope-vr] spread-probe:     method get_aimAssistMarker
+-scope-vr] spread-probe:     method set_aimAssistMarker
+-scope-vr] spread-probe: [type] app.Pl6000ReticleController
+-scope-vr] spread-probe:     method updateReticle
+-scope-vr] spread-probe: [type] app.PlayerReticleControllerTPS
+-scope-vr] spread-probe:     method updateReticle
+-scope-vr] spread-probe:     method executeHideReticle
+-scope-vr] spread-probe: [type] app.ExclusiveModeData.WeaponCustomData
+-scope-vr] spread-probe:     field IsDiffusionPowerUp : System.Boolean
+-scope-vr] spread-probe:     field DiffusionRadiusRate : System.Single
+-scope-vr] spread-probe:     field DiffusionAddNum : System.Int32
+-scope-vr] spread-probe:     method get_diffusionRadiusRate
+-scope-vr] spread-probe:     method get_diffusionAddNum
+-scope-vr] spread-probe: [type] app.PlayerCameraTPS.OperatableTPSCameraBase.AimAssistComponent
+-scope-vr] spread-probe: [type] app.PlayerReticleController.AccessibilityDotController
+-scope-vr] spread-probe:     field ReticleController : app.PlayerReticleController
+-scope-vr] spread-probe: [type] app.BulletDefault
+-scope-vr] spread-probe:     field <isDiffusion>k__BackingField : System.Boolean
+-scope-vr] spread-probe:     field <diffusionNum>k__BackingField : System.Int32
+-scope-vr] spread-probe:     method get_isDiffusion
+-scope-vr] spread-probe:     method set_isDiffusion
+-scope-vr] spread-probe:     method get_diffusionNum
+-scope-vr] spread-probe:     method set_diffusionNum
+-scope-vr] spread-probe: [type] app.PlayerCamera.AimAssistTargetInfo[]
+-scope-vr] spread-probe: [type] app.ThreadPoolList`1<app.AimAssistController>
+-scope-vr] spread-probe: [type] app.ReticleTypes.Value[]
+-scope-vr] spread-probe: [type] app.AimAssistController.Unit[]
+-scope-vr] spread-probe: [type] app.WeaponGunCore
+-scope-vr] spread-probe:     field isReduceRecoil : System.Boolean
+-scope-vr] spread-probe:     field isRestrictAimShake : System.Boolean
+-scope-vr] spread-probe:     method enableRestrictAimShake
+-scope-vr] spread-probe:     method enableReduceRecoil
+-scope-vr] spread-probe:     method setupDiffusion
+-scope-vr] spread-probe: [type] app.PlayerCameraTPS.AimAssistTargetInfoTPS[]
+-scope-vr] spread-probe: [type] app.Em1290.Em1290Directive.ShootAim
+-scope-vr] spread-probe:     field diffusionAngle : System.Single
+-scope-vr] spread-probe:     field diffusionRadius : System.Single
+-scope-vr] spread-probe:     field diffusionRandom : System.Single
+-scope-vr] spread-probe: [type] app.AimAssistController[]
+-scope-vr] spread-probe: [type] app.AimAssistController.<>c
+-scope-vr] spread-probe: [type] app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec
+-scope-vr] spread-probe:     field IsDiffusion : System.Boolean
+-scope-vr] spread-probe:     field DiffusionNum : System.Int32
+-scope-vr] spread-probe:     field DiffusionRadius : System.Single
+-scope-vr] spread-probe:     field RecoilXAngle : System.Single
+-scope-vr] spread-probe:     field RecoilYAngle : System.Single
+-scope-vr] spread-probe:     field RecoilBurstInterval : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe:     method get_isDiffusion
+-scope-vr] spread-probe:     method get_diffusionNum
+-scope-vr] spread-probe:     method get_diffusionRadius
+-scope-vr] spread-probe:     method get_recoilXAngle
+-scope-vr] spread-probe:     method get_recoilYAngle
+-scope-vr] spread-probe:     method get_recoilBurstInterval
+-scope-vr] spread-probe:     method get_recoilBurstCount
+-scope-vr] spread-probe: [type] app.PlayerGunPl2001
+-scope-vr] spread-probe:     field RecoilBurstTimer : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe: [type] app.PlayerCameraTPS.Free.ReticleAdjust
+-scope-vr] spread-probe:     field IsApplyReticleAdjust : System.Boolean
+-scope-vr] spread-probe:     field DampingReticleDistance : app.DampingFloat
+-scope-vr] spread-probe:     field FixNormalReticlePosition : via.vec3
+-scope-vr] spread-probe:     method calcReticlePosition
+-scope-vr] spread-probe: [type] app.PlayerReticleController
+-scope-vr] spread-probe:     field ReticleGUIHandle : app.GUIHandle
+-scope-vr] spread-probe:     field ReticleState : System.UInt32
+-scope-vr] spread-probe:     field CannonRoaderReticleState : System.String
+-scope-vr] spread-probe:     field CannonRoaderCannonrReticleState : System.String
+-scope-vr] spread-probe:     field LaserIrradiationReticleState : System.String
+-scope-vr] spread-probe:     field MineReticleState : System.String
+-scope-vr] spread-probe:     field IsReticleDispWithWeaponInfo : System.Boolean
+-scope-vr] spread-probe:     field IsIgnoreReticleWithWeaponInfo : System.Boolean
+-scope-vr] spread-probe:     field <dispRemainAmmoWithOpenReticle>k__BackingField : System.Boolean
+-scope-vr] spread-probe:     method get_GUIReticleHash
+-scope-vr] spread-probe:     method updateReticle
+-scope-vr] spread-probe:     method getLaserReticleState
+-scope-vr] spread-probe:     method getReticleState
+-scope-vr] spread-probe:     method openReticle
+-scope-vr] spread-probe:     method openReticleWithCheckShowing
+-scope-vr] spread-probe:     method openReticle
+-scope-vr] spread-probe:     method executeHideReticle
+-scope-vr] spread-probe:     method closeReticle
+-scope-vr] spread-probe:     method isEnableReticleHandle
+-scope-vr] spread-probe:     method reticleHandleOrder
+-scope-vr] spread-probe:     method isForbiddenDispReticle
+-scope-vr] spread-probe:     method get_dispRemainAmmoWithOpenReticle
+-scope-vr] spread-probe:     method set_dispRemainAmmoWithOpenReticle
+-scope-vr] spread-probe: [type] app.PlayerGunTPS`1[[ReferenceContainerType, application, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+-scope-vr] spread-probe:     field RecoilBurstTimer : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe:     method canDispReticle
+-scope-vr] spread-probe: [type] app.AimAssistMarker.Unit
+-scope-vr] spread-probe: [type] app.PlayerCameraTPS.Sniper
+-scope-vr] spread-probe:     method isValidReticlePosition
+-scope-vr] spread-probe:     method reticleAdjust
+-scope-vr] spread-probe: [type] app.AimAssistController.<>c__DisplayClass18_0
+-scope-vr] spread-probe: [type] app.PlayerCameraTPS.Free.ReticleAdjust.<>c
+-scope-vr] spread-probe:     method <calcReticlePosition>b__29_0
+-scope-vr] spread-probe: [type] app.TPSPlayerUpperControlParamUserData.ReticleDampingParameter
+-scope-vr] spread-probe: [type] app.PlayerCameraTPS.Free.ReticleAdjust.<>c__DisplayClass20_0
+-scope-vr] spread-probe: [type] app.effect.script.WeaponLandingZDirectionType
+-scope-vr] spread-probe:     field Random : app.effect.script.WeaponLandingZDirectionType.Value
+-scope-vr] spread-probe:     field RandomHash : System.UInt32
+-scope-vr] spread-probe: [type] app.PlayerWeaponActionConfiguration.PlayerMeleeConfiguration
+-scope-vr] spread-probe:     field IdleSpIntervalRandom : System.Single
+-scope-vr] spread-probe:     field AimIdleSpIntervalRandom : System.Single
+-scope-vr] spread-probe: [type] app.AimTargetManager
+-scope-vr] spread-probe:     field EnableAimAssistList : app.ThreadPoolList`1<app.AimAssistController>
+-scope-vr] spread-probe: [type] app.ReticleTypes
+-scope-vr] spread-probe: [type] app.PlayerGunTPS`1<app.PlayerReferenceContainerPl1001>
+-scope-vr] spread-probe:     field RecoilBurstTimer : System.Single
+-scope-vr] spread-probe:     field RecoilBurstCount : System.Int32
+-scope-vr] spread-probe:     method canDispReticle
+-scope-vr] spread-probe: [type] app.CameraSniperParam.SniperZoomLevel
+-scope-vr] spread-probe:     field MoveShakePowerUpSecond : System.Single
+-scope-vr] spread-probe:     field StandShakeStopSecond : System.Single
+-scope-vr] spread-probe:     field CrouchShakeStopSecond : System.Single
+-scope-vr] spread-probe:     field CamRotInputForceShakeRate : System.Single
+-scope-vr] spread-probe:     field ShakeRateMax : System.Single
+-scope-vr] spread-probe:     field ShakeRateMin : System.Single
+-scope-vr] spread-probe:     field CheekPadShakeRateMax : System.Single
+-scope-vr] spread-probe:     field CheekPadShakeRateMin : System.Single
+-scope-vr] spread-probe: [type] app.TPSPlayerUpperControlParamUserData.ReticleInterpolationParameter
+-scope-vr] spread-probe: [type] app.PlayerActionTPS.ProcessGunAttackBase
+-scope-vr] spread-probe:     field <cameraShakeExecutor>k__BackingField : app.PlayerActionTPS.ProcessGunAttackBase.CameraShakeExecutor
+-scope-vr] spread-probe:     method get_cameraShakeExecutor
+-scope-vr] spread-probe:     method set_cameraShakeExecutor
+-scope-vr] spread-probe:     method requestCameraShakeAddMotion
+-scope-vr] spread-probe:     method canCameraShake
+-scope-vr] spread-probe: [type] app.CameraAimAssistParam
+-scope-vr] spread-probe: [type] app.EnemyBulletDefault
+-scope-vr] spread-probe:     field <isDiffusion>k__BackingField : System.Boolean
+-scope-vr] spread-probe:     field <diffusionNum>k__BackingField : System.Int32
+-scope-vr] spread-probe:     method get_isDiffusion
+-scope-vr] spread-probe:     method set_isDiffusion
+-scope-vr] spread-probe:     method get_diffusionNum
+-scope-vr] spread-probe:     method set_diffusionNum
+-scope-vr] spread-probe: [type] app.GUICh10Reticle
+-scope-vr] spread-probe: vocabulary DONE -- 49 type(s), 160 line(s) (CAPPED -- more exist)
+-scope-vr] spread-probe: weapon type[0] app.WeaponGunCore
+-scope-vr] spread-probe:   equipOwnerType = 10 (System.Int32)
+-scope-vr] spread-probe:   <usingBulletIndex>k__BackingField = 0 (System.Int32)
+-scope-vr] spread-probe:   <requestedUsingBulletIndex>k__BackingField = 0 (System.Int32)
+-scope-vr] spread-probe:   <usableBulletNum>k__BackingField = 1 (System.Int32)
+-scope-vr] spread-probe:   <chargeTime>k__BackingField = 3.3 (System.Single)
+-scope-vr] spread-probe:   <baseChargeTime>k__BackingField = 3.7 (System.Single)
+-scope-vr] spread-probe:   <motionNativeFrame>k__BackingField = -1 (System.Single)
+-scope-vr] spread-probe:   <customizeMagazine>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe:   <customizeGrip>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <customizeBarrel>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <customizeStock>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <isAttachmentSpecialItem>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   weapon.ShootStartHandler -> object (System.Action), one level in:
+-scope-vr] spread-probe:   weapon.ShootHandler -> object (System.Action), one level in:
+-scope-vr] spread-probe:   weapon.ShootEndHandler -> object (System.Action), one level in:
+-scope-vr] spread-probe:   readyShootOld = false (System.Boolean)
+-scope-vr] spread-probe:   readyShootByTriggerBack = true (System.Boolean)
+-scope-vr] spread-probe:   readyShootBySequence = true (System.Boolean)
+-scope-vr] spread-probe:   readyShootByTimer = true (System.Boolean)
+-scope-vr] spread-probe:   readyShootByFeedBack = true (System.Boolean)
+-scope-vr] spread-probe:   IsShootEvent = false (System.Boolean)
+-scope-vr] spread-probe:   ShootableTime = 1.7 (System.Single)
+-scope-vr] spread-probe:   weapon.ShootableTimer -> object (app.SimpleDecTimer), one level in:
+-scope-vr] spread-probe:     ShootableTimer type[0] app.SimpleDecTimer
+-scope-vr] spread-probe:     ShootableTimer type[1] app.SimpleTimer
+-scope-vr] spread-probe:       <isOver>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe:       <isSet>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe:       <timerSec>k__BackingField = 0 (System.Single)
+-scope-vr] spread-probe:       <timeSec>k__BackingField = 1.7 (System.Single)
+-scope-vr] spread-probe:   NormalMagazinePartsNo = -1 (System.Int32)
+-scope-vr] spread-probe:   SecondMagazinePartsNo = -1 (System.Int32)
+-scope-vr] spread-probe:   NormalMagazinePartsNoCustomized = -1 (System.Int32)
+-scope-vr] spread-probe:   SecondMagazinePartsNoCustomized = -1 (System.Int32)
+-scope-vr] spread-probe:   IsSecondVanishNoEmpty = false (System.Boolean)
+-scope-vr] spread-probe:   IsSecondVanishEmpty = false (System.Boolean)
+-scope-vr] spread-probe:   IsExecuteCutomized = true (System.Boolean)
+-scope-vr] spread-probe:   IsExecuteGetWeapon = true (System.Boolean)
+-scope-vr] spread-probe:   IsExecuteSwitchMagazineDisp = false (System.Boolean)
+-scope-vr] spread-probe:   IsChangeEffByCustmizeBarrel = false (System.Boolean)
+-scope-vr] spread-probe:   IsChangeMuzzleEffectByCustom = false (System.Boolean)
+-scope-vr] spread-probe:   IsEnableVanishEmptyPartsDisp = true (System.Boolean)
+-scope-vr] spread-probe:   DispScopeRequested = false (System.Boolean)
+-scope-vr] spread-probe:   requestFullReloadByCustomize = false (System.Boolean)
+-scope-vr] spread-probe:   *** isReduceRecoil = false (System.Boolean)
+-scope-vr] spread-probe:   isHighRateScope = true (System.Boolean)
+-scope-vr] spread-probe:   *** isRestrictAimShake = true (System.Boolean)
+-scope-vr] spread-probe: weapon type[1] app.WeaponShootableCore
+-scope-vr] spread-probe: weapon type[2] app.WeaponCore
+-scope-vr] spread-probe:   <isEquip>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe:   <isStartOff>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <isEquippedOnce>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe:   <usePickupSE>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe:   <DrawOffByScope>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <DrawOffBySequence>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <DrawOffByUsing>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   <DrawOffByItemUsing>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   IsAttacking = false (System.Boolean)
+-scope-vr] spread-probe:   IsGuarding = false (System.Boolean)
+-scope-vr] spread-probe:   IsUseLightPoint = false (System.Boolean)
+-scope-vr] spread-probe:   LodMode = 2 (via.render.LodMode)
+-scope-vr] spread-probe:   <isKeepHammerMotion>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   AttackPower = 850 (System.Single)
+-scope-vr] spread-probe:   <stunRate>k__BackingField = 1 (System.Single)
+-scope-vr] spread-probe:   <attenuationStartDist>k__BackingField = 0 (System.Single)
+-scope-vr] spread-probe:   <attenuationStunStartDist>k__BackingField = 0 (System.Single)
+-scope-vr] spread-probe:   <isPenetration>k__BackingField = false (System.Boolean)
+-scope-vr] spread-probe:   ExclusiveModePowerUpTimer = 0 (System.Single)
+-scope-vr] spread-probe:   putMinePlayerRoot = false (System.Boolean)
+-scope-vr] spread-probe:   DrawSelfOld = true (System.Boolean)
+-scope-vr] spread-probe: weapon type[3] app.ItemCore
+-scope-vr] spread-probe:   <isEarlySetup>k__BackingField = true (System.Boolean)
+-scope-vr] spread-probe: weapon type[4] app.Agent
+-scope-vr] spread-probe: weapon type[5] app.DemiAgent
+-scope-vr] spread-probe: weapon type[6] app.ObjectApp
+-scope-vr] spread-probe: live weapon DONE -- lines marked *** have a spread-like name
