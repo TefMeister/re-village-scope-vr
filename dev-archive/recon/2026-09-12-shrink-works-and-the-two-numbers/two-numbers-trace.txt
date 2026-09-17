@@ -1,0 +1,58 @@
+21:30:36.641 off_gaze=17.8 mroll=0.0 k=-0.50 off=0.0 baked=146.9 deg  n_vs_lua=n/a
+21:30:37.484 off_gaze=24.5 mroll=0.0 k=-0.50 off=0.0 baked=-167.8 deg  n_vs_lua=n/a
+21:30:38.312 off_gaze=13.5 mroll=0.0 k=-0.50 off=0.0 baked=-173.6 deg  n_vs_lua=n/a
+21:30:39.146 off_gaze=1.3 mroll=0.0 k=-0.50 off=0.0 baked=178.7 deg  n_vs_lua=n/a
+21:31:06.650 off_gaze=34.5 mroll=0.0 k=-0.50 off=0.0 baked=-160.4 deg  n_vs_lua=n/a
+21:31:07.483 off_gaze=31.6 mroll=0.0 k=-0.50 off=0.0 baked=-160.4 deg  n_vs_lua=n/a
+21:31:09.151 off_gaze=41.6 mroll=0.0 k=-0.50 off=0.0 baked=155.5 deg  n_vs_lua=n/a
+21:31:09.984 off_gaze=41.5 mroll=0.0 k=-0.50 off=0.0 baked=155.9 deg  n_vs_lua=n/a
+21:31:10.818 off_gaze=40.8 mroll=0.0 k=-0.50 off=0.0 baked=156.3 deg  n_vs_lua=n/a
+21:31:11.651 off_gaze=40.2 mroll=0.0 k=-0.50 off=0.0 baked=157.1 deg  n_vs_lua=n/a
+21:31:12.485 off_gaze=40.6 mroll=0.0 k=-0.50 off=0.0 baked=155.8 deg  n_vs_lua=n/a
+21:31:13.317 off_gaze=41.2 mroll=0.0 k=-0.50 off=0.0 baked=156.2 deg  n_vs_lua=n/a
+21:31:14.151 off_gaze=41.8 mroll=0.0 k=-0.50 off=0.0 baked=156.6 deg  n_vs_lua=n/a
+21:31:14.985 off_gaze=41.3 mroll=0.0 k=-0.50 off=0.0 baked=155.6 deg  n_vs_lua=n/a
+21:31:15.818 off_gaze=40.6 mroll=0.0 k=-0.50 off=0.0 baked=156.0 deg  n_vs_lua=n/a
+21:31:16.652 off_gaze=40.2 mroll=0.0 k=-0.50 off=0.0 baked=155.9 deg  n_vs_lua=n/a
+21:31:17.486 off_gaze=40.8 mroll=0.0 k=-0.50 off=0.0 baked=155.6 deg  n_vs_lua=n/a
+21:31:18.320 off_gaze=41.5 mroll=0.0 k=-0.50 off=0.0 baked=156.2 deg  n_vs_lua=n/a
+21:31:19.153 off_gaze=41.7 mroll=0.0 k=-0.50 off=0.0 baked=156.3 deg  n_vs_lua=n/a
+21:31:19.987 off_gaze=41.2 mroll=0.0 k=-0.50 off=0.0 baked=155.5 deg  n_vs_lua=n/a
+21:31:20.820 off_gaze=40.3 mroll=0.0 k=-0.50 off=0.0 baked=156.8 deg  n_vs_lua=n/a
+21:31:21.653 off_gaze=40.4 mroll=0.0 k=-0.50 off=0.0 baked=156.4 deg  n_vs_lua=n/a
+21:31:22.487 off_gaze=41.0 mroll=0.0 k=-0.50 off=0.0 baked=156.0 deg  n_vs_lua=n/a
+21:31:23.321 off_gaze=41.6 mroll=0.0 k=-0.50 off=0.0 baked=156.6 deg  n_vs_lua=n/a
+21:31:24.154 off_gaze=41.5 mroll=0.0 k=-0.50 off=0.0 baked=156.4 deg  n_vs_lua=n/a
+21:31:24.987 off_gaze=40.9 mroll=0.0 k=-0.50 off=0.0 baked=155.8 deg  n_vs_lua=n/a
+21:31:25.820 off_gaze=40.2 mroll=0.0 k=-0.50 off=0.0 baked=156.2 deg  n_vs_lua=n/a
+21:31:26.654 off_gaze=40.6 mroll=0.0 k=-0.50 off=0.0 baked=155.9 deg  n_vs_lua=n/a
+21:31:27.654 off_gaze=41.4 mroll=0.0 k=-0.50 off=0.0 baked=156.1 deg  n_vs_lua=n/a
+21:31:28.575 off_gaze=41.8 mroll=0.0 k=-0.50 off=0.0 baked=156.0 deg  n_vs_lua=n/a
+21:31:29.513 off_gaze=41.1 mroll=0.0 k=-0.50 off=0.0 baked=155.5 deg  n_vs_lua=n/a
+21:31:30.450 off_gaze=40.3 mroll=0.0 k=-0.50 off=0.0 baked=156.7 deg  n_vs_lua=n/a
+21:31:31.392 off_gaze=40.6 mroll=0.0 k=-0.50 off=0.0 baked=156.2 deg  n_vs_lua=n/a
+21:31:32.350 off_gaze=41.3 mroll=0.0 k=-0.50 off=0.0 baked=156.4 deg  n_vs_lua=n/a
+21:31:33.248 off_gaze=41.8 mroll=0.0 k=-0.50 off=0.0 baked=156.6 deg  n_vs_lua=n/a
+21:31:34.129 off_gaze=41.2 mroll=0.0 k=-0.50 off=0.0 baked=155.6 deg  n_vs_lua=n/a
+21:31:35.009 off_gaze=40.3 mroll=0.0 k=-0.50 off=0.0 baked=157.2 deg  n_vs_lua=n/a
+21:31:35.891 off_gaze=40.4 mroll=0.0 k=-0.50 off=0.0 baked=156.7 deg  n_vs_lua=n/a
+21:31:36.773 off_gaze=41.1 mroll=0.0 k=-0.50 off=0.0 baked=156.2 deg  n_vs_lua=n/a
+21:31:37.671 off_gaze=41.7 mroll=0.0 k=-0.50 off=0.0 baked=156.9 deg  n_vs_lua=n/a
+21:31:38.565 off_gaze=41.4 mroll=0.0 k=-0.50 off=0.0 baked=156.3 deg  n_vs_lua=n/a
+21:31:39.445 off_gaze=40.6 mroll=0.0 k=-0.50 off=0.0 baked=157.3 deg  n_vs_lua=n/a
+21:31:40.333 off_gaze=40.2 mroll=0.0 k=-0.50 off=0.0 baked=157.2 deg  n_vs_lua=n/a
+21:31:45.968 off_gaze=40.8 mroll=-70.7 k=-0.50 off=0.0 baked=157.4 deg  n_vs_lua=37.9 deg
+21:31:46.910 off_gaze=41.5 mroll=-69.8 k=-0.50 off=0.0 baked=156.2 deg  n_vs_lua=38.4 deg
+21:31:47.867 off_gaze=41.5 mroll=-72.0 k=-0.50 off=0.0 baked=155.8 deg  n_vs_lua=37.6 deg
+21:31:48.814 off_gaze=40.7 mroll=-72.7 k=-0.50 off=0.0 baked=156.4 deg  n_vs_lua=37.7 deg
+21:31:49.755 off_gaze=40.2 mroll=-71.5 k=-0.50 off=0.0 baked=157.0 deg  n_vs_lua=37.3 deg
+21:31:50.695 off_gaze=40.8 mroll=-69.9 k=-0.50 off=0.0 baked=156.7 deg  n_vs_lua=37.6 deg
+21:31:51.633 off_gaze=41.5 mroll=-71.4 k=-0.50 off=0.0 baked=157.3 deg  n_vs_lua=37.6 deg
+21:31:52.571 off_gaze=41.5 mroll=-72.7 k=-0.50 off=0.0 baked=157.1 deg  n_vs_lua=38.0 deg
+21:31:53.508 off_gaze=40.7 mroll=-73.3 k=-0.50 off=0.0 baked=157.1 deg  n_vs_lua=38.1 deg
+21:31:54.446 off_gaze=40.2 mroll=-71.8 k=-0.50 off=0.0 baked=156.6 deg  n_vs_lua=37.5 deg
+21:31:55.384 off_gaze=40.8 mroll=-70.1 k=-0.50 off=0.0 baked=155.8 deg  n_vs_lua=37.7 deg
+21:31:56.317 off_gaze=41.5 mroll=-70.6 k=-0.50 off=0.0 baked=156.4 deg  n_vs_lua=37.4 deg
+21:31:57.255 off_gaze=41.6 mroll=-71.2 k=-0.50 off=0.0 baked=156.1 deg  n_vs_lua=37.5 deg
+21:31:58.195 off_gaze=40.8 mroll=-72.4 k=-0.50 off=0.0 baked=155.7 deg  n_vs_lua=39.5 deg
+21:31:59.130 off_gaze=40.2 mroll=-72.2 k=-0.50 off=0.0 baked=156.1 deg  n_vs_lua=37.9 deg

@@ -1,0 +1,24 @@
+] [REFramework] [info] [m6_mirror] P10 will spawn candidate 1: the goat totem (the original; it TICKS)
+] [REFramework] [info] [re8-harness] harness: fn pfb_goat  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=
+] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=-9 mr
+] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=
+] [REFramework] [info] [re8-harness] harness: cropfollow 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=
+] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=-9 mr
+] [REFramework] [info] [re8-harness] harness: steer 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=-9 mro
+] [REFramework] [info] [re8-harness] harness: mrollk -0.7  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-0.70 mrollmode=-9
+] [REFramework] [info] [re8-harness] harness: mrolloff 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-0.70 mrollmode=-9 
+] [REFramework] [info] [m6_mirror] scale: shrink x0.0010 -> (0.0010,0.0010,0.0010) reads back (0.0010,0.0010,0.0010)
+] [REFramework] [info] [m6_mirror] goat_strip: via.physics.Colliders -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.WwiseContainerApp -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.SimplePendulum -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.PropsConfigure -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.ObjectDefinition -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: via.effect.script.ObjectEffectManager -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: via.physics.RequestSetCollider -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.HitController -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.PropsUpdater -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: via.effect.script.EPVStandard -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.ProcCollider -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: app.ProcDamage -> off sent (reads back false)
+] [REFramework] [info] [m6_mirror] goat_strip: 12 component(s) switched off, kept: via.Transform, via.render.Mesh, via.render.Mirror
+] [REFramework] [info] [re8-harness] harness: fn goat_vanish  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-0.70 mrollmode

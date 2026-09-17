@@ -1,0 +1,53 @@
+] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=
+] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+] [REFramework] [info] [re8-harness] harness: cropfollow 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspect
+] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=
+] [REFramework] [info] [re8-harness] harness: steer 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-
+] [REFramework] [info] [re8-harness] harness: cropfollow 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectm
+] [REFramework] [info] [re8-harness] harness: cropfollow 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectm
+] [REFramework] [info] [re8-harness] harness: mrollk 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=
+] [REFramework] [info] [re8-harness] harness: mrolloff 24  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmo
+] [REFramework] [info] [m6_mirror] goat_shrink: prefab scale captured = (1.000,1.000,1.000)
+] [REFramework] [info] [m6_mirror] scale: shrink x0.0500 -> (0.0500,0.0500,0.0500) reads back (0.0500,0.0500,0.0500)
+] [REFramework] [info] [m6_mirror] goat_shrink: prop shrunk. ⚠️ NOW LOOK AT THE SCOPE -- if the picture is unchanged this is the fix; if it died, the mirror scales with its
+] [REFramework] [info] [re8-harness] harness: fn goat_shrink2  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspe
+] [REFramework] [info] [m6_mirror] scale: shrink x0.0010 -> (0.0010,0.0010,0.0010) reads back (0.0010,0.0010,0.0010)
+] [REFramework] [info] [m6_mirror] goat_shrink: prop shrunk. ⚠️ NOW LOOK AT THE SCOPE -- if the picture is unchanged this is the fix; if it died, the mirror scales with its
+] [REFramework] [info] [re8-harness] harness: fn goat_shrink  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspec
+] [REFramework] [info] [IntegrityCheckBypass]: Searching for stack destroyer...
+] [REFramework] [info] [IntegrityCheckBypass]: Patched stack destroyer!
+] [REFramework] [info] [m6_mirror] P10 will spawn candidate 4: the RE7 voice recorder (silent, unlike the goat totem)
+] [REFramework] [info] [re8-harness] harness: fn pfb_recorder  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 as
+] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=
+] [REFramework] [info] [m6_mirror]     plane is finally ours. 'Tear down rig' destroys the prop when done.
+] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 000001DE7F75E500 (numpad . asks for the NEXT acceptable one; the curre
+] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 000001DEA2943D60 (was the 8-bit SRGB resolve; pre-clip HD
+] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspect
+] [REFramework] [info] [re8-harness] harness: cropfollow 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspect
+] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=
+] [REFramework] [info] [re8-harness] harness: steer 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-
+] [REFramework] [info] [re8-harness] harness: mrollk 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=
+] [REFramework] [info] [re8-harness] harness: mrolloff 24  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmo
+] [REFramework] [info] [m6_mirror] goat_shrink: prefab scale captured = (1.000,1.000,1.000)
+] [REFramework] [info] [m6_mirror] scale: shrink x0.0010 -> (0.0010,0.0010,0.0010) reads back (0.0010,0.0010,0.0010)
+] [REFramework] [info] [m6_mirror] goat_shrink: prop shrunk. ⚠️ NOW LOOK AT THE SCOPE -- if the picture is unchanged this is the fix; if it died, the mirror scales with its
+] [REFramework] [info] [re8-harness] harness: fn goat_shrink  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspec
+] [REFramework] [info] [m6_mirror] rig destroyed via via.GameObject.destroy(via.GameObject)
+] [REFramework] [info] [re8-harness] harness: fn destroy_rig  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspec
+] [REFramework] [info] [m6_mirror] P10 will spawn candidate 1: the goat totem (the original; it TICKS)
+] [REFramework] [info] [re8-harness] harness: fn pfb_goat  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmo
+] [REFramework] [info] [re8-harness] harness: fn p10  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-1
+] [REFramework] [info] [m6_mirror]     plane is finally ours. 'Tear down rig' destroys the prop when done.
+] [REFramework] [info] [m6_mirror] P10: goat rig complete. Next: E (bind glass), then D (drive) + sliders.
+] [REFramework] [info] [re8-harness] harness: fn drive_on  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmo
+] [REFramework] [info] [re8-harness] harness: cropfollow 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectm
+] [REFramework] [info] [re8-harness] harness: model 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-
+] [REFramework] [info] [re8-harness] harness: steer 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=-
+] [REFramework] [info] [re8-harness] harness: mrollk 0  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmode=
+] [REFramework] [info] [re8-harness] harness: mrolloff 24  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspectmo
+] [REFramework] [info] [m6_mirror] goat_shrink: prefab scale captured = (1.000,1.000,1.000)
+] [REFramework] [info] [m6_mirror] scale: shrink x0.0010 -> (0.0010,0.0010,0.0010) reads back (0.0010,0.0010,0.0010)
+] [REFramework] [info] [m6_mirror] goat_shrink: prop shrunk. ⚠️ NOW LOOK AT THE SCOPE -- if the picture is unchanged this is the fix; if it died, the mirror scales with its
+] [REFramework] [info] [re8-harness] harness: fn goat_shrink  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=0 aspec
+] [REFramework] [info] [re8-harness] harness: cropfollow 1  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=true model=eye k=0.500 ads=false cropmode=-1 cropfollow=1 aspectm
