@@ -1730,4 +1730,58 @@ into `re_scope_cmd.txt`.
   it and then starts the game through Steam. Tested on a fake log in a scratch folder, exit 0
   `[verified-numerically 2026-09-18, n=1]`; the launcher itself was **not** run.
 
+### 9ag. ⭐⭐ `framev 2` IS UPSIDE DOWN BECAUSE ONE FLAG DRIVES TWO FLIPS IN SERIES — WHICH IS ALSO WHY NUMPAD 7 IS INERT (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Note: `modding-notes/2026-09-18e-framev-2-is-upside-down-because-one-flag-drives-two-flips-in-series.md`.
+
+The 2026-09-17 session reported two things that read as separate complaints and are one fault: the
+`framev 2` picture is upside down with vertical motion inverted, and `7 Glass flip V` flips
+`glassFlipV` in the log with **no visible change** `[verified-live 2026-09-17, n=1]`.
+
+- **`glass_flip_v` is read TWICE on the same path, in series.** `crop_follow.cpp` derives `vneg` from
+  it, which negates the frame's `ry` and so flips the scope image's **content** through `H`; and
+  `present.cpp` uploads the same flag as `ps_blit`'s `_pad.x`, whose `uv.y = 1.0 - uv.y` flips the
+  **finished image** into the glass material. Two flips in series multiply:
+
+  | `glass_flip_v` | frame `ry` sign | `ps_blit` sign | product |
+  | --- | --- | --- | --- |
+  | 0 | −1 | +1 | −1 |
+  | 1 | +1 | −1 | −1 |
+
+- ⭐ **The product is CONSTANT, so under `framev 2` numpad 7 provably cannot move the picture's
+  vertical orientation** — and the orientation it is stuck at is the one the wearer called upside
+  down. Under `framev 1` the frame never reads the flag, so only `ps_blit` moves and 7 works: that is
+  why only v2 showed it. `[verified-numerically 2026-09-18]`, `tools/frame_v2_test.cpp` §6, which runs
+  the shipped `sg_rifle_frame_rh` for both states.
+- ⚠️ **The proof needs nothing about the lens material, and deliberately establishes only half the
+  question.** *That* the product is constant is settled. *Which* constant it lands on — i.e. whether
+  the fixed orientation is upright or inverted — depends on the lens material's own sampling sign,
+  which is the game's property and is not visible statically. Two self-consistent models of that sign
+  disagree, and the headset says one is wrong `[hypothesis]`.
+- **So no sign was changed.** Picking one would be a coin flip dressed as a fix, and a wrong guess
+  costs a wear to find out. Instead: **`framevneg -1 | 0 | 1`** forces the frame's half of the
+  coupling. `-1` is the shipped behaviour and is the default, so nothing changes for anyone not using
+  the word; `0` and `1` decouple the frame from `glass_flip_v`, which also makes numpad 7 work again
+  under `framev 2`. §6 proves the two forced states are exact opposites, so **one of `framevneg 0` /
+  `framevneg 1` is the right way up whatever the lens does** — a two-click A/B in one launch.
+- Wired end to end and checked on all four links (`knob_chain_test` **46/46**, was 41); persisted, so
+  it joined the §9ae boot-value registry, which `boot_values_test` re-derived by itself — **157/157**,
+  was 152, **with no edit to that test** `[verified-numerically 2026-09-18]`. The three words have
+  panel buttons, so the A/B costs no desktop trip.
+- ⚠️ **A model is not the shipped code.** §6 computes the coupling from a model written in the test,
+  which would go on passing if `crop_follow.cpp` or `ps_blit` changed underneath it — a green test
+  describing a plugin that no longer exists. §7 therefore reads the three joins as text from
+  `crop_follow.cpp`, `present.cpp` and `shader_src.cpp`. **Proved able to fail on five mutants, one per
+  join plus the frame function itself** `[verified-numerically 2026-09-18]`. Same lesson as §9ae's
+  mutation run, from the other side: there the pure logic was covered and the wire was not; here the
+  maths would not have noticed being disconnected from the plugin.
+- **NEXT LAUNCH, one trip:** `framev 2`, then `framevneg 0`, then `framevneg 1`. Exactly one should be
+  upright → that becomes the shipped default. **Neither** → the fault is not the frame's vertical
+  baseline and §6 says the knob cannot reach it either; look downstream of `H`. **Both identical** →
+  the word is not arriving; check the log for `frame_vneg -> ...`, because no echo means no test.
+- ⚠️ While `framevneg` is `-1`, numpad 7 being inert under `framev 2` is **by construction**, not a
+  new bug to report.
+- Deployed (DLL, `panel.lua`, `pane.lua`, harness; `.bak-2026-09-18c` backups) and re-stamped, 28
+  files. Twelve plugin suites and nine producer suites pass. **NOT RUN.**
+
 Credit: **praydog** (REFramework).
