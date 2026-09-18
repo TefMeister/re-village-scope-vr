@@ -1625,3 +1625,40 @@ Answers two of the three static questions on §9aa's clothing row; supersedes no
   stamped?"*, never *"is the stamp the newest build?"*. Brought to HEAD and re-stamped, 28 files.
 
 Credit: **praydog** (REFramework, and the hide-body mechanism this reads).
+
+### 9ad. ⭐⭐⭐ THE FLICKER MEASURE READS ZERO: THE LOG COULD NOT SAY WHICH OF TWO CAUSES IT WAS, SO THE READBACK IS NOW POISONED FIRST (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Note: `modding-notes/2026-09-18c-the-flicker-measure-reads-zero-poison-the-readback-so-the-two-causes-separate.md`.
+Builds the instrument for §9aa's zero-measure row; supersedes nothing and settles nothing yet.
+
+- **⚠️ A THIRD FULL RE-READ OF THE MEASURE FOUND NOTHING WRONG** — SRV `[4]`/`[5]` = our RT / `rt_prev`
+  and the diff pass binds a 2-wide table from `[4]`; `diff_rt`'s RTV is written at index 2 and the
+  pass sets index 2; `ps_diff` is correct as written; the mid-frame submit **does** `Reset` the
+  allocator and list before recording the rest of the frame; `rt_prev` is copied from `g.rt` every
+  frame and `g.rt` is redrawn unconditionally `[inferred-static 2026-09-18]`. **Reading it a fourth
+  time is not the next step.**
+- **⭐ THE ACTUAL OBSTACLE IS THAT `avg=0.0000` IS AMBIGUOUS.** Two unrelated faults produce it and
+  the log cannot separate them: *the readback copy never landed, so the buffer is still its initial
+  zeros*, versus *the copy landed and the shader genuinely computed zero*. The second means `t0` and
+  `t1` sampled identical pixels — and since `rt_prev` is last frame's `g.rt`, that means **`g.rt` is
+  not changing between frames**, which is a different problem with a different fix, upstream of the
+  measure entirely. Two of the row's three candidates sit either side of that line.
+- **Built:** harness word `holddiag <n>` / pane key `hold_diag`. For N frames it fills the readback
+  with `kHoldSentinel = -12345.0f` **before** the GPU copy — a value a mean of absolute differences
+  can never produce — then reports how much poison **survived**, plus min, max, exact-zero count,
+  RT size, format, `rt_prev_valid` and the source kind. Four distinguishable outcomes: **all poison
+  left** = the copy never landed; **some left** = footprint/row pitch; **none left and all zero** =
+  the measure is real and `g.rt` is not changing; **none left, some non-zero** = the measure works
+  and the fault is downstream in the averaging or threshold.
+- Off by default and **counts down to zero by itself**, so the shipped path is unchanged when it is
+  off `[compile-verified 2026-09-18]`. `holddiag 120` ≈ two seconds at 60 fps.
+- The verdict is a pure function, `holdm::classify` in `hold_math.h`, so `tools/hold_test.cpp`
+  compiles **the shipped logic** — the same shape as `rgate::decide`. `hold_test` **26/26** (was 16)
+  `[verified-numerically 2026-09-18]`, and the suite was **proved able to fail**: dropping the
+  `sentinels >= n_all` branch, so a fully poisoned read falls through to the zero check, fails 12a
+  and nothing else — exactly the mistake the poison exists to prevent. All ten plugin suites pass.
+- **⚠️ NOTHING WAS MEASURED.** This session built the instrument; it did not take the reading. The
+  four verdicts are what it *can* say, not what it *will*. One flat launch: `bringup`, `hold 1`,
+  `holddiag 120`, then read the `holddiag:` lines.
+
+Credit: **praydog** (REFramework).
