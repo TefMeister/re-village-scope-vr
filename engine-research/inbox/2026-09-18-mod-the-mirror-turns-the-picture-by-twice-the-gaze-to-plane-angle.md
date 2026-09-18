@@ -188,3 +188,51 @@ Five live harness words, no rebuild, no relaunch: `pitch 90` · `yaw 90` · `pro
 
 Tool: `staging/re-village-scope-vr/plugin/tools/bore_plane_check.cpp`. Nothing was deployed and the game
 was not launched.
+
+---
+
+## LIVE RESULT, same evening (2026-09-18, `/lm`, home PC, flat, `n=1`)
+
+**Appended by the live session that ran it, rather than filed as a second drop, because it is this
+drop's own prediction being confirmed.**
+
+The five words were sent to a running game at 2560x1448. **Predictions 2 and 3 hit exactly:**
+
+| | before (shipped pose) | after (`pitch 90 yaw 90 propf 0 propu 0 propr 0`) |
+| --- | --- | --- |
+| `off_u lever` | **-1.93** | **-0.00 / +0.00** |
+| viewpoint `y` | -34.00 | **-33.07** |
+| `head` | -33.07 | -33.07 |
+| viewpoint vs eye | 0.93 m below | **0.00 m -- exactly at the eye** |
+| above the floor | 0.68 m | **1.62 m** |
+
+`[verified-live 2026-09-18, n=1]`
+
+**And Tefa, watching in the headset, unprompted:** *"for a second the picture on the scope showed the
+right picture with no clothing or anything, then turned to this"* -- with a screenshot of a dark
+gold-brown streaked image. `[reported 2026-09-18]`
+
+**So the pose is right and the clothing does leave the picture.** What replaced it is the scope's own
+tube: with the viewpoint exactly at the eye and looking forward, the thing directly in front of the
+eye is the rifle's own scope, and the mirror renders it as solid geometry filling the frame. The real
+view has a lens to see through; the mirror pass does not.
+
+**The fix is one more slider, and it works.** `propr` is now the only slider that moves the plane
+(this drop's own section 2), so it shifts the viewpoint sideways off the scope's axis:
+
+- `propr 0.05` / `0.10` -- still obstructed
+- **`propr 0.20` -- a clean, live, eye-height forward picture of the world, no clothing, no weapon
+  body** `[verified-live 2026-09-18, n=1]`. Evidence:
+  `dev-archive/recon/2026-09-18-bore-plane-pane-pose/90-propr-0.20.png`
+
+⚠️ The viewpoint height did not move at all across the whole `propr` sweep (`y=-33.07` at 0.05, 0.10
+and 0.20), which is exactly what section 3 predicts once `height_lever` is zero. `[measured 2026-09-18]`
+
+⚠️ **Not yet judged:** whether 0.20 m of sideways offset reintroduces visible parallax at range, what
+it does to the zero, and whether a smaller offset plus hiding the rifle's barrel materials
+(`setMaterialsEnable`, this drop's section 1 caveat) is better than moving the eye at all. A wearer
+has to say.
+
+⚠️ **The one-second window Tefa saw is unexplained** and matters: the picture was RIGHT, then became
+the tube. If something re-poses the pane a second after the words land, that is a second bug sitting
+on top of a working fix.
