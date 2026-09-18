@@ -1784,4 +1784,56 @@ The 2026-09-17 session reported two things that read as separate complaints and 
 - Deployed (DLL, `panel.lua`, `pane.lua`, harness; `.bak-2026-09-18c` backups) and re-stamped, 28
   files. Twelve plugin suites and nine producer suites pass. **NOT RUN.**
 
+### 9ah. ⭐⭐ THE RIFLE SHAKE: THE NUMBER THAT WOULD HAVE SEEN IT WAS AVERAGING IT AWAY (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Note: `modding-notes/2026-09-18f-the-number-that-would-have-seen-the-shake-was-averaging-it-away.md`.
+
+The row asked for REFramework's weapon-pose path to be read. **It is not readable from here:**
+`re8vr:update_hand_ik()` is a native method on REFramework's own sol object, living in its compiled
+DLL; nothing on disk in the game folder contains it, and the Lua that is there only calls it
+`[inferred-static 2026-09-18]`. But the row was blocked closer to home than that.
+
+- ⭐ **`crop_follow`'s `self %.2f deg/tick` is a NET displacement sampled once a second.** The
+  previous sample is taken INSIDE the `if ((tick % 60) != 0) return;` logging block, so the number is
+  the angle between the pane normal now and one second ago, over 60. A rifle vibrating about a fixed
+  direction returns to where it started and reads near zero — **for precisely the motion being
+  investigated** — and anything faster than 1 Hz aliases. A **0.5° vibration reads as under
+  0.01 °/tick** `[verified-numerically 2026-09-18]`.
+- ⚠️ **It is load-bearing.** `self_rate` gates `pane_still`, which gates the pane-mismatch verdict —
+  the one whose own comment says a false "DERIVATION error" costs a debugging session. 0.01 °/tick is
+  well under the 0.35 threshold, so a shaking rifle reads as HELD STILL and that verdict can fire on
+  the motion it was written to exclude. Never observed, and it also needs a ≥ 3° mismatch, so the path
+  is real rather than the event `[hypothesis]`. `pane_still` now also requires a small accumulated
+  PATH, which can only withhold judgement more often — the direction its own comment calls safe.
+- **The measure: path beside net, accumulated EVERY tick.** `jitter_math.h`, pure, so
+  `tools/jitter_test.cpp` compiles the shipped code. path = the sum of per-tick angular steps, net =
+  first-to-last. A pan has ratio ≈ 1; a vibration has net ≈ 0 and a large ratio. Reported on the
+  existing ~1 Hz `crop-follow` cadence — **no new knob**, because what had to move was the
+  accumulation, not the reporting.
+- Three traps, each its own check: **the accumulator must sit ABOVE the 1 Hz gate** (inside it is the
+  original mistake, and §7 reads `crop_follow.cpp` as text to confirm); **angles from `atan2` of the
+  cross product, not `acos`**, which is ill-conditioned for the hundredth-of-a-degree steps this is
+  about; and **a quiet floor**, below which the ratio is forced to 1 rather than dividing two noise
+  figures — without it a rifle on a table reads as a violent shake.
+- ⭐ **The line also reports what the WEARER sees: bore travel × zoom.** A telescope multiplies
+  angles, so at 6× a tenth of a degree of rifle wobble arrives at the eye as six tenths. **The picture
+  looking far shakier than the rifle is expected, not a second fault**, and may by itself account for
+  this reading as a scope problem.
+- **jitter_test 28/28, proved able to fail on six mutants** `[verified-numerically 2026-09-18]`: path
+  collapsed to net, the quiet floor removed, a degenerate reading folded in, `acos` restored, the zoom
+  no longer multiplying, and the accumulator moved below the gate.
+- ⚠️ **WHAT IT CANNOT SETTLE, stated up front.** It measures the rifle's direction per GAME TICK. It
+  cannot see the runtime's reprojection, which resamples the head pose after the game thread is done.
+  So the reading SPLITS the row: **large bore path / ratio ≥ 5** = the pose we are handed is already
+  shaking, so the fault is upstream in REFramework or the controller and our scope is faithfully
+  magnifying it; **small bore path while the wearer still sees shake** = the pose is clean and the
+  shake is added after us, a different fault with a different owner; **large "at the eye" with a small
+  bore path** = not a shake at all, just ordinary hand movement magnified. Guessing between those is
+  what the previous attempts on this row did.
+- **NEXT LAUNCH, no extra trip:** `cropfollow 1` for a few seconds holding the rifle as still as
+  possible, then again while aiming smoothly, and read the two `jitter (last ~1 s):` lines — the
+  second is the control that proves the measure is awake.
+- Deployed (`.bak-2026-09-18d`) and re-stamped, 28 files. Thirteen plugin and nine producer suites
+  pass. **NOT RUN.**
+
 Credit: **praydog** (REFramework).
