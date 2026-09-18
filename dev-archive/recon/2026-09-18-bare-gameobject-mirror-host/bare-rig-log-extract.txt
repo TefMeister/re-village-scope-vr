@@ -1,0 +1,37 @@
+[2026-09-18 23:26:55.175] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1920x1080 fmt=29 flags=0x1 -> 00000148302B9CD0 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-18 23:26:55.176] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1080 fmt=26 -> 00000148302B7690 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: building from the GAME THREAD (UpdateBehavior)
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: ===== fn p10_bare: MIRROR ON A BARE GAMEOBJECT, NO PREFAB PROP =====
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: testing whether the 2026-08-28 'hand-assembled objects do not work' wall applies
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: to a component that DRAWS NOTHING. See this file's header for the three outcomes.
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: via.GameObject.create overload found: create(System.String)
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: via.GameObject.create overload found: create(System.String, via.Folder)
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: called create(System.String) -> ret=sol.REManagedObject*: 0000014C32B9E868 err=nil
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: STEP 1 OK -- bare GameObject created, name='re8scope_bare_mirror_host'
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: -- birth state --
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:   Valid=true  Draw=true  DrawSelf=true  Update=true  Folder=nil
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:   Transform=true   <-- a Mirror's PLANE IS this transform; no transform means no aimable pane
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:   (component list empty -- EXPECTED for a bare object, and NOT by itself a
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:    failure; the 2026-08-29 prefab shells were empty because their CONTENTS
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:    never arrived, which is a different thing. The death-watch decides.)
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE: STEP 2 OK -- adopted as THE RIG (st.rig). No mesh component, by design:
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:   goat_shrink / goat_hide / goat_matoff / goat_meshoff are all MEANINGLESS on a
+[2026-09-18 23:29:29.680] [REFramework] [info] [m6_mirror] BARE:   bare host and will say they found no mesh. That is expected, not a failure.
+[2026-09-18 23:29:29.681] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm: 1280x728 fmt=29 flags=0x1 -> 0000014C8E8E84D0 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE: STEP 3 OK -- via.render.Mirror present; set_RenderTarget read-back = sol.REManagedObject*: 0000014C32BA7788 (ACCEPTED)
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE:   mirror Visible=true  addr=1410047463168
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE: pane defaults set -- pitch=180 yaw=90 fwd=1.00 up=-0.20 right=-0.715 (same as P10)
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE: STEP 4 -- watch armed. It reports liveness, and it will print exactly one
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE:   `BARE-VERDICT:` line saying THE MIRROR IS PRODUCING or THE MIRROR NEVER PRODUCED.
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE:   The verdict is the engine wiring a via.render.layer.Scene to our mirror
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE:   (layers.lua has hooked that since 2026-08-30); 600 frames to decide.
+[2026-09-18 23:29:29.682] [REFramework] [info] [m6_mirror] BARE: NEXT -> send `fn drive_on`, then press numpad `*` to bind the glass, then look.
+[2026-09-18 23:29:29.687] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1280x728 fmt=26 -> 0000014CA6A79CD0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-18 23:29:29.710] [REFramework] [info] [m6_mirror] BARE-WATCH: the engine wired a via.render.layer.Scene to OUR mirror (addr=1410047463168) at frame 1
+[2026-09-18 23:29:29.710] [REFramework] [info] [m6_mirror] BARE-VERDICT: THE MIRROR IS PRODUCING on a bare GameObject -- no prefab prop needed.
+[2026-09-18 23:29:29.710] [REFramework] [info] [m6_mirror]   not architecture. Next line to read is the plugin's `MIRROR SOURCE ... latched`:
+[2026-09-18 23:29:29.710] [REFramework] [info] [m6_mirror] BARE-WATCH: frame 1 (0.03s) -- alive, layer=WIRED pos=(0.00,0.00,0.00)
+[2026-09-18 23:29:29.739] [REFramework] [info] [m6_mirror] BARE-WATCH: frame 5 (0.06s) -- alive, layer=WIRED pos=(0.00,0.00,0.00)
+[2026-09-18 23:29:29.926] [REFramework] [info] [m6_mirror] BARE-WATCH: frame 30 (0.24s) -- alive, layer=WIRED pos=(0.00,0.00,0.00)
+[2026-09-18 23:29:30.565] [REFramework] [info] [m6_mirror] BARE-WATCH: frame 120 (0.88s) -- alive, layer=WIRED pos=(0.00,0.00,0.00)
+[2026-09-18 23:29:31.841] [REFramework] [info] [m6_mirror] BARE-WATCH: frame 300 (2.16s) -- alive, layer=WIRED pos=(0.00,0.00,0.00)
