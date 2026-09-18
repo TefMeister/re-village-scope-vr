@@ -5,6 +5,27 @@ the home-PC group-A tests instead found the thing those tests depend on.
 
 ---
 
+> **⚠️ CORRECTION, added the same evening — READ THIS FIRST.**
+> **It was solved, and the picture now works.** The "lead worth chasing first" below — that the mirror
+> source might only be produced in VR, and that flat may never have worked — is **wrong and
+> `[disproved 2026-09-18]`**. Flat has worked many times before, with screenshots, including on this
+> machine the day before. **Do not re-gate the flat board rows.**
+>
+> The real cause: the mirror latch grabs one of the game's own 1920×1080 buffers about a millisecond
+> after REFramework starts — minutes before the rig exists — and never looks again. The real mirror
+> source is always allocated 8 rows taller (1920×**1088**, 1280×**728**), so a latch at 1080 is by
+> definition the wrong buffer. **Proven in game:** `fn rtex_1280`, then numpad `.`, then `bringup`, in
+> a fresh process → `MIRROR SOURCE REPLACED … 1280x728`, `the latch followed … not stranded`, and a
+> live picture.
+>
+> Two more rows fell out of it, both confirmed against that working picture: **`avg=0.0000` is a
+> broken readback, not a property of the picture** (the measure has never computed anything, in VR
+> either), and **`framevneg 1` is the right way up under `framev 2`**.
+>
+> Full account: dossier §9am–§9ap, and
+> `engine-research/inbox/2026-09-18-mod-the-black-flat-scope-is-a-boot-latch-1080-vs-1088.md`
+> (drained into the dossier the same evening).
+
 ## What this session set out to do
 
 Clear `owed/HOME/2026-09-18-re-village-scope-the-13-tests-that-need-the-game-running.md`: group A
