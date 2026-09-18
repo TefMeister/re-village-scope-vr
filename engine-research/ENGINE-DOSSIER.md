@@ -1923,4 +1923,119 @@ wrong.** Three facts already in this dossier, never put together:
   1000 means the delay is not the timer and the refusals logged above it say which precondition is
   holding it.
 
+### 9ak. THE SCOPE PICTURE IS BLACK ON THE HOME PC WITH THE HEADSET OFF - AND IT IS NOT A BUILD REGRESSION (2026-09-18, `/lm`, home PC `RTX`, FIVE LAUNCHES, FLAT)
+
+**The first time the home PC ran this project's group-A tests, the thing all of them depend on turned
+out to be broken, and it is not what anyone would have guessed.**
+
+With the rifle scoped and `bringup` reporting `DONE`, the scope picture is **pure black** - only our
+two green debug markers are drawn on it. The disc sits at ~(963, 522) r~140 in a 1920x1080 capture,
+exactly where `dev-archive/tools/scope_metrics.py 963 522 135` expects it, which is how we know the
+black disc is our picture and not part of the scope model. `[measured 2026-09-18, n=5 launches]`
+
+**Every indicator says the picture is fine**, which is the trap: `glass_bound=2`, `mirror_latched=1`,
+`mirror_hdr=1`, `mirror_ui=1`, `frame:` reports `mirror=1 src_w=1920` at 160-207 fps, `bringup` prints
+no `FAILED` and no `WARNING`. `hold 1`'s summary prints `avg=0.0000 max=0.000 spikes=0 holds=0`,
+consistent with a constant black source. `[measured 2026-09-18]`
+
+**Ruled out, in order** (evidence: `dev-archive/recon/2026-09-18-flat-scope-picture-is-black/`):
+
+1. **The scene** - turned 180 deg from the Duke's shop to the open village: identical black disc.
+2. **The source format** - `src8 1` (8-bit resolve instead of raw HDR) changed nothing.
+3. **A stale latch, via the documented recovery.** Every launch prints the ambiguous wave-2 line
+   *"rig rebuild #1 at the latched width (1920) and the latch did not change ... if it is frozen or
+   wrong, the latched source was never this rig's (a boot latch) - numpad . and rebuild"*. Ran exactly
+   that: the re-arm went **PENDING**, no further `MIRROR SOURCE latched` line arrived, picture still
+   black. **So that recovery text is wrong, or at least incomplete, for this case.**
+4. **A dirty session** - cold relaunch, load, one clean `bringup`, nothing else: black.
+5. **Today's build.** Restored the previous deployed plugin (217,600 bytes, 2026-09-17 stamp),
+   relaunched, single clean `bringup`: **identical black picture, identical log shape.** Then restored
+   today's build and re-stamped. `[measured 2026-09-18, n=1 per build]`
+
+**The diagnostic built for exactly this could not speak.** `holddiag 120` is accepted and echoes
+`hold_diag -> 120 frame(s)`, but **not one `holddiag:` line is ever printed**, so none of the four
+2026-09-18 verdicts (SS 9ad) was reached. Because the `hold:` summary *does* print, the outer guard at
+`present.cpp:604` passes and something inside it stops short - most likely `g.rt_prev_valid` never
+becoming true. **Not confirmed.** `[hypothesis]`
+
+WARNING: **SS 9ad's question is therefore still open.** `avg=0.0000` remains unexplained. What is new
+is that the picture being measured is black, which makes *"THE MEASURE IS REAL AND THE ANSWER IS
+ZERO"* the obvious candidate - but it stays a guess until a `holddiag:` line actually prints.
+
+**THE LEAD, and it would change the board if true:** no confirmation of a working scope picture with
+the headset OFF has been found anywhere in our own notes - every confirmation on record is a headset
+wear. REFramework did **not** enter VR on any of these launches
+(`XR_ERROR_FORM_FACTOR_UNAVAILABLE`, no headset connected), and `re2_fw_config.txt` carries
+`VR_ExemptMirrorCameras=true`, `VR_MirrorUsesOriginalCamera=true`, `VR_RenderingTechnique_V2=2`. **If
+the buffer our latch waits for is one REFramework only allocates in VR, the picture has never worked
+flat and nobody noticed**, because all the judging was done in the headset - and every board row
+gated `[FLAT]` that judges the picture (the 1920-vs-1280 sharpness, the `framev 2` / `framevneg`
+up-or-down question, the clothing test's visual half) is mis-gated and actually needs `[VR]`.
+`[hypothesis]` - handed to a static pass with the five logs and five screenshots.
+
+**Do not tune anything on the picture path until this is settled.** A black picture makes every
+visual A/B on this project meaningless, and three separate rows were about to be judged against it.
+
+---
+
+### 9al. WHAT THE HOME PC CONFIRMED THAT THE DEV PC COULD ONLY DERIVE (2026-09-18, `/lm`, home PC `RTX`, FLAT)
+
+The same five launches closed several rows the dev PC had only reasoned about statically.
+
+**The player-body access path is good, and the automatic trigger is real.** `bodyprobe` found
+`app.PlayerMeshController` via `get_playerMeshController` (route 2 of three), and read
+**`IsAimSniperRifle field=true` while scoped** - so SS 9ac's timed design has a working trigger and
+`bodyhide 1` is buildable. Nine mesh fields present (`FaceMesh`, `HairMesh` absent); four drawable
+(`UpperBodyMesh`, `LowerBodyMesh`, `LArmMesh`, `RArmMesh`, all `DrawDefault=true`); five shadow
+meshes `DrawDefault=false ShadowCast=true`. `bodyhide 2` wrote 7 meshes with no failures.
+`[verified-live 2026-09-18, n=1]` WARNING: whether hiding clears the **mirror** is still unknown - it
+cannot be judged against a black picture (SS 9ak).
+
+**The aim state does not live on the weapon.** `spreadprobe` run not-aiming and aiming on the same
+save, diffed mechanically (75 lines each): **exactly one field differs** -
+`<DrawOffByScope>k__BackingField` `false` -> `true`. That is a draw flag, not a spread value, and the
+two spread-named fields (`isReduceRecoil=false`, `isRestrictAimShake=true`) are **unchanged** between
+the states. So spread cannot be reduced by writing a weapon field; it lives on the player or in the
+shot code. `[verified-live 2026-09-18, n=1 pair]`
+
+Two by-products: **`isRestrictAimShake`** is a shipped flag directly relevant to SS 9ah's shake row,
+and **`DrawOffByScope`** is a per-weapon "do not draw while scoped" flag relevant to both SS 9ac and
+the hide-the-stock-scope idea.
+
+**SS 9ae's settings-permanence fix works.** With `hold 1` and `framev 2` live, a numpad press produced
+`settings saved, and 2 harness override(s) were NOT made permanent -- kept the boot value for: hold 0
+(live 1), frame_v 1 (live 2).` and the file still read `hold=0` / `frame_v=1` afterwards. The
+2026-09-17 `frame_v=2` accident cannot recur. `[verified-live 2026-09-18, n=1]`
+
+**SS 9ah's shake instrument is awake.** Both states produced: `held still` (bore path 0.030 deg,
+arrives at the eye as 0.07 deg at 2.4x) and the control `being aimed (smooth)` (bore path 0.177 deg).
+`[verified-live 2026-09-18, n=1 each]` WARNING: not a shake test - the rifle was held by a script, not
+a hand in a headset.
+
+**SS 9ai's ground reading is healthy standing, and the lever is confirmed live.** `above the floor by
+0.65-0.67 m`, `off_u lever -1.99` against the -2.00 derived statically. `[verified-live 2026-09-18]`
+WARNING: the **crouched** half was not obtained - see the input gap below.
+
+**The rig-rebuild fallback holds on a fresh `bringup`**: `re-arm pending=0 -- watching ~2 s`, then the
+at-the-latched-width branch, never `the latch did NOT follow`. `[verified-live 2026-09-18, n=3]`
+
+**Home-PC frame rate, flat, scope composited: 160-207 fps at 1920x1080.** The dev PC's numbers judge
+nothing. `[measured 2026-09-18]`
+
+**WARNING - AN AUTOMATION GAP THAT BLOCKS FOUR ROWS: the `ads` hook leaves the game in gamepad input
+mode and does not reliably release it.** After `ads`, synthetic keyboard movement is ignored - `w`,
+`c` and `lctrl` produced no change in `cam=` or in the `head` figure of the `ground:` line,
+repeatedly, with `ads 0` sent and acknowledged first. The control profile already notes that pad mode
+is entered *while held*; what is new is that **it does not come back**. This silently blocks the
+crouch half of SS 9ai, the inventory work the stock-scope comparison needs, and SS 9aj's
+weapon-switch measurement (`auto re-bind: the glass took after N ms` never printed, because the rifle
+could not be brought back). The fix belongs with the `ads` hook: release pad mode properly on
+`ads 0`, or drive movement through the pad the hook already owns rather than through `SendInput`.
+`[verified-live 2026-09-18, n=several]`
+
+**`LAUNCH-VILLAGE.bat` and `KEEP-LOG.bat` work** - five launches, five logs preserved, Steam started
+correctly every time. They had never been run by anybody and their log-copying half had only been
+tested against a fake log. `[verified-live 2026-09-18, n=5]`
+
+
 Credit: **praydog** (REFramework).
