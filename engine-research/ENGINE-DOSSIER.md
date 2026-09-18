@@ -1576,3 +1576,52 @@ request; nothing cloned or installed.
   errors, landing on recon code rather than shipped scripts.
 
 Credit: **porlock2** (the fix and its measurements), **praydog** (REFramework).
+
+### 9ac. ⭐⭐⭐ THE PLAYER'S BODY: THERE IS NO WAY TO HIDE IT FROM THE MIRROR ALONE, SO IT MUST BE TIMED (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Note: `modding-notes/2026-09-18b-ethan-cannot-be-hidden-from-the-mirror-alone-so-hide-him-only-while-the-scope-is-up.md`.
+Answers two of the three static questions on §9aa's clothing row; supersedes nothing.
+
+- **⛔ NO PER-PASS EXCLUSION EXISTS.** The complete mesh draw-flag family is `DrawDefault`,
+  `DrawShadowCast`, `DrawFarCascadeShadowCast`, `DrawEnvmap`, `DrawVoxelize` (plus a readable
+  `DrawDepthOcclusionFlag`) `[inferred-static 2026-09-18, re8.exe type strings]`, and **none is
+  planar-reflection specific**. `via.render.Mirror` itself has zero fields in its whole chain and
+  eight methods, none geometric and none a layer or draw mask `[verified-live 2026-08-25, n=1]`.
+  **So "draw this mesh in the main view but not in the mirror" cannot be expressed.** Hiding is
+  all-or-nothing per frame and must therefore be *timed*, not masked. `DrawEnvmap` is the one
+  member never tested against our Mirror; it is named for cubemap probes, so it is expected not to
+  help `[hypothesis]`, and `bodyprobe` reports it per mesh so the guess is free.
+- **REFramework's hide-body toggles are NOT reachable from Lua, and do not need to be.**
+  `HideUpperBody` / `HideLowerBody` / `HideArms` are config keys and ImGui labels in `dinput8.dll`;
+  the `sol` field list for `class RE8VR` contains no hide field, and the `reframework` Lua table has
+  no config get/set `[inferred-static 2026-09-18]`. **The mechanism behind them is a plain engine
+  call we can make ourselves:**
+  ```
+  app.PlayerMeshController        <- get_playerMeshController
+    UpperBodyMesh LowerBodyMesh LArmMesh RArmMesh
+    UpperBodyShadowMesh LowerBodyShadowMesh LArmShadowMesh RArmShadowMesh HeadShadowMesh
+    FaceMesh HairMesh WeaponMesh OtherMeshList      <- REFramework touches none of these four
+    set_DrawDefault(bool)  set_DrawShadowCast(bool)
+  ```
+  `[inferred-static 2026-09-18]` — which is **better** than the menu toggle, because it can be
+  scope-gated instead of costing the player their body for the session.
+- **⭐ THE GAME HAS ITS OWN "THE SNIPER SCOPE IS UP" FLAG.** `IsAimSniperRifle` sits on
+  `app.PlayerMeshController` beside `IgnoreDepth` / `disableIgnoreDepth`
+  `[inferred-static 2026-09-18]`. If it reads as its name suggests it is a better trigger than
+  anything we can infer, and it is the first thing `bodyprobe` prints. ⚠️ String-table adjacency is
+  ordering evidence, not proof the field hangs off this type at runtime.
+- **Built, not run:** `re8scope/body.lua` with harness words `bodyprobe` (read-only) and
+  `bodyhide 0|1|2 [body|arms|shadow|all]`. Inert until asked, edge-triggered, restores the value it
+  found per mesh, and counts re-asserts so a fight with REFramework's own `AutoHide…Cutscenes`
+  logic is visible as a number. 27/27 against a stubbed engine, suite proved able to fail three ways
+  `[verified-numerically 2026-09-18]`.
+- **⚠️ THE BET IS UNTESTED AND IS THE WHOLE THING:** a planar reflection re-renders the scene, so it
+  *ought* to honour the same per-mesh `DrawDefault` — but that is `[hypothesis]`. If the body still
+  shows in the scope with every mesh hidden, the reflection pass does not honour it and this route is
+  dead. One flat launch decides it.
+- ⚠️ **Machine-state finding:** the dev PC's install was still the **pre-split** producer (one
+  6,758-line file, no `re8scope/` folder) while staging HEAD had carried the split since 2026-09-17
+  — a whole milestone behind, unnoticed because `deployed.sh check` answers *"still what we
+  stamped?"*, never *"is the stamp the newest build?"*. Brought to HEAD and re-stamped, 28 files.
+
+Credit: **praydog** (REFramework, and the hide-body mechanism this reads).
