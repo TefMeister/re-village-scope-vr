@@ -2038,4 +2038,116 @@ correctly every time. They had never been run by anybody and their log-copying h
 tested against a fake log. `[verified-live 2026-09-18, n=5]`
 
 
+### 9am. SOLVED, AND PROVEN LIVE: THE BLACK PICTURE WAS A BOOT MIS-LATCH, 1080 vs 1088 (2026-09-18, `/lm` home PC + static pass, CONFIRMED IN GAME)
+
+**SUPERSEDES the `[hypothesis]` in SS 9ak that the mirror source might only be produced in VR.
+That is now `[disproved 2026-09-18]`.** Flat has worked many times before, with screenshots, including
+on this machine the day before (2026-09-17: *"The picture on the glass looked the same in both
+captures"*, flat, no headset). **Do NOT re-gate the flat board rows.**
+
+**The cause.** The mirror latch arms from process start with no "wait until the Lua has rigged" gate,
+and its size window accepts heights 1050-1100. About one millisecond after REFramework initialises -
+minutes before the scope rig exists - it grabs one of the game's own 1920x1080 render targets, which
+satisfies the format test exactly. It then closes and never looks again, so the rig's real buffer is
+never examined. **The scope was faithfully showing a buffer nothing draws into.**
+
+**The tell is eight pixels.** The shipped mirror `.rtex` files carry name + 8 rows, so the real mirror
+source always allocates padded: 1920x**1088**, 1280x**728**, 2560x**1448** (`rig.lua:125-127`). A latch
+at 1920x**1080** is the desktop backbuffer size and by definition is not the mirror. Across every
+archived log plus today's: **15 latches at 1088, 5 at 728, 1 at 1448, and a separate anomalous class at
+exactly 1080.** `[measured 2026-09-18, n=46 latch lines]`
+
+**What actually regressed.** Boot mis-latches at 1920x1080 are not new - they are in the 09-05 and
+09-06 logs too. They used to be survivable because the rig preferred the **1280** target, whose
+1280x728 allocation no boot buffer matches, so the re-arm caught it (the archives hold
+`REPLACED 1280x728` lines doing exactly that). `rig.lua:122-124` now lists the **1920** target first,
+and 1920 collides exactly with a 1080p desktop's own buffers - so the boot latch already looks right,
+the re-arm has nothing fresh to catch, and the width-based rebuild check cannot tell them apart.
+`[inferred-static 2026-09-18]`
+
+**Why `numpad .` alone could not save it:** once both latches close, `d3d12_hooks.cpp:300`
+early-returns on every later allocation, and `sdk.create_resource` then returns the **cached** `.rtex`
+for that path - so no allocation ever fires again and the re-arm sits PENDING forever. That is exactly
+what was observed. `[inferred-static]`, and the PENDING-forever behaviour is `[verified-live 2026-09-18]`.
+
+### ⭐ THE WORKING RECIPE, PROVEN IN GAME (2026-09-18, home PC, flat, n=1)
+
+**In a FRESH process, with the rifle in hand, in this order:**
+
+```
+fn rtex_1280        -- choose the 1280 target (its 1280x728 cannot collide with a boot buffer)
+numpad .            -- re-arm BEFORE anything allocates it
+bringup
+```
+
+Result, verbatim:
+
+```
+[hook] MIRROR SOURCE REPLACED on pending re-arm: 1280x728 fmt=29 flags=0x1
+[hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1280x728 fmt=26
+rig rebuild #1: the latch followed (latch gen 3 -> 4, source now 1280 wide) -- not stranded
+```
+
+**and a live, correct, magnified picture on the glass.** Evidence:
+`dev-archive/recon/2026-09-18-flat-scope-picture-is-black/06-SOLVED-...png`.
+`[verified-live 2026-09-18, n=1]`
+
+⚠️ **Order matters and the mod says so itself.** `fn rtex_1280` followed by `bringup` **without** the
+re-arm produced `STRANDED LATCH: rig rebuild #1 rigged a 1280-wide target but the latch still holds the
+1920-wide source`, and its own recovery text names the fix: *"numpad . BEFORE the first fn p10 on the
+wanted width (a target allocates on its first use per process)"*. `[verified-live 2026-09-18, n=1]`
+
+**The real fix, still to write** (no game needed): tighten the height window to the padded sizes only,
+and/or do not arm the mirror latch until the Lua has rigged - the scope-target latch already has such a
+gate and the mirror latch does not.
+
+### 9an. ⭐⭐⭐ `avg=0.0000` IS A BROKEN READBACK, NOT A PROPERTY OF THE PICTURE (2026-09-18, CONFIRMED LIVE AGAINST A WORKING PICTURE)
+
+**This retires the whole framing of SS 9ad.** With the picture **live and moving**, `hold 1` still
+reports `avg=0.0000 max=0.000 spikes=0`, and `holddiag 120` still prints **not one line**.
+`[verified-live 2026-09-18, n=1 with a confirmed live picture]`
+
+So the zero was never about the scope image. The failing gate is **`present.cpp:666`,
+`if (SUCCEEDED(g.diff_rb->Map(0, &rr, &p)) && p != nullptr)` - that Map is failing.** It is not
+`rt_prev_valid`: the `hold:` summary sits downstream of the diag print inside the same
+`if (g.rt_prev_valid)` block, so that flag is true and the diff path runs. Proof from the earlier run:
+armed at 22:16:36, then 66,600 frames and 37 summaries with **zero** `holddiag:` lines and **zero
+decrements**. `[measured 2026-09-18]`
+
+Consequence: `d` keeps its initialiser `0.0f` and `holdm::decide` runs on a number it was never given.
+**The flicker measure has never computed anything** - including the 23,400 VR frames on 2026-09-17 that
+`holddiag` was built to explain.
+
+⚠️ **The design flaw worth remembering:** holddiag's print is nested *inside the very `Map()` it exists
+to test*, so its four verdicts can never include "the readback could not be mapped" - the one thing that
+was actually happening. A diagnostic must be able to report the failure of the thing it is diagnosing.
+
+One unverified suspect: the read range is `RowPitch * kDiffH` = 3072 bytes while `GetCopyableFootprints`
+sizes the buffer at 2880 - a range past the end of the resource. `[hypothesis]`
+
+### 9ao. UNDER `framev 2`, `framevneg 1` IS THE RIGHT WAY UP (2026-09-18, home PC, flat, SETTLED)
+
+SS 9ag proved the two settings are exact opposites but could not say which was upright, because nothing
+readable chose between them. Judged live against a working picture, aiming at the same scene without
+moving between captures:
+
+- **`framev 1` (the shipped baseline)** and **`framev 2` + `framevneg 1`** are **the same way up** -
+  same roof slope, same sky, same foliage, same layout.
+- **`framev 2` + `framevneg 0`** is the vertical mirror of both - **upside down.**
+
+**So `framevneg 1` is the correct default under `framev 2`, and the row closes.** Evidence:
+`07-framev1-baseline.png`, `08-framev2-framevneg0-UPSIDE-DOWN.png`,
+`09-framev2-framevneg1-CORRECT.png`. `[verified-live 2026-09-18, n=1]`
+
+⚠️ Note this was judged with `frame_vneg` **forced**; the shipped default is `-1` (auto, following
+`glass_flip_v`). Whether auto lands on 1 in every configuration was not tested.
+
+### 9ap. THE `DERIVATION error` WARNING IS INDEPENDENT OF ALL OF THIS (2026-09-18)
+
+`crop-follow: the plugin's pane normal is N deg from the Lua's ... it is a DERIVATION error ... do not
+tune, fix` fired four times on **2026-09-17 in VR while the picture was working** (3.0, 4.6, 4.3, 4.2
+deg) and once today at 7.3 deg. Same pre-existing discrepancy, larger. **A real defect with its own row,
+not a lead on the blackness.** `[measured 2026-09-18, n=5 firings across 2 sessions]`
+
+
 Credit: **praydog** (REFramework).
