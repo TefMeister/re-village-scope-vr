@@ -1887,4 +1887,40 @@ wrong.** Three facts already in this dossier, never put together:
 - Deployed (DLL + `pane.lua`, `.bak-2026-09-18e`) and re-stamped, 28 files. **Fourteen** plugin and
   nine producer suites pass. **NOT RUN.**
 
+### 9aj. THE ONE SECOND OF STOCK GLASS ON A SWITCH BACK WAS A BLIND TIMER, NEVER A MEASUREMENT (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+- **The symptom.** Take the sniper rifle out again after putting it away and the scope shows
+  Capcom's dark glass with the orange reticle for about a second before ours appears
+  `[reported 2026-09-14, n=1 wearer; screenshot]`. The switch-*away* flash was already fixed by
+  `swdelay 1500` `[verified-live 2026-09-17, n=11]`; this is the way back in.
+- **The cause, read from `world_tick.cpp`.** The re-bind was scheduled blindly at a hard-coded
+  `{ 1000, 5000 }` ms after the rifle returned — two presses, the pattern copied from what
+  `bringup` needed `[inferred-static 2026-09-18]`.
+- ⚠️ **The useful lesson is not that 1000 was too big, it is that 1000 was never compared with
+  anything.** Nothing has ever logged when the bind would actually have succeeded, so shrinking the
+  number would swap one guess for a smaller guess — and a press that lands too early fails
+  silently, leaving stock glass up until the +5 s press, four seconds worse than the original
+  complaint. **A blind timer with a safety net behind it hides its own error, in both directions.**
+- **It was also wrong the other way.** Since the 2026-09-16 deferred restore, switching away and
+  straight back leaves our glass never taken off — and the old schedule still fired both presses,
+  each of which restores the stock texture and re-binds for nothing.
+- **Now:** press on the very next tick and keep pressing every ~150 ms until the bind takes or 6 s
+  pass, then log the milliseconds and the press count it really needed. The decision is a pure
+  function in `src/auto_rebind.h` (same shape as `rebuild_gate.h`); the four numbers are named in
+  `rsv.h` as `kAutoRebindFirstMs` / `RetryMs` / `GiveUpMs` / `MaxTries`.
+- **Why retrying is safe** (read in `glass_bind.cpp` this session): `bind_scope_glass()` refuses
+  outright without the holder, the rifle or the mesh and binds **nothing** when it refuses, so a
+  failed attempt costs a log line and leaves `glass_has_binds()` false; it opens with
+  `restore_scope_glass()`, so overwrites never stack; and it only ever touches the equipped rifle's
+  own mesh with every original saved first `[inferred-static 2026-09-18]`.
+- `[compile-verified 2026-09-18]` builds clean; deployed on the dev PC (sha256 `d883b41990035d99…`,
+  235,520 bytes), previous build kept as `.bak-2026-09-18f`.
+  `[verified-numerically 2026-09-18]` `auto_rebind_test` **45/45**, proved able to fail on **nine**
+  mutants of the shipped header, all nine caught, restored and re-run at 45/45.
+- ⚠️ **`[hypothesis]` that the glass is bindable sooner at all.** That is what the instrument is
+  for. **NOT RUN.** The check: switch away and back, and read
+  `auto re-bind: the glass took after N ms, K press(es)`. N well under 1000 answers the row; N near
+  1000 means the delay is not the timer and the refusals logged above it say which precondition is
+  holding it.
+
 Credit: **praydog** (REFramework).
