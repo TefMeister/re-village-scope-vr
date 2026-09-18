@@ -1661,4 +1661,73 @@ Builds the instrument for §9aa's zero-measure row; supersedes nothing and settl
   four verdicts are what it *can* say, not what it *will*. One flat launch: `bringup`, `hold 1`,
   `holddiag 120`, then read the `holddiag:` lines.
 
+### 9ae. ⭐⭐ A SETTINGS SAVE WAS WRITING LIVE HARNESS OVERRIDES AS THE NEXT LAUNCH'S DEFAULTS (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Note: `modding-notes/2026-09-18d-a-settings-save-was-quietly-promoting-live-experiments-to-defaults.md`.
+
+**Two kinds of thing move a knob here, and `save_settings()` could not tell them apart.** The numpad
+(and the VR panel's numpad buttons, which feed the same handler) is *durable tuning* and is supposed
+to be written to `re_scope_vr_settings.txt`. A harness word in `re_scope_cmd.txt` — `framev 2`,
+`rbfb 1`, `hold 1` — is a *session experiment*, and every one of them ships with a "not commanded"
+sentinel exactly so the settings value stands when nobody is experimenting. The save wrote every
+knob's **live** value, so any numpad press captured whatever the harness was holding and made it the
+default. Pressing `7` while `framev 2` was up wrote `frame_v=2`; caught and reverted by hand
+`[verified-live 2026-09-17, n=1]`.
+
+- ⚠️ **The failure mode is silence, not breakage.** The knob is already at that value, so nothing
+  changes in the session that could catch it; the cost lands on the next launch with no harness word
+  in sight. It is the direct inverse of the same week's `sw_delay` trap (a verified fix that was
+  *not* made a default and so was silently absent on one machine). Both are the same question asked
+  badly: what is a default, and what is a dial someone is holding?
+- **The rule now: a key the harness can command persists the value it BOOTED with.** Decided per key
+  per save, read fresh from the pane file each poll — the producer republishes every key every cycle
+  and writes the sentinel when no word is in force, so nothing is remembered across a save and no
+  flag can go stale `[compile-verified 2026-09-18]`.
+- **25 of the 28 harness-reachable persisted keys needed it.** The other three — `crop_mode`,
+  `crop_follow`, `aspect_mode` — were never affected: they got their own `g_lua_*` atomics on
+  2026-09-06 and are merged at the point of use. That is the older, heavier form of the same idea.
+- **A harness word can no longer be made permanent at all**, by accident or on purpose. To keep one,
+  edit `re_scope_vr_settings.txt` by hand, which is what `RTX` already did for `sw_delay`. Deliberate
+  trade: silence was the defect.
+- **The save now logs one line naming every knob whose live value it declined**, what it kept and what
+  was on the dial.
+- **`geom_vflip` joined the settings file in the same change:** `load_settings()` had always parsed it
+  and `save_settings()` had never written it, so a hand-edited line was deleted by the next numpad
+  press. `hold_diag` stays load-only on purpose — it is a countdown.
+- `bootv::persist_value` is pure, so `tools/boot_values_test.cpp` compiles the shipped logic:
+  **152/152**, four of its nine sections re-deriving the registry from `config.cpp` and
+  `pane_file.cpp` as text `[verified-numerically 2026-09-18]`.
+- ⚠️ **THE MUTATION RUN FOUND A HOLE IN THE TEST, AND THAT IS THE DURABLE LESSON.** Five deliberate
+  breaks; four caught. The fifth — gutting the one call that marks a key as commanded — **passed all
+  148 checks with the bug fully restored**. Every check verified a table or a formula and none
+  verified the join between them, while reading as thorough. Check 9 covers it and all five mutants
+  now fail. **A pure-logic suite around a wiring change tests the ends, not the join.**
+- **All twelve plugin suites and all nine producer suites pass.** Deployed and stamped (28 files).
+  ⚠️ **NOT RUN.** One flat launch says it: set a harness word, press a numpad key, read the settings
+  file for the decline line.
+
+### 9af. THE VR PANEL CAN SEND HARNESS WORDS, SO A TEST NEED NOT LEAVE THE HEADSET (2026-09-18, `/pd`, dev PC — STATIC ONLY)
+
+The panel spoke only numpad virtual-key codes, so every harness word meant leaving Virtual Desktop,
+typing at the desktop and coming back — per knob, mid-test. 21 buttons now write the word straight
+into `re_scope_cmd.txt`.
+
+- ⚠️ **The harness consumes that file by writing it EMPTY, not by deleting it**, so "already taken"
+  is an *empty read*. The existing key queue's missing-file test is correct for *its* file and would
+  be wrong here — it would overwrite queued words and lose them unseen `[inferred-static 2026-09-18]`.
+- The harness applies **every** line it finds, so several clicks in one poll window travel together
+  and all run. `hold 1` then `holddiag 120` is the intended pair.
+- `scripts/tests/panel_words_test.lua` **132/132**, reading the harness's own dispatch rather than a
+  kept list: every button's word must be one the harness knows, a word needing a value must be given
+  one, no two buttons may share a label (imgui keys on the label, so a duplicate silently stops
+  responding), and the flush must be called and must guard on a non-empty read. Proved able to fail
+  on all five `[verified-numerically 2026-09-18]`.
+- The panel says on screen that a word is a session experiment and will not be saved — §9ae made
+  visible where someone would otherwise be surprised by it.
+- **Keeping the log across launches** (same session, cheap): REFramework empties
+  `re2_framework_log.txt` at every start and the 2026-09-17 session lost two of three logs.
+  `mod/helpers/KEEP-LOG.bat` copies it aside with a timestamp; `mod/helpers/LAUNCH-VILLAGE.bat` calls
+  it and then starts the game through Steam. Tested on a fake log in a scratch folder, exit 0
+  `[verified-numerically 2026-09-18, n=1]`; the launcher itself was **not** run.
+
 Credit: **praydog** (REFramework).

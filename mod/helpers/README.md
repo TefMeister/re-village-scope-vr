@@ -56,3 +56,33 @@ twice (2026-09-17 morning and evening); both times reading the written file back
 `echo hold 1> file` does not do what it looks like: `cmd` reads `1>` as "redirect stream 1",
 so the file gets `hold` and the `1` is lost. Every file here puts the redirect first
 instead — `>"file" ( echo hold 1 )` — which has no such ambiguity.
+
+## Keeping the log (2026-09-18)
+
+REFramework **empties** `re2_framework_log.txt` every time the game starts. On 2026-09-17 a session
+made three launches and the two that mattered were gone by the end — their lines survive only as
+something typed out by hand.
+
+| file | what it does |
+| --- | --- |
+| `KEEP-LOG.bat` | copies the log to `reframework\logs\re2_framework_log-<date>_<time>.txt`. Nothing is ever deleted; the copies are small. |
+| `LAUNCH-VILLAGE.bat` | runs `KEEP-LOG.bat`, then starts the game through Steam. Use this shortcut instead of the Steam one and nobody has to remember. |
+
+Click `KEEP-LOG.bat` **after closing the game and before starting it again**. Clicking it while the
+game runs saves the log so far, which is also fine.
+
+Both live in the game folder, beside `re2_framework_log.txt`. Tested on a fake log in a scratch
+folder `[verified-numerically 2026-09-18, n=1]`; `LAUNCH-VILLAGE.bat` itself has never been run,
+because the session that wrote it does not launch games.
+
+## Most of these have buttons now (2026-09-18)
+
+The VR tuning panel can send harness words directly — `bringup`, `rerig`, `bind`, `hold 0|1|2`,
+`holddiag 120`, `holdt`, `src8`, `rbfb`, `framev`, `bodyprobe`, `bodyhide`, `spreadprobe`, `status`.
+So a test no longer needs a trip out to the desktop per knob. These files stay useful for anything
+the panel does not carry, and for a hand that is already on the mouse.
+
+⚠️ **A harness word is a SESSION experiment.** Since 2026-09-18 a numpad press or a panel click no
+longer writes one into `re_scope_vr_settings.txt` as the next launch's default — it used to, and on
+2026-09-17 that turned `framev 2` into a boot value nobody had chosen. To make a word permanent, put
+the line in the settings file yourself.
