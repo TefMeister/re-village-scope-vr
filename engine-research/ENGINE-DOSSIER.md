@@ -1836,4 +1836,55 @@ DLL; nothing on disk in the game folder contains it, and the Lua that is there o
 - Deployed (`.bak-2026-09-18d`) and re-stamped, 28 files. Thirteen plugin and nine producer suites
   pass. **NOT RUN.**
 
+### 9ai. ⭐⭐ NOTHING CLIPS THE MIRROR — THE VIEWPOINT GOES UNDER THE GROUND, AND `off_u` DRIVES IT AT 2x (2026-09-18, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Note: `modding-notes/2026-09-18g-nothing-clips-the-mirror-the-viewpoint-goes-under-the-ground.md`.
+
+The row was filed as *"what CLIPS the mirror, for the ground when crouched"*. **The premise is
+wrong.** Three facts already in this dossier, never put together:
+
+1. the scope's picture is an **engine planar reflection** off a `via.render.Mirror`, so it is
+   rendered from the camera **mirrored across the pane** — not from the rifle;
+2. the worn pane's normal is the rifle's up/down axis, `(-0.0000, -1.0000, 0.0000)` in the rifle
+   frame, i.e. the plane is **horizontal** `[verified-numerically 2026-09-16, prop_offset_check]`;
+3. of the three prop offsets **only `off_u` moves that plane** — `off_f`/`off_r` slide the pane
+   within its own plane and a planar mirror depends only on its plane `[verified-numerically
+   2026-09-16, same tool]`.
+
+- ⭐ **THE LEVER.** Reflecting across a plane moved by *d* along its normal moves the reflected point
+  by **2d**. So **every centimetre `off_u` lowers the pane costs two centimetres of viewpoint
+  height**, and the parked `off_u = -0.2` drops the eye the picture is taken from by **0.40 m**
+  `[verified-numerically 2026-09-18]`. Walked over the wearer's scenario: standing with no offset
+  leaves 0.80 m of clearance, the offset halves it, crouching spends most of the rest, and **crouched
+  with the offset leaves 0.10 m** — the picture taken from ankle height, with another 0.1 m of pane
+  putting it through the floor.
+- ⚠️ **THIS IS WHY "no prop height is clean".** `off_u` has been used as a framing knob and is not
+  one: it is the **only** offset that moves the viewpoint, at 2x gain, while the two that are safe to
+  frame with cannot move it at all. Every framing attempt with `off_u` walked the viewpoint towards
+  the floor. That reframes the knob rather than tuning it.
+- **The floor is now published and reported.** The producer sends the player's own root Y (`foot_y`)
+  through the pane file, reached by the same `re8vr.player` handle `body.lua` uses; the plugin reads
+  it and the crop-follow block prints where the picture is taken from, the floor, the margin, the
+  lever, and the `off_u` change that would leave 0.50 m of clearance.
+- `mirror_ground.h` is pure, so **mirror_ground_test 28/28, proved able to fail on seven mutants**
+  `[verified-numerically 2026-09-18]` — both factors of two, a degenerate normal, the edge-on plane,
+  and each of the three wiring joins. ⚠️ §6 of that test exists because §§1-5 are arithmetic and would
+  all keep passing with the floor never published, parsed or printed — the same reason `frame_v2_test`
+  §7 and `jitter_test` §7 exist.
+- ⚠️ **REPORTED, NEVER ENFORCED. No clamp was added.** That the wearer's "half under the ground" IS a
+  sunken viewpoint rather than a clip is `[hypothesis]` — strongly supported by the geometry,
+  unobserved. **Clamping a knob on a hypothesis is how a knob becomes a mystery**, and this project
+  has two of those already. **The discriminator is free:** a CLIP shows a hard cut with correct
+  content above it; a SUNKEN VIEWPOINT shows the underside of the terrain with the horizon moving the
+  wrong way as you look around — and the `ground:` line gives the margin as a number, negative being
+  underground.
+- ⚠️ Also not established: the illustrative standing/crouched heights. The **lever** is exact and
+  comes from the shipped reflection; the 0.80 / 0.10 figures assume plausible body heights and are
+  replaced by real ones the moment the line prints.
+- **NEXT LAUNCH, no extra trip:** scope up, `cropfollow 1`, read the `ground:` line standing and then
+  crouched. A negative margin when crouched answers the row, and the fix is a clamp on `off_u` whose
+  exact size that same line already prints.
+- Deployed (DLL + `pane.lua`, `.bak-2026-09-18e`) and re-stamped, 28 files. **Fourteen** plugin and
+  nine producer suites pass. **NOT RUN.**
+
 Credit: **praydog** (REFramework).
