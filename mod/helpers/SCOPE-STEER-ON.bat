@@ -17,7 +17,10 @@ if not errorlevel 1 (
   exit /b 1
 )
 
-set "SRC=D:\RE2 REFramework builds\dinput8_pd-upscaler_76298bd_mirror-steering_2026-09-19_NOT-YET-TESTED.dll"
+rem  Points at the build that also carries SHOUT mode (2026-09-19) - the diagnostic that
+rem  answers whether this projection reaches the scope picture at all. Steering itself is
+rem  unchanged; the previous build is still on disk under its own name if it is ever wanted.
+set "SRC=D:\RE2 REFramework builds\dinput8_pd-upscaler_76298bd_mirror-steering-plus-shout_2026-09-19_NOT-YET-TESTED.dll"
 set "DST=%~dp0dinput8.dll"
 set "BAK=%~dp0Backup\scope-2026-09-19-pre-steering"
 

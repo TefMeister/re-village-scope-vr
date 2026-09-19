@@ -2265,6 +2265,60 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9au. ⭐⭐⭐ THE PROJECTION WRITTEN AT THAT HOOK DOES NOT REACH THE SCOPE PICTURE — AND THE SMEAR IS IN BOTH EYES (2026-09-19, home PC, LIVE, wearer present)
+
+**Supersedes: ENGINE-DOSSIER.md §9at (its "the hook is the right lever" claim only)** — and puts the
+**premise of §9aq** in question. Neither section's arithmetic is withdrawn; what is withdrawn is
+confidence about what the arithmetic is *about*.
+
+- ⚠️ **The steer was driven to yaw −28.51° / pitch −24.30° — writing `m20` −0.1736 → **+0.5349** and
+  `m21` −0.2111 → **+0.5280**, 56,400 times — and the wearer reported the picture did not change.**
+  *"manual steer did nothing to the picture"* `[verified-live 2026-09-19, n=1]`. That is most of a
+  frame-width of off-centre shift. **The hook fires inside a genuinely mirror-bearing scene layer,
+  and what it returns is not what the scope draws with.**
+- ⚠️ **Not a sign problem.** `VR_MirrorSteerInvert` flips *which way* the frame would move; it cannot
+  turn no movement into movement. §9at's warning about the sign is still true and is now beside the
+  point.
+- ⭐ **CORROBORATION THAT WAS ALREADY ON DISK, UNREAD:** the 2026-09-12 build is named
+  `…mirror-exemption_2026-09-12_TESTED-swing-unchanged-double-eye.dll`. **That patch wrote the same
+  getter inside the same window, also fired, and also changed nothing.** Two attempts, two months
+  apart, same site, same null result — a pattern that was visible before today's build was made.
+- **Two candidates, not separated by this session:** (a) the mirror renders from a projection
+  captured elsewhere and already baked by the time the layer draws, so this getter is observational
+  for that pass; (b) the calls caught inside the window belong to some other consumer. Both
+  `[hypothesis]`. Counters: `Mirror layer windows=1200 get_ProjectionMatrix calls inside=600
+  get_ViewMatrix calls inside=600`, camera is `MainCamera` and `camera_is_primary=true`.
+- ⚠️ **THE SMEAR IS IN BOTH EYES** — *"smear happens with both eyes"*, seen when first looking in and
+  turning far left and far right `[reported 2026-09-19, n=1 wearer]`. §9aq §3 predicted a ~10° band
+  where **one eye smears and the other is clean**. **That band was not observed.** §9aq itself said a
+  `no` here "is a real problem for it"; it is recorded as one. The band is narrow and n=1, so this is
+  not a controlled sweep — but it is the second independent result of the day pointing the same way,
+  and the first is not subtle.
+- ⭐⭐ **THEREFORE §9aq's PREMISE IS IN QUESTION.** Its argument begins from *"the mirror is drawn at the
+  HMD eye's field of view, 90.88°"*, read from **this same getter** `[verified-live 2026-09-12, n=1]`.
+  If the mirror does not render with what this getter returns, then that 90.88° describes something
+  other than the scope's picture, and the crop-clamp onsets (+38.71° / −49.09°), the sharpness table
+  and the match to the measured 20–44° bore range all lose their foundation. **The arithmetic was
+  never wrong; what it is arithmetic about is now unclear.** The 20–44° match remains striking and is
+  no longer evidence.
+- **The decisive test is built and waiting: SHOUT mode** (`VR_MirrorProjectionShout`), which halves
+  `m00`/`m11` inside the mirror window and so **doubles the drawn field of view**. Picture visibly
+  pulls back → the projection is ours and the failure is narrower (probably the crop); picture
+  unchanged → the projection is not ours and this whole approach moves elsewhere. Compile-verified,
+  staged as `…mirror-steering-plus-shout_2026-09-19_NOT-YET-TESTED.dll`. ⚠️ Diagnostic only, never
+  ship it on.
+- **Unrelated but measured the same evening:** the 35 s bring-up is **59 ms of work** (`bringup:
+  START` 22:59:35.518 → mirror component created 22:59:35.577) followed by **28 s of waiting** while
+  the harness presses `bind` three times at +8 s, +13 s and +28 s, because one press does not
+  reliably take `[measured 2026-09-19, n=1]`. Making it check whether the bind took, instead of
+  waiting out the worst case every launch, would make a good bring-up effectively instant.
+  ⚠️ Not attempted — and the same log shows a bind reporting *"no stable identity for the bound
+  texture — the bind-order guard is DISABLED this session"*, which is the very signal that would have
+  to be made trustworthy first.
+- Field note: `modding-notes/2026-09-19d-the-steering-writes-the-numbers-and-the-picture-ignores-them.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
+
 ### 9at. THE STEERING FROM §9aq IS WRITTEN AND BUILDS — WHAT IS LEFT IS A FLAT SWEEP, AND THE SIGN IS STILL A GUESS (2026-09-19, home PC — STATIC + A BUILD, THE GAME WAS NOT LAUNCHED)
 
 Carries out step 1 of `owed/HOME/2026-09-19-re-village-scope-steer-the-mirror-projection…`. **Does
