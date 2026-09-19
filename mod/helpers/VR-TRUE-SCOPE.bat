@@ -48,8 +48,12 @@ if not exist "%~dp0reframework\data" (
 echo.
 echo   Setting up the scope.
 echo.
-echo   THE PICTURE USUALLY APPEARS IN UNDER A SECOND. You do not have to wait for
-echo   this window to finish - look through the scope as soon as it is there.
+echo   THE PICTURE USUALLY APPEARS IN UNDER A SECOND - look through the scope as
+echo   soon as it is there, no need to watch this window.
+echo.
+echo   BUT DO NOT CLOSE THIS WINDOW. The last step, which aims the picture at your
+echo   eye, is written at the very end. Close it early and the scope shows Ethan's
+echo   clothes and the ground, because the viewpoint stays below your head.
 echo.
 
 echo   [1/4] choosing the 2560x1440 mirror target...
