@@ -37,7 +37,7 @@ the 2026-09-04 inbox-drain entry.
      (*Mirror Uses Original Camera Pose (plan C)*) with live counters, so it can be turned off in
      the headset without a rebuild.
 
-- **`mirror-steering.patch`** — added 2026-09-19 (home PC). Applies **on top of**
+- **`mirror-steering.patch`** — added 2026-09-19 (home PC). ⚠️ **`[disproved 2026-09-19]` THE SAME EVENING — do not build on this.** The SHOUT diagnostic shipped in it halved the drawn field of view inside the mirror window and the wearer saw **no change at all**, so the projection this patch writes is not what the scope picture is drawn with. Kept because it is the evidence for that finding and because SHOUT is a reusable way to ask the same question of any future candidate site. Dossier §9av; note `modding-notes/2026-09-19e-disproved-that-hook-does-not-draw-the-scope.md`. ⚠️ Never ship SHOUT on. Applies **on top of**
   `mirror-exemption-v2.patch`, same file, same hook site. Gives the mirror pass a **steered**
   projection instead of the eye projection it is handed today: `m00`/`m11` (how wide the frame is)
   are left exactly as they are, and only the off-centre terms `m20`/`m21` are written, so the cone

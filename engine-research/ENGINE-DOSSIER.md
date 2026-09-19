@@ -2152,6 +2152,11 @@ not a lead on the blackness.** `[measured 2026-09-18, n=5 firings across 2 sessi
 
 ### 9aq. ⭐⭐⭐ THE SMEAR IS THE CROP RUNNING OFF A FRAME DRAWN AT THE **EYE'S** FIELD OF VIEW — AND EXEMPTING THE PASS WOULD MAKE IT WORSE (2026-09-19, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
 
+> ⚠️ **READ §9av FIRST. THIS SECTION'S PREMISE IS `[disproved 2026-09-19]`.** The 90.88° below was
+> read from a getter that has since been shown **not** to draw the scope picture, so the clamp
+> onsets, the sharpness table and the one-eye band are arithmetic about the wrong matrix. The
+> arithmetic itself is not withdrawn and its tool still passes 20/20 — what it is about is.
+
 Answers the board's ⭐⭐⭐ `[PD]` row, which asked whether the mirror's field of view is ours to
 widen before anything was built. **It is ours** — through the same getter the 2026-09-12 patch
 already intercepts (§9l) — **but widening is the wrong fix, and the obvious cheap alternative is
@@ -2264,6 +2269,54 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
 - **Not withdrawn:** §9f (its disproof is of pane steering as a way to *decouple* from the head — this
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
+
+### 9av. ⭐⭐⭐ DISPROVED — THAT HOOK DOES NOT DRAW THE SCOPE PICTURE, AND §9aq's PREMISE GOES WITH IT (2026-09-19, home PC, LIVE, wearer present)
+
+**Supersedes: ENGINE-DOSSIER.md §9aq (its premise, not its arithmetic), §9at (entirely), §9au (which
+suspected this and now has its answer).**
+
+**The test.** `VR_MirrorProjectionShout` halves `m00`/`m11` inside the mirror window, doubling the
+drawn field of view — a change impossible to miss if that projection drew the picture. Tefa, having
+toggled it on and off: **"no change, picture looks the same with it on and off."**
+
+**It was a fair test** `[verified-live 2026-09-19, n=1]`: the scope was live (`mirror=1 src_w=2560`),
+the source was the real 2560×1448 raw-HDR target, the toggle genuinely moved (`m00` 0.4924 → 0.9848
+→ 0.4924), and the hook was firing (42,600+ writes logged).
+
+⇒ **`VR::on_camera_get_projection_matrix`, inside the mirror window, is called — and what it returns
+is not what the scope picture is drawn with.** `[disproved 2026-09-19]`
+
+**What falls:**
+
+- **§9aq fix (1b) / §9at, the steering**, built the same day. Dead at this site.
+- **§9l's exemption as a lever.** Same site, same window. Its 2026-09-12 build has carried
+  `TESTED-swing-unchanged` in its own filename ever since — the same null result, unrecognised for
+  two weeks.
+- ⚠️ **§9aq's PREMISE.** *"The mirror is drawn at the HMD eye's field of view, 90.88°"* was read from
+  **this getter** `[verified-live 2026-09-12, n=1]`, which is now known not to govern the picture. The
+  clamp onsets (+38.71° / −49.09°), the sharpness table and the one-eye band were arithmetic about
+  the wrong matrix. The band was independently **not observed** (both eyes smear, 2026-09-19), which
+  agrees.
+
+⭐ **§9aq's ARITHMETIC IS NOT WITHDRAWN and `mirror_fov_check.cpp` still passes 20/20.** It was correct
+reasoning about a matrix that does not drive the picture. Worth keeping: **20 passing numerical checks
+bought no protection here**, because the maths was never the weak part — the premise was, and nothing
+in the tool could see it.
+
+**What is still open:**
+
+- **The smear is unexplained again.** Real, repeatedly reported, cause unknown.
+- **The plugin has the right texture** (`src_w=2560`, the game's own mirror render). What sets
+  *that* pass's projection is the new question — `via.render.Mirror`'s own fields, the scene layer's
+  camera, or something set before the layer draws. **Static work, no game needed.**
+- ⚠️ **A crop-side fix can only soften the failure, not remove it.** Past some bore angle the wanted
+  content **was never rendered**, and no crop can invent it. §9aq's fix (2) (graceful clamping) is the
+  realistic ceiling until the real projection lever is found.
+- **SHOUT is kept as a reusable instrument**: it asks "does this projection reach that picture?" of
+  any future candidate site, and answers in one tick. ⚠️ Never ship it on.
+- Field note: `modding-notes/2026-09-19e-disproved-that-hook-does-not-draw-the-scope.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
 
 ### 9au. ⭐⭐⭐ THE PROJECTION WRITTEN AT THAT HOOK DOES NOT REACH THE SCOPE PICTURE — AND THE SMEAR IS IN BOTH EYES (2026-09-19, home PC, LIVE, wearer present)
 
