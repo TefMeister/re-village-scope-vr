@@ -46,7 +46,10 @@ if not exist "%~dp0reframework\data" (
 )
 
 echo.
-echo   Setting up the scope. Do not touch anything for about 50 seconds.
+echo   Setting up the scope.
+echo.
+echo   THE PICTURE USUALLY APPEARS IN UNDER A SECOND. You do not have to wait for
+echo   this window to finish - look through the scope as soon as it is there.
 echo.
 
 echo   [1/4] choosing the 2560x1440 mirror target...
@@ -62,7 +65,14 @@ rem    only because the plugin polls this key globally rather than by window mes
 rem    Now in its own file, found by PROCESS rather than by title. 2026-09-19.
 timeout /t 3 /nobreak >nul 2>&1
 
-echo   [3/4] building the scope -- this is the slow bit, about 35 seconds...
+echo   [3/4] building the scope...
+echo         Measured cold on 2026-09-19: the rig and the picture are live 61 ms
+echo         after this point. The long wait that follows is NOT the scope being
+echo         built - it is the harness re-pressing 'bind' at +5 s and +20 s in case
+echo         the first press did not take, and this script sitting out the worst
+echo         case before it writes the pane pose. Left alone deliberately: whether
+echo         the pose can safely be written earlier is untested, and the ordering
+echo         against those re-presses is not understood yet.
 echo bringup> "%CMD%"
 timeout /t 45 /nobreak >nul 2>&1
 
@@ -74,7 +84,7 @@ echo   [4/4] laying the mirror along your line of sight...
 >> "%CMD%" echo propr 0.20
 
 echo.
-echo   Done. Look through the scope.
+echo   Done. (The picture was almost certainly ready long before this line.)
 echo.
 echo   If the picture is the inside of the scope tube (brown and gold streaks),
 echo   send a bigger propr -- try 0.25 or 0.30.
