@@ -36,7 +36,7 @@ stills): `dev-archive/recon/2026-09-13-exact-map-first-wear/`. Dossier §9x.
   bottom AND the lantern on the other side of the door. The log agrees in its own terms: `exact-roll` read
   **174–180°** the whole time the rifle was held level (the rotation the sampler would need, measured against
   the flat baseline), stretch ~1.3, skew ~0. So the map is internally consistent and **180° off reality** —
-  one sign convention in H (either the v direction of the render or `hmirror`) is wrong. `[inferred, n=1]`
+  one sign convention in H (either the v direction of the render or `hmirror`) is wrong. `[inferred-static 2026-09-13]` (from one log, n=1)
 - **The map's centre sat at u ≈ 1.00–1.03** (the right-hand edge of the render) while aiming straight ahead.
   Half of every sample was therefore off the edge of the render — **that is the "glitchy trail that follows my
   head"** (`-142734.jpg` indoors, the smeared lower half): the sampler clamps and smears the edge pixels.

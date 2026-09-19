@@ -99,7 +99,7 @@ off + glass binds. Left on the board: the slight shake (jitter) and the one-fram
   +152, −173; zero 13/6.5 (new spot, slightly farther) → +60, −75. So `zeroup` moves the hole
   ~25 px/deg in the right direction; `zeroright` 3° barely moved it (+12 px) — unexplained.
   Setting at write-up: **13 up / 6.5 right** ("better"). The bullets fly ~13–16° above and ~6–9° right
-  of the muzzle joint's axis `[inferred from the above]` — why is open (Fable).
+  of the muzzle joint's axis `[inferred-static 2026-09-13]` (from the reasoning above) — why is open (Fable).
 - Tefa ran out of bullets and **reloaded a save**. After it: `rig pose: no transform` every ~8 s (the
   old hand died with the scene), `fn destroy_rig` + `bringup` rebuilt it, the heartbeat rode the rifle,
   mirror still latched at 1920 wide, the same Lua holder reused (no `rig rebuild #2` line). But the
