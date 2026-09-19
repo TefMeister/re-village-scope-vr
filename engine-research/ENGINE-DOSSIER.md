@@ -2270,6 +2270,51 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ay. ⭐⭐⭐ THE WEARER FOUND IT: THE STREAK FOLLOWS THE HEAD, AND CLIPS ON TWO SIDES ONLY (2026-09-20, LIVE, wearer present)
+
+Tefa, unprompted, after trying every direction: *"it's not about the weapon being raised … it's about
+my headset being lowered while looking at the scope … they appear top of the scope and right of the
+scope, but i could not produce them at all at the bottom … and on the left side."*
+
+- ⭐⭐⭐ **THE HEAD IS THE VARIABLE, NOT THE RIFLE.** The crop centre is computed **in the camera's
+  frame** (`sg_compute_P` reflects the bore, then rotates by the inverse of the eye's rotation), so
+  head rotation moves the crop as directly as rifle movement — and further, and faster. The code's
+  own comment said the limit all along (*"the mirror can only show what the (reflected) head camera
+  sees"*); nobody had connected it to the symptom. **A wearer derived it from the outside.**
+  `[reported 2026-09-20, n=1 wearer]`
+- ⚠️ **THIS VOIDS THE A/B TEST DESIGN.** Both scripts asked for the RIFLE to be raised. The rifle was
+  never the variable, so *"C produced the same result"* is not a result about C — the test could not
+  have separated them.
+- ⭐⭐⭐ **TOP AND RIGHT ONLY — AND THE LOG AGREES EXACTLY.** Sampled the same session:
+  `(0.789,-0.077) (1.055,-0.073) (1.238,0.141) (2.699,7.442) (1.848,3.492)`. Valid is 0..1 in both.
+  **`v` goes NEGATIVE (off the top) and `u` above 1 (off the right); neither `v>1` (bottom) nor `u<0`
+  (left) appears at all** `[measured 2026-09-20, n=1 launch]`. That is the wearer's report in numbers,
+  from the other side — and it is what §9ax predicted from the resting place being **up and to the
+  right**: almost no room on those two sides, plenty on the other two. **Two independent
+  confirmations in one evening**, neither told the other's answer.
+- **The map goes fully degenerate, not merely off-centre:** `(2.699, 7.442)` with `stretch 12.42
+  skew 78`. That is why it reads as dragged lines rather than a mis-aimed picture — a clamped crop
+  with a collapsed homography stretching a sliver across the lens.
+- ⚠️ **§9ax's suggested fix is NOT supported.** `geom_usep 0` (drop the eye-projection term) was applied
+  live at 00:30:11 and the centres after it are **wilder**, not tamer, than before
+  `[measured 2026-09-20, n=1]`. Recorded as a disappointment rather than dropped quietly: it was the
+  suggestion of the section above and it looks wrong.
+- ⚠️ **THE WEAPON FIRED ITSELF during START-SCOPE step 2** (the re-arm keypress, which stole focus
+  before sending). Focus removed — and it was never needed: on 2026-09-19 the key landed with the
+  window lookup having failed outright, because the plugin polls it globally (`polled key 0x6E (VR
+  route)`) `[verified-live 2026-09-19, n=1]`.
+- ⭐ **WHERE THE EFFORT GOES NOW — Tefa's call:** *"can we not try and get the scope shooting right and
+  pointing at the right thing?"* Concrete suspect: the zero (`zeroup 14.4` / `zeroright 9.5`,
+  `re8_scope_harness.lua:697`) was measured **2026-09-13** `[verified-live 2026-09-13, n=1 wearer, one
+  spot]` — **under the pane pose §9ar replaced on 2026-09-18**, which moved the mirror viewpoint from
+  ~0.9 m below the head to exactly at the eye. **A zero calibrated before that change has no reason to
+  hold after it**, and "aimed lower and to the left" is the shape of error it would leave.
+  `[hypothesis]` Tools shipped: `ZERO-A-OFF`, `ZERO-B-SHIPPED`, four 2° nudges, and
+  `READ-ME-ZEROING.txt` written to the numbered-steps rules.
+- Field note: `modding-notes/2026-09-20b-the-wearer-found-it-its-the-head-not-the-rifle.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
+
 ### 9ax. ⭐⭐⭐ NO 12° MYSTERY — THE CROP RESTS HALFWAY TO THE TOP EDGE, AND RUNS OFF AFTER 21° (2026-09-20, static)
 
 **Supersedes: ENGINE-DOSSIER.md §9aw (its "~12° unexplained" only),** and the same claim in
