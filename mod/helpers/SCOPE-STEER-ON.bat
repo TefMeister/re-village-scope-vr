@@ -28,6 +28,12 @@ if not exist "%SRC%" (
   exit /b 1
 )
 
+if not exist "%~dp0scope-steer-config.ps1" (
+  echo   Cannot find scope-steer-config.ps1 next to this script.
+  pause
+  exit /b 1
+)
+
 if not exist "%BAK%" mkdir "%BAK%"
 if not exist "%BAK%\dinput8.dll" copy /y "%DST%" "%BAK%\dinput8.dll" >nul
 if not exist "%BAK%\re2_fw_config.txt" copy /y "%~dp0re2_fw_config.txt" "%BAK%\re2_fw_config.txt" >nul
@@ -39,12 +45,15 @@ if errorlevel 1 (
   exit /b 1
 )
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$p='%~dp0re2_fw_config.txt';" ^
-  "$want=@{'VR_SteerMirrorProjection'='true';'VR_MirrorSteerFromPlugin'='false';'VR_MirrorSteerYaw'='0.000000';'VR_MirrorSteerPitch'='0.000000';'VR_MirrorSteerInvert'='false';'VR_SteerMirrorFromNative'='false'};" ^
-  "$lines=Get-Content $p;" ^
-  "foreach($k in $want.Keys){ $hit=$false; $lines=$lines ^| ForEach-Object { if($_ -like ($k+'=*')){ $hit=$true; $k+'='+$want[$k] } else { $_ } }; if(-not $hit){ $lines+=($k+'='+$want[$k]) } };" ^
-  "Set-Content -Path $p -Value $lines -Encoding ASCII"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scope-steer-config.ps1" -ConfigPath "%~dp0re2_fw_config.txt" -Mode on
+if errorlevel 1 (
+  echo.
+  echo   THE SETTING DID NOT GET WRITTEN - see the error above.
+  echo   The new build IS in place, but steering will be OFF until this works.
+  echo.
+  pause
+  exit /b 1
+)
 
 echo.
 echo   STEERING IS ON.
