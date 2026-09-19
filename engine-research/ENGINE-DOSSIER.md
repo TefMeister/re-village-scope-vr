@@ -2150,4 +2150,146 @@ deg) and once today at 7.3 deg. Same pre-existing discrepancy, larger. **A real 
 not a lead on the blackness.** `[measured 2026-09-18, n=5 firings across 2 sessions]`
 
 
+### 9aq. ⭐⭐⭐ THE SMEAR IS THE CROP RUNNING OFF A FRAME DRAWN AT THE **EYE'S** FIELD OF VIEW — AND EXEMPTING THE PASS WOULD MAKE IT WORSE (2026-09-19, `/pd`, dev PC — STATIC ONLY, THE GAME WAS NOT LAUNCHED)
+
+Answers the board's ⭐⭐⭐ `[PD]` row, which asked whether the mirror's field of view is ours to
+widen before anything was built. **It is ours** — through the same getter the 2026-09-12 patch
+already intercepts (§9l) — **but widening is the wrong fix, and the obvious cheap alternative is
+backwards.** Tool: `plugin/tools/mirror_fov_check.cpp`, 20 checks, 0 failed, all four mutants
+caught `[verified-numerically 2026-09-19]`. Built on two projection matrices already measured live
+on 2026-09-12 (§9k, §9l), so it needed no launch.
+
+**1. The two projections, in degrees.** A REFramework/glm perspective matrix carries the half-extents
+in `m00`/`m11` and the off-centre shift in `m20`/`m21`; a point at angle `t` off the camera axis lands
+at `NDC x = m00·tan(t) + m20`.
+
+| | horizontal | vertical | off-centre |
+| --- | --- | --- | --- |
+| **forced** (what the mirror gets today — REFramework's HMD eye projection) | **90.88°** | 81.06° | `x +0.1736`, `y −0.2111` |
+| **native** (what it uses when the pass is exempted) | **59.41°** | 51.32° | symmetric |
+
+The native vertical reproduces the 51.3° recorded in §9l to 0.05°, which is the check that the
+decomposition convention is right rather than assumed.
+
+**2. ⚠️ THE CORRECTION THAT MATTERS: the mirror's own projection is NARROWER, by 15.73° a side.**
+§9l's exemption — built, deployed and proven to fire — restores the native projection. Read as a fix
+for the smear it is **exactly backwards**: it would take the half-width from 45.44° down to 29.71°
+and make the crop clamp far sooner. The exemption remains right for what it was built for (stopping
+a head-pose-dependent projection riding a non-eye view matrix); it is simply not this. `[verified-numerically 2026-09-19]`
+
+**3. Where the crop first clamps — and it is NOT symmetric.** The crop window is small (half-width
+0.0372 NDC across, from `lens_w` 240 px / `zoom` 2.4× / backbuffer 2688×2880), so what clamps is the
+crop *centre* leaving the frame. Solving `|m00·tan(θ) + m20| = 1 − 0.0372`:
+
+- **+38.71°** to one side, **−49.09°** to the other — **10.38° apart, purely because an HMD eye
+  projection is off-centre.**
+- **The board measured the bore 20–44° off the gaze while the smear was being seen.** That range
+  straddles 38.71° exactly. This is the row's hypothesis turned into a number that could have come
+  out wrong and did not.
+- ⭐ **NEW, and never looked for: the second eye has the mirrored shift, so it clamps at +49.09° on
+  the same side — a 10.38° window in which ONE EYE SMEARS AND THE OTHER DOES NOT.** Worth asking the
+  wearer about directly; a stereo mismatch of that kind reads as discomfort long before it is
+  identified as a picture fault. `[hypothesis]` — the arithmetic is exact, that it is noticeable is not.
+
+**4. Fix (1) "draw wider" works, and it is not free.** The same render target then covers more angle,
+so the scope — which magnifies — loses sharpness in proportion:
+
+| hold the bore to | half-width needed | `m00` | sharpness left |
+| --- | --- | --- | --- |
+| 44° | 50.74° | 0.8172 | **83 %** |
+| 50° | 56.49° | 0.6622 | **67 %** |
+| 55° | 61.07° | 0.5526 | **56 %** |
+
+**5. ⭐⭐ Fix (1b), which the row did not consider: STEER the projection instead of widening it.**
+An off-centre shift moves *which* cone is drawn without widening it. Setting `m20 = −m00·tan(θ_bore)`
+puts the bore at NDC 0.000000 at 0°, 20°, 44° and 60° `[verified-numerically 2026-09-19]`. `m00` is
+untouched, so **pixels per degree are unchanged — 100 % of today's sharpness** — and because the crop
+then sits at the centre of the frame it **cannot clamp at any angle**. The failure mode is removed
+rather than pushed further out, and fix (2) (graceful clamping) becomes unnecessary rather than
+cosmetic. Same hook, same patch site, strictly better on every axis measured.
+
+**6. The plugin half is built.** Steering breaks both existing crop candidates — they describe a frame
+centred on the gaze — so `crop_follow_math.h` gains **`proj = 2`**: under steering the crop centre *is*
+the texture centre, by construction, at every NDC input. Compile-verified, and the existing suites still
+pass unchanged (`crop_follow_test` 40 checks 0 failed, `prop_offset_check` 5 passed 0 failed)
+`[compile-verified 2026-09-19]`.
+
+**7. What is NOT established, and the real risk.**
+- **That the engine will cull correctly against a strongly off-axis frustum.** At 60° the shift is
+  `m20 = −1.71`, which puts the whole frustum to one side. Nothing here tests what RE Engine's culling
+  does with that; objects popping at the frame edge is the predicted failure. **This is the main risk
+  and it needs a launch.** `[hypothesis]`
+- **That steering is reachable without a REFramework rebuild.** The change belongs in the fork at the
+  site §9l's v2 patch already touches (`VR::on_camera_get_projection_matrix`, inside the mirror
+  window: write a steered matrix instead of returning). The build tree exists **only on the home PC**
+  — absent from the dev PC, checked 2026-09-19. Raised as `owed/HOME/2026-09-19-re-village-scope-steer-the-mirror-projection…`.
+- **That the bore angle is available at that point in the frame.** The plugin already computes it;
+  handing it to the REFramework hook is a wiring question nobody has answered. `[hypothesis]`
+- The 20–44° range is `[measured 2026-09-19]` from one session; the clamp onsets are exact given the
+  matrices, and the matrices are `n=1` `[verified-live 2026-09-12]`.
+
+### 9ar. THE PANE SHOULD BE THE RIFLE'S VERTICAL CENTRE PLANE, AND THE LIVE RUN AGREED (inbox drained 2026-09-19, `/pd`)
+
+Folded from `inbox/2026-09-18-mod-the-mirror-turns-the-picture-by-twice-the-gaze-to-plane-angle.md`,
+which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its arithmetic)`.
+
+- **§9ai asked where the viewpoint sits; it never asked where the picture POINTS.** A planar mirror
+  reflects direction as well as position, and **turns the view by twice the gaze-to-plane angle**.
+  The shipped pose makes the plane **horizontal**, so it is correct only when head and rifle agree in
+  pitch and **doubles every degree of disagreement** — §9h measured the hip carry at ~40° off the gaze,
+  i.e. 80° of thrown picture. That is the *"picture is coming from above, like the camera is pointing
+  down from the sky"* complaint, quantitatively `[reported 2026-09-18, n=1 wearer]`.
+- **The pane normal was ALREADY perpendicular to the bore and always has been** (it is the rig's local
+  +Y, and a transform's axes are orthonormal) — so "make the normal perpendicular to the barrel" was
+  never an available improvement `[verified-numerically 2026-09-18, swept over the full pitch×yaw grid]`.
+- **The fix is `pitch 90 / yaw 90`** — normal on the rifle's *right* axis, so the plane is the rifle's
+  own vertical centre plane. Pitch mismatch of 0/10/20/30/40° throws the picture 0/20/40/60/80° under
+  the shipped pane and **0.00° throughout** under this one `[verified-numerically 2026-09-18]`. With the
+  eye on the plane and the gaze in it the reflection is the **identity**: the mirror hands us a second
+  render of the player's own forward view, and the crop was always where the zoom came from.
+- **Confirmed live the same evening** `[verified-live 2026-09-18, n=1]`: `off_u lever` −1.93 → −0.00,
+  viewpoint `y` −34.00 → −33.07 against `head` −33.07 — **exactly at the eye**. Tefa, unprompted:
+  *"for a second the picture on the scope showed the right picture with no clothing or anything, then
+  turned to this"*. What replaced it is the scope's own tube, since the viewpoint is now at the eye
+  looking forward. **`propr 0.20` clears it** — a clean, live, eye-height forward picture
+  `[verified-live 2026-09-18, n=1]`, evidence `dev-archive/recon/2026-09-18-bore-plane-pane-pose/90-propr-0.20.png`.
+- ⚠️ **Two expectations that would otherwise read as failures:** `IMPROPER` will NOT go away (a
+  reflection has determinant −1 by definition) — what changes is that the flip becomes a *constant*
+  horizontal one, cancellable once, instead of a vertical flip riding the aim. And **the muzzle remains
+  geometrically unreachable**: every plane that delivers the viewpoint to the muzzle turns the picture a
+  full 180°, every time `[verified-numerically 2026-09-18]`.
+- ⚠️ **Unexplained and still open:** the one-second window where the picture was right before becoming
+  the tube. If something re-poses the pane a second after the words land, that is a second bug sitting
+  on a working fix.
+- **Not withdrawn:** §9f (its disproof is of pane steering as a way to *decouple* from the head — this
+  proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
+  §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
+
+### 9as. THE LEFT-HAND OFFSET IS A VALUE RE8VR STOPS USING — OR THE HANDS WERE NEVER UPDATED AT ALL (inbox drained 2026-09-19, `/pd`)
+
+Folded from `inbox/2026-09-19-mod-anomaly-vr-hand-and-controller-offsets.md`, a static read of
+S.T.A.L.K.E.R. Anomaly's AoE VR mod as a reference implementation. **Nothing from that install is
+committed here** — only setting names, values and the engine's own help text.
+
+- **Anomaly's model:** every weapon names **two grip sockets** relative to a *named bone of the gun*
+  (`secondary_grip_pos/rot`, often on a **moving** bone so the support hand rides the pump or bolt),
+  plus one world-space **anti-occlusion offset** applied to the support controller's IK *target* before
+  the two-point solve (`vr_secondary_ik_offset_y = −0.04` live here `[measured 2026-09-19]`). So the
+  drawn support hand is **at a socket on the gun, not at the controller** — structurally, not as a fudge.
+- ⭐ **RE8 already does the same thing, and that is why our lever looked broken.** `update_hand_ik()`
+  latches "gripping" when the left hand comes within **10 cm** of where the *animation* says the support
+  hand belongs, then executes `lh_pos = lh_grip_position` — **discarding the left controller entirely.**
+  `re8vr.left_hand_position_offset` feeds only the branch that line overwrites, so writing it while
+  holding the rifle **cannot** move the drawn hand. **It is not a broken binding; it is a value the code
+  stops using.** `[inferred-static 2026-09-19]` — consistent with the `[verified-live 2026-09-17, n=3 writes]`
+  dead end rather than contradicting it.
+- ⚠️ **A second, simpler explanation must be ruled out first.** `update_hand_ik()` returns at the top
+  unless `is_using_controllers()`, which is refreshed **only by button, stick and bound-action input —
+  not by tracking motion** — against `VR_MotionControlsInactivityTimer=30.0`. **So after 30 s with the
+  controllers parked on a shelf, which is the standing unattended-VR condition, no write to any offset
+  can move the hand.** Indistinguishable from the above on the evidence we have `[inferred-static 2026-09-19]`.
+  **Separate them before building anything** — the drop's §3a does it in one launch, free.
+- **What does not transfer:** no per-weapon grip table in RE8 (the socket comes from whatever animation
+  is playing) and no finger-pose system. Building a grip table is a project, not a knob.
+
 Credit: **praydog** (REFramework).
