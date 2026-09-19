@@ -2270,6 +2270,59 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9aw. ⭐⭐⭐ THE CROP CENTRE SITS AT (0.735, 0.065), NOT (0.5, 0.5) — AND THE SMEAR IS NOW A DECIDED LIMITATION (2026-09-19, home PC, LIVE, wearer present)
+
+**Tefa's decision, recorded as theirs:** the smear is **a documented limitation of the mod, not a
+fault to keep chasing.** Their words: *"it barely shows up on the left side … at some crazy angles
+trying to toggle it, that does not happen in normal gameplay really, so we write this up as a
+limitation of the mod instead of chasing perfection."* Effort moves to **where the scope points**.
+
+⭐ **AND THE REPORT THAT CAME WITH IT IS THE NEW LEAD:** *"the picture is aimed lower and to the
+left."*
+
+**The scope picture is a window cropped out of the 2560×1448 mirror texture, and the plugin logs
+where that window is taken from every tick.** Dead centre would be (0.500, 0.500). Measured live,
+rifle in hand `[measured 2026-09-19, n=1 launch, ~8 consecutive ticks]`:
+
+```
+geom: ON centre=(0.735,0.065) ... stretch 1.19 skew -9.1 deg scale 1.29
+      | rot 180 flip 0 vflip 0 P real | zero up 14.4 right 9.5
+```
+
+- **u = 0.735** — a quarter of the way to the right edge.
+- **v = 0.065** — **within a sixteenth of the edge**, while the rifle is held normally.
+
+⭐ **One number accounts for what §9aq needed a whole theory for:** why the picture is aimed low and
+left (wrong part of the texture taken); why the smear arrives at modest angles (the crop starts
+almost at the edge, so very little movement pushes it off); why it is **one-sided** (an off-centre
+start is nearer one edge by definition); and why steering the render changed nothing (§9av — the
+fault is not in what is rendered but in which part of it is taken).
+
+⚠️ **A LEAD, NOT A CONCLUSION** `[hypothesis]`. Not established: whether (0.5, 0.5) is even the right
+target under this pane pose — the mirror viewpoint is deliberately shifted sideways (`propr 0.20`)
+and `rot 180` plus the flips are in play, so **some** offset may be legitimate; what the centre reads
+when aiming at a target rather than at rest (only one condition captured); and whether the zeroing
+(`zero up 14.4 right 9.5`, applied and visible on the same line) is added in the right place or is
+itself part of the offset. **A surprising number is not the same as a wrong one.**
+
+**None of it needs the game running.** `plugin/src/crop_follow_math.h` holds the crop maths with
+`tools/crop_follow_test.cpp` (40 checks) beside it, so the correct target centre can be derived and
+checked statically first.
+
+**Housekeeping:** the disproved code is switched **off** in the live config
+(`VR_SteerMirrorProjection=false`, `VR_MirrorProjectionShout=false`), not merely abandoned.
+
+⚠️ **Method note worth more than the finding.** §9aq was elegant, had 20 passing numerical checks, and
+was wrong at the premise. Tonight's better lead came from **a number the plugin had been printing
+every tick for days**, read for the first time only because the wearer said the picture looked
+mis-aimed. The instrument was already there and already right; the theory had made it uninteresting.
+Both breaks tonight came from a plain description of what was on screen — *"manual steer did
+nothing"*, then *"aimed lower and to the left"*.
+
+- Field note: `modding-notes/2026-09-19f-the-smear-becomes-a-limitation-and-the-crop-centre-is-the-new-lead.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
+
 ### 9av. ⭐⭐⭐ DISPROVED — THAT HOOK DOES NOT DRAW THE SCOPE PICTURE, AND §9aq's PREMISE GOES WITH IT (2026-09-19, home PC, LIVE, wearer present)
 
 **Supersedes: ENGINE-DOSSIER.md §9aq (its premise, not its arithmetic), §9at (entirely), §9au (which
