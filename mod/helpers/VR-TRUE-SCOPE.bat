@@ -1,4 +1,13 @@
 @echo off
+rem  !! DOUBLE-CLICK THIS. DO NOT RUN IT FROM A TOOL WITH stdin REDIRECTED.
+rem     Every wait below is `timeout`, which REFUSES TO RUN AT ALL when stdin is
+rem     redirected ("ERROR: Input redirection is not supported"). The script then
+rem     races straight through and all four steps land in the command file inside
+rem     one second, overwriting each other before the plugin can read them -- and it
+rem     still prints every "[n/4]" line and exits 0, so it looks like it worked.
+rem     Bitten on 2026-09-19. To drive it from a script, do the steps with real
+rem     sleeps instead; see modding-notes/2026-09-19c-*.md.
+rem
 rem VR-TRUE-SCOPE.bat -- the whole scope set-up in one click, including the new
 rem "true picture" mirror pose. About 50 seconds. Have the sniper rifle in your hands.
 rem
@@ -45,8 +54,12 @@ echo fn rtex_2560> "%CMD%"
 timeout /t 3 /nobreak >nul 2>&1
 
 echo   [2/4] re-arming the mirror latch (pressing numpad . for you)...
-powershell -NoProfile -Command ^
-  "Add-Type -Name W -Namespace K -MemberDefinition '[DllImport(\"user32.dll\")] public static extern void keybd_event(byte b, byte s, uint f, int e); [DllImport(\"user32.dll\")] public static extern System.IntPtr FindWindow(string c, string n); [DllImport(\"user32.dll\")] public static extern bool SetForegroundWindow(System.IntPtr h);'; $h=[K.W]::FindWindow($null,'RESIDENT EVIL VILLAGE'); if($h -ne [System.IntPtr]::Zero){[void][K.W]::SetForegroundWindow($h); Start-Sleep -Milliseconds 700}; [K.W]::keybd_event(0x6E,0,0,0); Start-Sleep -Milliseconds 80; [K.W]::keybd_event(0x6E,0,2,0)"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scope-rearm-key.ps1"
+rem  ^ was an inline one-liner that looked up the window by the title
+rem    'RESIDENT EVIL VILLAGE'. The real title is 'Resident Evil Village', so the
+rem    lookup silently failed and the key went to whatever had focus. It still worked
+rem    only because the plugin polls this key globally rather than by window message.
+rem    Now in its own file, found by PROCESS rather than by title. 2026-09-19.
 timeout /t 3 /nobreak >nul 2>&1
 
 echo   [3/4] building the scope -- this is the slow bit, about 35 seconds...
