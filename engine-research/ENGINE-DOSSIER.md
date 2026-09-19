@@ -2309,6 +2309,16 @@ not supersede §9aq** — it implements fix (1b) and adds what building it taugh
   the frame edges while the angle is swept is the predicted failure; nothing static can see it.
   `[hypothesis]`
 - Field note: `modding-notes/2026-09-19b-the-steering-code-is-written-and-builds.md`.
+- ⭐⭐ **CONFIRMED LIVE THE SAME EVENING: THE HOOK FIRES AND THE BASE MATRIX IS THE PREDICTED ONE.**
+  6,600 projections rewritten inside the real mirror pass in about a minute, reading
+  `m00=0.9848 m11=1.1696 m20=-0.1736 m21=-0.2111` — the exact HMD eye projection §9aq built its whole
+  argument on `[verified-live 2026-09-19, n=1 launch]`. The plugin's own dump also showed the two eyes
+  carrying **mirrored** shifts (`m20 = -0.1736` and `+0.1736`), which is the asymmetry that predicts the
+  one-eye smear band. ⚠️ Captured with the sliders at 0, so it proves the hook REACHES the pass; it does
+  **not** yet prove the drawn frame moves, and the sign stays `[hypothesis]`.
+  Field note: `modding-notes/2026-09-19c-the-steering-hook-fires-live.md`, which also records two ways a
+  driving script reported success while doing nothing (`timeout` under redirected stdin; a window title
+  that does not exist), and one unresolved contradiction in the mirror-source latch log.
 
 Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
 
