@@ -2270,6 +2270,66 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9az. ⭐⭐⭐ THE SPREAD NUMBER IS CALLED **DiffusionRadius**, AND IT WAS IN OUR OWN FILE SINCE 2026-09-17 (2026-09-20, `/lm`, two launches, flat)
+
+**Supersedes: the spread findings of 2026-09-17/18 — specifically the generalisation "spread cannot
+be reduced by writing a weapon field; it lives on the player or in the shot code."** That sentence
+was true of **part B** of the probe (the live weapon object) and was written up as the conclusion of
+the whole probe. **Part A of the same run, 90 lines earlier in the same file, had already found it.**
+
+`dev-archive/recon/2026-09-17-…/launch3-spread-probe.txt`, **line 73**:
+
+```
+71  field IsDiffusion : System.Boolean
+72  field DiffusionNum : System.Int32
+73  field DiffusionRadius : System.Single
+74  field RecoilXAngle : System.Single
+```
+
+⚠️ **And the "it searched by the wrong words" explanation is ALSO wrong** — checked directly at
+`plugin/src/probes.cpp:93`, the word list already contained **`diffus`**, plus blur, random, sway,
+bloom, shake, stabil, scatter, dispers, deviat, accura `[verified-numerically 2026-09-20]`. The
+vocabulary was never the gap. The gaps were the **starred summary describing part B only**, and the
+pass ending `CAPPED -- more exist`.
+
+⚠️ **Third instance in two days of evidence present and unread** — after the `swing-unchanged`
+filename (§9av) and the omitted `+0.2111` (§9ax). **The bottleneck on this project is reading what
+was already collected, not collecting more.** Treat a null result that arrives with a summary at the
+top as unread until the body has been checked.
+
+**What tonight added, all `[verified-live 2026-09-20, n=1 dump each]`:**
+
+- ⭐⭐ **`app.WeaponGunCore.setupDiffusion(via.vec3, via.Quaternion, via.Quaternion) -> void`** — the
+  function that installs the scatter. Position plus two rotations, reading as *(origin, intended,
+  scattered)*. **A method, therefore HOOKABLE** — a better lever than any data table, because it is
+  where the decision happens.
+- ⭐ **`app.ExclusiveModeData.WeaponCustomData`**: `IsDiffusionPowerUp`, **`DiffusionRadiusRate`
+  (Single)**, `DiffusionAddNum` — a **rate multiplier on the radius**, the cheapest thing to take to
+  zero if it applies to the sniper.
+- ⭐ **`app.CameraSniperParam.SniperZoomLevel`** — a sniper-specific shake block: `ShakeRateMax/Min`,
+  `CheekPadShakeRateMax/Min`, `StandShakeStopSecond`, `CrouchShakeStopSecond`,
+  `MoveShakePowerUpSecond`, `CamRotInputForceShakeRate`, `Fov`, `RotateSpeedRate`.
+- `app.BulletDefault` carries `isDiffusion`, `diffusionNum` and **`isCenterBullet`** but **no
+  radius** → the cone is resolved at creation, one bullet being the centre.
+
+⚠️ **THERE ARE NOW TWO CANDIDATE MECHANISMS AND THEY NEED DIFFERENT FIXES** `[hypothesis]`:
+**diffusion** (a cone at shot time) and **sniper aim shake** (the aim moving before the shot leaves).
+A shotgun is the obvious reason `DiffusionNum` exists, so the rifle may well have `IsDiffusion=false`
+and scatter purely from shake. **Nothing yet says which Tefa is seeing.**
+
+**The deciding read needs the rifle EQUIPPED** — `IsDiffusion` / `DiffusionNum` / `DiffusionRadius`
+for weapon 6000. Gameplay, not a headset. ⚠️ `app.ItemManager` does **not exist** in this game
+`[verified-live 2026-09-20]`; the route is the live weapon (`app.PlayerGunPl6000` → `Inventory`) or
+`findSpecByWeaponID`.
+
+**Tool:** `reframework/autorun/re8_spread_dig.lua`, read-only, own command file, `DIG-SPREAD.bat`.
+Output: `dev-archive/recon/2026-09-20-spread-dig-diffusion-found/` (635 lines, two rounds).
+⚠️ Its `spec` command was added afterwards and **has never run**.
+
+- Field note: `modding-notes/2026-09-20d-the-word-is-diffusion-not-spread.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
+
 ### 9ay. ⭐⭐⭐ THE WEARER FOUND IT: THE STREAK FOLLOWS THE HEAD, AND CLIPS ON TWO SIDES ONLY (2026-09-20, LIVE, wearer present)
 
 Tefa, unprompted, after trying every direction: *"it's not about the weapon being raised … it's about

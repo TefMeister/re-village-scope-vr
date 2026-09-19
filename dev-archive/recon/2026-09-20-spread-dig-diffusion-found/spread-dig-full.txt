@@ -1,0 +1,342 @@
+﻿[2026-09-20 01:44:01.535] [REFramework] [info] [spread-dig] loaded. Write 'dig all' into reframework/data/re_spread_dig_cmd.txt to run it.
+[2026-09-20 01:44:24.940] [REFramework] [info] [spread-dig] ==== dig START (6 target(s)) ====
+[2026-09-20 01:44:24.940] [REFramework] [info] [spread-dig] read-only: nothing is written, hooked or changed
+[2026-09-20 01:44:24.940] [REFramework] [info] [spread-dig] ================ app.ItemSpecificationData.SpecUnit.WeaponSpec   (parent System.Object)
+[2026-09-20 01:44:24.940] [REFramework] [info] [spread-dig]   -- 7 fields --
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field ReticleTypeHash                          System.UInt32            @0x10
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field RemainAmmoTypeHash                       System.UInt32            @0x14
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field WeaponTypeHash                           System.UInt32            @0x18
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field IsOnlyOneStack                           System.Boolean           @0x1c
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field Gun                                      app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec @0x20
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field Performance                              app.ItemSpecificationData.SpecUnit.WeaponSpec.PerformanceSpec @0x28
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field IncludableItems                          System.Collections.Generic.List`1<app.ItemSpecificationData.SpecUnit.WeaponSpec.Includable> @0x30
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   -- 13 methods --
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_reticleTypeHash() -> System.UInt32
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_remainAmmoTypeHash() -> System.UInt32
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_weaponTypeHash() -> System.UInt32
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_isOnlyOneStack() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_gun() -> app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_performance() -> app.ItemSpecificationData.SpecUnit.WeaponSpec.PerformanceSpec
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_includableItems() -> System.Collections.Generic.List`1<app.ItemSpecificationData.SpecUnit.WeaponSpec.Includable>
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_IsGunSpec() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_isGun() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_IsMeleeSpec() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_isMelee() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method findIncludable(System.UInt32) -> app.ItemSpecificationData.SpecUnit.WeaponSpec.Includable
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> 3 of 7 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig] ================ app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec   (parent System.Object)
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   -- 16 fields --
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field HasScope                                 System.Boolean           @0x10
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field CanUnarmedCheck                          System.Boolean           @0x11
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field Range                                    System.Single            @0x14
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field AttenuationStart                         System.Single            @0x18
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field AttenuationCurve                         via.AnimationCurve       @0x20
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field AttenuationStunStart                     System.Single            @0x28
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field AttenuationStunCurve                     via.AnimationCurve       @0x30
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field Radius                                   System.Single            @0x38
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field IsDiffusion                              System.Boolean           @0x3c
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field DiffusionNum                             System.Int32             @0x40
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field DiffusionRadius                          System.Single            @0x44
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field RecoilXAngle                             System.Single            @0x48
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field RecoilYAngle                             System.Single            @0x4c
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field RecoilBurstInterval                      System.Single            @0x50
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field RecoilBurstCount                         System.Int32             @0x54
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field DistancePerFrame                         System.Single            @0x58
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   -- 17 methods --
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_hasScope() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_canUnarmedCheck() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_range() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStart() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationCurve() -> via.AnimationCurve
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStunStart() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStunCurve() -> via.AnimationCurve
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_radius() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_isDiffusion() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_diffusionNum() -> System.Int32
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_diffusionRadius() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_recoilXAngle() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_recoilYAngle() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_recoilBurstInterval() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_recoilBurstCount() -> System.Int32
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_distancePerFrame() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> 11 of 16 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig] ================ app.BulletDefault   (parent app.ShellBase)
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   -- 34 fields --
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field doDeactivateHandler                      System.Action            @0xa0
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <attenuationStartDist>k__BackingField    System.Single            @0xa8
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field <attenuationCurve>k__BackingField        via.AnimationCurve       @0xb0
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <attenuationStunStartDist>k__BackingField System.Single            @0xb8
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field <attenuationStunCurve>k__BackingField    via.AnimationCurve       @0xc0
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <attenuationAttackRange>k__BackingField  System.Single            @0xc8
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <attenuationStunRange>k__BackingField    System.Single            @0xcc
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field <useAttackUserData>k__BackingField       System.Boolean           @0xd0
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field <isDiffusion>k__BackingField             System.Boolean           @0xd1
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <diffusionNum>k__BackingField            System.Int32             @0xd4
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <activatePos>k__BackingField             via.vec3                 @0xe0
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <prevPos>k__BackingField                 via.vec3                 @0xf0
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field bulletCastResult                         app.CollisionManager.CastResult @0x100
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field isCenterBullet                           System.Boolean           @0x108
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field isCreatedGrenade                         System.Boolean           @0x109
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field IsBomb                                   System.Boolean           @0x10a
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field CurrentGravitySpd                        System.Single            @0x10c
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field BallistaDistancePerUpdate                System.Single            @0x50 static
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field DefaultMaxUpdateCount                    System.Int32             @0x50 static
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field GrenadeAttenuationAcceleration           System.Single            @0x50 static
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field deactivateRequested                      System.Boolean           @0x110
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field <deactivateByUpdateCount>k__BackingField System.Boolean           @0x111
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field WaterHeight                              System.Single            @0x114
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field WaterIntercectPos                        via.vec3                 @0x120
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field IsInWater                                System.Boolean           @0x130
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field DistancePerUpdate                        System.Single            @0x134
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field UpdateMax                                System.Int32             @0x138
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field UpdateCount                              System.Int32             @0x13c
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field MoveDist                                 System.Single            @0x140
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field MoveRange                                System.Single            @0x144
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field CreateOwnerCore                          app.WeaponCore           @0x148
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field <AttackPower>k__BackingField             System.Single            @0x150
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   >> field StunRate                                 System.Single            @0x154
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      field <IsPenetration>k__BackingField           System.Boolean           @0x158
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]   -- 56 methods --
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method add_doDeactivateHandler(System.Action) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method remove_doDeactivateHandler(System.Action) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStartDist() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_attenuationStartDist(System.Single) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationCurve() -> via.AnimationCurve
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_attenuationCurve(via.AnimationCurve) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStunStartDist() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_attenuationStunStartDist(System.Single) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStunCurve() -> via.AnimationCurve
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_attenuationStunCurve(via.AnimationCurve) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationAttackRange() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_attenuationAttackRange(System.Single) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_attenuationStunRange() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_attenuationStunRange(System.Single) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_useAttackUserData() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_useAttackUserData(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_isDiffusion() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_isDiffusion(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_diffusionNum() -> System.Int32
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_diffusionNum(System.Int32) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_activatePos() -> via.vec3
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_activatePos(via.vec3) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_prevPos() -> via.vec3
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_prevPos(via.vec3) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_deactivateByUpdateCount() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_deactivateByUpdateCount(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_AttackPower() -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_AttackPower(System.Single) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method get_IsPenetration() -> System.Boolean
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method set_IsPenetration(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method attackPower(app.HitInfo) -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method defaultCalcStun(app.AttackUserData) -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method stunPower(app.HitInfo) -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method calculateAttackAttenuationRate(via.vec3) -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method calculateStunAttenuationRate(via.vec3) -> System.Single
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method awake() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method start() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method onDestroy() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method update() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method normalBulletUpdate() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method grenadeBulletUpdate() -> System.Void
+[2026-09-20 01:44:24.941] [REFramework] [info] [spread-dig]      method lateUpdate() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method checkTerminateByEnvHit() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method checkTerminate() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method adjustPosNearHitPos() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method activate(via.vec3, via.Quaternion, via.GameObject) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method activate(via.vec3, via.Quaternion, via.GameObject, via.GameObject) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method activateCommon(via.GameObject, via.vec3, via.Quaternion, via.GameObject) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method registerRequestSet(System.UInt32, System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method deactivate() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method calcDamage(app.HitInfo) -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method calcStunDamage(app.HitInfo) -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method checkInWater() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method isInWaterArea(System.Single) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method isInArea(System.Int32, System.Single) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> 20 of 34 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig] ================ app.PlayerActionTPS.ProcessGunAttackBase   (parent app.PlayerActionTPS.ProcessGunBase)
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   -- 1 fields --
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <cameraShakeExecutor>k__BackingField     app.PlayerActionTPS.ProcessGunAttackBase.CameraShakeExecutor @0x108
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   -- 7 methods --
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_cameraShakeExecutor() -> app.PlayerActionTPS.ProcessGunAttackBase.CameraShakeExecutor
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_cameraShakeExecutor(app.PlayerActionTPS.ProcessGunAttackBase.CameraShakeExecutor) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method setup(via.GameObject, app.PlayerActionManagerBase) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method onLateEnter(app.MotionDelegate.HandlerArg, app.MotionDelegate.Parameter, System.UInt32, app.PlayerActionTPS.ProcessBase.ActionOption) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method onRun(app.MotionDelegate.HandlerArg, app.MotionDelegate.Parameter, System.UInt32, app.PlayerActionTPS.ProcessBase.ActionOption) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method onLateExit(app.MotionDelegate.HandlerArg, app.MotionDelegate.Parameter, System.UInt32, app.PlayerActionTPS.ProcessBase.ActionOption) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method requestCameraShakeAddMotion() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> 0 of 1 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig] ================ app.PlayerGunPl6000   (parent app.PlayerBasePl6000)
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   -- 28 fields --
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field ReadyStartToReadyInterpolationFrame      System.Single            @0x10 static
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field ReadyInterpolationFrame                  System.Single            @0x10 static
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isAttackTried>k__BackingField           System.Boolean           @0x58
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isReloadTried>k__BackingField           System.Boolean           @0x59
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isChangeModeTried>k__BackingField       System.Boolean           @0x5a
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isGunShootEmpty>k__BackingField         System.Boolean           @0x5b
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field GunConfigure                             app.PlayerWeaponActionConfiguration.PlayerGunConfiguration @0x60
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field Inventory                                app.Inventory            @0x68
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field UseAimIdleToAimIdleSpFirstWaitSet        System.Boolean           @0x70
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field SemiAimElapsedTimer                      System.Single            @0x74
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field RecoilBurstTimer                         System.Single            @0x78
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field RecoilBurstCount                         System.Int32             @0x7c
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field IsOldGunSmokeEnable                      System.Boolean           @0x80
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field EffectAsyncResult                        via.physics.CastRayResult @0x88
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field IsUnshootableCheckPrepared               System.Boolean           @0x90
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isUnshootable>k__BackingField           System.Boolean           @0x91
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field IsUnshootableChecked                     System.Boolean           @0x92
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field UnshootableCheckDistance                 System.Single            @0x94
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field UnshootableDistance                      System.Single            @0x98
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field ExternalSpecialAttackParams              System.Collections.Generic.List`1<app.PlayerGun.ExternalSpecialAttackParam> @0xa0
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field SortedExternalSpecialAttackParams        System.Collections.Generic.List`1<app.PlayerGun.ExternalSpecialAttackParam> @0xa8
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isAttackPreceded>k__BackingField        System.Boolean           @0xb0
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field <isAttackPrecededForProcess>k__BackingField System.Boolean           @0xb1
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field isDelayDispWeapon                        System.Boolean           @0xb2
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field EndThreeGunMatchState                    System.String            @0xb8
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field execAutoReloadTimer                      app.SimpleDecTimer       @0xc0
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field execAutoReloadTime                       System.Single            @0xc8
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field requestAutoReload                        System.Boolean           @0xcc
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   -- 63 methods --
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isReadyToSemiAim() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isSemiAimIdle() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isSemiAimMove() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAimStart() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAimIdle() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAimIdleSp() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAimMove() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAimEnd() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAttack() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAimAttack() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAttackLoop() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method requestShootNoneBullet() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method loadStackNumRatio() -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method requestShootForProcess(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method requestShootForProcessEffectOnly() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isReloadable() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAttackTried() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isAttackTried(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isReloadTried() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isReloadTried(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isChangeModeTried() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isChangeModeTried(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isGunShootEmpty() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isGunShootEmpty(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_weaponGun() -> app.WeaponGunCore
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_useAimIdleToAimIdleSpFirstWaitSec() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_toAttackInterFrame() -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_toAttackInterFrameQuick() -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_noAimToAttackInterFrame() -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isUnshootable() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isUnshootable(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAttackPreceded() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isAttackPreceded(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_isAttackPrecededForProcess() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method set_isAttackPrecededForProcess(System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method setup(app.PlayerConfigure) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method update() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method lateUpdate() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method destroy() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method executeAimEnd(System.Boolean) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method setEndThreeGunMatchState(System.String) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method endThreeGunMatch() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method tryAimStart(System.Boolean) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method tryAttack(System.Boolean) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method tryPutMine(System.Boolean) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method tryGuardStart(System.Boolean) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method onStartAutoReload() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method onEndAutoReload() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method prepareUnshootableCheck() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method checkUnshootable() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method shootStart() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method shoot(System.Boolean, System.Boolean) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method clearAdaptiveRightTriggerByShoot() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method clearAdaptiveRightTriggerByShootImple() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method clearAdaptiveRightTrigger() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method isEnableAutoReload() -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method ExecuteEndAction() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method registerExternalSpecialAttack(app.PlayerGun.ExternalSpecialAttackParam) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method updateExternalSpecialAttack() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method requestAttackState(System.String, System.Single) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method setDelayDispWeapon() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method resetDelayDispWeaponInfo() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> 8 of 28 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig] ================ app.PlayerCameraTPS.Sniper   (parent app.PlayerCameraTPS.MaximumOperatable)
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   -- 7 fields --
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field nowDesireAimFov                          System.Single            @0x1e0
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field zoomLevel                                System.Int32             @0x1e4
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field Fov                                      System.Single            @0x1e8
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> field AimFov                                   System.Single            @0x1ec
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field inputUpdater                             app.Input.InputUpdater   @0x1f0
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field sniperParam                              app.CameraSniperParam    @0x1f8
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      field StartRotation                            via.Quaternion           @0x200
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   -- 15 methods --
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method get_cameraParentWorldMatrix() -> via.mat4
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method start(app.PlayerCameraTPS.CameraControllerTPS, via.vec3, via.Quaternion, System.Single) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method switchPrev(app.PlayerCameraTPS.CameraControllerTPS) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method update() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method getDesireFOV() -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method getDesireAIMFOV() -> System.Single
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method getAIMLevel() -> System.Int32
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method updateLockOn(via.Quaternion) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method updateZoomLevel() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method isValidReticlePosition(via.vec3) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method reticleAdjust(app.PlayerCameraTPS.CameraControllerTPS, via.Quaternion) -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method updateOperatedRotation() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method removeRoll(via.Quaternion) -> via.Quaternion
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method nearyEqual(via.Quaternion, System.Single) -> System.Boolean
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:44:24.942] [REFramework] [info] [spread-dig]   >> 4 of 7 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:44:24.943] [REFramework] [info] [spread-dig] ==== dig DONE. Numeric fields are marked >> ====
+[2026-09-20 01:44:24.943] [REFramework] [info] [spread-dig] NOTE: a field existing is not a field being USED. Anything promising still has to be
+[2026-09-20 01:44:24.943] [REFramework] [info] [spread-dig]       watched or written live before it can be called the cause.
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig] ==== dig START (1 target(s)) ====
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig] read-only: nothing is written, hooked or changed
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig] ================ app.ItemSpecificationData.SpecUnit.WeaponSpec.PerformanceSpec   (parent System.Object)
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]   -- 7 fields --
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      field IsSelfCustomizable                       System.Boolean           @0x10
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      field IsSpecialPerformance                     System.Boolean           @0x11
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]   >> field BasePower                                System.Int32             @0x14
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]   >> field BaseBurstSpeed                           System.Single            @0x18
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]   >> field BaseChargeSpeed                          System.Single            @0x1c
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      field CustomCostUnits                          System.Collections.Generic.List`1<app.ItemSpecificationData.SpecUnit.WeaponSpec.PerformanceSpec.CustomCostUnit> @0x20
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      field PartsDisableNos                          System.Collections.Generic.List`1<System.Int32> @0x28
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]   -- 9 methods --
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_isSelfCustomizable() -> System.Boolean
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_isSpecialPerformance() -> System.Boolean
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_basePower() -> System.Int32
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_baseBurstSpeed() -> System.Single
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_baseChargeSpeed() -> System.Single
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_customCostUnits() -> System.Collections.Generic.List`1<app.ItemSpecificationData.SpecUnit.WeaponSpec.PerformanceSpec.CustomCostUnit>
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_partsDisableNos() -> System.Collections.Generic.List`1<System.Int32>
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method get_canDisplayPerformance() -> System.Boolean
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]   >> 3 of 7 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig] ==== dig DONE. Numeric fields are marked >> ====
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig] NOTE: a field existing is not a field being USED. Anything promising still has to be
+[2026-09-20 01:45:09.464] [REFramework] [info] [spread-dig]       watched or written live before it can be called the cause.
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig] ==== dig START (1 target(s)) ====
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig] read-only: nothing is written, hooked or changed
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig] ================ app.ItemSpecificationData   (parent via.UserData)
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]   -- 2 fields --
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      field SpecUnits                                System.Collections.Generic.List`1<app.ItemSpecificationData.SpecUnit> @0x20
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      field SpecUnitsDict                            System.Collections.Generic.Dictionary`2<System.UInt32,app.ItemSpecificationData.SpecUnit> @0x28
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]   -- 6 methods --
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      method optimize() -> System.Void
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      method findSpec(System.UInt32) -> app.ItemSpecificationData.SpecUnit
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      method findSpecByWeaponID(System.UInt32, System.Boolean) -> System.Collections.Generic.List`1<app.ItemSpecificationData.SpecUnit>
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      method findSpecByRecipeID(System.UInt32) -> app.ItemSpecificationData.SpecUnit
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      method .ctor() -> System.Void
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]      method <optimize>b__3_0(app.ItemSpecificationData.SpecUnit) -> System.Void
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]   >> 0 of 2 fields are numeric -- a spread value would be one of those
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig] ==== dig DONE. Numeric fields are marked >> ====
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig] NOTE: a field existing is not a field being USED. Anything promising still has to be
+[2026-09-20 01:45:52.495] [REFramework] [info] [spread-dig]       watched or written live before it can be called the cause.
+[2026-09-20 01:46:53.532] [REFramework] [info] [spread-dig] ==== dig START (1 target(s)) ====
+[2026-09-20 01:46:53.533] [REFramework] [info] [spread-dig] read-only: nothing is written, hooked or changed
+[2026-09-20 01:46:53.533] [REFramework] [info] [spread-dig] app.ItemManager -- NOT in the type database
+[2026-09-20 01:46:53.533] [REFramework] [info] [spread-dig] ==== dig DONE. Numeric fields are marked >> ====
+[2026-09-20 01:46:53.533] [REFramework] [info] [spread-dig] NOTE: a field existing is not a field being USED. Anything promising still has to be
+[2026-09-20 01:46:53.533] [REFramework] [info] [spread-dig]       watched or written live before it can be called the cause.
