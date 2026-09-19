@@ -12,7 +12,7 @@ like", but the picture sat a half-turn out and its centre at the render's edge, 
   a mirror of the baseline, det < 0 — and `atan2(≈0, ≈0)` then prints whatever the noise says. So the map
   the plugin built had glass-right → screen-right (fine) and glass-up → screen-UP, where the flat-verified
   state has glass-up → screen-down (the horizontal pane's flip). One axis wrong = "upside down" — exactly
-  Tefa's word. `[inferred 2026-09-13 from the log; the new build prints IMPROPER explicitly]`
+  Tefa's word. `[inferred-static 2026-09-13]` — from the log; the new build prints IMPROPER explicitly
 - **Which input is reversed is not decidable from the log** — it never printed the frames. Candidates: the
   rifle root's `get_AxisY` pointing down while the quaternion's Y points up (never compared); the lens
   material flipping u as well as v (never asked; `glass_flip_v` exists because it flips v); the camera
