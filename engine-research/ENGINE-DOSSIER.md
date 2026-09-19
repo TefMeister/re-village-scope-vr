@@ -2270,7 +2270,72 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ax. ⭐⭐⭐ NO 12° MYSTERY — THE CROP RESTS HALFWAY TO THE TOP EDGE, AND RUNS OFF AFTER 21° (2026-09-20, static)
+
+**Supersedes: ENGINE-DOSSIER.md §9aw (its "~12° unexplained" only),** and the same claim in
+`modding-notes/2026-09-19g-…`. Tool: `plugin/tools/crop_centre_decompose.cpp`, **9 checks, 0 failed**
+`[verified-numerically 2026-09-20]`.
+
+**The retraction.** §9aw compared the two crop-centre paths assuming both build `v` the same way.
+They share the *formula* (`v = 0.5 − 0.5·ndc_y`) but not the *projection*: the geom path uses the real
+`P` (an HMD eye projection, off-centre term `m21 = −0.2111`); the legacy path builds NDC from
+`fov` + aspect, which is **symmetric and has no such term**. Leaving that out is what produced the
+"mystery".
+
+| | ndc_y |
+| --- | --- |
+| observed gap | **+0.5940** |
+| off-centre term the legacy path cannot have | +0.2111 |
+| zeroing, 14.4° up, geom path only | +0.3003 |
+| together | **+0.5114** |
+| **residual** | **+0.0826 = 4.0°** |
+
+And 4.0° is an **upper bound**, not a measurement: the logged 15.0° is the bore's TOTAL angle off the
+gaze and its vertical share is not recorded. **Nothing left to chase.** ⚠️ One omitted term turned 4°
+into 14.1° — big enough to feel like a fault and get a plan attached. The §9aq failure again, eighteen
+hours later: right arithmetic, wrong about what it was arithmetic about.
+
+⭐⭐⭐ **WHAT REPLACES IT, and it is better.** With the bore **exactly on the gaze** — perfectly aimed —
+the two terms still put the crop centre at `ndc_y +0.5114` → **`v = 0.244`**. With 0.5 the middle and
+0 the top edge, that is **51 % of the way from the middle to the TOP**, before the rifle moves at all.
+
+| bore moves up | 0° | 5° | 10° | 15° | 20° |
+| --- | --- | --- | --- | --- | --- |
+| crop centre `v` | 0.244 | 0.193 | 0.141 | 0.088 | 0.031 |
+
+**It leaves the top edge after about 21° of upward bore movement** — ordinary handling. **Without the
+zeroing it would be 32.7°** `[verified-numerically 2026-09-20]`.
+
+**This explains what §9aq needed a disproved premise for:** the streak arrives easily not because the
+frame is too narrow but because **the crop begins most of the way to an edge**; it is **one-sided**
+because a rest 51 % toward the *top* is nowhere near the bottom (Tefa: *"it barely shows up on the
+left side"*); and it reads as **aimed low** because `rot 180` shows a high crop as low.
+
+⚠️ **The zeroing is NOT a fault.** `zero up 14.4` is what puts the shot where the crosshair is, and the
+wearer confirmed it accurate. It costs **11.6° of headroom** (32.7 → 21.1) — a real trade, but the
+answer is to find headroom elsewhere, never to un-zero the scope.
+
+⭐ **THE TERM TO QUESTION IS THE OTHER ONE.** The **+0.2111** is inherited from the **HMD eye
+projection** and has nothing to do with the rifle. §9av proved the mirror does **not render** with the
+projection we can write — yet the plugin still **reads** that projection to decide where to crop. If
+the mirror's true projection is symmetric, this term does not belong in the crop maths at all, and
+removing it alone moves the rest from **0.244 to 0.350** and buys back about **9° of headroom**, free,
+without touching the zeroing. `[hypothesis]`
+
+**Testable live, no rebuild:** `geom_usep 0` switches the geom path off the real `P` onto the
+symmetric fov build — same command channel as the A/B scripts already in the game folder.
+⚠️ **Not asserted:** that the mirror's real projection is symmetric. Nobody has measured it; §9av only
+established it is not the one we write.
+
+- Field note: `modding-notes/2026-09-20a-there-is-no-12-degree-mystery-the-crop-just-rests-near-the-top-edge.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
+
 ### 9aw. ⭐⭐⭐ THE CROP CENTRE SITS AT (0.735, 0.065), NOT (0.5, 0.5) — AND THE SMEAR IS NOW A DECIDED LIMITATION (2026-09-19, home PC, LIVE, wearer present)
+
+> ⚠️ **§9ax CORRECTS THIS SECTION'S "~12° unexplained".** The real residual is **4.0°**, and
+> even that is an upper bound. The gap is explained by the zeroing plus an off-centre term the
+> legacy path cannot have. Everything else below stands.
 
 **Tefa's decision, recorded as theirs:** the smear is **a documented limitation of the mod, not a
 fault to keep chasing.** Their words: *"it barely shows up on the left side … at some crazy angles
