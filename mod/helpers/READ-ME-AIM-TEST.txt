@@ -1,0 +1,108 @@
+===========================================================================
+ SCOPE AIM TEST  --  step by step            written 2026-09-20
+===========================================================================
+
+Nothing to install. The right build is already in place and last night's dead
+code is switched off. You only need the game and the rifle.
+
+The three test scripts are LIVE - they take effect in a second or two, with no
+relaunch and no rebuilding. So once the scope is up you can flip between them
+as often as you like.
+
+
+---------------------------------------------------------------------------
+ PART 1  --  GET THE SCOPE WORKING        (needed once per launch)
+---------------------------------------------------------------------------
+
+ 1. Launch the game and load your save.
+
+ 2. Get the SNIPER RIFLE in your hands. Nothing below works without it.
+
+ 3. Double-click   START-SCOPE.bat
+
+ 4. A black window opens and counts through four steps.
+    *** LEAVE IT ALONE UNTIL IT CLOSES ITSELF (about 50 seconds). ***
+    The picture usually appears after a second or two - that is normal, and
+    you can look at it - but the LAST step is what aims the picture at your
+    eye. Close the window early and you will see Ethan's clothes and the
+    ground instead of the view.
+
+ 5. Look through the scope. You should have a picture.
+
+    If instead you see:
+      - brown and gold streaks (the inside of the scope tube) -> tell me
+      - black                                                 -> tell me
+      - Ethan's clothes / the ground                          -> the window
+        was closed early; just run START-SCOPE.bat again and let it finish.
+
+
+---------------------------------------------------------------------------
+ PART 2  --  THE BASELINE           (this is what everything is compared to)
+---------------------------------------------------------------------------
+
+ 6. Double-click   AIM-TEST-B-DETAILED.bat        (this is "normal")
+
+ 7. Stand still. Look straight ahead. Hold the rifle level and scoped.
+
+ 8. Keeping your head still and looking straight ahead, SLOWLY RAISE THE
+    RIFLE until the picture streaks and smears.
+
+ 9. Remember roughly how far up you got before it went. You do not need a
+    number - "barely moved", "about halfway up", "almost straight up" is
+    exactly the right kind of answer.
+
+
+---------------------------------------------------------------------------
+ PART 3  --  TEST C          (the promising one - this is the real question)
+---------------------------------------------------------------------------
+
+10. Double-click   AIM-TEST-C-NO-EYE-TILT.bat
+
+11. Do exactly the same as step 8: level, then slowly raise until it streaks.
+
+12. THE QUESTION:  MORE room than normal, LESS room, or THE SAME?
+
+    Ignore where it points and how it looks. Only the ROOM matters here -
+    how far you can raise the rifle before it streaks.
+
+    What I expect if my guess is right: noticeably more room, and the
+    zeroing (where the shot lands) unchanged.
+
+
+---------------------------------------------------------------------------
+ PART 4  --  TEST A                            (a different question: AIM)
+---------------------------------------------------------------------------
+
+13. Double-click   AIM-TEST-A-SIMPLE.bat
+
+14. Do NOT raise the rifle this time. Just point at something ordinary and
+    look through the scope.
+
+15. THE QUESTION:  does it show what you are pointing at BETTER or WORSE
+    than normal?
+
+    The picture may look stretched or skewed under this one. That is
+    expected and is not the point - judge only WHERE IT POINTS.
+
+
+---------------------------------------------------------------------------
+ PART 5  --  PUT IT BACK
+---------------------------------------------------------------------------
+
+16. Double-click   AIM-TEST-B-DETAILED.bat
+
+    That restores both settings. (Until 2026-09-20 it only restored one of
+    them, which would have made the baseline secretly identical to test C.)
+
+
+---------------------------------------------------------------------------
+ WHAT TO TELL ME
+---------------------------------------------------------------------------
+
+    C compared with B:   more room / less room / the same
+    A compared with B:   aims better / aims worse / the same
+
+ Anything else you notice is worth saying too - especially things blinking
+ in and out at the edges of the scope picture while you move.
+
+ If you close the game at any point, start again from PART 1.
