@@ -1,6 +1,6 @@
 @echo off
 rem ---------------------------------------------------------------------------
-rem  ZEROING: back to the CURRENT defaults (up -0.8, right 0.8).
+rem  ZEROING: RESET to the saved defaults (up -13.2, right -4.0).
 rem
 rem  ZEROING moves the scope PICTURE so that what the crosshair sits on is what
 rem  the bullet actually hits. It does not change where the rifle shoots - it
@@ -15,6 +15,18 @@ rem  is very likely wrong now. That is the suspected cause of "aimed lower and
 rem  to the left". Re-zeroing is the fix.
 rem
 rem  Steps: READ-ME-ZEROING.txt, in this folder.
+rem
+rem  !!!!  THIS DOES NOT SAVE ANYTHING. IT RESETS.  !!!!
+rem
+rem  On 2026-09-20 this was run expecting it to keep the values just tuned in, and
+rem  it threw them away instead - it puts the SAVED defaults back, discarding
+rem  whatever was nudged since.
+rem
+rem  There is no "save" button here and there cannot easily be one: the defaults
+rem  live in the mod's start-up script, not in a file a batch file should be
+rem  editing. To make a tuned zero permanent, say so and it gets written in.
+rem  ZERO-SHOW.bat prints the current values without changing them.
+rem
 rem ---------------------------------------------------------------------------
 setlocal
 
@@ -24,10 +36,10 @@ if not exist "%~dp0reframework\data" (
   exit /b 1
 )
 
-> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroup -0.8
->> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroright 0.8
+> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroup -13.2
+>> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroright -4.0
 
 echo.
-echo   Back to the current zero (up -0.8, right 0.8). The old 14.4/9.5 are retired.
+echo   RESET to the saved zero (up -13.2, right -4.0).
 echo.
 timeout /t 2 /nobreak >nul 2>&1
