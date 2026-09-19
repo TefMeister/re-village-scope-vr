@@ -9,14 +9,18 @@
 
  WHY IT PROBABLY NEEDS REDOING
  -----------------------------
- The current values (up 14.4, right 9.5) were measured on 13 September, with
+ The ORIGINAL values (up 14.4, right 9.5) were measured on 13 September, with
  the mirror in its OLD position. On 18 September that position changed - the
  viewpoint moved from about a metre below your head to exactly at your eye.
  A zero measured before that change would now point wrong, and "lower and to
  the left" is exactly the sort of error it would give.
 
- So we are not adjusting a good zero. We are redoing one that was made for a
+ So we were not adjusting a good zero - we were redoing one made for a
  different setup.
+
+ UPDATE 2026-09-20: done, twice. The saved values are now up -13.2, right -4.0,
+ which is very nearly the MIRROR of the old ones. Use this file to check the zero
+ still holds, or to redo it at a different distance.
 
 
 ---------------------------------------------------------------------------
@@ -32,6 +36,27 @@
 
 
 ---------------------------------------------------------------------------
+ !! THE GAME'S OWN BULLET SPREAD - READ THIS FIRST (added 2026-09-20)
+---------------------------------------------------------------------------
+ Some shots land well off while most land near the aim point. That is the
+ GAME'S spread, not the scope, and it cannot currently be switched off - it
+ was looked for on the weapon and is not there (see below).
+
+ It does NOT have to be switched off, because spread and scope error behave
+ differently:
+
+    SPREAD is random, and scatters EVENLY AROUND the true aim point.
+    SCOPE ERROR is constant, and moves the WHOLE GROUP one way.
+
+ So do not judge a single shot. FIRE FIVE OR SIX WITHOUT MOVING, and look at
+ where the middle of the cluster sits. The spread cancels itself out; what is
+ left is the scope error, which is the only thing we are correcting.
+
+ Ignore the odd flier completely. It tells you nothing.
+
+ This is how a real rifle is zeroed, and for the same reason.
+
+---------------------------------------------------------------------------
  PART 1  --  SEE HOW BAD IT REALLY IS
 ---------------------------------------------------------------------------
 
@@ -40,9 +65,10 @@
  2. Look through the scope at your wall or post. Put the crosshair on
     something you can name - a knot in the wood, a bolt, a mark.
 
- 3. FIRE ONE SHOT. Do not move.
+ 3. FIRE FIVE OR SIX SHOTS. Do not move between them.
 
- 4. Look at where the hit actually landed, compared with the crosshair.
+ 4. Look at where the MIDDLE OF THE CLUSTER sits, compared with the
+    crosshair. Ignore any wild flier.
 
     TELL ME (or just remember): is the hit ABOVE or BELOW the crosshair,
     and is it LEFT or RIGHT of it? Roughly how far - a little, or right
@@ -56,15 +82,17 @@
  PART 2  --  COMPARE WITH THE OLD ZERO
 ---------------------------------------------------------------------------
 
- 5. Double-click   ZERO-B-SHIPPED.bat    (the old 14.4 / 9.5 values)
+ 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -13.2 / -4.0)
 
- 6. Same again: crosshair on the mark, fire one shot, look at where it hit.
+    !! That button RESETS. It does not save. It throws away anything you
+    have nudged since. ZERO-SHOW.bat prints the current values safely.
+
+ 6. Same again: crosshair on the mark, fire a group, look at its middle.
 
  7. Is it BETTER or WORSE than with zeroing off?
 
-    If it is WORSE, the old values are indeed fighting the new mirror pose,
-    and we should build the zero up fresh from OFF.
-    If it is BETTER but still out, we just need to nudge from here.
+    BETTER is expected now - the saved values were measured by shooting.
+    If it is WORSE, something has changed again; say so rather than nudging.
 
 
 ---------------------------------------------------------------------------
@@ -83,7 +111,7 @@
  8. Run the one that matches. Each click moves it 2 degrees - click twice
     for 4, three times for 6, and so on.
 
- 9. Fire another shot at the same mark.
+ 9. Fire another group at the same mark.
 
 10. Repeat 8 and 9 until the hit sits on the crosshair.
 
@@ -104,7 +132,8 @@
  exact numbers out of the log and write them in as the new defaults, so
  they survive a restart.
 
- ⚠ Until I do that, the values only last for this session.
+ ⚠ Until I do that, the values only last for this session. ZERO-B-SHIPPED and
+ a relaunch both throw them away.
 
 
 ---------------------------------------------------------------------------
