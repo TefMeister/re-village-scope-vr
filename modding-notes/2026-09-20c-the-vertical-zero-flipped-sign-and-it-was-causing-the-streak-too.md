@@ -59,6 +59,25 @@ have been chased separately all week are **one problem**, and it is a stale cali
 ⚠️ **Not yet confirmed live** — the prediction is that a correctly re-zeroed scope will also streak
 far less. That is a thing to check while zeroing, not to assume.
 
+## 2b. CORRECTION, same evening: the streak is NOT gone with the zeroing off
+
+Tefa, on reading the above: *"i was wrong, the do appear, but now evenly and when tilting the weapon
+a lot to the right or left, they still appear."*
+
+So section 2 above is **overstated and is corrected here**: turning the zeroing off did not remove
+the streaking. What it did was make it **EVEN** - no longer biased to the top and the right - and
+push it out to large *rifle tilt*, left or right.
+
+That is still a real and large improvement, and it is exactly what the numbers predicted: the crop
+resting place moved back toward the middle, so the room is now shared across all four sides instead
+of being spent on two. **But the failure itself remains, because it was never only about where the
+crop rests - the head-movement ceiling of 9ay is real and is not fixed by centring.**
+
+⚠️ I wrote "the whole streaking problem explained" in the reply that prompted this. It was not.
+The honest claim is: **the zero was making it arrive far sooner, and on two sides.** Second
+over-claim of the night, after the 12 degrees - both times by taking a real finding further than the
+evidence went.
+
 ## 3. What this retires
 
 - **§9aq's "the frame is too narrow"** was already disproved at the premise (§9av). This finishes it:
