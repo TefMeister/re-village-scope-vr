@@ -30,9 +30,15 @@ if errorlevel 1 (
   exit /b 1
 )
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-  "$p='%~dp0re2_fw_config.txt';" ^
-  "(Get-Content $p) ^| ForEach-Object { if($_ -like 'VR_SteerMirrorProjection=*'){ 'VR_SteerMirrorProjection=false' } else { $_ } } ^| Set-Content -Path $p -Encoding ASCII"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scope-steer-config.ps1" -ConfigPath "%~dp0re2_fw_config.txt" -Mode off
+if errorlevel 1 (
+  echo.
+  echo   THE SETTING DID NOT GET WRITTEN - see the error above.
+  echo   The old build IS back in place, which is what matters.
+  echo.
+  pause
+  exit /b 1
+)
 
 echo.
 echo   STEERING IS OFF. The previous build is back in place.
