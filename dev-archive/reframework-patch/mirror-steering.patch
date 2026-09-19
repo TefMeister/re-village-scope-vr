@@ -1,0 +1,253 @@
+diff --git a/src/mods/VR.cpp b/src/mods/VR.cpp
+index 93fd76b6..66a86b30 100644
+--- a/src/mods/VR.cpp
++++ b/src/mods/VR.cpp
+@@ -1,5 +1,6 @@
+ #define NOMINMAX
+ 
++#include <cmath>
+ #include <fstream>
+ #include <imgui.h>
+ #include <imgui_internal.h>
+@@ -261,6 +262,57 @@ void VR::on_view_get_size(REManagedObject* scene_view, float* result) {
+ // keys on the camera's GameObject name instead, which only works when the scope has its own camera.
+ static thread_local sdk::renderer::layer::Scene* s_mirror_layer_active{nullptr};
+ 
++// ---------------------------------------------------------------------------------------------
++// MIRROR PROJECTION STEERING  (dossier §9aq fix (1b))
++//
++// The scope's mirror pass is handed the HMD EYE's projection (90.88° across, off-centre by
++// m20=+0.1736 / m21=-0.2111), not its own 59.41° one. The plugin then crops a small window out of
++// that frame and follows the bore with it; past ~38.71° on one side and ~49.09° on the other the
++// crop centre runs off the edge of the frame and clamps, which is the smear.
++//
++// Widening the frame fixes it and costs sharpness (83 % at 44°, 67 % at 50°). STEERING it costs
++// nothing: an off-centre shift moves WHICH cone is drawn without widening it, so pixels-per-degree
++// are unchanged and the crop sits dead centre at every angle, i.e. it can never clamp.
++//
++//   NDC x = m00 * tan(t) + m20        ->    m20 = -m00 * tan(bore_yaw)   puts the bore at NDC 0
++//   NDC y = m11 * tan(t) + m21        ->    m21 = -m11 * tan(bore_pitch)
++//
++// [verified-numerically 2026-09-19] (plugin/tools/mirror_fov_check.cpp, 20 checks, 0 failed) --
++// but the matrices behind it are n=1 [verified-live 2026-09-12] and the SIGN of that relation was
++// read off a Lua dump rather than derived from RE Engine's clip convention. See the warning in
++// steer_mirror_projection(); the flat sweep is what settles it.
++//
++// Off by default. The exemption toggles above are a DIFFERENT and, for the smear, backwards fix --
++// they restore the mirror's own narrower projection and make the clamp happen 15.73° a side sooner.
++// ---------------------------------------------------------------------------------------------
++
++// tan() runs away near 90° and the frustum is unusable long before that. Named rather than written
++// inline so the one place it is enforced is greppable.
++static constexpr float kMirrorSteerLimitDeg = 75.0f;
++// How often the steering path writes a progress line, in projection calls.
++static constexpr uint32_t kMirrorSteerLogEvery = 600;
++
++// Set by REF_SetMirrorSteerAngles() from the scope plugin (same process, different DLL), read on
++// the render thread -> atomics. Degrees, camera-relative: +yaw right, +pitch up.
++static std::atomic<float> s_plugin_steer_yaw_deg{0.0f};
++static std::atomic<float> s_plugin_steer_pitch_deg{0.0f};
++// Mirrors m_steer_mirror_projection so the exported query below needs no access to the VR mod.
++static std::atomic<bool> s_mirror_steer_enabled{false};
++
++// Exported so the scope plugin can hand over the real bore angle it already computes, without
++// either side needing a REFramework API change: GetModuleHandleW(L"dinput8.dll") +
++// GetProcAddress("REF_SetMirrorSteerAngles"). Ignored unless "steer from plugin" is ticked.
++extern "C" __declspec(dllexport) void REF_SetMirrorSteerAngles(float yaw_deg, float pitch_deg) {
++    s_plugin_steer_yaw_deg.store(yaw_deg, std::memory_order_relaxed);
++    s_plugin_steer_pitch_deg.store(pitch_deg, std::memory_order_relaxed);
++}
++
++// Lets the plugin switch its crop to mode 2 (take the texture centre) only when steering is really
++// on, instead of the same fact being written into two config files that can disagree.
++extern "C" __declspec(dllexport) int REF_MirrorSteerIsEnabled() {
++    return s_mirror_steer_enabled.load(std::memory_order_relaxed) ? 1 : 0;
++}
++
+ void VR::begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const char* phase) {
+     if (layer == nullptr) {
+         return;
+@@ -277,6 +329,10 @@ void VR::begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const cha
+     s_mirror_layer_active = layer;
+     const auto windows = m_mirror_exemption.windows_seen.fetch_add(1, std::memory_order_relaxed) + 1;
+ 
++    // Published for REF_MirrorSteerIsEnabled(); refreshed here because this already runs every
++    // frame the mirror draws and so needs no extra hook.
++    s_mirror_steer_enabled.store(m_steer_mirror_projection->value(), std::memory_order_relaxed);
++
+     const auto camera = layer->get_camera();
+     const auto primary = sdk::get_primary_camera();
+     // (v2) no camera-address recording: exempting by camera identity hit the multipass duplicate eye camera.
+@@ -365,13 +421,88 @@ bool VR::is_camera_exempt(REManagedObject* camera, bool projection) {
+     return false;
+ }
+ 
++void VR::steer_mirror_projection(Matrix4x4f* result) {
++    // Base matrix. In VR this is the eye projection the mirror pass would have been given anyway,
++    // so the drawn cone keeps the 90.88° width every number in §9aq was derived against. Flat (no
++    // headset), or when "steer the native projection" is ticked, it is the game's own projection --
++    // which the original getter has already written into *result before this callback runs
++    // (Hooks::camera_get_projection_matrix_hook_internal calls original() first).
++    Matrix4x4f proj = *result;
++
++    const bool have_eye_projection = is_hmd_active() && !m_disable_projection_matrix_override;
++    const bool from_native = m_steer_mirror_from_native->value() || !have_eye_projection;
++
++    if (!from_native) {
++        proj = get_current_projection_matrix(false);
++    }
++
++    float yaw_deg = m_mirror_steer_yaw->value();
++    float pitch_deg = m_mirror_steer_pitch->value();
++
++    if (m_mirror_steer_from_plugin->value()) {
++        yaw_deg = s_plugin_steer_yaw_deg.load(std::memory_order_relaxed);
++        pitch_deg = s_plugin_steer_pitch_deg.load(std::memory_order_relaxed);
++    }
++
++    yaw_deg = glm::clamp(yaw_deg, -kMirrorSteerLimitDeg, kMirrorSteerLimitDeg);
++    pitch_deg = glm::clamp(pitch_deg, -kMirrorSteerLimitDeg, kMirrorSteerLimitDeg);
++
++    // glm is column-major and Matrix4x4f is a glm::mat4, so proj[2][0] is the element the dossier
++    // calls m20 -- the same one the 2026-09-12 Lua probe read as m[2].x. m00/m11 are deliberately
++    // left alone: not widening is the whole point of steering.
++    //
++    // !! THE SIGN IS NOT PROVEN. "NDC = m00*tan(t) + m20" is how §9aq states it, which gives the
++    // minus below; the opposite convention ("- m20") is equally common and would steer the frame the
++    // WRONG WAY -- the crop would run off the edge twice as fast instead of staying centred. That
++    // shows up in the first seconds of the flat sweep and is cured by ticking Invert. Until the
++    // sweep has been read, treat the sign as [hypothesis], not as settled.
++    const float sign = m_mirror_steer_invert->value() ? 1.0f : -1.0f;
++
++    const float shift_x = sign * proj[0][0] * std::tan(glm::radians(yaw_deg));
++    const float shift_y = sign * proj[1][1] * std::tan(glm::radians(pitch_deg));
++
++    const float was_x = proj[2][0];
++    const float was_y = proj[2][1];
++
++    proj[2][0] = shift_x;
++    proj[2][1] = shift_y;
++
++    *result = proj;
++
++    const auto n = m_mirror_exemption.proj_steered.fetch_add(1, std::memory_order_relaxed) + 1;
++
++    if (n == 1 || n % kMirrorSteerLogEvery == 0) {
++        spdlog::info("[VR] Mirror steering #{}: base={} yaw={:.2f} pitch={:.2f} deg (source={}) "
++                     "m00={:.4f} m11={:.4f} m20 {:+.4f}->{:+.4f} m21 {:+.4f}->{:+.4f} invert={} hmd={}",
++            n, from_native ? "native" : "eye", yaw_deg, pitch_deg,
++            m_mirror_steer_from_plugin->value() ? "plugin" : "slider",
++            proj[0][0], proj[1][1], was_x, shift_x, was_y, shift_y,
++            m_mirror_steer_invert->value(), is_hmd_active());
++    }
++}
++
+ void VR::on_camera_get_projection_matrix(REManagedObject* camera, Matrix4x4f* result) {
+     // Counted before every early-out so a flat run measures whether this getter fires inside a mirror window.
+     if (s_mirror_layer_active != nullptr) {
+         m_mirror_exemption.proj_calls_in_window.fetch_add(1, std::memory_order_relaxed);
+     }
+ 
+-    if (result == nullptr || !g_framework->is_ready() || !is_hmd_active() || m_disable_projection_matrix_override) {
++    if (result == nullptr || !g_framework->is_ready()) {
++        return;
++    }
++
++    // Mirror projection steering (§9aq fix (1b)). Deliberately ahead of BOTH the is_hmd_active()
++    // early-out and the exemption check below:
++    //   - ahead of the HMD check so the angle can be swept flat, with no headset on, which is the
++    //     cheap test of whether this getter is the lever at all;
++    //   - ahead of the exemption, which returns without touching *result and would otherwise
++    //     swallow the steer whenever "Exempt Mirror Cameras" is left on (it defaults to on).
++    if (s_mirror_layer_active != nullptr && m_steer_mirror_projection->value()) {
++        steer_mirror_projection(result);
++        return;
++    }
++
++    if (!is_hmd_active() || m_disable_projection_matrix_override) {
+         return;
+     }
+ 
+@@ -4421,6 +4552,17 @@ void VR::on_draw_ui() {
+     m_exempt_mirror_cameras_sticky->draw("Exempt Mirror Cameras: sticky window (plan B)");
+     m_mirror_uses_original_camera->draw("Mirror Uses Original Camera Pose (plan C)");
+ 
++    m_steer_mirror_projection->draw("Steer Mirror Projection (scope, fix 1b)");
++
++    if (m_steer_mirror_projection->value()) {
++        m_mirror_steer_from_plugin->draw("  Steer angle comes from the plugin");
++        m_mirror_steer_yaw->draw("  Manual steer yaw (deg)");
++        m_mirror_steer_pitch->draw("  Manual steer pitch (deg)");
++        m_mirror_steer_invert->draw("  Invert steer sign (if the frame moves the wrong way)");
++        m_steer_mirror_from_native->draw("  Steer the native projection instead of the eye one");
++        ImGui::Text("Steered projections written: %u", m_mirror_exemption.proj_steered.load());
++    }
++
+     if (ImGui::TreeNode("Mirror Exemption Stats")) {
+         const auto& me = m_mirror_exemption;
+         ImGui::Text("Mirror layer windows seen: %u", me.windows_seen.load());
+diff --git a/src/mods/VR.hpp b/src/mods/VR.hpp
+index 8632dd1f..cdf90762 100644
+--- a/src/mods/VR.hpp
++++ b/src/mods/VR.hpp
+@@ -581,6 +581,32 @@ private:
+     // (m_original_camera_matrix, saved before REFramework writes the HMD pose into the camera joint) instead of
+     // the HMD pose the joint currently holds. Config key: VR_MirrorUsesOriginalCamera.
+     const ModToggle::Ptr m_mirror_uses_original_camera{ ModToggle::create(generate_name("MirrorUsesOriginalCamera"), true) };
++    // --- Mirror projection steering (dossier §9aq fix (1b)) -------------------------------------
++    // Inside a mirror window, keep the drawn frame's WIDTH and move its CENTRE onto the bore, by
++    // writing the projection's off-centre terms (m20/m21) instead of its half-extents (m00/m11).
++    // Pixels per degree are unchanged, so the scope loses no sharpness, and the plugin's crop sits
++    // at the texture centre at every angle instead of walking off the edge (the smear).
++    // OFF by default: this is new, the sign of the shift is not yet proven live, and a strongly
++    // off-axis frustum may be culled against the frustum the engine thinks it has.
++    // Config key: VR_SteerMirrorProjection. See VR::steer_mirror_projection().
++    const ModToggle::Ptr m_steer_mirror_projection{ ModToggle::create(generate_name("SteerMirrorProjection"), false) };
++    // Where the angle comes from. Off = the two sliders below, which is what a flat sweep uses
++    // before any bore wiring exists. On = whatever the scope plugin last pushed in through
++    // REF_SetMirrorSteerAngles(). Config key: VR_MirrorSteerFromPlugin.
++    const ModToggle::Ptr m_mirror_steer_from_plugin{ ModToggle::create(generate_name("MirrorSteerFromPlugin"), false) };
++    // Manual bore angle for the sweep, degrees, camera-relative. Range is wider than the 20-44° the
++    // board measured on purpose, so the far end (where culling is expected to misbehave) is reachable.
++    // Config keys: VR_MirrorSteerYaw / VR_MirrorSteerPitch.
++    const ModSlider::Ptr m_mirror_steer_yaw{ ModSlider::create(generate_name("MirrorSteerYaw"), -75.0f, 75.0f, 0.0f) };
++    const ModSlider::Ptr m_mirror_steer_pitch{ ModSlider::create(generate_name("MirrorSteerPitch"), -75.0f, 75.0f, 0.0f) };
++    // Flips the sign of the written shift. Present because the NDC sign convention behind
++    // "m20 = -m00*tan(bore)" is [hypothesis], not measured: if the frame steers the wrong way in the
++    // flat sweep, this is the one-tick cure. Config key: VR_MirrorSteerInvert.
++    const ModToggle::Ptr m_mirror_steer_invert{ ModToggle::create(generate_name("MirrorSteerInvert"), false) };
++    // Steer the mirror's OWN (narrower, 59.41°) projection instead of the HMD eye projection it is
++    // handed today. Diagnostic: it separates "steering does not reach the frame" from "steering
++    // reaches it but the eye projection was the wrong base". Config key: VR_SteerMirrorFromNative.
++    const ModToggle::Ptr m_steer_mirror_from_native{ ModToggle::create(generate_name("SteerMirrorFromNative"), false) };
+     const ModCombo::Ptr m_rendering_technique{ 
+         ModCombo::create(generate_name("RenderingTechnique_V2"),
+         {
+@@ -650,12 +676,14 @@ private:
+         std::atomic<uint32_t> view_unhmd{};                    // plan C: mirror-window view matrices rewritten to the game's own camera pose
+         std::atomic<uint32_t> view_unhmd_skipped{};            // plan C: skipped because no original pose was available
+         std::atomic<uint32_t> exempted_by_name{};
++        std::atomic<uint32_t> proj_steered{};                  // steering: projections rewritten with an off-centre shift
+         std::atomic<bool> logged_layer{false};
+     } m_mirror_exemption{};
+ 
+     void begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const char* phase);
+     void end_mirror_layer_window(sdk::renderer::layer::Scene* layer);
+     bool is_camera_exempt(REManagedObject* camera, bool projection);
++    void steer_mirror_projection(Matrix4x4f* result);
+ 
+     bool m_disable_projection_matrix_override{ false };
+     bool m_disable_gui_camera_projection_matrix_override{ false };
+@@ -671,6 +699,12 @@ private:
+         *m_exempt_mirror_cameras,
+         *m_exempt_mirror_cameras_sticky,
+         *m_mirror_uses_original_camera,
++        *m_steer_mirror_projection,
++        *m_mirror_steer_from_plugin,
++        *m_mirror_steer_yaw,
++        *m_mirror_steer_pitch,
++        *m_mirror_steer_invert,
++        *m_steer_mirror_from_native,
+         *m_rendering_technique,
+         *m_use_custom_view_distance,
+         *m_hmd_oriented_audio,

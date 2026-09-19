@@ -2265,6 +2265,53 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9at. THE STEERING FROM §9aq IS WRITTEN AND BUILDS — WHAT IS LEFT IS A FLAT SWEEP, AND THE SIGN IS STILL A GUESS (2026-09-19, home PC — STATIC + A BUILD, THE GAME WAS NOT LAUNCHED)
+
+Carries out step 1 of `owed/HOME/2026-09-19-re-village-scope-steer-the-mirror-projection…`. **Does
+not supersede §9aq** — it implements fix (1b) and adds what building it taught.
+
+- **Where it went.** `VR::on_camera_get_projection_matrix`, inside the mirror window, in the fork at
+  `D:\RE2 REFramework builds\tools\REFramework-src\` — the site §9l's v2 patch already touches.
+  Committed as `dev-archive/reframework-patch/mirror-steering.patch` the day it was written, which
+  the v2 patch was not.
+- **What it writes.** `m20 = -m00·tan(yaw)`, `m21 = -m11·tan(pitch)`, `m00`/`m11` untouched. Behind
+  `VR_SteerMirrorProjection`, **default off**, with manual yaw/pitch sliders (±75°) so it can be
+  swept before any bore wiring exists.
+- **It builds.** MSBuild `build/RE8.vcxproj`, Release x64: **0 warnings, 0 errors**, 20 s,
+  `build/bin/RE8/dinput8.dll` 22.7 MB `[compile-verified 2026-09-19]`. Staged as
+  `dinput8_pd-upscaler_76298bd_mirror-steering_2026-09-19_NOT-YET-TESTED.dll`.
+- ⭐ **TWO PLACEMENT DECISIONS THAT DECIDE WHETHER THE TEST MEANS ANYTHING.** The branch sits ahead
+  of the `is_hmd_active()` early-out **and** ahead of `is_camera_exempt()`. The first lets the sweep
+  run **flat, with no headset**. The second matters more: `VR_ExemptMirrorCameras` **defaults to
+  on** and returns without touching the matrix, so behind it the steer would never have executed and
+  the session would have recorded "steering does nothing" about code that never ran. That is the
+  classic "the fix removed the symptom and the failing path with it" trap, caught before it was sprung rather than
+  after.
+- ⚠️ **THE SIGN OF THE SHIFT IS `[hypothesis]`, NOT MEASURED, AND §9aq SHOULD BE READ THAT WAY TOO.**
+  §9aq §1 states `NDC x = m00·tan(t) + m20`. That `+` came from reading a live dump through a Lua
+  getter, **not** from RE Engine's clip convention; the opposite convention (`− m20`) is equally
+  common in DirectX-style projections. If it is the other way round, steering moves the frame the
+  **wrong way** and the crop leaves the edge roughly twice as fast — a dramatic, unmissable failure
+  rather than a subtle one. A `VR_MirrorSteerInvert` tick cures it, and the first seconds of the flat
+  sweep settle it. **Nothing downstream of §9aq should assume the sign until that sweep is read.**
+- **The wiring question §9aq left open is answered.** `dinput8.dll` now exports
+  `REF_SetMirrorSteerAngles(float yaw_deg, float pitch_deg)` and `REF_MirrorSteerIsEnabled()`,
+  confirmed in the binary with `dumpbin /exports` `[compile-verified 2026-09-19]`. The scope plugin
+  reaches them with `GetProcAddress(GetModuleHandleW(L"dinput8.dll"), …)` — same process, no
+  REFramework API change either side. ⚠️ **Nothing calls them yet**; the plugin side is unwritten,
+  and `VR_MirrorSteerFromPlugin` is off.
+- **A diagnostic that separates two failures that would otherwise look identical.**
+  `VR_SteerMirrorFromNative` steers the mirror's own 59.41° projection instead of the eye projection
+  it is handed. "The steer never reaches the frame" and "it reaches it but the base matrix was the
+  wrong one" then give different pictures.
+- **Unchanged and still the main risk: culling** (§9aq §7). At 60° the shift is −1.71 and the whole
+  frustum sits to one side of what the engine believes it is drawing. Objects popping in and out at
+  the frame edges while the angle is swept is the predicted failure; nothing static can see it.
+  `[hypothesis]`
+- Field note: `modding-notes/2026-09-19b-the-steering-code-is-written-and-builds.md`.
+
+Credit: **praydog** (REFramework), **gmankab** (the `pd-upscaler` fork).
+
 ### 9as. THE LEFT-HAND OFFSET IS A VALUE RE8VR STOPS USING — OR THE HANDS WERE NEVER UPDATED AT ALL (inbox drained 2026-09-19, `/pd`)
 
 Folded from `inbox/2026-09-19-mod-anomaly-vr-hand-and-controller-offsets.md`, a static read of
