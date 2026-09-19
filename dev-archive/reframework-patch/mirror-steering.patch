@@ -1,5 +1,5 @@
 diff --git a/src/mods/VR.cpp b/src/mods/VR.cpp
-index 93fd76b6..66a86b30 100644
+index 93fd76b6..e43d9846 100644
 --- a/src/mods/VR.cpp
 +++ b/src/mods/VR.cpp
 @@ -1,5 +1,6 @@
@@ -9,7 +9,7 @@ index 93fd76b6..66a86b30 100644
  #include <fstream>
  #include <imgui.h>
  #include <imgui_internal.h>
-@@ -261,6 +262,57 @@ void VR::on_view_get_size(REManagedObject* scene_view, float* result) {
+@@ -261,6 +262,60 @@ void VR::on_view_get_size(REManagedObject* scene_view, float* result) {
  // keys on the camera's GameObject name instead, which only works when the scope has its own camera.
  static thread_local sdk::renderer::layer::Scene* s_mirror_layer_active{nullptr};
  
@@ -42,6 +42,9 @@ index 93fd76b6..66a86b30 100644
 +static constexpr float kMirrorSteerLimitDeg = 75.0f;
 +// How often the steering path writes a progress line, in projection calls.
 +static constexpr uint32_t kMirrorSteerLogEvery = 600;
++// Shout mode multiplies the projection's half-extents by this. 0.5 doubles the field of view,
++// which is far too big to mistake for anything else.
++static constexpr float kMirrorShoutScale = 0.5f;
 +
 +// Set by REF_SetMirrorSteerAngles() from the scope plugin (same process, different DLL), read on
 +// the render thread -> atomics. Degrees, camera-relative: +yaw right, +pitch up.
@@ -67,7 +70,7 @@ index 93fd76b6..66a86b30 100644
  void VR::begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const char* phase) {
      if (layer == nullptr) {
          return;
-@@ -277,6 +329,10 @@ void VR::begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const cha
+@@ -277,6 +332,10 @@ void VR::begin_mirror_layer_window(sdk::renderer::layer::Scene* layer, const cha
      s_mirror_layer_active = layer;
      const auto windows = m_mirror_exemption.windows_seen.fetch_add(1, std::memory_order_relaxed) + 1;
  
@@ -78,7 +81,7 @@ index 93fd76b6..66a86b30 100644
      const auto camera = layer->get_camera();
      const auto primary = sdk::get_primary_camera();
      // (v2) no camera-address recording: exempting by camera identity hit the multipass duplicate eye camera.
-@@ -365,13 +421,88 @@ bool VR::is_camera_exempt(REManagedObject* camera, bool projection) {
+@@ -365,13 +424,109 @@ bool VR::is_camera_exempt(REManagedObject* camera, bool projection) {
      return false;
  }
  
@@ -103,6 +106,23 @@ index 93fd76b6..66a86b30 100644
 +    if (m_mirror_steer_from_plugin->value()) {
 +        yaw_deg = s_plugin_steer_yaw_deg.load(std::memory_order_relaxed);
 +        pitch_deg = s_plugin_steer_pitch_deg.load(std::memory_order_relaxed);
++    }
++
++    // SHOUT MODE -- a deliberately unmissable change, for one question only: does the projection
++    // written here reach the scope picture AT ALL?
++    //
++    // 2026-09-19, live: the steer was driven to yaw -28.51 / pitch -24.30, which writes
++    // m20 +0.5349 / m21 +0.5280 -- a huge off-centre shift -- and the wearer reported the picture
++    // did not change. Either the mirror renders with a projection captured somewhere other than
++    // this getter, or the calls caught inside the mirror window are not the mirror's own.
++    // Halving m00/m11 doubles the drawn field of view. If the picture does not visibly zoom out
++    // under this, the projection this hook returns is NOT what the scope draws with -- and §9aq's
++    // premise (that the mirror is drawn at the eye's field of view) falls with it, because that
++    // premise was read from this same getter.
++    // Diagnostic only. Never ship it on.
++    if (m_mirror_projection_shout->value()) {
++        proj[0][0] *= kMirrorShoutScale;
++        proj[1][1] *= kMirrorShoutScale;
 +    }
 +
 +    yaw_deg = glm::clamp(yaw_deg, -kMirrorSteerLimitDeg, kMirrorSteerLimitDeg);
@@ -139,6 +159,10 @@ index 93fd76b6..66a86b30 100644
 +            m_mirror_steer_from_plugin->value() ? "plugin" : "slider",
 +            proj[0][0], proj[1][1], was_x, shift_x, was_y, shift_y,
 +            m_mirror_steer_invert->value(), is_hmd_active());
++
++        if (m_mirror_projection_shout->value()) {
++            spdlog::info("[VR] Mirror steering: SHOUT MODE is on -- half-extents scaled by {:.2f}. If the scope picture is not visibly wider, this projection is not what the mirror draws with.", kMirrorShoutScale);
++        }
 +    }
 +}
 +
@@ -168,7 +192,7 @@ index 93fd76b6..66a86b30 100644
          return;
      }
  
-@@ -4421,6 +4552,17 @@ void VR::on_draw_ui() {
+@@ -4421,6 +4576,18 @@ void VR::on_draw_ui() {
      m_exempt_mirror_cameras_sticky->draw("Exempt Mirror Cameras: sticky window (plan B)");
      m_mirror_uses_original_camera->draw("Mirror Uses Original Camera Pose (plan C)");
  
@@ -180,6 +204,7 @@ index 93fd76b6..66a86b30 100644
 +        m_mirror_steer_pitch->draw("  Manual steer pitch (deg)");
 +        m_mirror_steer_invert->draw("  Invert steer sign (if the frame moves the wrong way)");
 +        m_steer_mirror_from_native->draw("  Steer the native projection instead of the eye one");
++        m_mirror_projection_shout->draw("  SHOUT: halve the field of view (diagnostic only)");
 +        ImGui::Text("Steered projections written: %u", m_mirror_exemption.proj_steered.load());
 +    }
 +
@@ -187,10 +212,10 @@ index 93fd76b6..66a86b30 100644
          const auto& me = m_mirror_exemption;
          ImGui::Text("Mirror layer windows seen: %u", me.windows_seen.load());
 diff --git a/src/mods/VR.hpp b/src/mods/VR.hpp
-index 8632dd1f..cdf90762 100644
+index 8632dd1f..0471c71c 100644
 --- a/src/mods/VR.hpp
 +++ b/src/mods/VR.hpp
-@@ -581,6 +581,32 @@ private:
+@@ -581,6 +581,38 @@ private:
      // (m_original_camera_matrix, saved before REFramework writes the HMD pose into the camera joint) instead of
      // the HMD pose the joint currently holds. Config key: VR_MirrorUsesOriginalCamera.
      const ModToggle::Ptr m_mirror_uses_original_camera{ ModToggle::create(generate_name("MirrorUsesOriginalCamera"), true) };
@@ -220,10 +245,16 @@ index 8632dd1f..cdf90762 100644
 +    // handed today. Diagnostic: it separates "steering does not reach the frame" from "steering
 +    // reaches it but the eye projection was the wrong base". Config key: VR_SteerMirrorFromNative.
 +    const ModToggle::Ptr m_steer_mirror_from_native{ ModToggle::create(generate_name("SteerMirrorFromNative"), false) };
++    // DIAGNOSTIC ONLY. Halves the projection's half-extents inside the mirror window, which doubles
++    // the drawn field of view -- far too large a change to mistake. Answers one question: does the
++    // projection written at this hook reach the scope picture at all? Added 2026-09-19 after a live
++    // steer of -28.51° yaw / -24.30° pitch moved nothing the wearer could see.
++    // Config key: VR_MirrorProjectionShout.
++    const ModToggle::Ptr m_mirror_projection_shout{ ModToggle::create(generate_name("MirrorProjectionShout"), false) };
      const ModCombo::Ptr m_rendering_technique{ 
          ModCombo::create(generate_name("RenderingTechnique_V2"),
          {
-@@ -650,12 +676,14 @@ private:
+@@ -650,12 +682,14 @@ private:
          std::atomic<uint32_t> view_unhmd{};                    // plan C: mirror-window view matrices rewritten to the game's own camera pose
          std::atomic<uint32_t> view_unhmd_skipped{};            // plan C: skipped because no original pose was available
          std::atomic<uint32_t> exempted_by_name{};
@@ -238,7 +269,7 @@ index 8632dd1f..cdf90762 100644
  
      bool m_disable_projection_matrix_override{ false };
      bool m_disable_gui_camera_projection_matrix_override{ false };
-@@ -671,6 +699,12 @@ private:
+@@ -671,6 +705,13 @@ private:
          *m_exempt_mirror_cameras,
          *m_exempt_mirror_cameras_sticky,
          *m_mirror_uses_original_camera,
@@ -248,6 +279,7 @@ index 8632dd1f..cdf90762 100644
 +        *m_mirror_steer_pitch,
 +        *m_mirror_steer_invert,
 +        *m_steer_mirror_from_native,
++        *m_mirror_projection_shout,
          *m_rendering_technique,
          *m_use_custom_view_distance,
          *m_hmd_oriented_audio,
