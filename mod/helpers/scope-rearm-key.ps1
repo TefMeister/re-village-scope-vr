@@ -1,26 +1,31 @@
 # Presses numpad . (VK_DECIMAL, 0x6E) to re-arm the mirror-source latch.
 #
-# Finds the game by PROCESS, not by window title. The previous inline version looked for
-# 'RESIDENT EVIL VILLAGE'; the real title is 'Resident Evil Village', so FindWindow returned
-# zero and the focus step was skipped without saying so. The key still landed, but only
-# because the plugin polls this key globally ("polled key 0x6E (VR route)") rather than by
-# window message -- so a silent failure looked like a success. 2026-09-19.
+# 2026-09-20: NO LONGER BRINGS THE GAME TO THE FOREGROUND.
+#
+# It used to call SetForegroundWindow first. On 2026-09-20 the wearer reported the
+# WEAPON FIRED ITSELF during step 2 of START-SCOPE, which is this step and nothing
+# else. Stealing focus while a VR runtime is holding the window is the only thing
+# here capable of producing a stray input, so it is gone.
+#
+# Focus was never needed. On 2026-09-19 at 22:59 this script's predecessor failed to
+# find the window at all (it searched for the title 'RESIDENT EVIL VILLAGE', which
+# does not exist - the real one is 'Resident Evil Village'), logged a warning, sent
+# the key anyway, and the plugin logged `polled key 0x6E (VR route)` followed by
+# `mirror-source re-arm PENDING`. The plugin polls this key GLOBALLY rather than by
+# window message, so it lands whatever has focus [verified-live 2026-09-19, n=1].
+#
+# So the focus call bought nothing and cost a fired round. If a future change makes
+# the key window-routed, this is the file to revisit.
 
 Add-Type -Name W -Namespace K -MemberDefinition @'
 [DllImport("user32.dll")] public static extern void keybd_event(byte b, byte s, uint f, int e);
-[DllImport("user32.dll")] public static extern bool SetForegroundWindow(System.IntPtr h);
 '@
 
 $proc = Get-Process re8 -ErrorAction SilentlyContinue | Select-Object -First 1
-
 if ($null -eq $proc) {
     Write-Host "  WARNING: the game does not appear to be running - sending the key anyway."
-} elseif ($proc.MainWindowHandle -eq [System.IntPtr]::Zero) {
-    Write-Host "  WARNING: no game window handle yet - sending the key anyway."
 } else {
-    [void][K.W]::SetForegroundWindow($proc.MainWindowHandle)
-    Start-Sleep -Milliseconds 900
-    Write-Host ("  focused: " + $proc.MainWindowTitle)
+    Write-Host ("  game found (pid " + $proc.Id + ") - not stealing focus, the key is polled globally")
 }
 
 [K.W]::keybd_event(0x6E, 0, 0, 0)

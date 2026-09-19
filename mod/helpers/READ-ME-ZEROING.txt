@@ -1,0 +1,120 @@
+===========================================================================
+ ZEROING THE SCOPE  --  make it point where it shoots      2026-09-20
+===========================================================================
+
+ WHAT WE ARE DOING
+ -----------------
+ Zeroing moves the scope PICTURE so that whatever the crosshair sits on is
+ what the bullet actually hits. It does not change where the rifle shoots.
+
+ WHY IT PROBABLY NEEDS REDOING
+ -----------------------------
+ The current values (up 14.4, right 9.5) were measured on 13 September, with
+ the mirror in its OLD position. On 18 September that position changed - the
+ viewpoint moved from about a metre below your head to exactly at your eye.
+ A zero measured before that change would now point wrong, and "lower and to
+ the left" is exactly the sort of error it would give.
+
+ So we are not adjusting a good zero. We are redoing one that was made for a
+ different setup.
+
+
+---------------------------------------------------------------------------
+ BEFORE STEP 1
+---------------------------------------------------------------------------
+  - The scope must already be working (START-SCOPE.bat, rifle in hands).
+  - You need somewhere you can safely fire several shots and SEE where they
+    land: a wall, a wooden post, a door. Snow and stone show hits well.
+  - Stand still, a good distance back - 10 to 15 paces. Close up hides the
+    error; far away makes it obvious.
+  - You will need spare rifle ammo. If you are short, do this somewhere
+    quiet and reload between tries.
+
+
+---------------------------------------------------------------------------
+ PART 1  --  SEE HOW BAD IT REALLY IS
+---------------------------------------------------------------------------
+
+ 1. Double-click   ZERO-A-OFF.bat        (turns zeroing off completely)
+
+ 2. Look through the scope at your wall or post. Put the crosshair on
+    something you can name - a knot in the wood, a bolt, a mark.
+
+ 3. FIRE ONE SHOT. Do not move.
+
+ 4. Look at where the hit actually landed, compared with the crosshair.
+
+    TELL ME (or just remember): is the hit ABOVE or BELOW the crosshair,
+    and is it LEFT or RIGHT of it? Roughly how far - a little, or right
+    out of the scope picture?
+
+ This is the raw error with no correction at all. It is the number
+ everything else is measured from.
+
+
+---------------------------------------------------------------------------
+ PART 2  --  COMPARE WITH THE OLD ZERO
+---------------------------------------------------------------------------
+
+ 5. Double-click   ZERO-B-SHIPPED.bat    (the old 14.4 / 9.5 values)
+
+ 6. Same again: crosshair on the mark, fire one shot, look at where it hit.
+
+ 7. Is it BETTER or WORSE than with zeroing off?
+
+    If it is WORSE, the old values are indeed fighting the new mirror pose,
+    and we should build the zero up fresh from OFF.
+    If it is BETTER but still out, we just need to nudge from here.
+
+
+---------------------------------------------------------------------------
+ PART 3  --  NUDGE IT UNTIL IT IS RIGHT
+---------------------------------------------------------------------------
+
+ Work from whichever of the two was closer.
+
+ The rule is simple: MOVE THE PICTURE TOWARDS WHERE THE BULLET WENT.
+
+    hit was ABOVE the crosshair  ->  ZERO-UP.bat
+    hit was BELOW the crosshair  ->  ZERO-DOWN.bat
+    hit was RIGHT of the crosshair -> ZERO-RIGHT.bat
+    hit was LEFT of the crosshair  -> ZERO-LEFT.bat
+
+ 8. Run the one that matches. Each click moves it 2 degrees - click twice
+    for 4, three times for 6, and so on.
+
+ 9. Fire another shot at the same mark.
+
+10. Repeat 8 and 9 until the hit sits on the crosshair.
+
+    Go in big steps first (3 or 4 clicks) until you overshoot, then come
+    back in single clicks. That is faster than creeping up on it.
+
+11. When it looks right, MOVE SOMEWHERE ELSE and fire two or three more at
+    a different distance. A zero that only works from one spot is not a
+    zero - it has been fitted to that spot.
+
+
+---------------------------------------------------------------------------
+ WHEN IT IS DONE
+---------------------------------------------------------------------------
+
+ Tell me roughly what you ended up doing - "about six clicks up and two
+ left from off", or "the old values were fine after all". I will read the
+ exact numbers out of the log and write them in as the new defaults, so
+ they survive a restart.
+
+ ⚠ Until I do that, the values only last for this session.
+
+
+---------------------------------------------------------------------------
+ IF SOMETHING IS ODD
+---------------------------------------------------------------------------
+
+  - Picture streaks into dragged lines when your head points up or right:
+    known, expected, and separate from this. Ignore it while zeroing -
+    keep your head roughly facing the target.
+  - The shot goes somewhere wildly unrelated, not just offset: stop and
+    tell me. That is a different fault and nudging will not fix it.
+  - You cannot see the hits at all: move closer, or try a snowy or wooden
+    surface.
