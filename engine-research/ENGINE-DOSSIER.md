@@ -2270,6 +2270,77 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bk. ⭐⭐⭐ FOUND, AND PROVEN FROM LIVE NUMBERS: THE BULLET IS **BUILT** WITH THE SCATTERED ROTATION, ONE STEP BEFORE WHERE EVERY FIX WAS APPLIED (2026-09-21, LIVE, flat, 10 shots by Tefa)
+
+**Supersedes: §9bi's premise** that the bullet's `via.Ray` carries the scatter, and **answers §9bj's open
+question.** Three aimed shots, a reload, then seven from the hip.
+
+#### 1. The ray is CLEAN — always. Writing the bore into it would have been a no-op.
+
+With the reader fixed (`CHOSE +16 … len=1.000000` on every shot), **`ray-vs-bore` read 0.000° on all
+eight logged shots — including ones with 9.468°, 12.954° and 14.625° of scatter**
+`[verified-live 2026-09-21, n=8]`. `createBullet` is handed the exact muzzle axis. §9bi's mode 4 (write
+the bore into the ray) is **disproved before it ever ran, by measuring first** — which is the rule
+working: it would have been a fifth wasted round.
+
+#### 2. ⭐⭐ Which rotation is the wobbly one — settled by arithmetic on the logged values
+
+The shortest-arc rotation taking `+Z` onto the ray's direction, computed by hand from the log:
+
+| shot | computed-clean vs **B** (`setupDiffusion` arg 2) | computed-clean vs **A** (what `createBulletImple` BUILDS with) | logged scatter |
+| --- | --- | --- | --- |
+| #1 (aimed) | 0.000° | 0.000° | 0.000° |
+| #4 (hip) | 0.000° | **1.886°** | 1.813° |
+| #6 (hip) | 0.000° | **9.527°** | 9.468° |
+
+`[verified-numerically 2026-09-21, n=3; differences are 4-decimal rounding in the log]`
+
+**B is the clean aim. A is the scattered one. And `createBulletImple` — the step that builds the
+bullet — is handed A.** Also visible by eye: B's `z` component is always exactly `−0.0000` (a pure
+shortest-arc from `+Z`, no roll), while A picks up a non-zero `z` on every hip shot.
+
+#### 3. So the whole evening, in one table
+
+| step | what it receives | |
+| --- | --- | --- |
+| 2 `createBullet(ray)` | the **clean** aim | — inside it, the game makes a rotation and **scatters** it |
+| 3 `createBulletImple(A)` | **A, scattered** | **the bullet is built here** |
+| 4 `setupDiffusion(A, B)` | A again, plus **B, clean** | §9be–§9bg wrote here — **one step after the bullet existed** |
+
+⚠️ **Mode 2 (copy B over A) was the RIGHT IDEA at the WRONG STEP.** It landed, the log read
+`11.188 -> 0.000`, and nothing downstream read it. That is §9bg's finding, now with the mechanism.
+
+#### 4. The fix — built, NOT deployed (the game was open)
+
+At the **entry of step 3**, overwrite A with the clean rotation computed from the ray captured one step
+earlier. In the rule's own terms: the scatter is decided between steps 2 and 3, and the write lands
+**after it is decided but before its result is consumed** — the only ordering that can work.
+
+- the clean rotation is `normalize(−d.y, d.x, 0, 1 + d.z)`, **checked against the game's own B on every
+  shot** in `setupDiffusion`, with a loud warning if they ever differ by more than 0.05° — so if the
+  engine's convention is not what these shots say, the log shows it rather than the bullets
+- refuses when aiming straight along `−Z` (the formula is degenerate there) rather than guessing
+- the ray is handed from `createBullet` to `createBulletImple` through a pending slot **consumed exactly
+  once and only if `this` matches** — so a shotgun pellet or another gun's bullet cannot pick up a
+  stale rifle ray
+- measure → write → re-measure, `__try`-guarded, rifle-only through `world_tick`'s filter
+- **in mode 4 `setupDiffusion` still reports what it sees**, so if A is the same memory the log will
+  show the scatter reading ~0 downstream — an end-to-end check for free
+
+`re_scope_vr.dll` 251,904 bytes, 0 errors 0 warnings `[compile-verified 2026-09-21]`.
+`RIFLE-STRAIGHTEN.bat` switches it on (mode 4); `RIFLE-BORE-ON.bat` is retired with the idea it drove.
+
+⚠️ **Still `[hypothesis]`: that a bullet built with clean A flies straight.** Everything up to the write
+is now measured. Whether anything *after* `createBulletImple` re-applies a scatter is not — and if
+shots are still random with `STRAIGHTENED … now built 0.000 deg off` in the log, that is exactly what
+it would mean, and the next target is whatever runs between steps 3 and 4.
+
+**The test:** close the game, `UPDATE-RIFLE-PLUGIN.bat`, launch, rifle in hand,
+`RIFLE-STRAIGHTEN.bat`, fire from the hip.
+
+Credit: **praydog** (REFramework). Ten shots fired by Tefa, who also thought to reload and empty the
+magazine so the hip sample was big enough to contain large scatters.
+
 ### 9bj. ⚠⭐⭐ THE RAY'S DIRECTION IS AT **+16**, MY READER TOOK +12 — and the two test shots had no scatter to see (2026-09-21, LIVE, flat)
 
 First run of the ray diagnostic. It produced two defects of mine and one structural fact, and **no
