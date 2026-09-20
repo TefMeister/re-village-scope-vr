@@ -2270,6 +2270,48 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9br. ⭐⭐⭐ THE ZERO CHANGES WITH DISTANCE — the wearer confirmed it in one sentence, and the numbers point at `propr 0.20` (2026-09-21, LIVE, VR)
+
+§9bq asked why the zero moved 4.6° between two careful passes and named distance first. Tefa, on
+reading it: *"i was too close to the wall at first"* `[reported 2026-09-21]`. So **pass one
+(−15.2 / −6.0) was zeroed close to the wall and pass two (−16.4 / −10.6) from further back.** The
+two-distance test §9bq asked for had already been run, by accident.
+
+**That is parallax: the scope picture is taken from a point that is not on the barrel.** If the
+viewpoint sits `h` metres to the side of the bore, the sideways zero needed at distance `d` is
+`true_zero + atan(h/d)` — a fixed angle plus a term that fades with range.
+
+| h | close 2 m → far 10 m | close 3 m → far 12 m |
+| --- | --- | --- |
+| 0.10 m | 2.3° | 1.4° |
+| **0.20 m** | **4.6°** | 2.9° |
+| 0.30 m | 6.8° | 4.3° |
+
+`[verified-numerically 2026-09-21]` — measured change: **4.6° sideways**, 1.2° vertical.
+
+⭐ **And the true-scope pose's own set-up words include `propr 0.20` — 0.20 m to the right** (sent
+by `VR-TRUE-SCOPE.bat` alongside `pitch 90 / yaw 90 / propf 0 / propu 0`, both sessions). A 0.20 m
+offset with the wall at ~2 m and then ~10 m gives **exactly the 4.6° measured.** ⚠️ **`[hypothesis]`,
+not a finding:** the two distances were never measured, and other (h, d) pairs fit too. It is the
+first thing to check because it costs nothing and the number is sitting in our own words.
+
+**What follows, whichever h it turns out to be:**
+
+- **No single zero is right at every distance**, and nudging cannot make one. A real rifle has the
+  same property and is zeroed at a chosen range — but real scopes sit ~5 cm off the bore, not 20.
+- **The far value is the one to keep**, and it is the one baked in (−16.4 / −10.6): a sniper scope is
+  for distance, and the error it leaves shrinks with range instead of growing.
+- **The proper fix is to remove the offset, not to tune around it**: either `propr` → 0 if nothing
+  depends on it (it may exist to keep Ethan or the rifle out of the picture — **check why it is 0.20
+  before touching it**), or have `crop_follow` add the `atan(h/d)` term itself from the distance to what
+  the bore is pointing at. Both are `[PD]` — no game needed to work out which.
+
+**The clean confirmation, when convenient:** baked zero, no nudging, one shot from a paced-out ~3 m and
+one from ~15 m. The sideways miss at 3 m should be about `atan(0.20/3) − atan(0.20/10)` ≈ **2.7°**, and
+near zero at 15 m. If it is, h = 0.20 is confirmed and the fix is `propr`.
+
+Credit: **praydog** (REFramework). The observation is Tefa's.
+
 ### 9bq. ⚠⭐⭐ THE FOURTH ZERO: **up −16.4 / right −10.6**, baked in — and the zero MOVED 4.6° BETWEEN TWO CAREFUL PASSES AN HOUR APART (2026-09-21, LIVE, VR, Tefa wearing)
 
 **Supersedes: §9bp's value** (−15.2 / −6.0). Tefa: *"ok had to re-do it, the zeroing, please bake
