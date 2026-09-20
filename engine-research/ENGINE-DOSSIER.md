@@ -2270,6 +2270,61 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bi. ⭐⭐⭐ THE BULLET'S OWN RAY, AND THE STEP ORDER STATED BEFORE ANYTHING WAS BUILT — deployed, not run (2026-09-21, `/pd`, home PC)
+
+First build made under the rule this evening produced (lanes plugin `docs/PROTOCOL.md` §11), and the
+rule is written into the source above the hook rather than left implied:
+
+```
+step 1 expendBullet   step 2 createBullet(via.Ray, bool)   step 3 createBulletImple   step 4 setupDiffusion
+```
+
+**The change lands at step 2, the first of the three that touch the shot.** Every previous attempt
+wrote at step 4, after the bullet existed — which is exactly why they measured beautifully and changed
+nothing (§9bg). ⭐ **And whether the scatter is added before step 2 or inside it does not matter: the
+Ray is what the bullet is built from, so a correct direction written into it fixes the shot whatever
+produced the wrong one.**
+
+**Two things measured rather than assumed, because four guesses have already died:**
+
+- ⚠️ **`via.Ray`'s layout is not assumed.** A vec3 in this engine is sometimes tight (12 bytes) and
+  sometimes padded to 16, so the direction sits at `+12` or `+16`. **Both are read and whichever is a
+  UNIT vector is taken as the direction** — data, not a guess — and if neither is, the hook logs that
+  `via.Ray` is not laid out as assumed and **touches nothing**.
+- ⚠️ **Whether that direction is the scattered one is not assumed either.** Mode 3 prints it beside
+  the muzzle axis and the angle between them, for an aimed shot and a hip shot. Aimed and hip differ
+  by ~8°, so **whichever quantity tracks that difference is the one to write.**
+
+**The muzzle axis is now published** (`g_bore_ok` / `g_bore_x,y,z`, `rsv.h`): `world_tick` already
+computes the verified bore for the scope every frame (`bore_saved`), and this only exposes it.
+⚠️ **Published only when the scoped rifle is in hand AND the axis was verified this tick, and its
+length is checked** — a stale bore written into a bullet would be worse than the scatter it replaces.
+
+**Mode 4 writes it and proves the write**: `WROTE the muzzle axis was 8.412 deg off, now 0.000 deg`,
+or `WARNING -- the write did not take`, or `not touched -- no verified muzzle axis`. Reads and writes
+are `__try`-guarded, as §9bf's crash demands.
+
+⛔ **Also fixed here: a clamp that silently rewrote the user's instruction.** `spread_fix_tick()`
+carried `(mode > 2) ? 2 : mode` from before mode 3 existed, so `RIFLE-LOOK-ONLY.bat` writing `3 0`
+became **mode 2, a write** — and the session then blamed a misclick. Out-of-range now refuses and logs
+it. **A value quietly reduced to a neighbouring valid value is the worst kind of input handling: it
+leaves no trace and makes the tool misreport what it was asked to do.**
+
+**The helper clutter is gone.** Fifteen `.bat` files driving disproved levers are archived to
+`mod/helpers/archive/2026-09-20-disproved-spread-probes/` with a table of what each one disproved, and
+deleted from the game folder. **Four remain, one per live action:** `RIFLE-LOOK-ONLY`, `RIFLE-BORE-ON`,
+`RIFLE-OFF`, `UPDATE-RIFLE-PLUGIN`. A test that is easy to run wrong will be run wrong.
+
+**Deployed** (`re_scope_vr.dll` 249,344 bytes, sha256 `8d6485f8e03156d2…`, 0 errors 0 warnings
+`[compile-verified 2026-09-21]`), switch left at `0 0`. **NOT RUN.**
+
+**The test, in order:** `RIFLE-LOOK-ONLY.bat`, one aimed shot, one hip shot — read the `spread-ray`
+lines and see whether `ray-vs-bore` is ~0° aimed and ~8° at the hip. **If it is, mode 4 is the fix**
+(`RIFLE-BORE-ON.bat`). If the two are the same, the Ray is not where the scatter lives and the next
+step is `createBulletImple`'s rotation instead.
+
+Credit: **praydog** (REFramework).
+
 ### 9bh. ⭐⭐⭐ `createBullet` TAKES A **`via.Ray`** — that is the bullet's direction, and it is upstream of everything tried so far (2026-09-20, LIVE, flat)
 
 The install now logs each hooked method's **real** parameter list, and the three lines are the most
