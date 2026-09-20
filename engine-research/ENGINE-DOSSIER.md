@@ -2270,6 +2270,68 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bg. ⛔⭐⭐⭐ THE CANCEL WORKS PERFECTLY AND THE BULLET IGNORES IT — because the bullet is already MADE before that step runs. The evidence was collected this morning and read past (2026-09-20, LIVE, flat, Tefa at the keyboard)
+
+**Supersedes: §9be's and §9bf's premise** that cancelling the scatter at `setupDiffusion` would make the
+shot straight. The hook, the write and the measurement are all sound; the **target** is wrong.
+
+**No crash this time, and the write lands exactly as designed** `[verified-live 2026-09-20, n=4]`:
+
+```
+layout GOOD -- argc=7, both rotations read and unit
+shot #1 scatter  1.228 -> 0.056 deg  mode=1 APPLIED
+shot #2 scatter 11.188 -> 0.000 deg  mode=1 APPLIED
+shot #3 scatter  0.581 -> 0.000 deg  mode=1 APPLIED
+shot #4 scatter 12.018 -> 0.000 deg  mode=1 APPLIED
+```
+
+11.188° of scatter becomes 0.000°. Tefa: *"no crash this time, but still random"*. So **the two
+rotations `setupDiffusion` carries do not decide where the bullet goes.**
+
+⭐⭐ **AND THE REASON WAS ALREADY IN OUR OWN TRACE, TAKEN HOURS EARLIER.** §9bd recorded the call order
+as `expendBullet` → `createBullet` → **`createBulletImple`** → `setupDiffusion`
+`[verified-live 2026-09-20, n=2]`. **The bullet is finished before `setupDiffusion` runs.** That
+function cannot aim it — it is too late. Its two rotations track the aim state beautifully, which is
+exactly why they *measure* the scatter so well and why changing them achieves nothing.
+
+⚠️ **This is the fifth time in three days that the answer was in evidence already collected**
+(§9av `swing-unchanged`, §9ax the omitted `+0.2111`, §9az `DiffusionRadius`, §9bc/§9bd the
+`enableRestrictAimShake` block, and now the call order). **The order was written down, in this
+dossier, by me, and then built on as if `setupDiffusion` were the last step.** The rule has to be
+mechanical: **before choosing where to intervene, re-read the trace and say out loud which step runs
+LAST.**
+
+⚠️ **Second loose end from the same line: `argc=7`.** The signature matched has three parameters,
+which would make `argc=5`. Either an overload was hooked or there are more slots than the signature
+implies. **Do not assume the extra two are padding.**
+
+**Built and ready — MODE 3, "look only", which writes nothing** (`re_scope_vr.dll` 245,760 bytes,
+sha256 `03167e7150ad3e16…`, 0 errors 0 warnings `[compile-verified 2026-09-20]`):
+
+- ⭐ **it classifies EVERY argument slot** of `setupDiffusion`, `createBullet` and
+  `createBulletImple` — guarded reads, each slot reported as `UNIT-ROTATION` or `not-a-rotation` with
+  its length² and components. No slot is trusted because a signature implies it, which is what
+  `argc=7` just punished.
+- ⭐ **it logs the hooked methods' REAL parameter lists** at install, through `get_params()` — method
+  introspection, which is the documented pointer `invoke()` is called on, **not** the `arg_tys`
+  handles that crashed §9bf.
+- **one aimed shot and one hip shot is the whole test.** Aiming gives ~0° and the hip ~8°, so
+  **whichever rotation differs between the two traces is the one carrying the scatter** — and if it
+  sits in `createBullet` or `createBulletImple`, that is where the cancel belongs.
+- it stops itself after six shots.
+
+⚠️ **NOT DEPLOYED YET — the game was still running and held the old DLL open.** Installed is still
+`b65ad8bdd9a3d87a…` (the §9bf build). `UPDATE-RIFLE-PLUGIN.bat` copies the new one in, refuses while
+`re8.exe` is running, and prints the before/after size so "nothing changed" cannot be mistaken for a
+successful update. The switch file is left at `0 0`.
+
+**What is NOT in doubt after tonight:** the measurement (§9bd), that the write lands, that `off` is
+inert, and that the scatter is a real ~8° cone. **What is wrong is only the choice of step.**
+
+Field note: `modding-notes/2026-09-20g-the-cancel-works-and-the-bullet-ignores-it.md`.
+
+Credit: **praydog** (REFramework).
+
 ### 9bf. ⛔ MY SAFETY CHECK CRASHED THE GAME — the guard was more dangerous than the thing it guarded (2026-09-20, `/pd`, home PC, reported by Tefa)
 
 **Supersedes: §9be's description of `spread_fix.cpp`.** The hook is the same idea; its guard was
@@ -2370,7 +2432,9 @@ in another frame `[verified-live 2026-09-20, n=3]`. Hence two modes. **The wrong
 exactly as the game already does**, so the failure is harmless and obvious. That either mode fixes the
 bullet at all is `[hypothesis]`: the write landing is certain, its effect on the shot is not.
 
-**THE TEST.** Rifle in hand: `RIFLE-STRAIGHT-A.bat`, fire from the hip. Straight → done. Random, with
+⛔ **RUN, AND THE TARGET IS WRONG — SEE §9bg: the write lands (11.188° → 0.000°) and the bullet
+ignores it, because it is already made before this step runs.** Kept for the record only — ~~THE
+TEST. Rifle in hand: `RIFLE-STRAIGHT-A.bat`, fire from the hip.~~ Straight → done. Random, with
 `APPLIED` in the log → `RIFLE-STRAIGHT-B.bat` and fire again. `WARNING -- the write did not take` → the
 hook reached the wrong memory, **stop and do not tune**. No `spread-fix` lines at all → it never
 installed. `RIFLE-STRAIGHT-OFF.bat` restores the game's scatter.
