@@ -20,7 +20,8 @@
 
  UPDATE 2026-09-21: done a THIRD time, and the first with the bullet spread
  switched off - so the first zero fitted to a point rather than a scatter.
- The saved values are now up -15.2, right -6.0 (they were -13.2 / -4.0, which
+ The saved values are now up -16.4, right -10.6 (re-done later
+ the same night; an hour earlier they were -15.2 / -6.0) (they were -13.2 / -4.0, which
  was as good as five scattered shots could make it). Use this file to check the zero
  still holds, or to redo it at a different distance.
 
@@ -84,7 +85,7 @@
  PART 2  --  COMPARE WITH THE OLD ZERO
 ---------------------------------------------------------------------------
 
- 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -15.2 / -6.0)
+ 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -16.4 / -10.6)
 
     !! That button RESETS. It does not save. It throws away anything you
     have nudged since. ZERO-SHOW.bat prints the current values safely.
@@ -110,7 +111,14 @@
     hit was RIGHT of the crosshair -> ZERO-RIGHT.bat
     hit was LEFT of the crosshair  -> ZERO-LEFT.bat
 
- 8. Run the one that matches. Each click moves it 2 degrees - click twice
+ FOUR SIZES OF NUDGE, biggest first:
+    ZERO-UP.bat             2.0 deg   - getting near
+    ZERO-UP-FINE.bat        0.4 deg   - closing in
+    ZERO-UP-XFINE.bat       0.2 deg   - landing it
+    ZERO-UP-SUPERFINE.bat   0.1 deg   - the last hair   (added 2026-09-21)
+ (and the same four for DOWN, LEFT and RIGHT)
+
+ 8. Run the one that matches. Each click of the plain one moves it 2 degrees - click twice
     for 4, three times for 6, and so on.
 
  9. Fire one more shot at the same mark.
