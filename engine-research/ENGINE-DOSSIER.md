@@ -2270,7 +2270,69 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
-### 9bm. ⭐⭐ "THE SCOPE IS BROKEN, A LOT OF SKY AND BLUE" — NOT A REGRESSION: THE RIFLE WAS 78–88° OFF THE GAZE. And the off-axis limit now has a number: ~45–50° (2026-09-21, LIVE, VR, Tefa wearing)
+### 9bn. ⛔ §9bm IS WITHDRAWN — "posture, not a regression" contradicted the wearer, and the wearer was right to push back (2026-09-21, LIVE, VR)
+
+**Supersedes: ENGINE-DOSSIER.md §9bm's conclusion** (its two measured tables stand as readings; what
+they were taken to MEAN does not).
+
+Tefa, on being told the sky-filled scope was the rifle's posture: *"the scope was 100% showing the sky
+which ever way i looked at it, the screenshot just shows one spot, but the whole thing was not
+working"* — and then, unprompted, the lead: *"all the bullet spread test were done with no scope on,
+just stock image, maybe that got written into the code with the spread fix somehow?"*
+`[reported 2026-09-21]`
+
+⛔ **I explained a wearer's observation away with a measurement whose inputs I had not validated.**
+`PREFERENCES.md` says in as many words that when Tefa reports what they saw, that IS the observation,
+and if a measurement disagrees the measurement is what is suspect. §9bm did the reverse inside the
+hour. Its "rifle-vs-gaze 54°" reading is real as a number and **unexplained as a fact** — Tefa says
+they looked through it every way; a bore 54–88° off the gaze in that case means one of the two
+directions feeding it is wrong tonight, not that the wearer held the rifle oddly.
+
+**What the logs say once that is taken seriously** `[measured 2026-09-21]`:
+
+- For **four minutes tonight (00:44:52–00:49:03) the session was in exactly yesterday's working
+  configuration** — same word sequence, `pitch 90 / yaw 90 / propf 0 / propu 0 / propr 0.20`, zero
+  `-13.2 / -4.0` — and the picture was sky throughout. **Same setup, different result: the difference
+  is in what is installed.**
+- The geometry map was **sane on 456 of 462 lines yesterday and on only 116 of 259 tonight**
+  (scale < 3); tonight it sat at `centre=(0.49,1.37) scale 4.05` for whole seconds in the working pose.
+- **The scope has not been looked through once since my spread tooling went in.** Every spread test,
+  flat and VR, was run with the rig off and the stock image — Tefa's point exactly.
+
+**What changed on this install between the last good scope session (2026-09-20 01:43) and tonight:**
+
+| change | when | touches the scope? |
+| --- | --- | --- |
+| `re8_spread_kill.lua` in `autorun/` | 09-20 16:50 | ⚠️ **YES — it hooks `app.WeaponGunCore.updateScope`, the game's own scope-update function, every frame**, purely to grab the gun object |
+| `re8_spread_dig.lua` in `autorun/` | 09-20 01:46 | no hooks; read-only |
+| `re_scope_vr.dll` rebuilt with `spread_fix.cpp` | 09-20/21 | hooks `setupDiffusion` / `createBullet` / `createBulletImple` (fire only on a shot); `world_tick` gains two calls at the top and a block that only READS the bore |
+
+⚠️ **Ruled out by checking, not by argument:** my build did start from the same plugin source as
+yesterday's working DLL. The only plugin-source commit after that DLL was built (`6cdec3e`, 09-19)
+adds a `proj == 2` branch, and tonight ran `proj 0`. *(A rebuild-and-compare-hash of the base was
+attempted and is NOT conclusive: the build directory path differs, and paths are embedded — 236,032
+vs 235,520 bytes proves nothing either way. `/pd` §3 4c asks for that comparison BEFORE building on a
+deployed DLL; I skipped it tonight, and that is why this took an hour instead of a minute.)*
+
+**Prime suspect, `[hypothesis]`: the Lua hook on `updateScope`.** It is the only change that sits on a
+scope function, it postdates the last good session, and it was live tonight (`capture hook on
+updateScope`, `captured the gun … capture #1`). It is also a **disproved probe that should already
+have been out of `autorun/`** — the code-shape rule says the session that disproves a probe archives
+it, and I archived its fifteen `.bat` files and left the script itself loaded.
+
+**Done:** both spread Lua tools moved to `reframework/autorun-disabled/` (identical copies are in
+`dev-archive/lua/`). The native plugin needs neither.
+
+**The bisect, best case one launch:**
+1. **New plugin, no Lua tool** → normal scope start, look through it. **Works → the Lua hook was it,
+   and everything is in its final state.**
+2. Still sky → `PLUGIN-YESTERDAY.bat` (the 09-18 DLL, 235,520 bytes) → look again. Works → the new
+   DLL is the cause and `world_tick`'s additions are where to look. Still sky → neither, and the next
+   suspect is outside tonight's changes.
+
+Credit: **praydog** (REFramework). The lead is Tefa's.
+
+### 9bm. ⛔ WITHDRAWN BY §9bn — ~~"THE SCOPE IS BROKEN, A LOT OF SKY AND BLUE" — NOT A REGRESSION:~~ THE RIFLE WAS 78–88° OFF THE GAZE. And the off-axis limit now has a number: ~45–50° (2026-09-21, LIVE, VR, Tefa wearing)
 
 Tefa, in the headset an hour after the spread fix, with a screenshot: *"the scope is broken, seeing a
 lot of sky and blue"* `[reported 2026-09-21]`. The rifle is held low at the hip and looked DOWN at.
