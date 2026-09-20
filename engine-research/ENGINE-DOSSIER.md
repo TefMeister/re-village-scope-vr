@@ -2270,6 +2270,62 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bf. ⛔ MY SAFETY CHECK CRASHED THE GAME — the guard was more dangerous than the thing it guarded (2026-09-20, `/pd`, home PC, reported by Tefa)
+
+**Supersedes: §9be's description of `spread_fix.cpp`.** The hook is the same idea; its guard was
+wrong and took the game down on the first shot. Tefa, on running `RIFLE-STRAIGHT-A.bat`: *"it crashed
+the game on me"* `[verified-live 2026-09-20, n=1]`.
+
+**Where it died, from the log, and it is unambiguous:**
+
+```
+18:40:55  spread-fix: hooked app.WeaponGunCore.setupDiffusion (off by default)
+18:42:29  spread-fix: switched to mode=1 (seen 0 shot(s), applied to 0)
+          <nothing>
+```
+
+The layout line is printed **unconditionally on the first call**, so its absence means the hook never
+got that far. **It crashed inside its own safety check, before any write happened.**
+
+**The bug, and there were two of them in one line.** The check read `arg_tys[3]` and `arg_tys[4]`,
+cast them to `API::TypeDefinition*` and called `get_full_name()`. `API.h` says, in as many words
+directly above those typedefs, **"these are NOT pointers to the actual objects"** — so the cast was
+invalid. And the callback is given **no length for `arg_tys`**, so index 4 may have been past the end
+as well. Neither was checked; `argc` was, and it is the only length actually provided.
+
+⚠️ **THE LESSON IS NOT "be careful with casts".** It is that **I wrote a guard more dangerous than the
+thing it guarded.** The write itself is 16 bytes into memory the Lua tool had been reading
+successfully for an hour beforehand `[verified-live 2026-09-20]`. Reaching into the engine's **type
+metadata** to protect that was both unnecessary and unsafe — a cast I had not verified, guarding an
+access that was already known good. **Prefer validating the DATA you are about to touch over
+validating the engine's description of it.**
+
+**The second version, built and deployed** (`re_scope_vr.dll`, 241,152 bytes, sha256
+`b65ad8bdd9a3d87a…`, 0 errors 0 warnings `[compile-verified 2026-09-20]`):
+
+- ⭐ **`arg_tys` is not touched at all** — the parameter is left unnamed.
+- ⭐ **OFF is now genuinely INERT.** The mode is the **first** thing read and it returns immediately;
+  the old version did its (fatal) checking before the mode was ever consulted, which is why a build
+  sitting at `off` was still a risk to play with.
+- ⭐ **It validates the data:** both rotations are read through `__try`-guarded reads, and each must be
+  a **unit** quaternion (length² within 0.90–1.10) before anything is written. A rotation has length
+  1; anything else means this is not what the hook assumes, and it refuses **for good** and says so.
+- ⭐ **The write is `__try`-guarded too**, and a faulting write logs `(the write faulted)` instead of
+  taking the process with it.
+- Everything §9be listed is kept: measure → write → re-measure, seen-vs-applied counters, rifle-only
+  via `world_tick`'s existing filter.
+
+⚠️ **The switch file was set back to `0 0` immediately**, so a relaunch cannot re-trigger it, and the
+pre-existing `re_scope_vr.dll.pre-spread-fix-2026-09-20` backup is untouched — it still holds the build
+from before any of this work.
+
+⚠️ **What the crash does NOT tell us:** nothing about whether cancelling the scatter works. The write
+never ran. §9bd's measurement and §9be's reasoning are untouched; only the guard was wrong.
+
+Field note: `modding-notes/2026-09-20f-my-guard-crashed-the-game.md`.
+
+Credit: **praydog** (REFramework).
+
 ### 9be. ⭐⭐⭐ THE SCATTER CANCEL IS NATIVE, COMPILES CLEAN AND IS DEPLOYED — one flat test decides which of two rotations to keep (2026-09-20, `/pd`, home PC, NOTHING RUN)
 
 **Supersedes: §9bd's "the cancel is written and deployed"**, which described the Lua version. That
@@ -2286,7 +2342,8 @@ Lua offers are disproved. §9bd's measurement stands untouched and is the whole 
 to `reframework/plugins/re_scope_vr.dll` (240,640 bytes, sha256 `10a93d94d61c10de…`), previous build
 kept as `.pre-spread-fix-2026-09-20`, `deployed.sh record` re-run.
 
-**Four properties that exist because of how the last four attempts failed:**
+⛔ **ITS GUARD CRASHED THE GAME — SEE §9bf, WHICH SUPERSEDES THIS LIST'S POINT 3.** The rest
+stands. — **Four properties that exist because of how the last four attempts failed:**
 
 1. ⭐ **It proves its own effect.** Measure, write, re-measure: `scatter 8.412 -> 0.000 deg … APPLIED`,
    or `WARNING -- the write did not take`. Three earlier attempts each cost a round trip to the game
