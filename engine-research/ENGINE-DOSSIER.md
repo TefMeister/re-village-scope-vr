@@ -2270,6 +2270,55 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bh. ⭐⭐⭐ `createBullet` TAKES A **`via.Ray`** — that is the bullet's direction, and it is upstream of everything tried so far (2026-09-20, LIVE, flat)
+
+The install now logs each hooked method's **real** parameter list, and the three lines are the most
+useful thing collected today `[verified-live 2026-09-20]`:
+
+```
+hooked app.WeaponGunCore.setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)              [3 params]
+hooked app.WeaponGunCore.createBullet(via.Ray, System.Boolean)                                 [2 params]
+hooked app.WeaponGunCore.createBulletImple(via.vec3, via.Quaternion, via.GameObject, System.Boolean)  [4 params]
+```
+
+⭐⭐ **`createBullet` is handed a `via.Ray` — an origin and a DIRECTION.** That is what the bullet
+travels along, and §9bd's trace puts `createBullet` **first** of the three
+(`expendBullet` → `createBullet` → `createBulletImple` → `setupDiffusion`). So the direction is
+settled there, which is consistent with every failure so far: §9bg's cancel ran two steps later and
+changed a number nothing downstream reads.
+
+⭐ **And it means the fix does not depend on finding where the scatter is ADDED.** Whatever applies it,
+the Ray is what the bullet uses — so writing a correct direction into that Ray fixes the shot
+regardless of where the wrong one came from. **The plugin already knows the correct direction**: the
+bore direction it computes for the scope every frame (`crop_follow_update(…, bore_dir, …)`).
+
+⚠️ **Not yet established**, and it must be measured rather than assumed — the last four attempts were
+each a reasonable-sounding guess: that the Ray's direction really is the scattered one; that it is in
+world space; and that the plugin's `bore_dir` is expressed in the same frame. **Next build logs the
+Ray's direction beside `bore_dir` and beside the two `setupDiffusion` rotations' forward vectors, for
+one aimed shot and one hip shot.** Aimed and hip differ by ~8°, so whichever of those quantities
+tracks that difference is the one to write, and whichever matches on an aimed shot is the frame to
+write it in.
+
+⚠️ **`argc=7` is now definitely NOT "two plus the parameters".** `setupDiffusion` has **3** declared
+parameters, which would make 5. So the callback's `argc` counts something else, and **the argv indices
+this project has been using happen to work but are not understood.** They were validated by the data
+(both slots read as unit quaternions and their angle tracked the aim state), which is the only reason
+that was safe. Keep validating by data.
+
+⚠️ **The look-only mode did not actually run:** the log shows `switched to mode=2`, i.e.
+`RIFLE-STRAIGHT-B.bat`, not `RIFLE-LOOK-ONLY.bat`. **That is a tooling fault, not a user error — there
+are now 17 similarly-named helper `.bat` files in the game folder** (`SPREAD-0` … `SPREAD-9`,
+`RIFLE-*`), most of them for probes that are disproved and archived. ⭐ **Retire the dead ones and
+leave ONE obvious file per live test.** A test that is easy to run wrong will be run wrong, and the
+session that wrote six of them does not get to call that a mistake at the other end.
+
+Mode 2 itself behaved exactly as §9bg predicted: `shot #2 scatter 7.607 -> 0.000 deg mode=2 APPLIED`,
+and the shot is unaffected. Both directions are now confirmed equally irrelevant `[verified-live
+2026-09-20, n=2 modes]`.
+
+Credit: **praydog** (REFramework).
+
 ### 9bg. ⛔⭐⭐⭐ THE CANCEL WORKS PERFECTLY AND THE BULLET IGNORES IT — because the bullet is already MADE before that step runs. The evidence was collected this morning and read past (2026-09-20, LIVE, flat, Tefa at the keyboard)
 
 **Supersedes: §9be's and §9bf's premise** that cancelling the scatter at `setupDiffusion` would make the
