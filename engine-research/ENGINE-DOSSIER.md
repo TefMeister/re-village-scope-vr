@@ -2270,6 +2270,47 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bq. ⚠⭐⭐ THE FOURTH ZERO: **up −16.4 / right −10.6**, baked in — and the zero MOVED 4.6° BETWEEN TWO CAREFUL PASSES AN HOUR APART (2026-09-21, LIVE, VR, Tefa wearing)
+
+**Supersedes: §9bp's value** (−15.2 / −6.0). Tefa: *"ok had to re-do it, the zeroing, please bake
+these numbers in now"* `[verified-live 2026-09-21, n=1 wearer, 10 shots all logged STRAIGHTENED]`.
+Saved in the same four places as §9bp (harness bringup block, `ZERO-B-SHIPPED.bat`,
+`READ-ME-ZEROING.txt`, the plugin's boot settings file).
+
+**Also added, asked for in the same breath: a fourth nudge size, 0.1° ("half of XFINE")** —
+`ZERO-UP/DOWN/LEFT/RIGHT-SUPERFINE.bat`. Checked before building that a 0.1° step survives the trip:
+the harness holds the zero as a float and `re8scope/pane.lua` publishes it as `%.2f`
+`[verified-numerically 2026-09-21]`.
+
+⚠️⭐ **THE NUMBER WORTH MORE THAN THE ZERO ITSELF.** Both §9bp's pass and this one were **point-fitted**
+— spread cancelled, one shot at a time — and both were done carefully by the same wearer:
+
+| pass | up | right |
+| --- | --- | --- |
+| §9bp, ~01:20 | −15.2 | −6.0 |
+| §9bq, ~02:00 | −16.4 | **−10.6** |
+| moved | 1.2° | **4.6°** |
+
+**The wearer is nudging in 0.2° steps and the answer moved by 4.6°.** That is not calibration noise
+and, with the scatter gone, it is no longer the rifle either. **A zero that needs re-doing an hour later
+is not a constant — it is a function of something that changed between the two passes.** Candidates,
+none tested, all `[hypothesis]`:
+
+1. **Distance to the target.** The scope sits beside/above the bore; if the offset being absorbed is a
+   *position* error (metres) rather than a *direction* error (degrees), the angle needed scales as
+   1/distance. 4.6° between, say, 5 m and 10 m needs only ~0.8 m of lateral offset — and §9ar's
+   mirror viewpoint was moved ~0.9 m on 2026-09-18. **This is the first suspect**, and it is cheap to
+   test: same zero, two known distances, one shot each.
+2. **Head-vs-rifle angle.** The picture is cut from what the HEAD sees (§9f); §9bj/`READ-ME-ZEROING`
+   step 12 exists to catch exactly a zero that fits one head position.
+3. **Which spot in the world** — only if 1 and 2 are both ruled out.
+
+⛔ **So this value is baked in because it is the best measured one, NOT because it is final** — and the
+harness comment beside it says so. **Do not spend another evening nudging.** The next step is the
+two-distance shot, which says whether the thing being corrected is an angle at all.
+
+Credit: **praydog** (REFramework). Zeroed, twice, by Tefa.
+
 ### 9bp. ⭐⭐ THE THIRD ZERO, AND THE FIRST FITTED TO A POINT: **up −15.2 / right −6.0** — saved in all four places it lives (2026-09-21, LIVE, VR, Tefa wearing)
 
 With the spread cancelled (§9bl) and the scope picture restored (§9bo), Tefa re-zeroed by shooting,
