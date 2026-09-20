@@ -2270,6 +2270,40 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bt. ⭐⭐⭐ PARALLAX, PIECE 2: THE CROP AIMS AT A FIXED **50 m** — AND THE GAME'S OWN VR SCRIPT ALREADY MEASURES THE REAL DISTANCE EVERY FRAME (2026-09-21, `/pd`, static)
+
+**The cause, in one line of our own source** — `plugin/src/world_tick.cpp:689`:
+
+```
+const Vec3 far_pt{ jpos.x + dir.x * 50.0f, jpos.y + dir.y * 50.0f, jpos.z + dir.z * 50.0f };
+```
+
+`crop_follow` centres the picture on a point **a fixed 50 m down the bore**. With the viewpoint
+`h = 0.40 m` to the side (§9bs), that is exact for a target at 50 m and wrong by
+`atan(h/d) − atan(h/50)` at distance `d`: **5.3° at 4 m, 1.8° at 10 m, 0.7° at 20 m, 0° at 50 m**
+`[verified-numerically 2026-09-21]`. That is the whole distance-dependence §9bq/§9br measured, and it
+means **the zero Tefa keeps re-doing is partly this term** — baked at whatever distance the wall was.
+
+**The distance is already being measured, by a script we did not write and need not touch.**
+`reframework/autorun/re8_vr.lua` (praydog's RE8VR, a modding toolset — usable directly) casts a ray
+every `LockScene` **from the gun** — `re8vr.last_shoot_pos` along `re8vr.last_shoot_dir`, 1000 m, against
+the Bullet layer, everything except the player — and stores the result on the shared module table:
+
+```
+re8.crosshair_distance = contact_point:get_field("Distance")     -- re8 = require("utility/RE8")
+```
+
+Any script in the same Lua state can `require("utility/RE8")` and read it. ⚠️ Limits, all from
+reading the script `[inferred-static 2026-09-21]`: it runs **only while the HMD is active**; it is
+asynchronous, so the value is a frame or so old; and when nothing is hit it **falls back to 10.0**, which
+is indistinguishable from a real 10 m hit.
+
+**THE FIX (piece 3):** the pane publisher adds `aim_dist` from that value; the plugin uses it in place
+of the fixed `50.0f`, clamped and smoothed, falling back to 50 when it is absent. **No hook, no raycast
+of our own** — deliberately, after §9bo: a read of a table costs nothing and sits on nobody's hot path.
+⚠️ The pane file travels at ~2 Hz, so the picture will settle a moment after sweeping from a near wall
+to a far hill. Good enough to prove the idea; a native raycast is the later, faster version.
+
 ### 9bs. ⭐⭐ PARALLAX, PIECE 1: `propr 0.20` IS DELIBERATE, IT MOVES THE VIEWPOINT **0.40 m** NOT 0.20, AND IT CANNOT SIMPLY GO TO ZERO (2026-09-21, `/pd`, static, nothing launched)
 
 §9br asked why `propr` is 0.20 before touching it. **Our own files answer it, in three places:**
