@@ -2270,6 +2270,65 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bd. ⭐⭐⭐ MEASURED: THE SNIPER'S HIP SPREAD IS **8.4° AVERAGE, 14.9° WORST** AND AIMING TAKES IT TO **0.005°**. The lever is `setupDiffusion`, and the cancel is written and deployed (2026-09-20, LIVE, flat, Tefa at the keyboard)
+
+**Supersedes: §9bc's caution that the four shots were unattributed and "the sniper rifle has no
+spread" must not be concluded.** Resolved within the hour by Tefa loading a save with ammo and firing
+a controlled ten: *"i now loaded a save with bullets, took 5 shots aim button held down, then reloaded
+and took 5 hip fire shots too"*. §9bc's other findings — the two enables are questions, aiming does not
+touch the flags — all stand.
+
+**The ten shots, `[verified-live 2026-09-20, n=10]`**
+(`dev-archive/recon/2026-09-20-the-steady-switches-are-questions-not-switches/spread-kill-log.txt`):
+
+| | shots | min | average | max |
+| --- | --- | --- | --- | --- |
+| **AIMED** (1–5, 16:25:37–46) | 5 | 0.000° | **0.005°** | 0.023° |
+| **HIP** (6–10, 16:26:02–10) | 5 | 2.157° | **8.429°** | **14.930°** |
+
+**The hip average is roughly 1,800× the aimed average.** The 16-second gap between shot 5 and shot 6
+is Tefa's reload, and it separates the two groups exactly as they described them.
+
+⭐ **So the spread is real, it is enormous, and it is a DIFFUSION CONE applied at shot time** — not aim
+drift, not the VR pose, not anything to do with the picture. `setupDiffusion` is where it happens and
+the numbers come straight out of it.
+
+⭐ **And the measurement validated itself.** The (intended, scattered) reading of the two quaternions
+was `[hypothesis]` in §9bb. It now reads **0.000 five times running** on aimed shots and **five
+different large values** on hip shots — a broken read cannot do that. Route used: `valuetype`.
+Promote to `[verified-live 2026-09-20, n=10]`.
+
+⚠️ **§9bc's bucketing was wrong and is fixed.** It filed shots by `isRestrictAimShake`, assuming that
+tracked the aim button. It does not — it reads `true` at the hip too — so all ten shots landed in one
+bucket labelled "aiming?". **The SHOT lines themselves were correct**; the comparison came from their
+order plus Tefa saying which five were which. The tool now buckets by what *we* changed, and nothing
+readable on the gun distinguishes aiming. ⚠️ **A summary line that sorts data by an assumption is
+worse than no summary** — this is the same shape as §9az, where a starred summary described a
+different half of the probe than the one people read it as.
+
+**THE FIX, written and deployed the same hour, NOT YET RUN.** Both arguments to
+`setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)` are **pointers**, so re-pointing the
+scattered one at the intended one in the pre-hook makes the shot leave along the aim — no maths, no
+patching, no aim mode. Applied **after** the measurement, so the log still records the scatter that was
+cancelled rather than a row of zeros.
+
+⚠️ **Which of the two is "intended" is NOT known**, and it cannot be learned from the log: on an aimed
+shot they are identical. So there are two helpers — `SPREAD-4-ZERO-ON.bat` and
+`SPREAD-4-ZERO-SWAP.bat` — and the test is which one sends hip shots straight. If the wrong one is
+chosen, bullets fly off at random rather than anything worse. `SPREAD-4-ZERO-OFF.bat` restores the
+game's own scatter.
+
+⚠️ **The tool now names the weapon on capture** (`get_GameObject` → `get_Name`). §9bc nearly lost a
+finding because it could not say which gun it had hold of; a second `WeaponGunCore` had been captured
+two seconds before the first shot. **Never log a measurement without logging what it was measured on.**
+
+**Still open after this:** whether the same cancel wants to apply to every weapon or only the rifle;
+whether `DiffusionRadius` on the spec would be a tidier shipped fix than a hook; and Tefa's related
+`[USER]` row — that the aim button itself should not be needed — which this brings within reach for
+the first time, since accuracy no longer depends on it.
+
+Credit: **praydog** (REFramework). Ten shots fired by Tefa at the keyboard.
+
 ### 9bc. ⭐⭐⭐ DISPROVED — THE TWO "STEADY SWITCHES" ARE QUESTIONS, NOT SWITCHES, AND AIMING DOES NOT TOUCH THEM. Measured scatter ~0°, weapon unidentified (2026-09-20, LIVE, flat, Tefa at the keyboard)
 
 **Supersedes: §9bb's central claim** that `enableRestrictAimShake` / `enableReduceRecoil` are switches
@@ -2300,8 +2359,8 @@ reading survives its first contact.
 ⚠️ **THE FOUR SHOTS ARE NOT ATTRIBUTED TO A WEAPON, AND THAT IS THE HOLE.** `capture #2` — a second,
 different `WeaponGunCore` — was logged **two seconds before the first shot**, and Tefa had said the
 save had no rifle ammo (*"not shooting as i am in a save with no bullets left"*). So a different
-weapon is the likely source. **The tool does not record which weapon it holds.** ⛔ **Do not conclude
-"the sniper rifle has no spread."** What is established is that *some* gun scattered by essentially
+weapon is the likely source. **The tool does not record which weapon it holds.** ✅ **RESOLVED THE SAME HOUR — SEE §9bd: the hip spread is 8.4° average, 14.9° worst, and aiming
+takes it to 0.005°.** Kept for the record only — ~~Do not conclude "the sniper rifle has no spread."~~ What is established is that *some* gun scattered by essentially
 nothing. The tempting reading — that the rifle has no diffusion cone and the inaccuracy Tefa sees is
 **the aim moving**, not the bullet being thrown off — is `[hypothesis]` until the weapon is named.
 
