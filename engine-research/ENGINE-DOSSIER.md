@@ -2270,6 +2270,56 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bc. ⭐⭐⭐ DISPROVED — THE TWO "STEADY SWITCHES" ARE QUESTIONS, NOT SWITCHES, AND AIMING DOES NOT TOUCH THEM. Measured scatter ~0°, weapon unidentified (2026-09-20, LIVE, flat, Tefa at the keyboard)
+
+**Supersedes: §9bb's central claim** that `enableRestrictAimShake` / `enableReduceRecoil` are switches
+to be called with `true`, and that holding aim is likely flipping them. Both parts are wrong.
+Evidence: `dev-archive/recon/2026-09-20-the-steady-switches-are-questions-not-switches/`.
+
+**`enableRestrictAimShake()` and `enableReduceRecoil()` take NO arguments and return
+`System.Boolean`** `[verified-live 2026-09-20]`. They are **questions the gun asks itself**, not
+setters. ⭐ **The tool's signature check refused to call them rather than guessing** — which is the
+only reason this is a finding rather than a silent no-op we would have believed. That guard earned its
+place on its first outing, and it is the pattern to keep.
+
+**Aiming does not touch them** — across three deliberate aim-button holds and four shots,
+`isRestrictAimShake` was **`true` from the moment the rifle was drawn and never changed**, and
+`isReduceRecoil` was **`false`** throughout `[verified-live 2026-09-20, n=3 holds + 4 shots]`. So
+*"hold RG for it to turn accurate"* is not these flags. Aim shake is already restricted at the hip.
+
+**`isDiffusion` / `diffusionRadius` are not fields of `app.WeaponGunCore`** — both `nil` on the live
+object `[verified-live 2026-09-20]`. They are on the weapon spec (§9az), still unreached.
+
+**What worked, and is now proven:** capture without firing — `onEquipWeapon` is **not** on
+`WeaponGunCore`, the tool said so and fell through to **`updateScope`**, which caught the gun
+`[verified-live 2026-09-20, n=2 captures]`. And ⭐ **the scatter measurement is sound**: shot #1 read
+**0.023°** and shots #2–4 read **0.000°**. A broken quaternion read gives the *same* number every
+time; one that varies and then settles is real data. The `[hypothesis]` on the (intended, scattered)
+reading survives its first contact.
+
+⚠️ **THE FOUR SHOTS ARE NOT ATTRIBUTED TO A WEAPON, AND THAT IS THE HOLE.** `capture #2` — a second,
+different `WeaponGunCore` — was logged **two seconds before the first shot**, and Tefa had said the
+save had no rifle ammo (*"not shooting as i am in a save with no bullets left"*). So a different
+weapon is the likely source. **The tool does not record which weapon it holds.** ⛔ **Do not conclude
+"the sniper rifle has no spread."** What is established is that *some* gun scattered by essentially
+nothing. The tempting reading — that the rifle has no diffusion cone and the inaccuracy Tefa sees is
+**the aim moving**, not the bullet being thrown off — is `[hypothesis]` until the weapon is named.
+
+**Next, in order:** (1) make the tool log which weapon it has, on capture and on every shot — until
+then every scatter number is unattributed; (2) dump the live gun's whole field list, which is free and
+needs no ammo, and will name the identifier rather than making us guess method names; (3) reach the
+spec and read `IsDiffusion` / `DiffusionNum` / `DiffusionRadius` for the rifle; (4) re-run with the
+rifle confirmed in hand and with ammo.
+
+**What it opens:** a question can be **hooked and its answer forced**, which is a better lever than a
+setter would have been — but `enableRestrictAimShake()` already answers `true` at the hip, so that is
+not what aiming changes. Forcing `enableReduceRecoil()` is untried and is about recoil, not spread.
+⭐ **And if the rifle's scatter really is ~0, the whole spread framing is wrong** and the job becomes
+the aim's own movement — which would also explain why `DiffusionNum` always looked like a shotgun
+feature.
+
+Credit: **praydog** (REFramework). Test run by Tefa at the keyboard.
+
 ### 9bb. ⭐⭐⭐ THE RIFLE HAS ITS OWN STEADY SWITCHES — `enableRestrictAimShake` / `enableReduceRecoil` ON `app.WeaponGunCore`. TOOL BUILT AND DEPLOYED, NOT RUN (2026-09-20, static). AND THE PICTURE FAULT IS A JITTER, NOT A SHAKE — corrected by the wearer.
 
 **Supersedes: §9ba's "NEW — Village has native aim-wander, hand-shake and spread levers" paragraph**
@@ -2307,7 +2357,8 @@ write. **The method that switches it off was in the file being quoted.** After `
 (§9av), the omitted `+0.2111` (§9ax) and `DiffusionRadius` (§9az), the rule has to become mechanical:
 *when quoting a probe dump, read the whole type block, not the matching lines.*
 
-⭐ **THE DECIDING QUESTION IS NOT "WHAT NUMBER IS THE SPREAD".** It is: **does the game itself call
+⛔ **DISPROVED 2026-09-20 — SEE §9bc. They are questions, not switches, and aiming does not touch
+them.** Kept for the record only — ~~THE DECIDING QUESTION IS NOT "WHAT NUMBER IS THE SPREAD".~~ It is: **does the game itself call
 `enableRestrictAimShake(true)` when the aim button is held?** If it does, then Tefa's *"hold aim RG for
 it to turn accurate"* **is** that call, and the whole job is to make it permanent — no patching, no
 invented maths, the game's own switch left on. If it does not, the accuracy comes from elsewhere and
