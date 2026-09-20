@@ -2270,6 +2270,65 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bj. ⚠⭐⭐ THE RAY'S DIRECTION IS AT **+16**, MY READER TOOK +12 — and the two test shots had no scatter to see (2026-09-21, LIVE, flat)
+
+First run of the ray diagnostic. It produced two defects of mine and one structural fact, and **no
+answer yet**, because neither shot was scattered.
+
+#### ⛔ Defect 1 — a shifted read passed my own unit test
+
+```
+shot #1  dir@+12 (0.0000  0.9598 -0.2458) len=0.9908
+shot #1  muzzle axis (0.9598 -0.2458  0.1355)
+```
+
+**Those are the same numbers shifted by one float.** The reader took `+12` and got
+`(from.pad, dir.x, dir.y)`; the real direction is at **`+16`** — `via.Ray`'s origin is a **padded**
+vec3 `[verified-live 2026-09-21, n=2]`. The shifted triple had length **0.9908**, which sailed through
+the `0.90–1.10` window.
+
+⚠️ **The data check was right in principle and far too generous in practice, and it took the FIRST
+candidate over a low bar instead of the BEST one.** A near-miss is exactly what a shifted read looks
+like. Fixed: the length must now be within **0.001** of 1, the better of the two offsets wins, **both
+candidates are logged** so the choice is visible rather than trusted, and a failure prints what it saw.
+⚠️ `ray-vs-bore 105.766 deg` in that log is an artefact of the wrong offset and means nothing.
+
+#### ⛔ Defect 2 — the test could not answer the question it was set
+
+Both shots were effectively **aimed**: the two rotations at `setupDiffusion` were **0.000°** and
+**0.448°** apart `[measured 2026-09-21, n=2]`, against the ~8° a hip shot produces. So there was no
+scatter present to find, whichever quantity carries it. **Asking for "one aimed, one hip" gets a hip
+shot that happens to be tight** — the scatter is random per shot, and 2.157° was the smallest seen
+earlier. **Ask for SEVERAL hip shots, not one**, so a big one is guaranteed to appear. The diagnostic
+now prints each shot's scatter on the line after its ray, so the pairing needs no arithmetic by hand.
+
+#### ⭐ The structural fact, which is worth keeping
+
+`createBulletImple`'s rotation argument is **bit-identical** to `setupDiffusion`'s FIRST rotation, on
+both shots (`0.1631 0.6369 0.0000 0.7535`, then `0.1757 0.6220 0.0010 0.7631`)
+`[measured 2026-09-21, n=2]`. And `createBulletImple` runs **before** `setupDiffusion`.
+
+So the chain is: **a ray → a rotation the bullet is built with (call it A) → later, A and a second
+rotation B handed to `setupDiffusion`.** On an aimed shot A = B; on a hip shot they differ by the
+scatter. ⚠️ **This constrains the answer usefully:** if A is already scattered when
+`createBulletImple` receives it, the scatter is applied **upstream of everything hooked so far**, and
+B is not the bullet's direction at all — which would explain why forcing B := A changed nothing (§9bg).
+**The open question is whether the RAY diverges from the muzzle axis on a scattered shot.** With the
+offset fixed, that is one run away.
+
+⚠️ On these two shots the ray direction at `+16` **equals the muzzle axis exactly** — but with no
+scatter present that proves nothing either way, and must not be written up as if it did.
+
+**Built and NOT deployed** (250,880 bytes, 0 errors 0 warnings `[compile-verified 2026-09-21]`) — the
+game was open. `UPDATE-RIFLE-PLUGIN.bat` installs it.
+
+**The test, restated:** `RIFLE-LOOK-ONLY.bat`, then **three aimed shots and five from the hip**. Read
+the `spread-ray` lines: if `ray-vs-bore` stays ~0° while a shot's scatter reads 8°, **the ray is not
+where the scatter lives** and the target is whatever sets rotation A. If `ray-vs-bore` grows with the
+scatter, mode 4 is the fix.
+
+Credit: **praydog** (REFramework).
+
 ### 9bi. ⭐⭐⭐ THE BULLET'S OWN RAY, AND THE STEP ORDER STATED BEFORE ANYTHING WAS BUILT — deployed, not run (2026-09-21, `/pd`, home PC)
 
 First build made under the rule this evening produced (lanes plugin `docs/PROTOCOL.md` §11), and the
