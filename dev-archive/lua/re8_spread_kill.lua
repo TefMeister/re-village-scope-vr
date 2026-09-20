@@ -53,7 +53,8 @@
 --     status          say what is captured and what is on
 --     stats           the measured scatter per shot, in degrees, split hip vs aimed
 --     flags           the gun's steadiness flags right now, plus the trigger
---     skip on         do not let setupDiffusion run at all  <-- try this FIRST
+--     trace on        watch the whole firing path, in order  <-- START HERE
+--     skip on         do not let setupDiffusion run at all
 --     spec on         force the weapon spec's diffusion radius to zero <-- then this
 --     zero on         DISPROVED 2026-09-20, kept only so the disproof is re-runnable
 --     zero swap       the same, the other way round, if 'zero on' sends shots wild
@@ -83,6 +84,8 @@ local state = {
     skip        = false,   -- skip setupDiffusion entirely
     spec        = false,   -- force the weapon spec's diffusion numbers to zero
     spec_hits   = 0,       -- how many times the spec getters were actually asked
+    trace       = false,
+    trace_left  = 0,
 }
 
 local function L(fmt, ...)
@@ -225,9 +228,13 @@ local shots = {}   -- bucket name -> { n, sum, min, max }
 -- labels lied. The SHOT lines themselves were fine, and the comparison came from their
 -- ORDER plus Tefa saying which five were which. Bucket by what WE changed instead;
 -- nothing readable on the gun distinguishes aiming.
-local function bucket_name(zero_on)
-    if zero_on then return "scatter NEUTRALISED by us" end
-    return "as the game ships it"
+local function bucket_name()
+    local on = {}
+    if state.zero then on[#on + 1] = "zero" end
+    if state.skip then on[#on + 1] = "skip" end
+    if state.spec then on[#on + 1] = "spec" end
+    if #on == 0 then return "as the game ships it" end
+    return "we changed: " .. table.concat(on, "+")
 end
 
 local function file_shot(bucket, deg)
@@ -267,6 +274,57 @@ local function stats(L)
 end
 
 
+
+-- ---------------------------------------------------------------------------
+-- TRACE -- stop guessing, watch what actually happens.
+--
+-- Three levers have now failed (`steady`, `zero`, `skip`/`spec`), each one a guess
+-- about where the scatter is decided. The measurement, meanwhile, has never been
+-- wrong. So: measure the mechanism too.
+--
+-- ⭐ The finding that should have stopped the guessing earlier: the two rotations
+-- handed to `setupDiffusion` ALREADY differ by ~8 degrees when it is called. The
+-- scatter therefore exists BEFORE that function runs -- it does not create it, it
+-- receives it. Which is exactly why skipping it changed nothing, and why zeroing the
+-- spec radius at the moment it is asked may be too late as well.
+--
+-- In the gun's method table the order is:
+--     shootCommon -> gatherJoints -> expendBullet -> createBullet
+--                 -> setupDiffusion -> createBulletImple
+-- so the caller decides the spread. This traces that whole run, in order, and logs
+-- what the spec getters actually return, for one aimed shot against one hip shot.
+-- The difference between the two traces is the answer, whatever it turns out to be.
+--
+-- Budgeted: it stops itself after a set number of lines so it can never flood a log.
+-- ---------------------------------------------------------------------------
+
+local TRACE_PATH = { "shootCommon", "gatherJoints", "expendBullet", "createBullet", "createBulletImple" }
+
+local function T(fmt, ...)
+    if not state.trace then return end
+    if state.trace_left <= 0 then
+        state.trace = false
+        L("trace budget spent -- trace off")
+        return
+    end
+    state.trace_left = state.trace_left - 1
+    local ok, str = pcall(string.format, fmt, ...)
+    log.info(PREFIX .. "  trace| " .. (ok and str or tostring(fmt)))
+end
+
+local function hook_trace(L)
+    local td = sdk.find_type_definition(CORE)
+    if td == nil then return end
+    for _, nm in ipairs(TRACE_PATH) do
+        local m = td:get_method(nm)
+        if m ~= nil then
+            sdk.hook(m, function(args) T("%s", nm) end, function(r) return r end)
+        else
+            L("  trace: %s not found on %s", nm, CORE)
+        end
+    end
+end
+
 -- ---------------------------------------------------------------------------
 -- LEVER 3 -- the tidiest one, and the one a shipped fix would use.
 --
@@ -297,6 +355,9 @@ local function hook_spec(L)
 
     if mr ~= nil then
         sdk.hook(mr, function() end, function(retval)
+            local was = nil
+            pcall(function() was = sdk.to_float(retval) end)
+            T("GunSpec.get_diffusionRadius -> %s", tostring(was))
             if state.spec then
                 state.spec_hits = state.spec_hits + 1
                 local ok, z = pcall(sdk.float_to_ptr, 0.0)
@@ -307,6 +368,9 @@ local function hook_spec(L)
     end
     if mb ~= nil then
         sdk.hook(mb, function() end, function(retval)
+            local was = nil
+            pcall(function() was = sdk.to_int64(retval) end)
+            T("GunSpec.get_isDiffusion -> %s", tostring(was))
             if state.spec then
                 state.spec_hits = state.spec_hits + 1
                 local ok, z = pcall(sdk.to_ptr, 0)
@@ -514,6 +578,7 @@ local function setup()
         sdk.hook(m_diff, function(args)
             local gun = capture_this(args)
             -- args: [1] context, [2] this, [3] vec3, [4] Quaternion, [5] Quaternion
+            T("=== setupDiffusion (the scatter is ALREADY in its arguments) ===")
             local qa  = read_quat(args[4])
             local qb  = read_quat(args[5])
             local deg = quat_angle_deg(qa, qb)
@@ -526,7 +591,7 @@ local function setup()
                 pcall(function() radius   = gun:get_field("diffusionRadius") end)
             end
 
-            local b = bucket_name(state.zero)
+            local b = bucket_name()
             file_shot(b, deg)
 
             -- ⭐ THE FIX. Both arguments are POINTERS to quaternions, so pointing the
@@ -551,9 +616,6 @@ local function setup()
             -- leave it on the rotation it was made with.
             -- ⚠ If this makes the rifle stop firing, or fire somewhere fixed, the step
             -- does more than diffuse and the answer is `zero spec` instead.
-            if state.skip then
-                return sdk.PreHookResult.SKIP_ORIGINAL
-            end
 
             state.calls["setupDiffusion"] = (state.calls["setupDiffusion"] or 0) + 1
             local n = state.calls["setupDiffusion"]
@@ -564,6 +626,13 @@ local function setup()
                   tostring(restrict), tostring(reduce), tostring(isdiff), tostring(radius), b)
             end
             if n % 10 == 0 then stats(L) end
+
+            -- ⚠ BUG FIXED 2026-09-20: this return used to sit ABOVE the logging, so
+            -- `skip on` silenced the SHOT lines and made its own test unreadable. The
+            -- skip must always be the LAST thing the pre-hook does.
+            if state.skip then
+                return sdk.PreHookResult.SKIP_ORIGINAL
+            end
         end, function(r) return r end)
     end
 
@@ -580,6 +649,7 @@ local function setup()
     end
 
     pcall(hook_spec, L)
+    pcall(hook_trace, L)
 
     L("watching. Nothing is being changed.")
     L("EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.")
@@ -603,6 +673,7 @@ local function status()
     L("  steady       : %s", state.steady and "ON" or "off")
     L("  skip         : %s", state.skip and "ON" or "off")
     L("  spec         : %s  (spec getters answered %d time(s))", state.spec and "ON" or "off", state.spec_hits)
+    L("  trace        : %s  (%d line(s) of budget left)", state.trace and "ON" or "off", state.trace_left)
     L("  callable     : enableRestrictAimShake=%s  enableReduceRecoil=%s",
       tostring(state.shake_ok), tostring(state.recoil_ok))
     local any = false
@@ -628,16 +699,28 @@ local function run(line)
     elseif cmd == "quiet" then
         state.quiet = (arg ~= "off")
         L("watch lines %s", state.quiet and "silenced" or "back on")
+    elseif cmd == "trace" then
+        if arg == "off" then
+            state.trace, state.trace_left = false, 0
+            L("trace off")
+        else
+            state.trace, state.trace_left = true, 400
+            L("trace ON, budget 400 lines. Fire ONE shot holding aim, then ONE from the hip.")
+            L("The difference between the two traces is the answer.")
+        end
     elseif cmd == "skip" then
         state.skip = (arg ~= "off")
-        L("skip %s -- setupDiffusion will %s run at all", state.skip and "ON" or "off",
-          state.skip and "NOT" or "")
+        L("skip %s -- setupDiffusion %s run", state.skip and "ON" or "off",
+          state.skip and "will NOT" or "runs normally")
         if state.skip then L("Fire from the HIP. If the rifle stops firing, say so and use 'spec' instead.") end
     elseif cmd == "spec" then
         state.spec = (arg ~= "off")
         state.spec_hits = 0
-        L("spec %s -- the weapon spec's diffusion radius is forced to ZERO for every gun that asks",
-          state.spec and "ON" or "off")
+        if state.spec then
+            L("spec ON -- the weapon spec's diffusion radius is forced to ZERO for every gun that asks")
+        else
+            L("spec off -- the spec answers its own numbers again")
+        end
         if state.spec then L("Fire from the HIP, then run 'stats' -- the SHOT scatter itself should go to 0.000.") end
     elseif cmd == "zero" then
         if arg == "swap" then
@@ -661,7 +744,7 @@ local function run(line)
     elseif cmd == "status" then
         status()
     else
-        L("not understood: %s   (read / flags / skip on|off / spec on|off / zero on|off|swap / stats / quiet on|off / status)", line)
+        L("not understood: %s   (read / flags / trace on|off / skip on|off / spec on|off / zero on|off|swap / stats / status)", line)
     end
 end
 

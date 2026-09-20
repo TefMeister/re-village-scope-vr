@@ -150,3 +150,49 @@ read from there, the per-shot scatter itself drops to **0.000**. The tool also c
 spec getters answered, so "it changed nothing" can be told apart from "it was never asked".
 
 Helpers: `SPREAD-5-SKIP-ON.bat`, `SPREAD-6-SPEC-ON.bat`, `SPREAD-7-ALL-OFF.bat`.
+
+---
+
+## ⛔ `skip` AND `spec` BOTH FAILED TOO — and the reason was in the data all along
+
+Tefa: *"still randon i'm afraid"*. Log:
+
+- **`spec on`** at 16:41:16, then five hip shots: **0.292°, 8.215°, 6.080°, 10.708°, 6.742°** — average
+  ~6.4°, i.e. unchanged `[verified-live 2026-09-20, n=5]`. The spec getters were all found
+  (`radius=true isDiffusion=true num=true`), so the hooks installed; but `status` was never run, so
+  **whether the getters were ever ASKED is unknown** — the tool counted it and nobody read the counter.
+- **`skip on`** at 16:40:24 → **no SHOT lines at all** before it was switched off at 16:41:09.
+
+⚠️ **That silence was a bug in this tool, not a result.** The `SKIP_ORIGINAL` return sat **above** the
+logging, so turning `skip` on silenced the very lines that would have judged it. **The `skip` test is
+therefore INCONCLUSIVE, not failed.** Fixed: the skip is now the last thing the pre-hook does. Two
+other flaws fixed with it — the bucket label only mentioned `zero`, so shots under `spec` were filed
+as "as the game ships it"; and `spec off` printed the `spec on` wording.
+
+### ⭐ The finding that should have stopped the guessing three attempts ago
+
+**The two rotations handed to `setupDiffusion` already differ by ~8° at the moment it is called.** That
+was in the very first measurement. So **the scatter exists BEFORE that function runs — it does not
+create it, it receives it.** Which explains, after the fact, why nothing aimed at that function could
+work: re-pointing its arguments, and skipping it entirely, were both attacking a step that only passes
+the scatter along.
+
+⚠️ **Three guesses in a row, each one plausible, each one aimed at the wrong place, while the
+measurement was right every time.** The lesson is the one this project keeps relearning (§9az, §9bc):
+**measure the mechanism before building a lever for it.** The per-shot numbers were trusted and
+correct; every claim about *where the number comes from* was assumption.
+
+## Next: a difference trace, which cannot come back empty
+
+`trace on` (`SPREAD-8-TRACE-ON.bat`, read-only, 400-line budget) hooks the gun's whole firing path in
+order — `shootCommon` → `gatherJoints` → `expendBullet` → `createBullet` → `setupDiffusion` →
+`createBulletImple` `[measured 2026-09-20 from re8.exe]` — and logs **what the spec getters really
+return** when asked.
+
+**Then one aimed shot and one hip shot.** Aiming produces 0.005° and the hip produces ~8°, so the two
+traces must differ somewhere, and wherever they differ is where the spread is decided. ⭐ Unlike the
+three levers, this **cannot return "nothing happened"**: either the traces differ, or the deciding step
+is not on this path at all — and that is itself a finding worth having.
+
+⚠️ Still unresolved: the weapon is **never named** (`weapon=?` on every capture, both routes). And the
+tool is now **785 lines**, at the code-shape soft limit — it must be split before anything else is added.
