@@ -2313,6 +2313,24 @@ it to turn accurate"* **is** that call, and the whole job is to make it permanen
 invented maths, the game's own switch left on. If it does not, the accuracy comes from elsewhere and
 we have learned that for one launch instead of guessing.
 
+⛔ **HARD CONSTRAINT, stated by the wearer the same day — FORCING AIM MODE ON IS NOT AN OPTION AND
+NEVER WILL BE.** Tefa, reading "make it permanent" as "hold RG all the time":
+
+> *"if you mean having RG - the aim button constantly on then this can't be an option because it
+> removes hands from the rifle, only the actual rifle is visible when RG is held and would cause a
+> whole heap of other issues i'm sure"*
+
+**They are right about the consequence, and it is worth writing down as a fact about this game: in
+aim mode RE8 draws the rifle and hides the hands** `[reported 2026-09-20, wearer]`. A VR mod whose
+whole point is hands on a rifle cannot live there.
+
+⭐ **But that is not what the lever is.** `enableRestrictAimShake` / `enableReduceRecoil` are methods
+**on the gun object**. Calling them touches no input, no aim button and no aim state — it tells the
+gun to steady itself *while the player is not aiming, hands and all*. If aim mode was flipping those
+same switches, then calling them ourselves gives the accuracy **without** the aim pose, which is the
+entire point rather than a side effect. **If a future session cannot get the methods to work, forcing
+aim mode is NOT the fallback** — the fallback is the spec numbers `setupDiffusion` reads.
+
 **Tool: `reframework/autorun/re8_spread_kill.lua`** (deployed to the home PC 2026-09-20; source in
 `dev-archive/lua/`; `luac -p` clean). Own command file `re_spread_kill_cmd.txt` so it cannot race the
 scope harness or the dig tool. **Starts read-only.**
