@@ -2270,6 +2270,56 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bu. ⭐⭐⭐ PARALLAX, PIECE 3: THE CROP NOW FOLLOWS THE REAL HIT DISTANCE — built, deployed, OFF by default, NOT RUN (2026-09-21, `/pd`, nothing launched)
+
+**What was built** (source in `staging`, deployed to the home PC):
+
+- `scripts/re8scope/pane.lua` publishes **`aim_dist`** — read from `require("utility/RE8").crosshair_distance`
+  (§9bt). **No hook, no raycast of ours.** `-1` = unknown. **Exactly `10.0` is reported as unknown**: it is
+  `re8_vr.lua`'s no-hit fallback, and nothing hit means sky, which is *far* — treating it as a 10 m
+  wall would swing the picture 1.8° every time the rifle crossed the skyline. Quantised (0.1 m under
+  10 m, 0.5 m under 30 m, 5 m beyond) so the pane is not rewritten for every centimetre; the term
+  `atan(0.4/d)` is steep up close and nearly flat past 30 m.
+- `plugin/src/world_tick.cpp:689` — the fixed `50.0f` becomes `far_m`, which follows `aim_dist` clamped
+  to 1.5–300 m and **eased 15% per tick**, because the pane arrives at ~2 Hz and a jump would lurch the
+  picture. Unknown or switched off → 50 m, i.e. **exactly the old behaviour**.
+- Live switch `reframework/data/re_scope_aimdist.txt` (`0`/`1`), its own file for the same reason as the
+  spread switch. Helpers `SCOPE-DISTANCE-ON.bat` / `SCOPE-DISTANCE-OFF.bat`.
+- `re_scope_vr.dll` 252,416 bytes, 0 errors 0 warnings `[compile-verified 2026-09-21]`; `pane.lua`
+  `luac -p` clean; the game's `pane.lua` was checked identical to the repo copy **before** overwriting it.
+
+**The model, checked numerically** `[verified-numerically 2026-09-21]` — viewpoint 0.40 m beside the
+bore, target on the bore at distance d:
+
+| d | error with the fixed 50 m | error when the crop follows d |
+| --- | --- | --- |
+| 3 m | 7.14° | 0.00° |
+| 4 m | 5.25° | 0.00° |
+| 10 m | 1.83° | 0.00° |
+| 20 m | 0.69° | 0.00° |
+| 50 m | 0.00° | 0.00° |
+
+⚠️ **That checks the GEOMETRY, not the engine.** What is not established, each one a way this could
+fail in the headset: that `propr 0.20` really puts the viewpoint 0.40 m off (the 2δ rule was measured
+for `off_u`, in the OLD pose); that `crop_follow`'s projection of a NEAR point is as good as of a far
+one — it has only ever been exercised at 50 m, and §9aw's crop-centre discrepancy may bite harder up
+close; that `re8.crosshair_distance` is live while the scope rig is up; and that 2 Hz + easing feels
+acceptable when sweeping from a near wall to a far hill.
+
+**Why OFF by default, when §9bl made the spread fix default-on the same night:** that one was proven in
+game first. This one moves where the picture is centred, so **the baked zero (−16.4 / −10.6) will be
+slightly off the first time it is on** — it was fitted at some unknown distance with the 50 m term
+inside it (~0.7° if the wall was ~20 m away). One sideways nudge, once, and then it should hold at every
+distance. If it does, it becomes the default and the zero gets re-baked.
+
+**THE TEST (VR, a few minutes):** scope up as normal → `SCOPE-DISTANCE-ON.bat` → the log should say
+`aim-dist: ON … (the pane says N m)` with a believable N → nudge the zero once at a FAR mark → walk to a
+wall ~4 paces away and fire one shot **without nudging**. **On the crosshair → the parallax is solved.**
+Off by several degrees → the distance is not arriving or the near projection is wrong; the log's
+`aim-dist` line says which.
+
+Credit: **praydog** (REFramework and RE8VR, whose gun ray this reads).
+
 ### 9bt. ⭐⭐⭐ PARALLAX, PIECE 2: THE CROP AIMS AT A FIXED **50 m** — AND THE GAME'S OWN VR SCRIPT ALREADY MEASURES THE REAL DISTANCE EVERY FRAME (2026-09-21, `/pd`, static)
 
 **The cause, in one line of our own source** — `plugin/src/world_tick.cpp:689`:
