@@ -20,3 +20,14 @@
 [2026-09-20 16:25:39.624] [REFramework] [info] [spread-kill] SHOT #2  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
 [2026-09-20 16:25:41.926] [REFramework] [info] [spread-kill] SHOT #3  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
 [2026-09-20 16:25:44.306] [REFramework] [info] [spread-kill] SHOT #4  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:25:46.836] [REFramework] [info] [spread-kill] SHOT #5  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:26:02.872] [REFramework] [info] [spread-kill] SHOT #6  scatter=3.516 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:26:04.748] [REFramework] [info] [spread-kill] SHOT #7  scatter=12.172 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:26:06.792] [REFramework] [info] [spread-kill] SHOT #8  scatter=14.930 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:26:08.691] [REFramework] [info] [spread-kill] SHOT #9  scatter=9.368 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill] SHOT #10  scatter=2.157 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill] ---- scatter measured per shot, in degrees ----
+[2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   (rotations read by the 'valuetype' route)
+[2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   game says restrict-aim-shake TRUE (aiming?)   10 shot(s)   min 0.000   avg 4.217   max 14.930
+[2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   >> a row sitting at 0.000 is a shot with NO scatter at all.
+[2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   >> compare the hip row against the aimed row: that difference IS the thing being chased.

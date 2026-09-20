@@ -78,3 +78,32 @@ being thrown off — **is `[hypothesis]` until the weapon is identified.**
   the aim's own movement. That would also explain why `DiffusionNum` looked like a shotgun feature.
 
 Credit: **praydog** (REFramework). The test was run by Tefa at the keyboard.
+
+---
+
+## ✅ RESOLVED THE SAME HOUR — the weapon was identified by Tefa, and the answer is the opposite
+
+Tefa, minutes later: *"i now loaded a save with bullets, took 5 shots aim button held down, then
+reloaded and took 5 hip fire shots too"* — so shots 1–5 are aimed, shots 6–10 are hip, and the
+16-second gap between #5 and #6 is the reload.
+
+| | shots | min | average | max |
+| --- | --- | --- | --- | --- |
+| **AIMED** (1–5) | 5 | 0.000° | **0.005°** | 0.023° |
+| **HIP** (6–10) | 5 | 2.157° | **8.429°** | **14.930°** |
+
+**The hip average is ~1,800× the aimed average** `[verified-live 2026-09-20, n=10]`. So the spread is
+real, enormous, and applied as a cone at `setupDiffusion` — not aim drift and nothing to do with the
+picture. The caution above was right to hold, and wrong about which way it would fall.
+
+The measurement also validated itself: five exact zeros running, then five different large values. A
+broken quaternion read cannot do that. The `[hypothesis]` on (intended, scattered) is promoted to
+`[verified-live 2026-09-20, n=10]`.
+
+**Fix written and deployed the same hour, NOT YET RUN:** both arguments are pointers, so re-pointing
+the scattered one at the intended one in the pre-hook sends the shot along the aim. Applied after the
+measurement so the log still shows what was cancelled. Which of the two is "intended" cannot be
+learned from the log (on an aimed shot they are identical), hence `SPREAD-4-ZERO-ON.bat` and
+`SPREAD-4-ZERO-SWAP.bat`, and the test is which sends hip shots straight.
+
+Full write-up: dossier §9bd.

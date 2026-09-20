@@ -53,6 +53,9 @@
 --     status          say what is captured and what is on
 --     stats           the measured scatter per shot, in degrees, split hip vs aimed
 --     flags           the gun's steadiness flags right now, plus the trigger
+--     zero on         cancel the bullet scatter at the moment the game applies it
+--     zero swap       the same, the other way round, if 'zero on' sends shots wild
+--     zero off        give the game its own scatter back
 --     watchflags off  stop the automatic change lines, if they get noisy
 --
 -- Its OWN command file, so it cannot race the scope harness or the dig tool.
@@ -73,6 +76,8 @@ local state = {
     shake_ok    = false,   -- signature checked and callable
     recoil_ok   = false,
     last_apply  = 0.0,
+    zero        = false,   -- neutralise the scatter at setupDiffusion
+    zero_swap   = false,   -- which quaternion is the intended one (see the note below)
 }
 
 local function L(fmt, ...)
@@ -209,11 +214,15 @@ end
 -- ---------------------------------------------------------------------------
 local shots = {}   -- bucket name -> { n, sum, min, max }
 
-local function bucket_name(steady_on, restrict, reduce)
-    if steady_on then return "steady ON (our switches)" end
-    if restrict == true then return "game says restrict-aim-shake TRUE (aiming?)" end
-    if restrict == false then return "game says restrict-aim-shake FALSE (hip?)" end
-    return "restrict-aim-shake unreadable"
+-- ⚠ 2026-09-20: the first version of this bucketed by `isRestrictAimShake`, on the
+-- assumption that it tracked the aim button. It does not -- it reads `true` all the
+-- time, hip or aimed -- so all ten shots of the first run landed in one bucket and the
+-- labels lied. The SHOT lines themselves were fine, and the comparison came from their
+-- ORDER plus Tefa saying which five were which. Bucket by what WE changed instead;
+-- nothing readable on the gun distinguishes aiming.
+local function bucket_name(zero_on)
+    if zero_on then return "scatter NEUTRALISED by us" end
+    return "as the game ships it"
 end
 
 local function file_shot(bucket, deg)
@@ -269,8 +278,15 @@ local function capture_this(args)
                 if state.core ~= obj then
                     state.core = obj
                     state.core_seen = state.core_seen + 1
-                    L("captured the gun in your hands: %s (slot args[%d], capture #%d)",
-                      name, slot, state.core_seen)
+                    -- ⚠ the first run could not say WHICH weapon it had hold of, which
+                    -- nearly cost a finding. Name it every time.
+                    local go_name = "?"
+                    pcall(function()
+                        local go = obj:call("get_GameObject")
+                        if go ~= nil then go_name = go:call("get_Name") end
+                    end)
+                    L("captured the gun in your hands: %s  weapon=%s  (slot args[%d], capture #%d)",
+                      name, tostring(go_name), slot, state.core_seen)
                 end
                 return obj
             end
@@ -452,8 +468,19 @@ local function setup()
                 pcall(function() radius   = gun:get_field("diffusionRadius") end)
             end
 
-            local b = bucket_name(state.steady, restrict, reduce)
+            local b = bucket_name(state.zero)
             file_shot(b, deg)
+
+            -- ⭐ THE FIX. Both arguments are POINTERS to quaternions, so pointing the
+            -- scattered one at the intended one makes the shot leave along the aim.
+            -- Done AFTER the measurement above, so the log still records the scatter
+            -- the game wanted -- we can see what was cancelled, not just that it is 0.
+            -- ⚠ Which of the two is "intended" is not known: on an aimed shot they are
+            -- identical, so the log cannot tell them apart. `zero swap` tries the other
+            -- way round. If bullets fly off at random, it is the wrong way round.
+            if state.zero then
+                if state.zero_swap then args[4] = args[5] else args[5] = args[4] end
+            end
 
             state.calls["setupDiffusion"] = (state.calls["setupDiffusion"] or 0) + 1
             local n = state.calls["setupDiffusion"]
@@ -524,6 +551,18 @@ local function run(line)
     elseif cmd == "quiet" then
         state.quiet = (arg ~= "off")
         L("watch lines %s", state.quiet and "silenced" or "back on")
+    elseif cmd == "zero" then
+        if arg == "swap" then
+            state.zero, state.zero_swap = true, true
+            L("zero ON, the OTHER way round -- if bullets now fly off at random, go back to 'zero on'")
+        elseif arg == "off" then
+            state.zero, state.zero_swap = false, false
+            L("zero off -- the game's own scatter is back")
+        else
+            state.zero, state.zero_swap = true, false
+            L("zero ON -- the scatter is cancelled at the moment it is applied.")
+            L("Fire from the HIP, without holding aim, and see where the bullets go.")
+        end
     elseif cmd == "flags" then
         flags_snapshot(L)
     elseif cmd == "watchflags" then
@@ -534,7 +573,7 @@ local function run(line)
     elseif cmd == "status" then
         status()
     else
-        L("not understood: %s   (read / flags / steady on|off / stats / watchflags on|off / quiet on|off / status)", line)
+        L("not understood: %s   (read / flags / zero on|off|swap / stats / watchflags on|off / quiet on|off / status)", line)
     end
 end
 
