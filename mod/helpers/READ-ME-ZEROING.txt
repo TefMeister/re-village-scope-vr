@@ -20,7 +20,8 @@
 
  UPDATE 2026-09-21: done a THIRD time, and the first with the bullet spread
  switched off - so the first zero fitted to a point rather than a scatter.
- The saved values are now up -16.4, right -10.6 (re-done later
+ The saved values are now up -14.9, right -11.8 - zeroed FROM AFAR, from a
+ spot Tefa knows, and THE REFERENCE for all tuning from here on. (Before that: -16.4 / -10.6 (re-done later
  the same night; an hour earlier they were -15.2 / -6.0) (they were -13.2 / -4.0, which
  was as good as five scattered shots could make it). Use this file to check the zero
  still holds, or to redo it at a different distance.
@@ -85,7 +86,7 @@
  PART 2  --  COMPARE WITH THE OLD ZERO
 ---------------------------------------------------------------------------
 
- 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -16.4 / -10.6)
+ 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -14.9 / -11.8)
 
     !! That button RESETS. It does not save. It throws away anything you
     have nudged since. ZERO-SHOW.bat prints the current values safely.

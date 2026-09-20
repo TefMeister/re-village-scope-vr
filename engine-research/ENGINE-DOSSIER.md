@@ -2270,6 +2270,44 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bv. ⭐⭐⭐ THE REFERENCE ZERO: **up −14.9 / right −11.8**, zeroed FROM AFAR from a spot Tefa knows — everything is tuned against this from now on (2026-09-21, LIVE, VR)
+
+**Supersedes: §9bq's value** (−16.4 / −10.6). Tefa: *"i have done these from afar, please make sure these
+are saved! i know exactly the spot i fired from, so this will be the default to whatever we tune from now
+on."* `[verified-live 2026-09-21, n=1 wearer, 8 shots all logged STRAIGHTENED]`. Saved in the four places
+(harness bringup block in game + `staging/scripts/`, `ZERO-B-SHIPPED.bat`, `READ-ME-ZEROING.txt`, the
+plugin's boot settings). Finished with the new 0.1° step (−14.80 → −14.90).
+
+**State it was made in, which is what makes it a reference:** spread fix ON; **distance-follow OFF**
+(`re_scope_aimdist.txt` = 0, so the crop still aimed at the fixed 50 m); true-scope pose.
+
+⭐ **Far is the right place to zero, and this is why it is worth more than the four before it.** The
+parallax term is `atan(0.4/d)`: 5.7° at 4 m, but only 1.1° at 20 m and 0.5° at 50 m, and nearly flat
+beyond. A zero made far away is the closest thing to the **true angular zero** that exists — what is left
+in it is almost all real direction error and almost no distance error. **So this is the yardstick the
+distance-follow fix (§9bu) gets judged against**: switch it on, and a near wall should hit with THIS
+zero and no nudging.
+
+| zero | up | right | made |
+| --- | --- | --- | --- |
+| §9bp | −15.2 | −6.0 | too close to the wall |
+| §9bq | −16.4 | −10.6 | further back |
+| **§9bv** | **−14.9** | **−11.8** | **from afar, known spot** |
+
+The sideways term keeps growing more negative as the distance grows (−6.0 → −10.6 → −11.8) and is
+flattening, exactly as `true_zero + atan(h/d)` predicts — **the true sideways zero is somewhere just past
+−12°**. Third independent point on the same curve; §9br's parallax reading now rests on three, not two.
+
+✅ **One of §9bu's unknowns is answered for free:** the pane read `aim_dist=3.30` while the rig was up,
+so **praydog's gun-ray distance IS live with the scope running** `[verified-live 2026-09-21, n=1 read]`.
+
+⚠️ **Two things still only in Tefa's head, worth writing down when convenient:** *where* the spot is, and
+roughly *how far* the mark was. A reference only one person can find is fragile — and the distance turns
+the three zeros above into a measurement of `h`. Cheap follow-up on our side: print `aim_dist` on each
+`spread-imple` shot line, so every future shot records its own range.
+
+Credit: **praydog** (REFramework, RE8VR). Zeroed by Tefa.
+
 ### 9bu. ⭐⭐⭐ PARALLAX, PIECE 3: THE CROP NOW FOLLOWS THE REAL HIT DISTANCE — built, deployed, OFF by default, NOT RUN (2026-09-21, `/pd`, nothing launched)
 
 **What was built** (source in `staging`, deployed to the home PC):
