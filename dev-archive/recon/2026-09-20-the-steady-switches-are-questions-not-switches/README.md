@@ -107,3 +107,46 @@ learned from the log (on an aimed shot they are identical), hence `SPREAD-4-ZERO
 `SPREAD-4-ZERO-SWAP.bat`, and the test is which sends hip shots straight.
 
 Full write-up: dossier §9bd.
+
+---
+
+## ⛔ DISPROVED, SAME EVENING — re-pointing the argument slots does NOTHING
+
+Tefa ran `zero on` (2 hip shots) then `zero swap` (8 hip shots) and reported *"still wild with both"*.
+**"Still" is the operative word — the numbers are unchanged, not wrong-way-round:**
+
+| | shots | min | average | max |
+| --- | --- | --- | --- | --- |
+| no override at all (earlier) | 5 hip | 2.157° | **8.429°** | 14.930° |
+| `zero on` + `zero swap` | 10 hip | 0.034° | **8.649°** | 16.137° |
+
+⛔ **So assigning to `args[n]` in a REFramework pre-hook does not reach these value-type arguments.**
+That was an assumption stated as a mechanism (*"both arguments are pointers, so re-pointing the
+scattered one at the intended one…"*) and it was wrong. It is kept in the tool only so the disproof
+can be re-run.
+
+⚠️ **And the framing given to Tefa was wrong too** — they were told that wild shots would identify
+which of the two rotations was "intended". Both being wild means neither took effect, which is a
+different thing. A test has to be able to tell "no effect" from "wrong choice", and that one could not.
+
+⚠️ `weapon=?` — the `get_GameObject` route returned nothing, so the weapon still is not named. A second
+attempt via `get_game_object()` is in place, untested.
+
+## Two levers left, both on mechanisms that are reliable rather than assumed
+
+1. **`skip on`** — return `SKIP_ORIGINAL` so `setupDiffusion` never runs. In the gun's method table it
+   sits between `createBullet` and `createBulletImple` `[measured 2026-09-20]`, so the bullet is made,
+   then diffused, then finished — skipping the middle step should leave it on the rotation it was made
+   with. ⚠️ If the rifle stops firing or fires at a fixed spot, the step does more than diffuse.
+2. **`spec on`** — override the RETURN of
+   `app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec.get_diffusionRadius` to `0.0` (and
+   `get_isDiffusion` to false). Read-only getters, and overriding a return value in a post-hook is the
+   most reliable lever REFramework has. ⭐ **This is also what a shipped fix should use** — zero the
+   radius at source and the cone has nothing to open into. ⚠️ Global as built: every gun that asks
+   loses its spread. Fine for a test, not for a release.
+
+⭐ **`spec on` is falsifiable in the log, which the previous attempt was not:** if the number is really
+read from there, the per-shot scatter itself drops to **0.000**. The tool also counts how many times the
+spec getters answered, so "it changed nothing" can be told apart from "it was never asked".
+
+Helpers: `SPREAD-5-SKIP-ON.bat`, `SPREAD-6-SPEC-ON.bat`, `SPREAD-7-ALL-OFF.bat`.
