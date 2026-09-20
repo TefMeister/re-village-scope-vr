@@ -75,3 +75,32 @@
 [2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   scatter NEUTRALISED by us                     20 shot(s)   min 0.034   avg 7.973   max 16.137
 [2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   >> a row sitting at 0.000 is a shot with NO scatter at all.
 [2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   >> compare the hip row against the aimed row: that difference IS the thing being chased.
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] found app.WeaponGunCore
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] the three methods this job turns on:
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill]   enableRestrictAimShake() -> System.Boolean
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill]   enableReduceRecoil() -> System.Boolean
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill]   setupDiffusion(via.vec3, via.Quaternion, via.Quaternion) -> System.Void
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] ⚠ enableRestrictAimShake does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] ⚠ enableReduceRecoil does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill]   ⚠ onEquipWeapon not found; capture will need a shot fired
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill]   capture hook on updateScope -- no shot needed to grab the gun
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] spec getters found: radius=true isDiffusion=true num=true
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] watching. Nothing is being changed.
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] No shot is needed for that test. Firing additionally measures the scatter in degrees.
+[2026-09-20 16:40:01.896] [REFramework] [info] [spread-kill] loaded. Commands go in reframework/data/re_spread_kill_cmd.txt -- start with 'status'.
+[2026-09-20 16:40:24.062] [REFramework] [info] [spread-kill] skip ON -- setupDiffusion will NOT run at all
+[2026-09-20 16:40:24.062] [REFramework] [info] [spread-kill] Fire from the HIP. If the rifle stops firing, say so and use 'spec' instead.
+[2026-09-20 16:40:43.209] [REFramework] [info] [spread-kill] captured the gun in your hands: app.WeaponGunCore  weapon=?  (slot args[2], capture #1)
+[2026-09-20 16:40:43.212] [REFramework] [info] [spread-kill] FLAG  isReduceRecoil       nil  ->  false
+[2026-09-20 16:40:43.212] [REFramework] [info] [spread-kill] FLAG  isRestrictAimShake   nil  ->  true
+[2026-09-20 16:41:09.837] [REFramework] [info] [spread-kill] skip off -- setupDiffusion will  run at all
+[2026-09-20 16:41:09.837] [REFramework] [info] [spread-kill] spec off -- the weapon spec's diffusion radius is forced to ZERO for every gun that asks
+[2026-09-20 16:41:09.837] [REFramework] [info] [spread-kill] zero off -- the game's own scatter is back
+[2026-09-20 16:41:16.871] [REFramework] [info] [spread-kill] spec ON -- the weapon spec's diffusion radius is forced to ZERO for every gun that asks
+[2026-09-20 16:41:16.871] [REFramework] [info] [spread-kill] Fire from the HIP, then run 'stats' -- the SHOT scatter itself should go to 0.000.
+[2026-09-20 16:41:21.442] [REFramework] [info] [spread-kill] SHOT #1  scatter=0.292 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [as the game ships it]
+[2026-09-20 16:41:23.944] [REFramework] [info] [spread-kill] SHOT #2  scatter=8.215 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [as the game ships it]
+[2026-09-20 16:41:26.102] [REFramework] [info] [spread-kill] SHOT #3  scatter=6.080 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [as the game ships it]
+[2026-09-20 16:41:28.004] [REFramework] [info] [spread-kill] SHOT #4  scatter=10.708 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [as the game ships it]
+[2026-09-20 16:41:29.755] [REFramework] [info] [spread-kill] SHOT #5  scatter=6.742 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [as the game ships it]
