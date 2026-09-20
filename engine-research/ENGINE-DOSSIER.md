@@ -2270,6 +2270,140 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bb. ⭐⭐⭐ THE RIFLE HAS ITS OWN STEADY SWITCHES — `enableRestrictAimShake` / `enableReduceRecoil` ON `app.WeaponGunCore`. TOOL BUILT AND DEPLOYED, NOT RUN (2026-09-20, static). AND THE PICTURE FAULT IS A JITTER, NOT A SHAKE — corrected by the wearer.
+
+**Supersedes: §9ba's "NEW — Village has native aim-wander, hand-shake and spread levers" paragraph**
+(the Twirl / RecoilHandShake / `set_isDiffusion` readings), **and §9ba's one-line account of the
+picture shake.** Both were written earlier the same day and both were wrong in ways that would have
+sent work down the wrong road. The corrections are below; the rest of §9ba stands.
+
+---
+
+#### The lever, and it was already in our own files
+
+`app.WeaponGunCore` carries, in one block of the 2026-09-17 probe output
+(`dev-archive/recon/2026-09-17-the-nine-builds-checked-in-the-headset/launch3-spread-probe.txt`):
+
+```
+field  isReduceRecoil        : System.Boolean
+field  isRestrictAimShake    : System.Boolean
+method enableRestrictAimShake
+method enableReduceRecoil
+method setupDiffusion
+```
+
+Confirmed against `re8.exe` the same day: those two `enable…` methods sit in WeaponGunCore's method
+table **between `updateScope` / `enableHighRateScope` and `shootCommon` / `createBullet` /
+`setupDiffusion`** `[measured 2026-09-20]`. They are the gun's own steadiness switches, sitting beside
+the code that fires the shot. **`isRestrictAimShake` also appears in a player weapon-handling field
+block** (beside `isReduceRecoil`, `isHighRateScope`, `CurrentWeaponID`, `isBothHands`), so the flag is
+readable from both sides `[measured 2026-09-20]`.
+
+⚠️ **FOURTH INSTANCE IN THREE DAYS OF EVIDENCE PRESENT AND UNREAD, and this one is the sharpest yet:**
+§9az was written to say the bottleneck is reading what was already collected — and §9az itself quoted
+**lines 71–74** of that probe file while the `enableRestrictAimShake` block sits **about six lines
+above it, in the same dump, on the same screen**. The dossier then went looking for a data table to
+write. **The method that switches it off was in the file being quoted.** After `swing-unchanged`
+(§9av), the omitted `+0.2111` (§9ax) and `DiffusionRadius` (§9az), the rule has to become mechanical:
+*when quoting a probe dump, read the whole type block, not the matching lines.*
+
+⭐ **THE DECIDING QUESTION IS NOT "WHAT NUMBER IS THE SPREAD".** It is: **does the game itself call
+`enableRestrictAimShake(true)` when the aim button is held?** If it does, then Tefa's *"hold aim RG for
+it to turn accurate"* **is** that call, and the whole job is to make it permanent — no patching, no
+invented maths, the game's own switch left on. If it does not, the accuracy comes from elsewhere and
+we have learned that for one launch instead of guessing.
+
+**Tool: `reframework/autorun/re8_spread_kill.lua`** (deployed to the home PC 2026-09-20; source in
+`dev-archive/lua/`; `luac -p` clean). Own command file `re_spread_kill_cmd.txt` so it cannot race the
+scope harness or the dig tool. **Starts read-only.**
+
+- it **watches** `enableRestrictAimShake`, `enableReduceRecoil` and `setupDiffusion`, logging the first
+  five calls of each plus every fiftieth, with the bool argument — that alone answers the question above
+- it captures the live gun off `this` on any of those calls, **checking both `args[2]` and `args[1]`
+  and keeping whichever really is a `WeaponGunCore`** rather than trusting the convention
+- `read` dumps **every field of the live gun with its current value**, marking diffusion / shake /
+  recoil lines — this is what settles whether the rifle even has a diffusion cone
+- `steady on` calls both enables with `true` **every frame**, because the game re-sets them on weapon
+  and state changes and a one-shot write would be silently undone — which would read as "the lever
+  does not work"
+- it **reads each method's real signature and refuses to call anything that is not a single
+  `System.Boolean`**, saying so instead of guessing
+
+Helpers, in the game folder: `SPREAD-1-STATUS.bat`, `SPREAD-2-READ.bat`, `SPREAD-3-STEADY-ON.bat`,
+`SPREAD-3-STEADY-OFF.bat`.
+
+⚠️ **NOT RUN. Nothing below the strings is verified**: whether the sniper scatters from a diffusion
+cone at all (`DiffusionNum` exists because of shotguns — the rifle may have `IsDiffusion = false` and
+scatter purely from aim movement), whether the two enables take a bool, and whether they survive the
+game's own per-frame update. `[hypothesis]` until a launch says otherwise.
+
+#### ⚠️ CORRECTION 1 — "Twirl" is CAMERA LOOK SPEED, not aim wander
+
+§9ba called `HorizontalTwirlSpeed` / `VerticalTwirlSpeed` "RE Engine's word for aim wander" and
+pointed them at the shake and spread rows. **Wrong.** In `re8.exe` those two sit inside a **camera**
+field block — `currentYaw`, `currentPitch`, `yawMin`, `yawMax`, `pitchMin`, `pitchMax`, `yawSpeed`,
+`pitchSpeed`, `gyroInputRate`, `cameraGazeOffset`, `desireCameraGazeOffset` `[measured 2026-09-20]`.
+They are **look sensitivity / camera turn rate**, nothing to do with the bullet going where it is
+pointed. The RE4 link (`getScopeTwirl`) does not transfer the meaning. **Do not spend a launch on
+them for accuracy.**
+
+#### ⚠️ CORRECTION 2 — `enableRecoilHandShake` is the ARMS' ANIMATION, not the bullet or the picture
+
+§9ba listed it as a shake lever. In `re8.exe` it sits among upper-body IK fields — `isLeftIKUsed`,
+`isRightIKUsed`, `twistingWaistRate`, `twistingStomachRate`, `cameraToLShoulderOffset`,
+`cameraToRShoulderOffset`, `armMaxRatio`, `armMinRatio`, `recoilTargetPos`, `recoilAdjustTime`,
+`recoilResetTime` `[measured 2026-09-20]`. It is the **visible kick of the arms after a shot**. It may
+still be worth switching off for comfort, but it is **not** a cause of spread and **not** a cause of
+the picture fault.
+
+#### ⚠️ CORRECTION 3 — `set_isDiffusion` is on the BULLET, not a global spread switch
+
+In `re8.exe` it sits beside `set_diffusionNum`, `get_AttackPower`, `set_IsPenetration`,
+`normalBulletUpdate` and the attack-attenuation methods `[measured 2026-09-20]` — i.e. the
+bullet/attack object, matching §9az's reading that `app.BulletDefault` resolves the cone at creation.
+Writing it after the bullet exists is too late. The lever is upstream: `setupDiffusion`, or the spec
+numbers it reads.
+
+#### ⚠️ CORRECTION 4 — THE PICTURE FAULT IS A JITTER, AND IT IS NOT "THE SOURCE IS ON THE WRONG THING"
+
+§9ba summarised it as: *RE4's picture comes from a camera bolted to the gun, so the head cannot shake
+it; ours is head-referenced, and every crop/shake symptom follows.* **The wearer corrected that
+directly, and the wearer's sighting is the observation** (2026-09-20, their words):
+
+> *"there is a difference between a shake and a jitter, a quick teleport AER style visible jitter when
+> turning my head, as slowly and smoothly as i do it, the picture is still jittery … when turning the
+> gun and holding my head still, there is none of that jitter, only if the game is running a more
+> demanding area then the picture reprojects with the whole gun, but proved to be smooth in well
+> performing areas."*
+
+**So the signature is:**
+
+| Motion | What is seen |
+| --- | --- |
+| head turning, slowly and smoothly | **stepped / teleporting jitter** in the picture |
+| gun turning, head held still | **no jitter** |
+| demanding area, either way | the whole gun reprojects — **normal, and smooth where frame rate is good** |
+
+⭐ **That is a RATE fault, not a geometry fault.** A smooth head turn producing stepped content means
+the picture's content is refreshed **less often than the head pose is**, or is quantised on the way
+in — the head moves every frame, the mirror content does not follow every frame. Geometry being
+attached to the wrong object would produce **smooth wrong motion**, not steps, and would not vanish
+when the gun turns instead. **The gun-turn case being clean is the strongest part of the report:** it
+rules out the crop maths and the pane pose, because both are exercised just as hard by a gun turn.
+
+⚠️ **This does NOT contradict §9ay** (the streak follows the head and clips on two sides) — that row is
+about content running off the edge of what was drawn, which is a different fault with a different
+signature. Two faults, both revealed by head movement. **Do not merge them again.** §9ba's one-liner
+merged them and was wrong to.
+
+**What it means for the shake rows:** the `[VR USER]` row *"the picture shakes on the glass when the
+head moves"* should be read as **jitter**, and the next step on it is a **rate** question — how often
+the mirror's content is actually renewed against how often the head pose is read — not another pose or
+crop measurement. The shake **instrument** built on 2026-09-18 measures angular movement per frame and
+cannot see stepping of this kind `[inferred-static 2026-09-20]`.
+
+Credit: **praydog** (REFramework). Field correction by the wearer, which is where it came from.
+
 ### 9ba. ⭐⭐⭐ RE4 REMAKE'S SCOPE IS A CAMERA THE GAME ALREADY RENDERS; VILLAGE HAS NO SUCH CAMERA — AND RE ENGINE PUTS ITS TYPE NAMES IN THE EXE, SO THIS WAS ANSWERED WITH `grep` (2026-09-20, static, nothing launched)
 
 Tefa installed **RE4 Remake + Talemann's RE4VR mod** (splash dated `14.08.2026`) and asked what
@@ -2313,13 +2447,17 @@ still needs a per-weapon offset table, bounded sliders and a save file** — our
 irreducible part, not a symptom of a wrong approach. One knob we lack: **`scope_lerp_speed` (8.0)**,
 easing toward the pose rather than snapping.
 
-⭐ **And it names the class of our shake fault exactly.** RE4R's picture cannot shake when the head
+⚠️ **CORRECTED BY THE WEARER — SEE §9bb CORRECTION 4: it is a JITTER (stepped), not a shake, and it
+is a RATE fault, not an attachment fault.** Kept for the record only — ~~And it names the class of our
+shake fault exactly.~~ RE4R's picture cannot shake when the head
 moves, because the camera producing it is parented to the **gun**. Ours is derived from a
 head-referenced mirror. That is one sentence covering both the "picture shakes on the glass" and
 "crop runs off the edge" rows: *our picture's source is attached to the wrong thing.*
 
-**NEW — Village has native aim-wander, hand-shake and spread levers, none of them previously in this
-repo** `[measured 2026-09-20]`, all from `re8.exe`:
+⚠️ **CORRECTED SAME DAY — SEE §9bb, WHICH SUPERSEDES THIS PARAGRAPH. Twirl is camera look speed,
+`enableRecoilHandShake` is the arms' animation, and `set_isDiffusion` is on the bullet. The real lever
+is `app.WeaponGunCore.enableRestrictAimShake`.** Kept for the record only — ~~NEW — Village has native
+aim-wander, hand-shake and spread levers, none of them previously in this repo~~ `[measured 2026-09-20]`, all from `re8.exe`:
 `HorizontalTwirlSpeed` / `VerticalTwirlSpeed` **with setters** (`set_HorizontalTwirlSpeed`,
 `set_verticalTwirlSpeed`, …) plus `updateTwirlSpeed` / `updateDampingTwirlSpeed` — "twirl" is RE
 Engine's word for aim wander, and RE4 links it to the scope via `getScopeTwirl`
