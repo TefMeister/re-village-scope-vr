@@ -2270,6 +2270,52 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bm. ⭐⭐ "THE SCOPE IS BROKEN, A LOT OF SKY AND BLUE" — NOT A REGRESSION: THE RIFLE WAS 78–88° OFF THE GAZE. And the off-axis limit now has a number: ~45–50° (2026-09-21, LIVE, VR, Tefa wearing)
+
+Tefa, in the headset an hour after the spread fix, with a screenshot: *"the scope is broken, seeing a
+lot of sky and blue"* `[reported 2026-09-21]`. The rifle is held low at the hip and looked DOWN at.
+
+**First suspect was tonight's plugin rebuild, and it is cleared by measurement, not by argument:**
+
+| session | samples | rifle-vs-gaze median | max | crop INSIDE the drawn frame | inside up to |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-20 01:43 (known good, before any of tonight's builds) | 462 | **13.3°** | 77.4° | **92%** | 45.1° |
+| 2026-09-21 00:4x (tonight's build) | 259 | **54.4°** | 90.8° | **43%** | 53.4° |
+
+`[measured 2026-09-21 from the two logs' crop-follow lines]`
+
+**The machinery behaves identically in both** — the crop stays inside what the mirror drew until the
+rifle is ~45–53° off the gaze, in both sessions. **What changed is how the rifle is held:** the
+median went from 13° to 54°. At the moment of the screenshot the log reads `bore 77.6 … 87.9 deg off
+the gaze`, crop centre `(0.004, 2.338)` then `(-5.0, 9.7)`, `geom scale 163` — the bore's point is far
+outside anything rendered, and the clamp fills the glass with sky. Rig healthy throughout
+(`UPGRADED to raw-HDR 2560x1448`, `bringup: DONE`); bore-invalid ticks 42% vs 43%, unchanged.
+
+⭐ **The irony is the cause: hip fire became accurate an hour earlier, so the rifle is now being held
+at the hip and glanced down at** — a posture nobody used while hip shots were useless. The mirror
+renders what the HEAD looks at (§9f); looking at the snow, the target was never drawn.
+
+⭐ **This answers an open board row.** The `[VR USER]` bore-plane row asked: *"find out how far
+off-axis it survives before it clips — that number decides whether this pose is shippable."*
+**~45–50°, measured in two sessions.** §9ax derived ~21° for the crop *resting* point running off; the
+wider figure here is the whole frame, not the resting half.
+
+⚠️ **Also in play:** the zero was **0 / 0** at the time (`zero up 0.0 right 0.0` in the `geom:` line
+— `ZERO-A-OFF.bat`, step 1 of the zeroing procedure), which by itself leaves the picture ~13° high.
+Two separate reasons for sky in one screenshot.
+
+**What it means for zeroing: the zero can only be judged with the rifle SHOULDERED and the eye looking
+along it** — inside the ~45° window, ideally under 15°. `READ-ME-ZEROING.txt` step 12 (rifle off to
+one side) must stay well inside that window too, or it tests the clamp rather than the zero.
+
+**A cheap, honest improvement, NOT built and not decided:** a real scope viewed from far off-axis shows
+nothing — scope shadow. When `crop-follow` reports the centre `OUT`, **darken the glass** instead of
+showing the clamp's smear. It turns a visible fault into correct behaviour, and it would need no new
+maths: the `OUT` flag already exists. Tefa decided on 2026-09-19 to document the smear as a limitation
+rather than chase it; this is offered against that decision, not instead of it.
+
+Credit: **praydog** (REFramework). Screenshot and wear by Tefa.
+
 ### 9bl. ✅⭐⭐⭐ SOLVED AND CONFIRMED IN GAME: THE RIFLE SHOOTS STRAIGHT FROM THE HIP (2026-09-21, LIVE, flat, Tefa at the keyboard)
 
 **§9bk's last `[hypothesis]` — that a bullet built with the clean rotation flies straight — is now
