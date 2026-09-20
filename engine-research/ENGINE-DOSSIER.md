@@ -2270,6 +2270,62 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9be. ⭐⭐⭐ THE SCATTER CANCEL IS NATIVE, COMPILES CLEAN AND IS DEPLOYED — one flat test decides which of two rotations to keep (2026-09-20, `/pd`, home PC, NOTHING RUN)
+
+**Supersedes: §9bd's "the cancel is written and deployed"**, which described the Lua version. That
+version could not work and now cannot mislead: **a value-type argument cannot be written from Lua.**
+Re-pointing the `args[n]` slot did nothing (10 hip shots, 8.649° against 8.429° with nothing on) and
+`sdk.to_valuetype(...):write_float(...)` raised no error and also changed nothing (3 shots, identical
+before and after) — it hands back a **copy**, not a window `[verified-live 2026-09-20]`. Both routes
+Lua offers are disproved. §9bd's measurement stands untouched and is the whole basis of this.
+
+**Built: `plugin/src/spread_fix.cpp`** (190 lines), hooking
+`app.WeaponGunCore.setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)` through the plugin API's
+`add_hook`, where `argv[n]` **is** the address of the real quaternion and the write is an assignment.
+`cmake --build . --config Release` — **0 errors, 0 warnings** `[compile-verified 2026-09-20]`, deployed
+to `reframework/plugins/re_scope_vr.dll` (240,640 bytes, sha256 `10a93d94d61c10de…`), previous build
+kept as `.pre-spread-fix-2026-09-20`, `deployed.sh record` re-run.
+
+**Four properties that exist because of how the last four attempts failed:**
+
+1. ⭐ **It proves its own effect.** Measure, write, re-measure: `scatter 8.412 -> 0.000 deg … APPLIED`,
+   or `WARNING -- the write did not take`. Three earlier attempts each cost a round trip to the game
+   to establish nothing. **Every lever from here on must do this.**
+2. ⭐ **It counts calls seen against calls applied**, so "it changed nothing" can never again be
+   confused with "it never ran" — the distinction §9bc's `spec` attempt could not make.
+3. ⭐ **It checks the argument layout before writing.** `arg_tys[3]` and `arg_tys[4]` must both report
+   `via.Quaternion` or it refuses and says so once. A wrong index would overwrite the shot POSITION,
+   which is far worse than a scattered bullet.
+4. ⭐ **Rifle-only, reusing a filter that is already correct.** `world_tick` publishes `g_weapon_go`
+   as non-null **only** when the scoped rifle is held (`world_tick.cpp:419`), so the test is
+   `argv[1] == g_weapon_obj && g_weapon_go != nullptr` rather than a second walk of the object graph.
+
+**Live switching** via `reframework/data/re_scope_spread.txt`, polled twice a second — its OWN file
+because the pane file is steady-state and rewritten by the Lua producer, and the settings file only
+takes effect at boot. `spread` / `spread_all` are settings keys too, and are **written** by
+`save_settings()` as well as read — read-only would have meant the next save silently erased a
+hand-added line, which is exactly the record failure this estate keeps repeating.
+
+⚠️ **NOT ESTABLISHED: which rotation is the one the rifle points along.** On an aimed shot they are
+identical, so no log can separate them, and the obvious test is disproved — comparing each against
+`get_muzzleJoint` put **neither** near the barrel (15.0/13.1, 15.1/11.0, 10.9/9.5°), so that joint is
+in another frame `[verified-live 2026-09-20, n=3]`. Hence two modes. **The wrong one scatters shots
+exactly as the game already does**, so the failure is harmless and obvious. That either mode fixes the
+bullet at all is `[hypothesis]`: the write landing is certain, its effect on the shot is not.
+
+**THE TEST.** Rifle in hand: `RIFLE-STRAIGHT-A.bat`, fire from the hip. Straight → done. Random, with
+`APPLIED` in the log → `RIFLE-STRAIGHT-B.bat` and fire again. `WARNING -- the write did not take` → the
+hook reached the wrong memory, **stop and do not tune**. No `spread-fix` lines at all → it never
+installed. `RIFLE-STRAIGHT-OFF.bat` restores the game's scatter.
+
+⚠️ **Two build facts worth keeping:** `API::get()` returns a `unique_ptr&`, not a pointer (use
+`auto& api`, as `world_tick.cpp:65` does); and `find_method` does not resolve inherited methods on
+`app.WeaponGunCore` — which is why `find_method_deep` / `find_method2` exist and must be used.
+
+Field note: `modding-notes/2026-09-20e-the-scatter-cancel-is-native-now-and-it-compiles.md`.
+
+Credit: **praydog** (REFramework).
+
 ### 9bd. ⭐⭐⭐ MEASURED: THE SNIPER'S HIP SPREAD IS **8.4° AVERAGE, 14.9° WORST** AND AIMING TAKES IT TO **0.005°**. The lever is `setupDiffusion`, and the cancel is written and deployed (2026-09-20, LIVE, flat, Tefa at the keyboard)
 
 **Supersedes: §9bc's caution that the four shots were unattributed and "the sniper rifle has no
@@ -2306,7 +2362,9 @@ readable on the gun distinguishes aiming. ⚠️ **A summary line that sorts dat
 worse than no summary** — this is the same shape as §9az, where a starred summary described a
 different half of the probe than the one people read it as.
 
-**THE FIX, written and deployed the same hour, NOT YET RUN.** Both arguments to
+⛔ **SUPERSEDED BY §9be — that Lua fix could not work; a value type cannot be written from
+Lua. The native one is built, compiles clean and is deployed.** Kept for the record only —
+~~THE FIX, written and deployed the same hour, NOT YET RUN.~~ Both arguments to
 `setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)` are **pointers**, so re-pointing the
 scattered one at the intended one in the pre-hook makes the shot leave along the aim — no maths, no
 patching, no aim mode. Applied **after** the measurement, so the log still records the scatter that was
