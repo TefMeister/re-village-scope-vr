@@ -2270,6 +2270,38 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bp. ⭐⭐ THE THIRD ZERO, AND THE FIRST FITTED TO A POINT: **up −15.2 / right −6.0** — saved in all four places it lives (2026-09-21, LIVE, VR, Tefa wearing)
+
+With the spread cancelled (§9bl) and the scope picture restored (§9bo), Tefa re-zeroed by shooting,
+eight nudges, and asked for the numbers to be saved: **up −15.2, right −6.0**
+`[verified-live 2026-09-21, n=1 wearer, spread fix ON — the log shows the shot STRAIGHTENED]`.
+It was −13.2 / −4.0.
+
+⭐ **The harness's own comment predicted this, word for word**, written 2026-09-20 beside the old
+value: *"this zero was fitted against a scatter rather than a point. Re-check it once spread can be
+pinned to zero."* The move is **2° on each axis** — comfortably inside the 3–4° uncertainty a
+five-shot group carries under 8.4° of average scatter (§9bl). **So −13.2 / −4.0 was never wrong, only
+as good as five scattered shots could make it**, and the vertical correction did not change character:
+still large, still negative, still the signature of the §9ar pane change.
+
+**Saved everywhere, because a value proved in the headset and left in one place is how `sw_delay` was
+lost:**
+
+| where | what it does |
+| --- | --- |
+| `re8_scope_harness.lua` bringup block (game + `staging/scripts/`) | what `START-SCOPE.bat` actually applies — **this is the one that matters** |
+| `ZERO-B-SHIPPED.bat` (game + `mod/helpers/`) | the "reset to saved" button |
+| `READ-ME-ZEROING.txt` (game + `mod/helpers/`) | the steps quote it |
+| `reframework/re_scope_vr_settings.txt` | the plugin's BOOT value — it had sat at the retired **+14.4 / +9.5 since 2026-09-18**, so every launch showed the wrong zero until `bringup` overrode it; backup kept as `.bak-2026-09-21-before-zero` |
+
+⚠️ **What this zero has NOT been shown to do** — it is one wearer, one spot, one distance:
+- hold at a **second distance** (the scope sits above the bore, so a little vertical change with range
+  is physics, not error);
+- hold with the **rifle off to one side of the gaze** (`READ-ME-ZEROING.txt` step 12). A zero that
+  fails that is fitted to one head position, and no nudging fixes it — it would be a mapping fault.
+
+Credit: **praydog** (REFramework). Zeroed by Tefa.
+
 ### 9bo. ✅ CONFIRMED: THE LUA HOOK ON `updateScope` BROKE THE SCOPE — a "read-only" hook is not read-only (2026-09-21, LIVE, VR, first launch of the bisect)
 
 §9bn's `[hypothesis]` is `[verified-live 2026-09-21, n=1 launch + the wearer]`. With
