@@ -2270,6 +2270,56 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bl. ✅⭐⭐⭐ SOLVED AND CONFIRMED IN GAME: THE RIFLE SHOOTS STRAIGHT FROM THE HIP (2026-09-21, LIVE, flat, Tefa at the keyboard)
+
+**§9bk's last `[hypothesis]` — that a bullet built with the clean rotation flies straight — is now
+`[verified-live 2026-09-21, n=5 shots + the wearer's eyes]`.** Tefa: *"you have done it!!"*
+
+```
+shot #5  the bullet is about to be BUILT 14.703 deg off the clean aim  (look only, not touched)
+shot #6  STRAIGHTENED  was 11.714 deg off, bullet now built 0.000 deg off
+shot #7  STRAIGHTENED  was  0.537 deg off, bullet now built 0.000 deg off
+shot #8  STRAIGHTENED  was 11.198 deg off, bullet now built 0.040 deg off
+shot #9  STRAIGHTENED  was  5.416 deg off, bullet now built 0.000 deg off
+shot #10 STRAIGHTENED  was  5.583 deg off, bullet now built 0.000 deg off
+```
+
+- **No formula warnings on any shot** — the computed clean rotation matched the game's own B every
+  time, so the `+Z` shortest-arc convention holds live `[verified-live 2026-09-21, n=10]`.
+- `setupDiffusion` downstream **still reports the old scatter** (11.714° on shot #6). Expected and
+  harmless: it is handed its own copy of A, after the bullet already exists. It is a gauge, not a lever
+  — which is the whole story of §9be–§9bg in one line.
+- Nothing re-applies a scatter between building the bullet and its flight.
+
+**⭐ IT IS NOW THE SHIPPED DEFAULT** — `g_spread_fix{4}`, scoped rifle only. Done the same hour on
+purpose: `sw_delay` was proven good on 2026-09-17, never made a default, and one PC silently ran without
+it while the board said it was in. ⛔ **The same stale clamp that bit the switch file was sitting in
+`load_settings()` too** (`min(2, …)`) and would have silently turned a saved `spread=4` into mode 2;
+fixed to 4. Built 0 errors 0 warnings `[compile-verified 2026-09-21]`. ⚠️ **That default build is not
+installed yet** (the game was open); the running install is already at mode 4 through the switch file,
+which persists across launches. `UPDATE-RIFLE-PLUGIN.bat` installs it.
+
+**TEFA'S DECISION, recorded in `mod-ideas/decisions.md`:** the rifle is simply accurate **all the
+time** — no two-hand condition in this mod — *"so Andyalpa can use the scope in his mod and it is up to
+him what he does."* The wider idea (two hands = no spread, one hand = vanilla, every weapon) is filed
+on `mod-ideas/games/all-games.md` and **stays floating**; the recipe is in the cross-engine library
+inbox and Visceral's engine-research inbox.
+
+**Why it mattered beyond accuracy (Tefa, same night):** *"now we got to really get the scope zeroed
+properly, it's one of the things why this bullet spread had to go."* **A zero cannot be judged against
+a rifle that throws each shot up to 15° at random** — every zeroing observation made at the hip before
+today was measuring the scatter, not the zero. ⚠️ That includes the 2026-09-14 report that *"bullets
+land a little RIGHT and a bit more UP"*: if any of those shots were fired without the aim button held,
+that drift may never have been a drift.
+
+**The evening, as a ledger:** five wrong levers (`steady`, `zero`/`swap`, `spec`, the Lua write, the
+native cancel at step 4), one crash from a guard riskier than its write, one clamp that rewrote the
+user's instruction and had me blaming them for it, one shifted read that passed a loose check — and a
+measurement that was **right every single time**. The fix came the first time the order of the steps
+was written down *before* building. Now lanes `docs/PROTOCOL.md` §11.
+
+Credit: **praydog** (REFramework). Every shot fired by Tefa.
+
 ### 9bk. ⭐⭐⭐ FOUND, AND PROVEN FROM LIVE NUMBERS: THE BULLET IS **BUILT** WITH THE SCATTERED ROTATION, ONE STEP BEFORE WHERE EVERY FIX WAS APPLIED (2026-09-21, LIVE, flat, 10 shots by Tefa)
 
 **Supersedes: §9bi's premise** that the bullet's `via.Ray` carries the scatter, and **answers §9bj's open
@@ -2330,7 +2380,7 @@ earlier. In the rule's own terms: the scatter is decided between steps 2 and 3, 
 `re_scope_vr.dll` 251,904 bytes, 0 errors 0 warnings `[compile-verified 2026-09-21]`.
 `RIFLE-STRAIGHTEN.bat` switches it on (mode 4); `RIFLE-BORE-ON.bat` is retired with the idea it drove.
 
-⚠️ **Still `[hypothesis]`: that a bullet built with clean A flies straight.** Everything up to the write
+✅ **CONFIRMED THE SAME NIGHT — SEE §9bl.** ~~Still `[hypothesis]`: that a bullet built with clean A flies straight.~~ Everything up to the write
 is now measured. Whether anything *after* `createBulletImple` re-applies a scatter is not — and if
 shots are still random with `STRAIGHTENED … now built 0.000 deg off` in the log, that is exactly what
 it would mean, and the next target is whatever runs between steps 3 and 4.
