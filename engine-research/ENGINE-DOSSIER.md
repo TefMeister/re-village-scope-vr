@@ -2270,6 +2270,44 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bw. ⚠⭐⭐ DISTANCE-FOLLOW, FIRST LIVE SHOT: IT MISSED EXACTLY THE WAY "NO CORRECTION AT ALL" WOULD — the borrowed distance is not dependable (2026-09-21, LIVE, VR, one of Tefa's last three bullets)
+
+Reference zero (−14.9 / −11.8, §9bv), `SCOPE-DISTANCE-ON`, a wall a few metres away, one shot, no nudging.
+Tefa, with a marked screenshot (green = aimed, red = hit): *"off to the right and a little bit down"*
+`[verified-live 2026-09-21, n=1]`. From the screenshot roughly **3° right, 1° down**.
+
+⭐ **Both directions are the signature of UNCORRECTED parallax, not of a wrong correction.** The close
+zeros were less negative sideways (−6.0 against −11.8) and more negative vertically (−15.2 against −14.9);
+by the zeroing rule (*hit right of the crosshair → ZERO-RIGHT*) a far zero used up close must land **right
+and a little low** — which is what happened. An over-correction would have thrown it LEFT. **So the fix
+did not engage; it did not mis-fire.**
+
+**Why, from the log:** `aim-dist: ON … (the pane says 0.50 m)` at switch-on, and the pane read
+**`aim_dist=-1.00`** (unknown) afterwards. Those are the only two values seen with the scope up, besides a
+3.30 earlier. **0.50 m is not a wall** — something half a metre from the muzzle is catching praydog's gun
+ray. `[hypothesis]`: **our own hidden rig prop**, which `propnear` parks right at the rifle and which is a
+full game prefab that may well carry colliders; the ray's mask excludes only the player. And `-1` is that
+script's no-hit fallback (exactly 10.0) or nothing at all. RE8VR's crosshair is enabled here
+(`re7_vr/main_config.json: disable_crosshair=false`), so it is not simply switched off.
+**Unknown → the plugin falls back to the fixed 50 m → identical to the fix being off.**
+
+⛔ **And I spent one of three bullets on a lever that could not say what it did.** §9bv listed "print
+`aim_dist` on every shot line" as a follow-up — and the test was asked for before it was built. The
+distance in force at the moment of the shot is therefore **not recorded**; the reading above is
+reconstructed from the miss direction. That is the exact failure lanes `PROTOCOL.md` §11 was written
+about four hours earlier: *a lever must prove its own effect.* Do that FIRST next time, not after.
+
+**What stands:** the geometry (§9bu's table), the cause (the fixed 50 m), the reference zero, and now a
+fourth observation consistent with the parallax model. **What falls:** borrowing `re8.crosshair_distance`.
+
+**NEXT (no game needed):** (1) **our own ray**, cast from the muzzle along the bore in the plugin's
+`world_tick`, with a filter that ignores the player **and our rig**, per tick rather than 2 Hz through
+the pane; (2) **log `far_m` and the raw distance on every shot line and in the `crop-follow` line**, so
+the next test reports itself; (3) only then ask for a shot. Distance-follow is switched back **OFF** —
+the install is in the known-good reference state.
+
+Credit: **praydog** (REFramework, RE8VR). Shot, screenshot and marking by Tefa.
+
 ### 9bv. ⭐⭐⭐ THE REFERENCE ZERO: **up −14.9 / right −11.8**, zeroed FROM AFAR from a spot Tefa knows — everything is tuned against this from now on (2026-09-21, LIVE, VR)
 
 **Supersedes: §9bq's value** (−16.4 / −10.6). Tefa: *"i have done these from afar, please make sure these
