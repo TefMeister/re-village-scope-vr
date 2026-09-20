@@ -53,10 +53,10 @@
 --     status          say what is captured and what is on
 --     stats           the measured scatter per shot, in degrees, split hip vs aimed
 --     flags           the gun's steadiness flags right now, plus the trigger
---     trace on        watch the whole firing path, in order  <-- START HERE
+--     fix on          write the barrel direction over the scattered one; PROVES ITSELF
+--     trace on        watch the whole firing path, in order
 --     skip on         do not let setupDiffusion run at all
 --     spec on         force the weapon spec's diffusion radius to zero <-- then this
---     zero on         DISPROVED 2026-09-20, kept only so the disproof is re-runnable
 --     zero swap       the same, the other way round, if 'zero on' sends shots wild
 --     zero off        give the game its own scatter back
 --     watchflags off  stop the automatic change lines, if they get noisy
@@ -71,7 +71,6 @@ local CORE   = "app.WeaponGunCore"
 local state = {
     core        = nil,     -- the live app.WeaponGunCore of the weapon in hand
     core_seen   = 0,       -- how many times we have captured one
-    steady      = false,
     quiet       = false,
     calls       = {},      -- method name -> count, so the log cannot flood
     m_shake     = nil,
@@ -79,11 +78,10 @@ local state = {
     shake_ok    = false,   -- signature checked and callable
     recoil_ok   = false,
     last_apply  = 0.0,
-    zero        = false,   -- neutralise the scatter at setupDiffusion
-    zero_swap   = false,   -- which quaternion is the intended one (see the note below)
     skip        = false,   -- skip setupDiffusion entirely
     spec        = false,   -- force the weapon spec's diffusion numbers to zero
     spec_hits   = 0,       -- how many times the spec getters were actually asked
+    fix         = false,   -- the self-verifying write
     trace       = false,
     trace_left  = 0,
 }
@@ -230,9 +228,9 @@ local shots = {}   -- bucket name -> { n, sum, min, max }
 -- nothing readable on the gun distinguishes aiming.
 local function bucket_name()
     local on = {}
-    if state.zero then on[#on + 1] = "zero" end
     if state.skip then on[#on + 1] = "skip" end
     if state.spec then on[#on + 1] = "spec" end
+    if state.fix then on[#on + 1] = "fix" end
     if #on == 0 then return "as the game ships it" end
     return "we changed: " .. table.concat(on, "+")
 end
@@ -274,6 +272,79 @@ local function stats(L)
 end
 
 
+
+
+-- ---------------------------------------------------------------------------
+-- THE SELF-VERIFYING WRITE.
+--
+-- What the 2026-09-20 trace established, and it is worth stating plainly because
+-- three levers were built on guesses before it:
+--   * the firing order is expendBullet -> createBullet -> createBulletImple ->
+--     setupDiffusion, with shootCommon after; IDENTICAL for an aimed shot (0.000 deg)
+--     and a hip shot (7.317 deg)  [verified-live 2026-09-20, n=2]
+--   * the spec getters `get_diffusionRadius` / `get_isDiffusion` were NEVER CALLED --
+--     not once, on either shot. So the spread is not read from the spec at shot time,
+--     and that is why `spec on` did nothing. Proven, not assumed.
+--   * the scatter is therefore already inside setupDiffusion's arguments, decided by
+--     whatever calls it.
+--
+-- We can READ those arguments (the `valuetype` route works and has been right all
+-- along). What failed was WRITING them -- and only one way of writing was tried:
+-- reassigning the `args[n]` slot, which does not reach a value-type argument.
+--
+-- ⭐ So try writing THROUGH the value type instead, and make the write PROVE ITSELF:
+-- measure, write, then RE-READ and measure again. If the second measurement is 0, the
+-- write landed. If it still reads 8 degrees, it did not -- and we know that from the
+-- log, without anyone judging where a bullet went. No more "is it working?".
+--
+-- ⭐ And the which-one-is-intended question is settled numerically rather than by
+-- trying both: `get_muzzleJoint` gives the barrel's own rotation, so whichever of the
+-- two quaternions is closer to the muzzle is the direction the rifle is pointing.
+-- ---------------------------------------------------------------------------
+
+local WRITE_METHOD = nil   -- decided on the first attempt, then reported once
+
+-- Try each way of writing a quaternion through to the real argument. Returns the
+-- name of whichever worked, or nil.
+local function write_quat(arg, q)
+    if arg == nil or q == nil then return nil end
+
+    -- 1. the value type's own float writer, at the natural offsets
+    local vt = nil
+    pcall(function() vt = sdk.to_valuetype(arg, "via.Quaternion") end)
+    if vt ~= nil then
+        local ok = pcall(function()
+            vt:write_float(0, q.x); vt:write_float(4, q.y)
+            vt:write_float(8, q.z); vt:write_float(12, q.w)
+        end)
+        if ok then return "write_float" end
+
+        -- 2. plain field assignment on the value type
+        local ok2 = pcall(function() vt.x = q.x; vt.y = q.y; vt.z = q.z; vt.w = q.w end)
+        if ok2 then return "field assign" end
+    end
+
+    -- 3. assignment straight on the argument
+    local ok3 = pcall(function() arg.x = q.x; arg.y = q.y; arg.z = q.z; arg.w = q.w end)
+    if ok3 then return "arg assign" end
+
+    return nil
+end
+
+-- The barrel's own rotation, for telling the two quaternions apart.
+local function muzzle_quat(gun)
+    if gun == nil then return nil end
+    local j = nil
+    pcall(function() j = gun:call("get_muzzleJoint") end)
+    if j == nil then return nil end
+    local r = nil
+    pcall(function() r = j:call("get_Rotation") end)
+    if r == nil then return nil end
+    local x, y, z, w
+    pcall(function() x, y, z, w = r.x, r.y, r.z, r.w end)
+    if x == nil or w == nil then return nil end
+    return { x = x, y = y, z = z, w = w }
+end
 
 -- ---------------------------------------------------------------------------
 -- TRACE -- stop guessing, watch what actually happens.
@@ -452,38 +523,18 @@ local WATCHED = {
     "isForbidAim",
 }
 
-local last_flags = {}
-local flags_on   = true    -- on by default: it is read-only and it is the point
+-- ⛔ The per-frame flag WATCHER is removed (2026-09-20). It did its job: across three
+-- aim holds and twenty-odd shots neither `isRestrictAimShake` (always true) nor
+-- `isReduceRecoil` (always false) ever changed, so there is nothing left for it to see,
+-- and it was doing field reads every single frame. Finding: dossier §9bc. The one-shot
+-- snapshot below stays, because it is free and still worth a look.
+
+local WATCHED = { "isRestrictAimShake", "isReduceRecoil", "isDiffusion", "diffusionRadius", "isForbidAim" }
 
 local function read_flag(gun, name)
     local v = nil
     if not pcall(function() v = gun:get_field(name) end) then return nil end
     return v
-end
-
-local function poll_flags(L)
-    if not flags_on or state.core == nil then return end
-    local gun = state.core
-
-    -- the trigger, via its getter rather than a field
-    local trig = nil
-    pcall(function() trig = gun:call("get_isInputRightTrigger") end)
-    if trig == nil then pcall(function() trig = gun:call("get_isInputTrigger") end) end
-
-    local now = {}
-    for _, name in ipairs(WATCHED) do now[name] = read_flag(gun, name) end
-    now["__trigger"] = trig
-
-    for k, v in pairs(now) do
-        local was = last_flags[k]
-        if was ~= v then
-            -- first sighting of a value is not a change worth a line unless it is a flag flip
-            if was ~= nil or type(v) == "boolean" then
-                L("FLAG  %-20s %s  ->  %s", k:gsub("^__", ""), tostring(was), tostring(v))
-            end
-            last_flags[k] = v
-        end
-    end
 end
 
 local function flags_snapshot(L)
@@ -601,13 +652,40 @@ local function setup()
             -- ⚠ Which of the two is "intended" is not known: on an aimed shot they are
             -- identical, so the log cannot tell them apart. `zero swap` tries the other
             -- way round. If bullets fly off at random, it is the wrong way round.
-            -- ⛔ DISPROVED 2026-09-20: re-pointing the argument slots does NOTHING.
-            -- Ten shots with `zero on` and `zero swap` averaged 8.649 deg against 8.429
-            -- with no override at all -- unchanged, not "wrong way round". Assigning to
-            -- args[n] in a pre-hook does not reach these value-type arguments. Kept only
-            -- so the disproof is re-runnable; `skip` and `spec` below are the real tries.
-            if state.zero then
-                if state.zero_swap then args[4] = args[5] else args[5] = args[4] end
+            -- ⛔ The `zero`/`swap` arg-reassignment lever lived here and is DISPROVED
+            -- (2026-09-20, 10 hip shots, 8.649 deg vs 8.429 with nothing on). Removed
+            -- from the working file per the code-shape rule; the write-up is in
+            -- dev-archive/recon/2026-09-20-the-steady-switches-are-questions-not-switches/.
+            -- ⭐ THE FIX, and it proves itself. Write the barrel's direction over the
+            -- scattered one, then RE-READ and measure again: 0 means the write landed,
+            -- still-8-degrees means it did not, and the log says which without anyone
+            -- having to judge where a bullet went.
+            if state.fix and qa ~= nil and qb ~= nil then
+                local mz = muzzle_quat(gun)
+                -- whichever quaternion is closer to the barrel is the one the rifle is
+                -- actually pointing along; that is the one to keep.
+                local keep, over, which = qa, args[5], "args[4] (closer to the muzzle)"
+                if mz ~= nil then
+                    local da, db = quat_angle_deg(mz, qa), quat_angle_deg(mz, qb)
+                    if da ~= nil and db ~= nil and db < da then
+                        keep, over, which = qb, args[4], "args[5] (closer to the muzzle)"
+                    end
+                    T("muzzle vs args[4] = %.3f deg, vs args[5] = %.3f deg", da or -1, db or -1)
+                end
+
+                local how = write_quat(over, keep)
+                if how ~= nil and WRITE_METHOD == nil then
+                    WRITE_METHOD = how
+                    L("write route in use: %s", how)
+                end
+
+                local after = quat_angle_deg(read_quat(args[4]), read_quat(args[5]))
+                L("  FIX  kept %s  wrote via %s  scatter after the write = %s",
+                  which, tostring(how),
+                  after and string.format("%.3f deg", after) or "unread")
+                if after ~= nil and after > 0.5 then
+                    L("  FIX  ⚠ THE WRITE DID NOT LAND -- the number did not move. Not a wrong choice, no effect.")
+                end
             end
 
             -- LEVER 2: do not let the diffusion run at all. setupDiffusion sits between
@@ -661,16 +739,12 @@ end
 -- change and on state changes, so a one-shot write would be quietly undone and we would
 -- wrongly conclude the lever does not work.
 -- ---------------------------------------------------------------------------
-local function apply_steady()
-    if state.core == nil then return end
-    if state.shake_ok then pcall(function() state.m_shake:call(state.core, true) end) end
-    if state.recoil_ok then pcall(function() state.m_recoil:call(state.core, true) end) end
-end
+-- ⛔ apply_steady() removed 2026-09-20: both methods take NO arguments, so there was
+-- never anything to call. See dossier §9bc.
 
 local function status()
     L("---- status ----")
     L("  gun captured : %s (%d time(s))", state.core ~= nil and "yes" or "NO -- fire once", state.core_seen)
-    L("  steady       : %s", state.steady and "ON" or "off")
     L("  skip         : %s", state.skip and "ON" or "off")
     L("  spec         : %s  (spec getters answered %d time(s))", state.spec and "ON" or "off", state.spec_hits)
     L("  trace        : %s  (%d line(s) of budget left)", state.trace and "ON" or "off", state.trace_left)
@@ -689,16 +763,14 @@ local function run(line)
 
     if cmd == "read" then
         dump_live(state.core, "the gun in your hands")
-    elseif cmd == "steady" then
-        state.steady = (arg ~= "off")
-        L("steady %s%s", state.steady and "ON" or "off",
-          state.steady and " -- enableRestrictAimShake(true) + enableReduceRecoil(true) every frame" or "")
-        if state.steady and state.core == nil then
-            L("⚠ no gun captured yet -- fire once so it can be grabbed, then this starts working")
-        end
     elseif cmd == "quiet" then
         state.quiet = (arg ~= "off")
         L("watch lines %s", state.quiet and "silenced" or "back on")
+    elseif cmd == "fix" then
+        state.fix = (arg ~= "off")
+        L("fix %s -- the barrel direction is written over the scattered one, and the write",
+          state.fix and "ON" or "off")
+        L("     checks itself: look for the 'scatter after the write' number on each shot.")
     elseif cmd == "trace" then
         if arg == "off" then
             state.trace, state.trace_left = false, 0
@@ -722,29 +794,14 @@ local function run(line)
             L("spec off -- the spec answers its own numbers again")
         end
         if state.spec then L("Fire from the HIP, then run 'stats' -- the SHOT scatter itself should go to 0.000.") end
-    elseif cmd == "zero" then
-        if arg == "swap" then
-            state.zero, state.zero_swap = true, true
-            L("zero ON, the OTHER way round -- if bullets now fly off at random, go back to 'zero on'")
-        elseif arg == "off" then
-            state.zero, state.zero_swap = false, false
-            L("zero off -- the game's own scatter is back")
-        else
-            state.zero, state.zero_swap = true, false
-            L("zero ON -- the scatter is cancelled at the moment it is applied.")
-            L("Fire from the HIP, without holding aim, and see where the bullets go.")
-        end
     elseif cmd == "flags" then
         flags_snapshot(L)
-    elseif cmd == "watchflags" then
-        flags_on = (arg ~= "off")
-        L("flag watch %s", flags_on and "ON" or "off")
     elseif cmd == "stats" then
         stats(L)
     elseif cmd == "status" then
         status()
     else
-        L("not understood: %s   (read / flags / trace on|off / skip on|off / spec on|off / zero on|off|swap / stats / status)", line)
+        L("not understood: %s   (read / flags / fix on|off / trace on|off / skip on|off / spec on|off / stats / status)", line)
     end
 end
 
@@ -755,16 +812,6 @@ end
 local last_poll = 0.0
 
 re.on_frame(function()
-    pcall(poll_flags, L)
-
-    if state.steady then
-        local now = os.clock()
-        if now - state.last_apply > 0.016 then
-            state.last_apply = now
-            apply_steady()
-        end
-    end
-
     local now = os.clock()
     if now - last_poll < 0.5 then return end
     last_poll = now

@@ -196,3 +196,64 @@ is not on this path at all — and that is itself a finding worth having.
 
 ⚠️ Still unresolved: the weapon is **never named** (`weapon=?` on every capture, both routes). And the
 tool is now **785 lines**, at the code-shape soft limit — it must be split before anything else is added.
+
+---
+
+## ⭐⭐ THE TRACE PAID OFF — two things PROVEN, and the next attempt proves itself
+
+One aimed shot (0.000°) and one hip shot (7.317°), `[verified-live 2026-09-20, n=2]`:
+
+```
+trace| expendBullet
+trace| createBullet
+trace| createBulletImple
+trace| === setupDiffusion (the scatter is ALREADY in its arguments) ===
+SHOT #1  scatter=0.000 deg      <- aimed
+trace| shootCommon
+```
+…and the hip shot produced **the identical sequence**, differing only in the number: `7.317 deg`.
+
+**Two hard results:**
+
+1. ⭐ **The spec getters were NEVER CALLED — not once, on either shot.** No
+   `GunSpec.get_diffusionRadius ->` line appears anywhere in the trace. So the spread is **not read
+   from the weapon spec at firing time**, and that is *why* `spec on` did nothing
+   `[verified-live 2026-09-20, n=2]`. Proven, where before it was "it didn't seem to work". ⚠️ A shipped
+   fix must not go through those getters.
+2. ⭐ **The call path is identical for an aimed and a hip shot**, and `gatherJoints` never appears at
+   all. `shootCommon` fires *after* `setupDiffusion`, so it is the after-shot work (sound, recoil,
+   ammo), not the decider. **The spread does not come from a different route being taken** — the same
+   route carries a different number.
+
+⛔ **So the scatter is computed by whatever calls `setupDiffusion`, before the call, and nothing on the
+gun's own path reveals it.** That closes off guessing at this level entirely.
+
+## What is left, and this time it cannot lie to us
+
+We can **read** those two quaternions — the `valuetype` route has been right from the first shot. Only
+**writing** failed, and only **one** way of writing was ever tried: reassigning the `args[n]` slot,
+which does not reach a value-type argument.
+
+**`fix on` (`SPREAD-9-FIX-ON.bat`) writes THROUGH the value type instead** — `write_float` at the four
+offsets, falling back to field assignment, reporting which route took — and then ⭐ **re-reads the
+arguments and measures the angle again**:
+
+- `scatter after the write = 0.000 deg` → the write landed.
+- `THE WRITE DID NOT LAND -- the number did not move` → it did not, and we know immediately.
+
+**No one has to judge where a bullet went.** That is the property the last three attempts lacked, and
+the reason they each cost a round trip to establish nothing.
+
+⭐ **And the which-one-is-intended question is now settled numerically, not by trying both:**
+`get_muzzleJoint` gives the barrel's own rotation, so whichever quaternion sits closer to the muzzle is
+the direction the rifle points, and that is the one kept. The trace prints both angles.
+
+## Code shape, honestly
+
+Three disproved things were **removed from the working file**, per the code-shape rule, with their
+write-ups left here: the `zero`/`swap` argument reassignment, the `steady` lever (both methods take no
+arguments, so there was never anything to call), and the per-frame flag watcher (it proved across three
+aim holds and 20+ shots that neither flag ever changes, and it was reading fields every frame).
+
+⚠️ **Even so the tool is 832 lines, over our own 800-line soft limit.** The split is owed before
+anything further is added to it, and is now a board row rather than a good intention.
