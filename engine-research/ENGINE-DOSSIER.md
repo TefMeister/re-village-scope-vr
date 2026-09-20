@@ -2270,6 +2270,97 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ba. ⭐⭐⭐ RE4 REMAKE'S SCOPE IS A CAMERA THE GAME ALREADY RENDERS; VILLAGE HAS NO SUCH CAMERA — AND RE ENGINE PUTS ITS TYPE NAMES IN THE EXE, SO THIS WAS ANSWERED WITH `grep` (2026-09-20, static, nothing launched)
+
+Tefa installed **RE4 Remake + Talemann's RE4VR mod** (splash dated `14.08.2026`) and asked what
+transfers. Full note: `dev-archive/recon/2026-09-20-re4r-working-vr-scope-compared/README.md`.
+
+⚠️ **Method first, because it is the most reusable part: RE Engine ships its managed type, field and
+method names as raw ASCII inside the game executable.** Verified on `re4.exe` and `re8.exe`
+`[measured 2026-09-20]`. Any "does this game have a class called X" question is answerable
+**statically — no game, no REFramework, no dump step**. Several rows on this board were written as if
+a live dump were required; they are not.
+
+**RE4R's scope is native and picture-complete.** From `re4.exe` `[measured 2026-09-20]`: the weapon
+holds `get_ScopeController` / `<ScopeController>k__BackingField`, beside **`_ScopeCameraObject`**; the
+camera GameObject is named **`ScopeCamera`**; the controller exposes `_IsActive`, `_ScopeParam`,
+`_FOVMin`, `_FOVMax`, a child `lens` and `updatableMaterial`; state carries `_IsViaScope` and the
+motions `HoldOpticalScope` / `HoldSpecialOpticalScope` / `ViaScope`. The flat game already draws a
+correct picture on the glass. **Talemann's mod does not create that picture — it re-poses the camera
+that exists and leaves the render path alone.** That is the entire difference in difficulty.
+
+⭐ **Village has no scope camera, and now that is `[measured]`, not `[inferred-static]`.** The complete
+set of 66 `scope`-bearing strings in `re8.exe` contains **no `ScopeController`, no
+`_ScopeCameraObject`, no `ScopeCamera`** — only the FOV-zoom-plus-GUI route (`isShowScopeGUI`,
+`DispScopeRequested`, `DrawOffByScope`, `ChangeSniperScope`, `isChangeSniperScopeSequence`)
+`[measured 2026-09-20]`. §9g inferred this from a type DB on 2026-09-07; the shipped executable says
+it directly. **The mirror-and-lens stack is not a workaround we chose, it is the only route Village
+leaves open, and no part of RE4R's scope route is portable here.**
+
+⚠️ **Correction to a name, before it misleads anyone:** Talemann's DLL contains the string
+`ScopeCamA`, which I first read as the camera's name. It is not — `re4.exe` has `ScopeCamera` (6) and
+**zero** `ScopeCamA`; the short form is a compiler-split inline comparison. **The name is
+`ScopeCamera`**, which is exactly what praydog's exemption matches (commit `20a3ec5442`), so our
+`external-research` note on that commit stands as written.
+
+**What transfers anyway — per-weapon tuning is irreducible.** `re4_vr_scoped_index.json` keys six
+scoped weapon IDs, each with `pos_offset`, `rot_offset`, `scope_pos_offset`, `scope_rot_offset`,
+`scope_cam_pos`, `scope_cam_rot`, `scope_fov_min/max`, `scope_lerp_speed`, plus file-level slider
+bounds (`slider_range_pos 1.0`, `slider_range_rot 130.0`). The shipped values are **not** identity:
+`scope_cam_pos.z 3.5` on all six, `scope_cam_rot.yaw -13.2` on five, the crossbow needing its own
+`pitch 5.5 / yaw -22.4`. **So even when the engine hands you a correct scope camera, a working mod
+still needs a per-weapon offset table, bounded sliders and a save file** — our zeroing work is the
+irreducible part, not a symptom of a wrong approach. One knob we lack: **`scope_lerp_speed` (8.0)**,
+easing toward the pose rather than snapping.
+
+⭐ **And it names the class of our shake fault exactly.** RE4R's picture cannot shake when the head
+moves, because the camera producing it is parented to the **gun**. Ours is derived from a
+head-referenced mirror. That is one sentence covering both the "picture shakes on the glass" and
+"crop runs off the edge" rows: *our picture's source is attached to the wrong thing.*
+
+**NEW — Village has native aim-wander, hand-shake and spread levers, none of them previously in this
+repo** `[measured 2026-09-20]`, all from `re8.exe`:
+`HorizontalTwirlSpeed` / `VerticalTwirlSpeed` **with setters** (`set_HorizontalTwirlSpeed`,
+`set_verticalTwirlSpeed`, …) plus `updateTwirlSpeed` / `updateDampingTwirlSpeed` — "twirl" is RE
+Engine's word for aim wander, and RE4 links it to the scope via `getScopeTwirl`
+`[inferred-static 2026-09-20]`; `enableRecoilHandShake` / `executeRecoilHandShake` /
+`requestResetRecoilHandShake` / `updateRecoilHandShake` with three reset timers, and the animations
+`HandShake_1..3`; and beyond the `DiffusionRadius` we found on the 17th, **`set_isDiffusion`** —
+a setter — plus `DiffusionNum`, `DiffusionAddNum`, `DiffusionRadiusRate`, `IsDiffusionPowerUp`,
+`setupDiffusion`. ⚠️ **The symbols exist; reachability and whether a write survives the game's own
+per-frame update are unknown.** Two open rows (spread to zero, picture shakes) are framed as things
+to measure and compensate; these say the engine may let us command them off instead.
+
+**NEW — Village ships far more of Capcom's PSVR2 VR mode than we recorded.** Besides
+`app.VrWeaponSniperScopeLensUpdater`: `VrManager`, `VrCamera`, `VrEventManager`, `VrDeviceManager`,
+`VrDeviceType/Name/Requirement`, `VrSdkType`, `VrSystemStatus`, `VrModeStatus(+Change/CheckLevel/
+CheckTiming/WaitingFrame)`, `VrEnable`, `VrOn`/`VrOff`, `VrEye`, `VrPose`, `VrFieldOfView`,
+`VrHandRole`, `VrPositionReset`, `VrPoseResetRequested`, `VrTracker(+DeviceType/Pose/Enable/Started/
+ResultData)`, `VrVideoMode(+Enabled)`, `VrPlaytimeSec`, `VrServiceDialog`,
+`VrGUICaptionPositionConfig`, and ⭐ **`VrGUIHandWorldMap` / `VrGUIHandMapIcon` / `VrGUIHandMapMask`**
+— Capcom's map-in-the-hand UI, a shipped answer to a problem every VR mod of this game has
+`[measured 2026-09-20]`. ⚠️ Nothing says any of it can be switched on; it is very likely gated behind
+`VrDeviceRequirement` / `VrSdkType`. The value is that it names the classes to read.
+
+**Our scope is more expensive than any scope Capcom has shipped.** Talemann's fork exposes
+`ScopeTweaks` → `ScopeInterlacedRendering` + `ScopeImageQuality`, so **RE4R's native scope render is
+interlaced and quality-limited by default** `[measured 2026-09-20]`. With the `/gr` finding on RE9
+(`_LensImageDefaultScale` / `_LensImageZoomRate`), that is three generations of Capcom magnifying a
+**cheap lens image** rather than rendering a second full view — while our mirror runs 2560×1448 and
+upgrades to raw-HDR. Not a problem today; worth knowing when frame time becomes the argument.
+Village's own REFramework has `Ultrawide`, `RayTracingTweaks`, `ShaderPlayground` and
+`ForceRenderResToWindow` but **zero** `Scope*` tweaks — as expected, there being no scope render to
+tweak.
+
+**Dead ends checked:** Talemann ships **no Lua** (both `autorun/` and `plugins/` empty) so there is
+nothing to read line by line; `re4_vr_scope_proto.json` is a shipped-but-disabled
+scale-the-weapon-mesh experiment (`Weg A`) and is not a recommendation; the mod's
+`vr_scope_active` / `vr_scope_aim_pos` / `vr_scope_aim_dir` sit among laser-sight symbols and are its
+own internal keys, not engine fields `[inferred-static 2026-09-20]`.
+
+Credit: **Talemann** (RE4VR, read statically, no code copied), **praydog** (REFramework),
+**alphaZomega** (RE_RSZ).
+
 ### 9az. ⭐⭐⭐ THE SPREAD NUMBER IS CALLED **DiffusionRadius**, AND IT WAS IN OUR OWN FILE SINCE 2026-09-17 (2026-09-20, `/lm`, two launches, flat)
 
 **Supersedes: the spread findings of 2026-09-17/18 — specifically the generalisation "spread cannot
