@@ -1,0 +1,22 @@
+[2026-09-21 02:46:28.771] [REFramework] [info] [Plugin] [re-scope-vr] weapon changed: scoped=1 (wgo=000001826E72ED20 name=000001826E772210)
+[2026-09-21 02:49:28.313] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #1 STRAIGHTENED  was 2.476 deg off, bullet now built 0.000 deg off
+[2026-09-21 02:49:28.313] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 2.472 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:49:32.340] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #2 STRAIGHTENED  was 6.915 deg off, bullet now built 0.040 deg off
+[2026-09-21 02:49:32.340] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 6.914 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:49:37.389] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #3 STRAIGHTENED  was 8.558 deg off, bullet now built 0.040 deg off
+[2026-09-21 02:49:37.389] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 8.558 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:49:40.836] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #4 STRAIGHTENED  was 6.707 deg off, bullet now built 0.000 deg off
+[2026-09-21 02:49:40.836] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 6.707 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:49:44.960] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #5 STRAIGHTENED  was 3.261 deg off, bullet now built 0.040 deg off
+[2026-09-21 02:49:44.960] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 3.250 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:49:51.763] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #6 STRAIGHTENED  was 13.716 deg off, bullet now built 0.000 deg off
+[2026-09-21 02:49:51.763] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 13.715 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:49:55.670] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #7 STRAIGHTENED  was 4.032 deg off, bullet now built 0.056 deg off
+[2026-09-21 02:49:55.670] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: WARNING -- the write did not take.
+[2026-09-21 02:49:55.670] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 4.030 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:50:06.944] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #8 STRAIGHTENED  was 13.005 deg off, bullet now built 0.000 deg off
+[2026-09-21 02:50:06.944] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 13.005 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:50:10.166] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #9 STRAIGHTENED  was 13.366 deg off, bullet now built 0.000 deg off
+[2026-09-21 02:50:10.166] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 13.366 deg (0 = aimed, ~8 = hip)
+[2026-09-21 02:50:37.371] [REFramework] [info] [Plugin] [re-scope-vr] spread-imple: shot #10 STRAIGHTENED  was 8.313 deg off, bullet now built 0.000 deg off
+[2026-09-21 02:50:37.371] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: ^^ that shot's scatter was 8.313 deg (0 = aimed, ~8 = hip)
