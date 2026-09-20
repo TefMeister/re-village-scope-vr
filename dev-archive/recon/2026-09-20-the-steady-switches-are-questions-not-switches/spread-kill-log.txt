@@ -1,0 +1,22 @@
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill] found app.WeaponGunCore
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill] the three methods this job turns on:
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill]   enableRestrictAimShake() -> System.Boolean
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill]   enableReduceRecoil() -> System.Boolean
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill]   setupDiffusion(via.vec3, via.Quaternion, via.Quaternion) -> System.Void
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill] ⚠ enableRestrictAimShake does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:22:12.506] [REFramework] [info] [spread-kill] ⚠ enableReduceRecoil does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:22:12.507] [REFramework] [info] [spread-kill]   ⚠ onEquipWeapon not found; capture will need a shot fired
+[2026-09-20 16:22:12.507] [REFramework] [info] [spread-kill]   capture hook on updateScope -- no shot needed to grab the gun
+[2026-09-20 16:22:12.507] [REFramework] [info] [spread-kill] watching. Nothing is being changed.
+[2026-09-20 16:22:12.507] [REFramework] [info] [spread-kill] EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.
+[2026-09-20 16:22:12.507] [REFramework] [info] [spread-kill] No shot is needed for that test. Firing additionally measures the scatter in degrees.
+[2026-09-20 16:22:12.507] [REFramework] [info] [spread-kill] loaded. Commands go in reframework/data/re_spread_kill_cmd.txt -- start with 'status'.
+[2026-09-20 16:22:56.210] [REFramework] [info] [spread-kill] nothing captured yet -- equip the rifle (equipping is enough, no shot needed)
+[2026-09-20 16:23:04.556] [REFramework] [info] [spread-kill] captured the gun in your hands: app.WeaponGunCore (slot args[2], capture #1)
+[2026-09-20 16:23:04.560] [REFramework] [info] [spread-kill] FLAG  isRestrictAimShake   nil  ->  true
+[2026-09-20 16:23:04.560] [REFramework] [info] [spread-kill] FLAG  isReduceRecoil       nil  ->  false
+[2026-09-20 16:25:35.194] [REFramework] [info] [spread-kill] captured the gun in your hands: app.WeaponGunCore (slot args[2], capture #2)
+[2026-09-20 16:25:37.203] [REFramework] [info] [spread-kill] SHOT #1  scatter=0.023 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:25:39.624] [REFramework] [info] [spread-kill] SHOT #2  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:25:41.926] [REFramework] [info] [spread-kill] SHOT #3  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
+[2026-09-20 16:25:44.306] [REFramework] [info] [spread-kill] SHOT #4  scatter=0.000 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [game says restrict-aim-shake TRUE (aiming?)]
