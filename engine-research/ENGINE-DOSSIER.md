@@ -2270,6 +2270,46 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bo. ✅ CONFIRMED: THE LUA HOOK ON `updateScope` BROKE THE SCOPE — a "read-only" hook is not read-only (2026-09-21, LIVE, VR, first launch of the bisect)
+
+§9bn's `[hypothesis]` is `[verified-live 2026-09-21, n=1 launch + the wearer]`. With
+`re8_spread_kill.lua` out of `autorun/` and **nothing else changed** — same new plugin
+(`85cfaa81…`, spread fix hooked and active) — Tefa: *"the scope is back to normal!"*
+
+| | with the Lua hook (00:4x) | without it (01:1x) | yesterday's good session |
+| --- | --- | --- | --- |
+| geometry map sane (scale < 3) | 116 / 259 | **49 / 49** | 456 / 462 |
+| rifle-vs-gaze, median | 54.4° | **14.4°** | 13.3° |
+
+`[measured 2026-09-21]`
+
+⭐⭐ **The "rifle 54° off the gaze" reading that §9bm built its posture story on was ITSELF AN ARTEFACT OF
+THE HOOK.** It snapped back to 14° the moment the hook was gone, with the same wearer holding the same
+rifle. So §9bm did not merely draw a wrong conclusion from a right number — **the number was the
+fault's own fingerprint, and I read it as evidence against the person reporting the fault.** The wearer's
+sighting was the measurement; the log line was the symptom.
+
+⚠️ **THE LESSON, and it generalises well past this game: a hook that only LOOKS is still a hook.**
+`re8_spread_kill.lua` attached to `app.WeaponGunCore.updateScope` purely to grab the gun object — its
+pre-hook read `args[2]` and returned nothing, its post-hook returned the value untouched. By every
+intention it was read-only, and its own header said so. **It still broke the feature that function
+drives**, on a per-frame game function, for as long as it was loaded. The mechanism is not established
+(`[hypothesis]`: REFramework's Lua hook trampoline on a per-frame method perturbing timing or the
+method's effect under the VR double-submit); the effect is.
+**So: never park a capture hook on a function that belongs to the feature you ship.** Capture from
+something that fires rarely and is unrelated (here, a shot), and **remove every probe hook the moment its
+question is answered** — a disproved probe left loaded is not dead weight, it is live code on the hot
+path.
+
+⚠️ **And the process lesson: test the WHOLE mod after changing any part of it.** Every spread test ran
+with the scope rig off, so eight hours of builds never once exercised the feature the project exists for.
+Tefa spotted that in one sentence.
+
+**Final state, all in one install:** scope picture working, rifle shooting straight from the hip
+(spread fix default-on), both spread Lua tools out of `autorun/`.
+
+Credit: **praydog** (REFramework). Diagnosis by Tefa.
+
 ### 9bn. ⛔ §9bm IS WITHDRAWN — "posture, not a regression" contradicted the wearer, and the wearer was right to push back (2026-09-21, LIVE, VR)
 
 **Supersedes: ENGINE-DOSSIER.md §9bm's conclusion** (its two measured tables stand as readings; what
