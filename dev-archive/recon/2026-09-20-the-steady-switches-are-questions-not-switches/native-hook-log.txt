@@ -1,8 +1,35 @@
-[2026-09-20 23:49:33.332] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)  [3 params]
-[2026-09-20 23:49:33.332] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.createBullet(via.Ray, System.Boolean)  [2 params]
-[2026-09-20 23:49:33.332] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.createBulletImple(via.vec3, via.Quaternion, via.GameObject, System.Boolean)  [4 params]
-[2026-09-20 23:49:33.332] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: off by default. `spread 3` = look only (no writes), 1 or 2 = cancel (known not to change the bullet, see the note in this file).
-[2026-09-20 23:50:19.964] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: switched to mode=2 (seen 0 shot(s), applied to 0)
-[2026-09-20 23:50:28.317] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: layout GOOD -- argc=7, both rotations read and unit
-[2026-09-20 23:50:28.317] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: shot #1 scatter 0.000 -> 0.000 deg  mode=2 APPLIED
-[2026-09-20 23:50:31.893] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: shot #2 scatter 7.607 -> 0.000 deg  mode=2 APPLIED
+[2026-09-21 00:05:41.493] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)  [3 params]
+[2026-09-21 00:05:41.494] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.createBullet(via.Ray, System.Boolean)  [2 params]
+[2026-09-21 00:05:41.494] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.createBulletImple(via.vec3, via.Quaternion, via.GameObject, System.Boolean)  [4 params]
+[2026-09-21 00:05:41.494] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: off by default. `spread 3` = look only (no writes), 1 or 2 = cancel (known not to change the bullet, see the note in this file).
+[2026-09-21 00:06:32.047] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: switched to mode=3 (seen 0 shot(s), applied to 0)
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: shot #1  dir@+12 (0.0000 0.9598 -0.2458) len=0.9908  from (-20.45 -34.00 99.20)
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: shot #1  muzzle axis (0.9598 -0.2458 0.1355)  ray-vs-bore 105.766 deg   <-- aimed and hip should differ HERE if this is the scatter
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: ==== createBulletImple call #1, argc=8 ====
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #1 argv[2] not-a-rotation len2=11414.3926 (-20.4519 -33.9964 99.1957 0.7535)
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #1 argv[3] UNIT-ROTATION len2=1.0000 (0.1631 0.6369 0.0000 0.7535)
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #1 argv[4] not-a-rotation len2=0.0000 (-0.0000 0.0000 0.0000 0.0000)
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #1 argv[5] not-a-rotation len2=1577274048512.0000 (0.0000 1124664.0000 558932.0000 0.0000)
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #1 argv[6] = null
+[2026-09-21 00:06:40.660] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #1 argv[7] = C1A39D813F800000 unreadable
+[2026-09-21 00:06:40.661] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: ==== setupDiffusion call #1, argc=7 ====
+[2026-09-21 00:06:40.661] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #1 argv[2] not-a-rotation len2=11414.8252 (-20.4519 -33.9964 99.1957 1.0000)
+[2026-09-21 00:06:40.661] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #1 argv[3] UNIT-ROTATION len2=1.0000 (0.1631 0.6369 0.0000 0.7535)
+[2026-09-21 00:06:40.661] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #1 argv[4] UNIT-ROTATION len2=1.0000 (0.1631 0.6369 -0.0000 0.7535)
+[2026-09-21 00:06:40.661] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #1 argv[5] not-a-rotation len2=1577274048512.0000 (0.0000 1124664.0000 558932.0000 0.0000)
+[2026-09-21 00:06:40.661] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #1 argv[6] = null
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: shot #2  dir@+12 (0.0000 0.9488 -0.2698) len=0.9864  from (-20.52 -34.03 99.23)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-ray: shot #2  muzzle axis (0.9488 -0.2698 0.1642)  ray-vs-bore 107.724 deg   <-- aimed and hip should differ HERE if this is the scatter
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: ==== createBulletImple call #2, argc=8 ====
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #2 argv[2] not-a-rotation len2=11426.4678 (-20.5247 -34.0274 99.2308 0.7629)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #2 argv[3] UNIT-ROTATION len2=1.0000 (0.1757 0.6220 0.0010 0.7631)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #2 argv[4] not-a-rotation len2=0.0000 (-0.0000 0.0000 0.0000 0.0000)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #2 argv[5] not-a-rotation len2=1577274048512.0000 (0.0000 1124664.0000 558932.0000 0.0000)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #2 argv[6] = null
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: createBulletImple #2 argv[7] = C1A432983F800000 unreadable
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: ==== setupDiffusion call #2, argc=7 ====
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #2 argv[2] not-a-rotation len2=11426.8857 (-20.5247 -34.0274 99.2308 1.0000)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #2 argv[3] UNIT-ROTATION len2=1.0000 (0.1757 0.6220 0.0010 0.7631)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #2 argv[4] UNIT-ROTATION len2=1.0000 (0.1768 0.6218 -0.0000 0.7629)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #2 argv[5] not-a-rotation len2=1577274048512.0000 (0.0000 1124664.0000 558932.0000 0.0000)
+[2026-09-21 00:06:43.618] [REFramework] [info] [Plugin] [re-scope-vr] spread-diag: setupDiffusion #2 argv[6] = null
