@@ -2270,6 +2270,47 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bx. ⚠⭐⭐ "THE FIRST SHOT AFTER GRIPPING OR RELOADING GOES WILD, THE REST HIT" — the evidence was overwritten; three silent give-ups found in my own code, fixed, and every shot now logs itself to a file that survives a restart (2026-09-21, `/pd` + a wear by Tefa, BUILT, NOT INSTALLED)
+
+Tefa, after the reference zero: one-handed hip fire lands where they look; **with the left hand on the
+weapon it "jumps in my hand" and the FIRST shot lands far left and down, every later shot on the aim**;
+after a reload, gripping again, **the first shot goes "like the bullet spread, random direction", the
+remaining four on the aim** `[reported 2026-09-21]`.
+
+⛔ **The log of those shots is GONE.** `re2_framework_log.txt` is **recreated at every launch**, and Tefa
+restarted to film a clip before it was read. A finding that one relaunch destroys is a finding waiting
+to be lost — `/pd` §7 in miniature.
+
+**What reading the code found instead: `createBulletImple`'s hook had THREE silent exits**, each sending
+the bullet out with the game's own scatter and logging nothing — no pending ray; a rotation that did not
+read as a rotation; the per-tick rifle filter failing. Separately, **`createBullet`'s ray check, tightened
+to 0.001 earlier tonight** (§9bj, against a shifted read), would reject a real direction that is merely a
+little un-normalised — leaving no pending ray — and its log line had long hit its cap. **Either route
+gives exactly "first shot random, the rest fine"** `[hypothesis — the log that would decide it was
+overwritten]`.
+
+**Fixed in one build** (`re_scope_vr.dll` 255,488 bytes, 0 errors 0 warnings `[compile-verified 2026-09-21]`):
+
+- **The ray is read at +16 — the layout is a fact now** (18 of 18 shots) — accepted at any sane length and
+  **normalised**. `+12` is still refused unless exactly unit, so the shifted read cannot return.
+- **The rifle is remembered.** The last `WeaponGunCore` that `world_tick` confirmed as the scoped rifle is
+  kept, so a shot fired before a reload or a grip change is republished is still straightened. Forgotten
+  only after the weapon has been gone **5 s straight** — a brief empty read is exactly the moment the
+  memory exists for.
+- **No silent exits.** Every shot that is NOT straightened logs why.
+- ⭐ **Every shot is appended to `reframework/data/re_scope_shots.log`** — survives a relaunch, rotates at
+  1 MB. Per line: straightened or not and why, the scatter cancelled, **the angle between the ray and the
+  muzzle axis at that moment**, the aim distance, and whether the remembered rifle was used.
+
+⚠️ **The "jumps in my hand, far left and down" shot may be a DIFFERENT cause:** a ray computed from the
+rifle's pose *before* the jump would be straightened perfectly — in the old direction. The new
+`ray vs muzzle` figure catches exactly that: large on that one shot = stale ray, cure upstream.
+
+**NOT INSTALLED** — the game was open. `UPDATE-RIFLE-PLUGIN.bat` after closing it.
+**The test:** left hand on, first shot; reload, left hand on, first shot — then read `re_scope_shots.log`.
+
+Credit: **praydog** (REFramework). Report by Tefa.
+
 ### 9bw. ⚠⭐⭐ DISTANCE-FOLLOW, FIRST LIVE SHOT: IT MISSED EXACTLY THE WAY "NO CORRECTION AT ALL" WOULD — the borrowed distance is not dependable (2026-09-21, LIVE, VR, one of Tefa's last three bullets)
 
 Reference zero (−14.9 / −11.8, §9bv), `SCOPE-DISTANCE-ON`, a wall a few metres away, one shot, no nudging.
