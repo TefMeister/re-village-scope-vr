@@ -16,11 +16,12 @@ if not exist "%~dp0reframework\data" (
 > "%~dp0reframework\data\re_spread_kill_cmd.txt" (
 echo skip off
 echo spec off
-echo zero off
+echo fix off
+echo trace off
 )
 
 echo.
-echo   Sent: skip off / spec off / zero off
+echo   Sent: skip off / spec off / fix off / trace off
 echo   The game's own scatter is back.
 echo.
 timeout /t 2 /nobreak >nul 2>&1
