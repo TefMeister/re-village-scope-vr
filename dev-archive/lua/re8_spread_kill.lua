@@ -51,6 +51,9 @@
 --     steady off      stop (the game reverts it by itself on the next weapon change)
 --     quiet on|off    stop/start the per-call watch lines, if the log gets noisy
 --     status          say what is captured and what is on
+--     stats           the measured scatter per shot, in degrees, split hip vs aimed
+--     flags           the gun's steadiness flags right now, plus the trigger
+--     watchflags off  stop the automatic change lines, if they get noisy
 --
 -- Its OWN command file, so it cannot race the scope harness or the dig tool.
 -- Everything it prints is prefixed [spread-kill].
@@ -124,6 +127,132 @@ local function dump_live(obj, label)
 end
 
 -- ---------------------------------------------------------------------------
+-- MEASURING THE SCATTER, so nobody has to judge where a bullet landed.
+--
+-- `setupDiffusion(via.vec3, via.Quaternion, via.Quaternion)` is handed the shot's
+-- origin and TWO rotations. Read as (intended, scattered): the angle between them
+-- IS the scatter of that one shot, in degrees, exactly, before the bullet exists.
+-- So the test needs no target, no aiming at anything, and no eyesight -- firing at
+-- the sky measures just as well as firing at a barrel.
+--
+-- ⚠ The (intended, scattered) reading is [hypothesis]. If the two quaternions turn
+-- out to be something else the angle will be nonsense -- but it will be OBVIOUS
+-- nonsense (constant, or wild), and the shot COUNT and the flag columns below stay
+-- valid either way. Read the first few SHOT lines before trusting any average.
+--
+-- Value-type arguments are passed by pointer and REFramework has offered more than
+-- one way to read them across versions, so read_quat tries each in turn and says
+-- once which one worked. A guess here would silently produce numbers, which is the
+-- worst possible failure for a measurement.
+-- ---------------------------------------------------------------------------
+
+local QUAT_METHOD = nil   -- decided on the first shot, then reported once
+
+local function read_quat(arg)
+    if arg == nil then return nil end
+
+    -- 1. the usual route for a value-type argument
+    if QUAT_METHOD == nil or QUAT_METHOD == "valuetype" then
+        local q = nil
+        pcall(function() q = sdk.to_valuetype(arg, "via.Quaternion") end)
+        if q ~= nil then
+            local x, y, z, w
+            pcall(function() x, y, z, w = q.x, q.y, q.z, q.w end)
+            if x ~= nil and w ~= nil then
+                QUAT_METHOD = "valuetype"
+                return { x = x, y = y, z = z, w = w }
+            end
+        end
+    end
+
+    -- 2. some builds hand back something already readable
+    if QUAT_METHOD == nil or QUAT_METHOD == "direct" then
+        local x, y, z, w
+        pcall(function() x, y, z, w = arg.x, arg.y, arg.z, arg.w end)
+        if x ~= nil and w ~= nil then
+            QUAT_METHOD = "direct"
+            return { x = x, y = y, z = z, w = w }
+        end
+    end
+
+    -- 3. a managed object wrapper
+    if QUAT_METHOD == nil or QUAT_METHOD == "managed" then
+        local o = nil
+        pcall(function() o = sdk.to_managed_object(arg) end)
+        if o ~= nil then
+            local x, y, z, w
+            pcall(function() x, y, z, w = o.x, o.y, o.z, o.w end)
+            if x ~= nil and w ~= nil then
+                QUAT_METHOD = "managed"
+                return { x = x, y = y, z = z, w = w }
+            end
+        end
+    end
+
+    return nil
+end
+
+-- Angle between two unit quaternions, in degrees. |dot| because q and -q are the
+-- same rotation, and a clamp because floating point walks outside [-1, 1].
+local function quat_angle_deg(a, b)
+    if a == nil or b == nil then return nil end
+    local d = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
+    if d < 0 then d = -d end
+    if d > 1.0 then d = 1.0 end
+    return 2.0 * math.acos(d) * 180.0 / math.pi
+end
+
+-- ---------------------------------------------------------------------------
+-- The experiment runs itself. Every shot is filed under the state the gun was in
+-- at the moment it fired, so firing some shots hip and some aimed produces the
+-- A/B comparison with nobody having to keep track of which was which.
+-- ---------------------------------------------------------------------------
+local shots = {}   -- bucket name -> { n, sum, min, max }
+
+local function bucket_name(steady_on, restrict, reduce)
+    if steady_on then return "steady ON (our switches)" end
+    if restrict == true then return "game says restrict-aim-shake TRUE (aiming?)" end
+    if restrict == false then return "game says restrict-aim-shake FALSE (hip?)" end
+    return "restrict-aim-shake unreadable"
+end
+
+local function file_shot(bucket, deg)
+    local b = shots[bucket]
+    if b == nil then
+        b = { n = 0, sum = 0.0, min = nil, max = nil }
+        shots[bucket] = b
+    end
+    b.n = b.n + 1
+    if deg ~= nil then
+        b.sum = b.sum + deg
+        if b.min == nil or deg < b.min then b.min = deg end
+        if b.max == nil or deg > b.max then b.max = deg end
+    end
+end
+
+local function stats(L)
+    L("---- scatter measured per shot, in degrees ----")
+    if QUAT_METHOD == nil then
+        L("  (the two rotations could not be read yet -- shot COUNTS below are still valid)")
+    else
+        L("  (rotations read by the '%s' route)", QUAT_METHOD)
+    end
+    local any = false
+    for name, b in pairs(shots) do
+        any = true
+        if b.min ~= nil then
+            L("  %-44s %3d shot(s)   min %.3f   avg %.3f   max %.3f",
+              name, b.n, b.min, b.sum / b.n, b.max)
+        else
+            L("  %-44s %3d shot(s)   (no angle read)", name, b.n)
+        end
+    end
+    if not any then L("  no shots recorded yet -- fire the rifle") end
+    L("  >> a row sitting at 0.000 is a shot with NO scatter at all.")
+    L("  >> compare the hip row against the aimed row: that difference IS the thing being chased.")
+end
+
+-- ---------------------------------------------------------------------------
 -- Capturing the live gun. There is no singleton for it, so we take `this` off any
 -- WeaponGunCore method the game calls. REFramework passes args[2] as `this` for an
 -- instance method -- but rather than trust that, we check both slots and keep whichever
@@ -158,6 +287,81 @@ local function note_call(name, extra)
     if n <= 5 or n % 50 == 0 then
         L("CALL #%d  %s%s", n, name, extra and ("  " .. extra) or "")
     end
+end
+
+-- ---------------------------------------------------------------------------
+-- THE ZERO-SHOT TEST -- the one that needs no target, no bullets and no judgement.
+--
+-- `app.WeaponGunCore` also carries `get_isInputRightTrigger`, `get_isInputTrigger`
+-- and `get_isForbidAim`/`set_isForbidAim` [measured 2026-09-20 from re8.exe]. So the
+-- gun knows whether the trigger is held, and we can read its steadiness flags at the
+-- same time.
+--
+-- ⭐ Which means the deciding question -- does holding aim flip `isRestrictAimShake`? --
+-- can be answered by HOLDING THE AIM BUTTON AND LETTING GO. No shot is fired, no
+-- ammo is used, nothing is aimed at, and nobody has to see where anything landed.
+--
+-- This watch prints only CHANGES, so a held-down button produces two lines, not
+-- thousands. If nothing prints while the aim button is held, that is the answer too:
+-- aiming does not touch these flags, and the accuracy comes from somewhere else.
+-- ---------------------------------------------------------------------------
+
+local WATCHED = {
+    "isRestrictAimShake",
+    "isReduceRecoil",
+    "isDiffusion",
+    "diffusionRadius",
+    "isForbidAim",
+}
+
+local last_flags = {}
+local flags_on   = true    -- on by default: it is read-only and it is the point
+
+local function read_flag(gun, name)
+    local v = nil
+    if not pcall(function() v = gun:get_field(name) end) then return nil end
+    return v
+end
+
+local function poll_flags(L)
+    if not flags_on or state.core == nil then return end
+    local gun = state.core
+
+    -- the trigger, via its getter rather than a field
+    local trig = nil
+    pcall(function() trig = gun:call("get_isInputRightTrigger") end)
+    if trig == nil then pcall(function() trig = gun:call("get_isInputTrigger") end) end
+
+    local now = {}
+    for _, name in ipairs(WATCHED) do now[name] = read_flag(gun, name) end
+    now["__trigger"] = trig
+
+    for k, v in pairs(now) do
+        local was = last_flags[k]
+        if was ~= v then
+            -- first sighting of a value is not a change worth a line unless it is a flag flip
+            if was ~= nil or type(v) == "boolean" then
+                L("FLAG  %-20s %s  ->  %s", k:gsub("^__", ""), tostring(was), tostring(v))
+            end
+            last_flags[k] = v
+        end
+    end
+end
+
+local function flags_snapshot(L)
+    if state.core == nil then
+        L("nothing captured yet -- equip the rifle (equipping is enough, no shot needed)")
+        return
+    end
+    L("---- the gun's steadiness flags, right now ----")
+    for _, name in ipairs(WATCHED) do
+        L("  %-20s = %s", name, tostring(read_flag(state.core, name)))
+    end
+    local trig = nil
+    pcall(function() trig = state.core:call("get_isInputRightTrigger") end)
+    L("  %-20s = %s", "trigger held", tostring(trig))
+    L("  >> HOLD THE AIM BUTTON and watch for FLAG lines. If isRestrictAimShake flips")
+    L("  >> to true, that is the accuracy you want, and we can switch it on without aiming.")
 end
 
 local function bool_arg(args, slot)
@@ -234,13 +438,50 @@ local function setup()
     end
     if m_diff ~= nil then
         sdk.hook(m_diff, function(args)
-            capture_this(args)
-            note_call("setupDiffusion", "<-- the cone is being installed on THIS shot")
+            local gun = capture_this(args)
+            -- args: [1] context, [2] this, [3] vec3, [4] Quaternion, [5] Quaternion
+            local qa  = read_quat(args[4])
+            local qb  = read_quat(args[5])
+            local deg = quat_angle_deg(qa, qb)
+
+            local restrict, reduce, isdiff, radius = nil, nil, nil, nil
+            if gun ~= nil then
+                pcall(function() restrict = gun:get_field("isRestrictAimShake") end)
+                pcall(function() reduce   = gun:get_field("isReduceRecoil") end)
+                pcall(function() isdiff   = gun:get_field("isDiffusion") end)
+                pcall(function() radius   = gun:get_field("diffusionRadius") end)
+            end
+
+            local b = bucket_name(state.steady, restrict, reduce)
+            file_shot(b, deg)
+
+            state.calls["setupDiffusion"] = (state.calls["setupDiffusion"] or 0) + 1
+            local n = state.calls["setupDiffusion"]
+            if not state.quiet and (n <= 12 or n % 25 == 0) then
+                L("SHOT #%d  scatter=%s  restrictAimShake=%s  reduceRecoil=%s  isDiffusion=%s  diffusionRadius=%s  [%s]",
+                  n,
+                  deg and string.format("%.3f deg", deg) or "unread",
+                  tostring(restrict), tostring(reduce), tostring(isdiff), tostring(radius), b)
+            end
+            if n % 10 == 0 then stats(L) end
         end, function(r) return r end)
     end
 
+    -- ⭐ Capture WITHOUT firing. onEquipWeapon runs the moment the rifle is drawn, and
+    -- updateScope runs while it is held, so `read` and the flag watch work straight away.
+    for _, nm in ipairs({ "onEquipWeapon", "updateScope" }) do
+        local m = td:get_method(nm)
+        if m ~= nil then
+            sdk.hook(m, function(args) capture_this(args) end, function(r) return r end)
+            L("  capture hook on %s -- no shot needed to grab the gun", nm)
+        else
+            L("  ⚠ %s not found; capture will need a shot fired", nm)
+        end
+    end
+
     L("watching. Nothing is being changed.")
-    L("Hold the rifle. Fire once from the hip, then once holding aim, and read the CALL lines.")
+    L("EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.")
+    L("No shot is needed for that test. Firing additionally measures the scatter in degrees.")
 end
 
 -- ---------------------------------------------------------------------------
@@ -263,6 +504,7 @@ local function status()
     local any = false
     for k, v in pairs(state.calls) do L("  seen %-26s %d call(s)", k, v) any = true end
     if not any then L("  no calls seen yet -- the game has not touched any of them") end
+    stats(L)
 end
 
 local function run(line)
@@ -282,10 +524,17 @@ local function run(line)
     elseif cmd == "quiet" then
         state.quiet = (arg ~= "off")
         L("watch lines %s", state.quiet and "silenced" or "back on")
+    elseif cmd == "flags" then
+        flags_snapshot(L)
+    elseif cmd == "watchflags" then
+        flags_on = (arg ~= "off")
+        L("flag watch %s", flags_on and "ON" or "off")
+    elseif cmd == "stats" then
+        stats(L)
     elseif cmd == "status" then
         status()
     else
-        L("not understood: %s   (read / steady on|off / quiet on|off / status)", line)
+        L("not understood: %s   (read / flags / steady on|off / stats / watchflags on|off / quiet on|off / status)", line)
     end
 end
 
@@ -296,6 +545,8 @@ end
 local last_poll = 0.0
 
 re.on_frame(function()
+    pcall(poll_flags, L)
+
     if state.steady then
         local now = os.clock()
         if now - state.last_apply > 0.016 then

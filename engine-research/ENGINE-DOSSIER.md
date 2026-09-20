@@ -2347,7 +2347,42 @@ scope harness or the dig tool. **Starts read-only.**
 - it **reads each method's real signature and refuses to call anything that is not a single
   `System.Boolean`**, saying so instead of guessing
 
-Helpers, in the game folder: `SPREAD-1-STATUS.bat`, `SPREAD-2-READ.bat`, `SPREAD-3-STEADY-ON.bat`,
+⭐⭐ **THE TEST NEEDS NO BULLETS, NO TARGET AND NO EYESIGHT — added 2026-09-20 after Tefa asked
+whether I could read the numbers instead of them watching** (*"if i do it there is still room for error,
+maybe you can actually read the number values of where the bullets land?"*). They are right that
+watching is the weak link, and it turns out watching was never needed:
+
+- ⭐ **`app.WeaponGunCore` also carries `get_isInputRightTrigger`, `get_isInputTrigger` and
+  `get_isForbidAim` / `set_isForbidAim`** `[measured 2026-09-20]`. The gun knows whether the trigger
+  is held. So the deciding question — *does holding aim flip `isRestrictAimShake`?* — is answered by
+  **holding the aim button and letting go**. Zero shots, zero ammo, nothing aimed at. The tool prints
+  only CHANGES, so a held button gives two lines rather than thousands, and **printing nothing is also
+  an answer**: aiming does not touch these flags and the accuracy is elsewhere.
+- ⭐ **`onEquipWeapon` and `updateScope` are hooked purely to capture the live gun**, so `read` and the
+  flag watch work the moment the rifle is drawn — no shot needed to get hold of the object.
+- ⭐ **And when shots ARE fired, the scatter is measured, not judged.** `setupDiffusion` is handed two
+  rotations; the angle between them is that shot's scatter **in degrees**, known before the bullet
+  exists — so firing at the sky measures as well as firing at a barrel. Every shot is filed under the
+  flag state it was fired in, so mixing hip and aimed shots **produces the A/B comparison by itself**.
+  ⚠️ The (intended, scattered) reading of those two quaternions is `[hypothesis]`; if wrong the angle
+  will be obvious nonsense, and the shot counts and flag columns stay valid regardless. Value-type
+  arguments have been readable by more than one route across REFramework versions, so the tool **tries
+  each and reports which worked** rather than quietly producing numbers.
+- ⭐ **`get_muzzleJoint` exists** `[measured 2026-09-20]`, so an independent check of the real barrel
+  direction is available if the quaternion reading is ever doubted. Not used yet.
+
+⚠️ **WHO CAN RUN IT: not fully me, and the gap is already a board row.** Unattended launch and clean
+self-close are proven `[verified-live 2026-09-20, n=2]`, and the control profile has ENTER (title), F
+(confirm, including the load splash) and UP/DOWN verified — but **this game has never been driven from
+its title screen into a loaded save**, and RE Village puts destructive items near `CONTINUE`, so no
+blind key-count is allowed. Equipping the rifle is a second unbuilt step. **Until that row is done the
+cheapest honest split is: the wearer reaches gameplay with the rifle in hand and holds the aim button
+once; every judgement after that is the tool's.**
+
+**Flat, not VR** — the numbers are identical and VR adds the wearer's own hand movement as a variable.
+The headset is for judging how it FEELS once the numbers are settled.
+
+Helpers, in the game folder: `SPREAD-0-FLAGS.bat`, `SPREAD-1-STATUS.bat`, `SPREAD-2-READ.bat`, `SPREAD-3-STEADY-ON.bat`,
 `SPREAD-3-STEADY-OFF.bat`.
 
 ⚠️ **NOT RUN. Nothing below the strings is verified**: whether the sniper scatters from a diffusion
