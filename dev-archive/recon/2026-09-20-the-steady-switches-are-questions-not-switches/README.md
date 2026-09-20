@@ -257,3 +257,53 @@ aim holds and 20+ shots that neither flag ever changes, and it was reading field
 
 ⚠️ **Even so the tool is 832 lines, over our own 800-line soft limit.** The split is owed before
 anything further is added to it, and is now a board row rather than a good intention.
+
+---
+
+## ⛔ THE WRITE CANNOT BE DONE FROM LUA — proven by the tool itself, in one test
+
+Three hip shots with `fix on` `[verified-live 2026-09-20, n=3]`:
+
+```
+muzzle vs args[4] = 15.034 deg, vs args[5] = 13.117 deg
+write route in use: write_float
+FIX  kept args[5] (closer to the muzzle)  wrote via write_float  scatter after the write = 9.492 deg
+FIX  ⚠ THE WRITE DID NOT LAND -- the number did not move.
+```
+
+Same on all three (9.492°, 8.682°, 3.837° before and after). **`write_float` raised no error and changed
+nothing**, so `sdk.to_valuetype` hands back a **copy** of the argument, not a window onto it. Together
+with the earlier `args[n]` reassignment, that is **both** ways Lua offers, and neither reaches a
+value-type argument.
+
+⭐ **This cost one test instead of a round trip, because the tool checked its own work.** That is the
+single most useful thing built today: after three attempts that each needed Tefa to judge where bullets
+went, this one answered itself in the log. **Every lever from here on must do that.**
+
+⚠️ **The muzzle comparison did NOT settle which quaternion is intended, and the numbers say why:**
+**neither** is close to the barrel — 15.034° / 13.117°, 15.119° / 11.007°, 10.887° / 9.492°. A
+quaternion that *was* the aim direction would sit near zero from the muzzle. So `get_muzzleJoint`
+returns a rotation in a different frame (model space, or with a bone offset), and comparing against it
+is meaningless as written `[verified-live 2026-09-20, n=3]`. **That check must not be trusted, and the
+"closer to the muzzle" label in the log is not evidence of anything.**
+
+## The route that is left, and it is the project's own standing preference
+
+**The fix belongs in the native plugin.** In C++ the pre-hook is handed the raw argument pointers, so
+writing the quaternion is a two-line assignment that cannot silently fail — no ABI guesswork, no copy.
+
+Confirmed present, not assumed:
+
+- the plugin source is at `staging/re-village-scope-vr/plugin/` (`src/probes.cpp`, `reflect_util.cpp`,
+  `config.cpp`, …), CMake-built, with a working `build/Release/re_scope_vr.dll`
+- the REFramework plugin API exposes `add_hook(pre_fn, post_fn, ignore_jmp)`
+  (`plugin/include/reframework/API.hpp:750`), the pre-hook receiving `void** args`
+- CMake 4.4.3 is on this machine and this plugin has been built here before
+
+⭐ **And it needs no game and nobody at the keyboard** — write, compile, deploy, then one short test.
+This also matches the standing "build it at the deepest layer that can carry it" rule; Lua was the
+quick way to find the mechanism, and it did that job well.
+
+**What the native version must keep from the Lua one:** the per-shot measurement in degrees, and the
+**re-read after the write** so it still proves its own effect. And it must **not** use the spec getters
+(never called at firing time) or the muzzle comparison (wrong frame).

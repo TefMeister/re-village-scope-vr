@@ -135,3 +135,50 @@
 [2026-09-20 16:48:08.459] [REFramework] [info] [spread-kill]   trace| === setupDiffusion (the scatter is ALREADY in its arguments) ===
 [2026-09-20 16:48:08.459] [REFramework] [info] [spread-kill] SHOT #2  scatter=7.317 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [as the game ships it]
 [2026-09-20 16:48:08.459] [REFramework] [info] [spread-kill]   trace| shootCommon
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] found app.WeaponGunCore
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] the three methods this job turns on:
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill]   enableRestrictAimShake() -> System.Boolean
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill]   enableReduceRecoil() -> System.Boolean
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill]   setupDiffusion(via.vec3, via.Quaternion, via.Quaternion) -> System.Void
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] ⚠ enableRestrictAimShake does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] ⚠ enableReduceRecoil does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill]   ⚠ onEquipWeapon not found; capture will need a shot fired
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill]   capture hook on updateScope -- no shot needed to grab the gun
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] spec getters found: radius=true isDiffusion=true num=true
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] watching. Nothing is being changed.
+[2026-09-20 16:53:29.799] [REFramework] [info] [spread-kill] EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.
+[2026-09-20 16:53:29.800] [REFramework] [info] [spread-kill] No shot is needed for that test. Firing additionally measures the scatter in degrees.
+[2026-09-20 16:53:29.800] [REFramework] [info] [spread-kill] loaded. Commands go in reframework/data/re_spread_kill_cmd.txt -- start with 'status'.
+[2026-09-20 16:53:41.364] [REFramework] [info] [spread-kill] trace ON, budget 400 lines. Fire ONE shot holding aim, then ONE from the hip.
+[2026-09-20 16:53:41.364] [REFramework] [info] [spread-kill] The difference between the two traces is the answer.
+[2026-09-20 16:53:41.364] [REFramework] [info] [spread-kill] fix ON -- the barrel direction is written over the scattered one, and the write
+[2026-09-20 16:53:41.364] [REFramework] [info] [spread-kill]      checks itself: look for the 'scatter after the write' number on each shot.
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   trace| expendBullet
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   trace| createBullet
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   trace| createBulletImple
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill] captured the gun in your hands: app.WeaponGunCore  weapon=?  (slot args[2], capture #1)
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   trace| === setupDiffusion (the scatter is ALREADY in its arguments) ===
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   trace| muzzle vs args[4] = 15.034 deg, vs args[5] = 13.117 deg
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill] write route in use: write_float
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   FIX  kept args[5] (closer to the muzzle)  wrote via write_float  scatter after the write = 9.492 deg
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   FIX  ⚠ THE WRITE DID NOT LAND -- the number did not move. Not a wrong choice, no effect.
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill] SHOT #1  scatter=9.492 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [we changed: fix]
+[2026-09-20 16:53:47.527] [REFramework] [info] [spread-kill]   trace| shootCommon
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   trace| expendBullet
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   trace| createBullet
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   trace| createBulletImple
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   trace| === setupDiffusion (the scatter is ALREADY in its arguments) ===
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   trace| muzzle vs args[4] = 15.119 deg, vs args[5] = 11.007 deg
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   FIX  kept args[5] (closer to the muzzle)  wrote via write_float  scatter after the write = 8.682 deg
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   FIX  ⚠ THE WRITE DID NOT LAND -- the number did not move. Not a wrong choice, no effect.
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill] SHOT #2  scatter=8.682 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [we changed: fix]
+[2026-09-20 16:53:49.670] [REFramework] [info] [spread-kill]   trace| shootCommon
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   trace| expendBullet
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   trace| createBullet
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   trace| createBulletImple
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   trace| === setupDiffusion (the scatter is ALREADY in its arguments) ===
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   trace| muzzle vs args[4] = 10.887 deg, vs args[5] = 9.492 deg
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   FIX  kept args[5] (closer to the muzzle)  wrote via write_float  scatter after the write = 3.837 deg
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   FIX  ⚠ THE WRITE DID NOT LAND -- the number did not move. Not a wrong choice, no effect.
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill] SHOT #3  scatter=3.837 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [we changed: fix]
+[2026-09-20 16:53:51.748] [REFramework] [info] [spread-kill]   trace| shootCommon
