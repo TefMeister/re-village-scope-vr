@@ -2270,6 +2270,35 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bs. ⭐⭐ PARALLAX, PIECE 1: `propr 0.20` IS DELIBERATE, IT MOVES THE VIEWPOINT **0.40 m** NOT 0.20, AND IT CANNOT SIMPLY GO TO ZERO (2026-09-21, `/pd`, static, nothing launched)
+
+§9br asked why `propr` is 0.20 before touching it. **Our own files answer it, in three places:**
+
+- `VR-TRUE-SCOPE.bat`, in its own comments: *"propr 0.20 shifts the viewpoint just off the scope's own
+  axis … Smaller = less sideways offset = **less parallax**, but **below about 0.20 the scope body comes
+  back into the picture**."* So the parallax was a **known, deliberate trade** when the pose was made —
+  it was simply never connected to zeroing.
+- ⚠️ **The offset is doubled.** `modding-notes/2026-09-18g`: *"`off_u = -0.2` is not a 20 cm framing
+  tweak — it drops the eye the picture is taken from by **40 cm**."* A mirror's virtual viewpoint is the
+  eye reflected across the plane, so moving the plane `δ` along its normal moves the viewpoint `2δ`.
+  In the true-scope pose (`pitch 90 / yaw 90`) the plane's normal lies along the prop's *right* axis, so
+  **`propr 0.20` puts the viewpoint 0.40 m to the side of the bore** `[inferred-static 2026-09-21]`.
+- The harness's note that *"only `propu` moves the mirror plane"* was written for the OLD pose
+  (`pitch 180`, plane lying flat). **It does not hold in the true-scope pose**, where the plane stands
+  on edge — worth a correction in that comment, since it reads as general.
+
+**§9br's sums redone with h = 0.40 m:** the measured 4.6° now fits a wall at **~4 m then ~20 m**
+(`atan(0.4/4) − atan(0.4/20)` = 4.56°) — more believable distances for a village street than 2 m and
+10 m. Still `[hypothesis]` until a paced-out shot says so.
+
+⛔ **So `propr → 0` is NOT the fix** — the scope's own body fills the picture below ~0.20.
+
+**THE FIX THAT FOLLOWS: compensate in the crop, per shot distance.** `crop_follow` centres the picture
+on where the bore points. If it aims at a point a FIXED long way down the bore, it is right only for far
+targets, and wrong by `atan(h/d)` at distance `d` — which is exactly the error measured. **Centre the
+crop on the point the bullet will actually HIT instead, and the parallax cancels at every distance with
+no zero needed for it.** That needs the distance to what the bore is pointing at — piece 2.
+
 ### 9br. ⭐⭐⭐ THE ZERO CHANGES WITH DISTANCE — the wearer confirmed it in one sentence, and the numbers point at `propr 0.20` (2026-09-21, LIVE, VR)
 
 §9bq asked why the zero moved 4.6° between two careful passes and named distance first. Tefa, on
