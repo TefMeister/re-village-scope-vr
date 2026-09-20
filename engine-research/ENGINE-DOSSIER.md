@@ -2270,6 +2270,54 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9by. ⭐⭐⭐ TWO-HANDED SHOTS: EVERY BULLET WAS STRAIGHTENED — THE GAME'S *RAY* WAS WRONG. The bullet now follows the scope's own axis (2026-09-21, LIVE + `/pd`, installed, NOT yet worn)
+
+**Supersedes: §9bx's leading hypothesis** (silent exits). Tefa, after more play: *"holding the rifle with
+two hands does something weird, i was wrong i think about the first bullet only going wrong. i held on to
+the rifle for the whole 10 bullets and some jumped off while other were ok … the FIRST bullet after
+putting my hand on the gun so far always goes wrong"*, with *"a slight chance"* of controller drift
+`[reported 2026-09-21]`.
+
+**The game was closed, so this time the log survived — and it DISPROVES the silent-exit story for these
+shots:** that session ran the older build, and **all 10 shots read `STRAIGHTENED`**, built 0.000–0.056°
+off the ray they were given `[verified-live 2026-09-21, n=10]`. Nothing went out unstraightened. (The one
+`WARNING -- the write did not take` at 0.056° was float rounding against a 0.05 threshold — raised to 0.2.)
+
+**So when a two-handed shot jumps off, it is the RAY the game hands over that is wrong, and the fix
+straightens faithfully to it.** Where the ray comes from, read in `re8_vr.lua` (praydog's RE8VR)
+`[inferred-static 2026-09-21]`: `update_muzzle_data()` takes the **drawn weapon's muzzle joint** `AxisZ`,
+and the camera update writes it into the game's `PlayerCamera.ShootRay` (`from` = muzzle + 2 cm,
+`dir` = that axis). The SCOPE picture is centred on a muzzle axis too — but read by our `world_tick`, **at a
+different point in the frame.** One-handed the gun follows one controller and moves smoothly, and the two
+agree: **ray-vs-scope-axis 0.000° on 18 of 18 logged shots.** Two-handed, RE8VR aims the gun along the
+line between BOTH controllers: it **snaps as the grip is taken** (Tefa: *"the weapon jumps in my hand"*) and
+jitters with every hand tremor, amplified by how close the hands are. A frame of timing difference then
+means the bullet leaves along where the gun pointed a moment ago while the crosshair shows where it points
+now. **That fits all three reports: always the first shot after gripping (the snap), some but not all while
+holding (the jitter), and "it feels like controller drift."** `[hypothesis]` — the per-shot
+ray-vs-scope-axis figure that would prove it was only logged by the build that had not been installed.
+
+**The fix, by construction rather than by chasing the timing:** in mode 4 the bullet is now built along
+**the scope's own axis** (`g_bore`, the verified muzzle axis `world_tick` publishes and the crop is centred
+on) whenever it is verified — so **crosshair and bullet agree by definition**, whatever RE8VR's timing or
+the controllers do. The game's ray is the fallback. **Mode 5** keeps the old behaviour (follow the game's
+ray) for an A/B. Built with §9bx's changes, which were never installed until now: ray at +16 normalised,
+the remembered rifle, no silent exits, and every shot appended to `reframework/data/re_scope_shots.log`
+with **`game ray vs scope axis`** in degrees. `re_scope_vr.dll` 255,488 bytes, 0 errors 0 warnings
+`[compile-verified 2026-09-21]`, **installed**, switch at `4 0`.
+
+⚠️ **Honest limits:** the scope axis is itself sampled once per tick, so it is not "zero latency" — it is
+simply the SAME sample the picture uses, which is what a scope needs. If both are stale together, a shot
+fired mid-snap still goes where the picture showed a frame ago; that would be a latency problem shared by
+picture and bullet, and much smaller than the disagreement between them.
+
+**THE TEST:** two hands on, several shots including the FIRST after gripping, at a mark; then read
+`re_scope_shots.log`. Each line says the bullet followed the `SCOPE AXIS` and how far the game's own ray
+was from it — **big numbers on the shots that used to jump = the diagnosis confirmed, and those shots now
+land on the crosshair.**
+
+Credit: **praydog** (REFramework, RE8VR). Report and shots by Tefa.
+
 ### 9bx. ⚠⭐⭐ "THE FIRST SHOT AFTER GRIPPING OR RELOADING GOES WILD, THE REST HIT" — the evidence was overwritten; three silent give-ups found in my own code, fixed, and every shot now logs itself to a file that survives a restart (2026-09-21, `/pd` + a wear by Tefa, BUILT, NOT INSTALLED)
 
 Tefa, after the reference zero: one-handed hip fire lands where they look; **with the left hand on the
