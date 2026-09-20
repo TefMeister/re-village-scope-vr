@@ -31,3 +31,47 @@
 [2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   game says restrict-aim-shake TRUE (aiming?)   10 shot(s)   min 0.000   avg 4.217   max 14.930
 [2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   >> a row sitting at 0.000 is a shot with NO scatter at all.
 [2026-09-20 16:26:10.598] [REFramework] [info] [spread-kill]   >> compare the hip row against the aimed row: that difference IS the thing being chased.
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] found app.WeaponGunCore
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] the three methods this job turns on:
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill]   enableRestrictAimShake() -> System.Boolean
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill]   enableReduceRecoil() -> System.Boolean
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill]   setupDiffusion(via.vec3, via.Quaternion, via.Quaternion) -> System.Void
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] ⚠ enableRestrictAimShake does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] ⚠ enableReduceRecoil does not take a single bool -- 'steady on' will NOT call it.
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill]   ⚠ onEquipWeapon not found; capture will need a shot fired
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill]   capture hook on updateScope -- no shot needed to grab the gun
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] watching. Nothing is being changed.
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] No shot is needed for that test. Firing additionally measures the scatter in degrees.
+[2026-09-20 16:34:06.582] [REFramework] [info] [spread-kill] loaded. Commands go in reframework/data/re_spread_kill_cmd.txt -- start with 'status'.
+[2026-09-20 16:34:41.195] [REFramework] [info] [spread-kill] zero ON -- the scatter is cancelled at the moment it is applied.
+[2026-09-20 16:34:41.195] [REFramework] [info] [spread-kill] Fire from the HIP, without holding aim, and see where the bullets go.
+[2026-09-20 16:34:54.641] [REFramework] [info] [spread-kill] captured the gun in your hands: app.WeaponGunCore  weapon=?  (slot args[2], capture #1)
+[2026-09-20 16:34:54.641] [REFramework] [info] [spread-kill] SHOT #1  scatter=13.231 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:34:54.644] [REFramework] [info] [spread-kill] FLAG  isReduceRecoil       nil  ->  false
+[2026-09-20 16:34:54.644] [REFramework] [info] [spread-kill] FLAG  isRestrictAimShake   nil  ->  true
+[2026-09-20 16:34:57.235] [REFramework] [info] [spread-kill] SHOT #2  scatter=4.640 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:04.304] [REFramework] [info] [spread-kill] zero ON, the OTHER way round -- if bullets now fly off at random, go back to 'zero on'
+[2026-09-20 16:35:16.434] [REFramework] [info] [spread-kill] SHOT #3  scatter=7.248 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:18.381] [REFramework] [info] [spread-kill] SHOT #4  scatter=6.966 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:20.095] [REFramework] [info] [spread-kill] SHOT #5  scatter=11.862 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:30.570] [REFramework] [info] [spread-kill] SHOT #6  scatter=16.137 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:32.332] [REFramework] [info] [spread-kill] SHOT #7  scatter=5.425 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:34.225] [REFramework] [info] [spread-kill] SHOT #8  scatter=0.034 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:35:35.939] [REFramework] [info] [spread-kill] SHOT #9  scatter=11.677 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:36:03.782] [REFramework] [info] [spread-kill] SHOT #10  scatter=9.267 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:36:03.782] [REFramework] [info] [spread-kill] ---- scatter measured per shot, in degrees ----
+[2026-09-20 16:36:03.782] [REFramework] [info] [spread-kill]   (rotations read by the 'valuetype' route)
+[2026-09-20 16:36:03.782] [REFramework] [info] [spread-kill]   scatter NEUTRALISED by us                     10 shot(s)   min 0.034   avg 8.649   max 16.137
+[2026-09-20 16:36:03.782] [REFramework] [info] [spread-kill]   >> a row sitting at 0.000 is a shot with NO scatter at all.
+[2026-09-20 16:36:03.782] [REFramework] [info] [spread-kill]   >> compare the hip row against the aimed row: that difference IS the thing being chased.
+[2026-09-20 16:36:27.713] [REFramework] [info] [spread-kill] captured the gun in your hands: app.WeaponGunCore  weapon=?  (slot args[2], capture #2)
+[2026-09-20 16:36:27.714] [REFramework] [info] [spread-kill] SHOT #11  scatter=3.630 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:36:30.073] [REFramework] [info] [spread-kill] SHOT #12  scatter=9.936 deg  restrictAimShake=true  reduceRecoil=false  isDiffusion=nil  diffusionRadius=nil  [scatter NEUTRALISED by us]
+[2026-09-20 16:36:44.752] [REFramework] [info] [spread-kill] zero ON -- the scatter is cancelled at the moment it is applied.
+[2026-09-20 16:36:44.752] [REFramework] [info] [spread-kill] Fire from the HIP, without holding aim, and see where the bullets go.
+[2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill] ---- scatter measured per shot, in degrees ----
+[2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   (rotations read by the 'valuetype' route)
+[2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   scatter NEUTRALISED by us                     20 shot(s)   min 0.034   avg 7.973   max 16.137
+[2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   >> a row sitting at 0.000 is a shot with NO scatter at all.
+[2026-09-20 16:37:01.095] [REFramework] [info] [spread-kill]   >> compare the hip row against the aimed row: that difference IS the thing being chased.

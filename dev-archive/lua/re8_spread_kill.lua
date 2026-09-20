@@ -53,7 +53,9 @@
 --     status          say what is captured and what is on
 --     stats           the measured scatter per shot, in degrees, split hip vs aimed
 --     flags           the gun's steadiness flags right now, plus the trigger
---     zero on         cancel the bullet scatter at the moment the game applies it
+--     skip on         do not let setupDiffusion run at all  <-- try this FIRST
+--     spec on         force the weapon spec's diffusion radius to zero <-- then this
+--     zero on         DISPROVED 2026-09-20, kept only so the disproof is re-runnable
 --     zero swap       the same, the other way round, if 'zero on' sends shots wild
 --     zero off        give the game its own scatter back
 --     watchflags off  stop the automatic change lines, if they get noisy
@@ -78,6 +80,9 @@ local state = {
     last_apply  = 0.0,
     zero        = false,   -- neutralise the scatter at setupDiffusion
     zero_swap   = false,   -- which quaternion is the intended one (see the note below)
+    skip        = false,   -- skip setupDiffusion entirely
+    spec        = false,   -- force the weapon spec's diffusion numbers to zero
+    spec_hits   = 0,       -- how many times the spec getters were actually asked
 }
 
 local function L(fmt, ...)
@@ -261,6 +266,58 @@ local function stats(L)
     L("  >> compare the hip row against the aimed row: that difference IS the thing being chased.")
 end
 
+
+-- ---------------------------------------------------------------------------
+-- LEVER 3 -- the tidiest one, and the one a shipped fix would use.
+--
+-- `app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec` holds the per-weapon
+-- numbers and exposes them as READ-ONLY getters: `get_isDiffusion`,
+-- `get_diffusionNum`, `get_diffusionRadius` [verified-live 2026-09-17 probe].
+-- A getter's RETURN VALUE can be overridden in a post-hook, which is the most
+-- reliable lever REFramework offers -- no argument writing, no memory pokes.
+--
+-- Zero the radius at source and the cone has nothing to open into, whoever asks.
+-- ⚠ This is global: every gun that asks loses its spread, not just the rifle.
+-- That is fine for a test and NOT fine to ship; a shipped version filters by weapon.
+-- ---------------------------------------------------------------------------
+local SPEC = "app.ItemSpecificationData.SpecUnit.WeaponSpec.GunSpec"
+
+local function hook_spec(L)
+    local td = sdk.find_type_definition(SPEC)
+    if td == nil then
+        L("⚠ %s not in the type database -- 'zero spec' cannot work", SPEC)
+        return false
+    end
+
+    local mr = td:get_method("get_diffusionRadius")
+    local mb = td:get_method("get_isDiffusion")
+    local mn = td:get_method("get_diffusionNum")
+    L("spec getters found: radius=%s isDiffusion=%s num=%s",
+      tostring(mr ~= nil), tostring(mb ~= nil), tostring(mn ~= nil))
+
+    if mr ~= nil then
+        sdk.hook(mr, function() end, function(retval)
+            if state.spec then
+                state.spec_hits = state.spec_hits + 1
+                local ok, z = pcall(sdk.float_to_ptr, 0.0)
+                if ok and z ~= nil then return z end
+            end
+            return retval
+        end)
+    end
+    if mb ~= nil then
+        sdk.hook(mb, function() end, function(retval)
+            if state.spec then
+                state.spec_hits = state.spec_hits + 1
+                local ok, z = pcall(sdk.to_ptr, 0)
+                if ok and z ~= nil then return z end
+            end
+            return retval
+        end)
+    end
+    return (mr ~= nil or mb ~= nil)
+end
+
 -- ---------------------------------------------------------------------------
 -- Capturing the live gun. There is no singleton for it, so we take `this` off any
 -- WeaponGunCore method the game calls. REFramework passes args[2] as `this` for an
@@ -283,6 +340,7 @@ local function capture_this(args)
                     local go_name = "?"
                     pcall(function()
                         local go = obj:call("get_GameObject")
+                        if go == nil and obj.get_game_object ~= nil then go = obj:get_game_object() end
                         if go ~= nil then go_name = go:call("get_Name") end
                     end)
                     L("captured the gun in your hands: %s  weapon=%s  (slot args[%d], capture #%d)",
@@ -478,8 +536,23 @@ local function setup()
             -- ⚠ Which of the two is "intended" is not known: on an aimed shot they are
             -- identical, so the log cannot tell them apart. `zero swap` tries the other
             -- way round. If bullets fly off at random, it is the wrong way round.
+            -- ⛔ DISPROVED 2026-09-20: re-pointing the argument slots does NOTHING.
+            -- Ten shots with `zero on` and `zero swap` averaged 8.649 deg against 8.429
+            -- with no override at all -- unchanged, not "wrong way round". Assigning to
+            -- args[n] in a pre-hook does not reach these value-type arguments. Kept only
+            -- so the disproof is re-runnable; `skip` and `spec` below are the real tries.
             if state.zero then
                 if state.zero_swap then args[4] = args[5] else args[5] = args[4] end
+            end
+
+            -- LEVER 2: do not let the diffusion run at all. setupDiffusion sits between
+            -- createBullet and createBulletImple in the gun's method table, so the bullet
+            -- is made, then diffused, then finished -- skipping the middle step should
+            -- leave it on the rotation it was made with.
+            -- ⚠ If this makes the rifle stop firing, or fire somewhere fixed, the step
+            -- does more than diffuse and the answer is `zero spec` instead.
+            if state.skip then
+                return sdk.PreHookResult.SKIP_ORIGINAL
             end
 
             state.calls["setupDiffusion"] = (state.calls["setupDiffusion"] or 0) + 1
@@ -506,6 +579,8 @@ local function setup()
         end
     end
 
+    pcall(hook_spec, L)
+
     L("watching. Nothing is being changed.")
     L("EQUIP the rifle, then HOLD THE AIM BUTTON and let go. Watch for FLAG lines.")
     L("No shot is needed for that test. Firing additionally measures the scatter in degrees.")
@@ -526,6 +601,8 @@ local function status()
     L("---- status ----")
     L("  gun captured : %s (%d time(s))", state.core ~= nil and "yes" or "NO -- fire once", state.core_seen)
     L("  steady       : %s", state.steady and "ON" or "off")
+    L("  skip         : %s", state.skip and "ON" or "off")
+    L("  spec         : %s  (spec getters answered %d time(s))", state.spec and "ON" or "off", state.spec_hits)
     L("  callable     : enableRestrictAimShake=%s  enableReduceRecoil=%s",
       tostring(state.shake_ok), tostring(state.recoil_ok))
     local any = false
@@ -551,6 +628,17 @@ local function run(line)
     elseif cmd == "quiet" then
         state.quiet = (arg ~= "off")
         L("watch lines %s", state.quiet and "silenced" or "back on")
+    elseif cmd == "skip" then
+        state.skip = (arg ~= "off")
+        L("skip %s -- setupDiffusion will %s run at all", state.skip and "ON" or "off",
+          state.skip and "NOT" or "")
+        if state.skip then L("Fire from the HIP. If the rifle stops firing, say so and use 'spec' instead.") end
+    elseif cmd == "spec" then
+        state.spec = (arg ~= "off")
+        state.spec_hits = 0
+        L("spec %s -- the weapon spec's diffusion radius is forced to ZERO for every gun that asks",
+          state.spec and "ON" or "off")
+        if state.spec then L("Fire from the HIP, then run 'stats' -- the SHOT scatter itself should go to 0.000.") end
     elseif cmd == "zero" then
         if arg == "swap" then
             state.zero, state.zero_swap = true, true
@@ -573,7 +661,7 @@ local function run(line)
     elseif cmd == "status" then
         status()
     else
-        L("not understood: %s   (read / flags / zero on|off|swap / stats / watchflags on|off / quiet on|off / status)", line)
+        L("not understood: %s   (read / flags / skip on|off / spec on|off / zero on|off|swap / stats / quiet on|off / status)", line)
     end
 end
 
