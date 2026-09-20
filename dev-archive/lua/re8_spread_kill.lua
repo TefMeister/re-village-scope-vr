@@ -27,6 +27,17 @@
 --
 -- This tool watches those calls before it changes anything. Watching is the point.
 --
+-- ⛔ HARD CONSTRAINT FROM THE WEARER (2026-09-20) -- DO NOT "SIMPLIFY" THIS TOOL INTO IT:
+--   "if you mean having RG - the aim button constantly on then this can't be an option because it
+--    removes hands from the rifle, only the actual rifle is visible when RG is held and would cause
+--    a whole heap of other issues"
+-- Holding aim is NOT the fix and must never be forced. In VR, aim mode hides the hands and leaves
+-- only the rifle drawn, which breaks the whole point of the mod. This tool never touches the aim
+-- button, the aim state, or any input. It calls two methods ON THE GUN OBJECT directly, which is a
+-- different thing entirely: the gun is told to steady itself while the player is NOT aiming, hands
+-- and all. If those two switches turn out to be what aim mode was flipping, we get the accuracy
+-- WITHOUT the aim pose -- that is the whole idea, not a side effect.
+--
 -- ⚠ WHAT IS NOT KNOWN, and must not be written up as if it were:
 --   * whether `enableRestrictAimShake` takes a bool (the tool reads its real signature and
 --     REFUSES to call it if it is anything else -- it will say so rather than guess)
