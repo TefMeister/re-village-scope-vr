@@ -2306,12 +2306,26 @@ this project has been using happen to work but are not understood.** They were v
 (both slots read as unit quaternions and their angle tracked the aim state), which is the only reason
 that was safe. Keep validating by data.
 
-⚠️ **The look-only mode did not actually run:** the log shows `switched to mode=2`, i.e.
-`RIFLE-STRAIGHT-B.bat`, not `RIFLE-LOOK-ONLY.bat`. **That is a tooling fault, not a user error — there
-are now 17 similarly-named helper `.bat` files in the game folder** (`SPREAD-0` … `SPREAD-9`,
-`RIFLE-*`), most of them for probes that are disproved and archived. ⭐ **Retire the dead ones and
-leave ONE obvious file per live test.** A test that is easy to run wrong will be run wrong, and the
-session that wrote six of them does not get to call that a mistake at the other end.
+⛔ **CORRECTION, SAME HOUR — THE LOOK-ONLY MODE DID NOT RUN AND IT WAS MY BUG, NOT A MISCLICK.**
+An earlier version of this section said the wrong helper had been clicked. **It had not.** Tefa sent a
+screenshot showing `RIFLE-LOOK-ONLY.bat` selected, and the file does write `3 0` — checked.
+
+**The plugin threw the 3 away.** `spread_fix_tick()` carried `const int m = (mode > 2) ? 2 : mode;`,
+a clamp left over from before mode 3 existed. So **the look-only request was silently converted into
+mode 2, a WRITE** `[verified-numerically 2026-09-20]`.
+
+⚠️ **Two lessons, and the second is the one that matters.**
+
+1. **A value quietly reduced to a neighbouring valid value is the worst kind of input handling.** It
+   leaves no trace in the log, and it makes the tool report confidently that it did something other
+   than what it was asked. Out-of-range now **refuses and says so**. Fixed and rebuilt (0 errors,
+   0 warnings `[compile-verified 2026-09-20]`).
+2. ⛔ **I blamed the person for my own defect, in the permanent record, without checking the input
+   path.** The log said `mode=2`, the helper writes `3`, and those two facts sit two files apart —
+   one `grep` would have closed it. **When a tool reports a state nobody asked for, suspect the tool
+   first.** The 17-helper clutter is real and still worth clearing, but it was **not** the cause here,
+   and pinning a cause on someone else's action while the evidence was one command away is the more
+   expensive mistake.
 
 Mode 2 itself behaved exactly as §9bg predicted: `shot #2 scatter 7.607 -> 0.000 deg mode=2 APPLIED`,
 and the shot is unaffected. Both directions are now confirmed equally irrelevant `[verified-live
