@@ -1,0 +1,7 @@
+[2026-09-20 21:53:16.425] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: hooked app.WeaponGunCore.setupDiffusion (off by default -- pane key `spread` 1 or 2 to switch it on)
+[2026-09-20 21:54:10.519] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: switched to mode=1 (seen 0 shot(s), applied to 0)
+[2026-09-20 21:54:25.851] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: layout GOOD -- argc=7, both rotations read and unit
+[2026-09-20 21:54:25.851] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: shot #1 scatter 1.228 -> 0.056 deg  mode=1 APPLIED
+[2026-09-20 21:54:28.546] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: shot #2 scatter 11.188 -> 0.000 deg  mode=1 APPLIED
+[2026-09-20 21:54:30.892] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: shot #3 scatter 0.581 -> 0.000 deg  mode=1 APPLIED
+[2026-09-20 21:54:32.951] [REFramework] [info] [Plugin] [re-scope-vr] spread-fix: shot #4 scatter 12.018 -> 0.000 deg  mode=1 APPLIED
