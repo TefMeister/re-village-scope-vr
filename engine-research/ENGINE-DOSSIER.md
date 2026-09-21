@@ -2270,6 +2270,48 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cm. ⭐⭐⭐ WHY THE ZERO WILL NOT STAY: IT LIVES IN THE RIFLE'S FRAME, AND WHAT IT CORRECTS LIVES IN THE VIEW'S — the ~14° zero IS the headset eye's off-centre projection. Snapshot hand-off worn: jitter gone, flicker not (2026-09-21 evening, LIVE VR by Tefa + build on RTX; INSTALLED, NOT RUN)
+
+**Worn, §9cl's build (20:13, at 2560×1448).** Tefa: *"zero is still off to the left and down … flickers still
+there, the picture does not jitter, but the world still slightly - angles - … it does move the picture in the
+scope that is not how it would look normally"* `[reported 2026-09-21]`.
+- **Jitter: GONE** by the wearer's word `[reported 2026-09-21, n=1 wear]`. `sync:` over 109 s: in step 5,866,
+  1 ahead 3, 3+ ahead 267 — the matched-tick half barely acted, so what fixed it is `(cu, cv, H)` arriving as
+  ONE tick's set `[inferred-static]`.
+- **Flicker: NOT fixed.** The loose hand-off would have shown NO MAP on 6 frames in 109 s `[verified-live]` — a
+  real fault, now closed, but not the flicker. §9cl's claim 1 is `[disproved 2026-09-21]` as THE cause.
+- **Zero: not the picture size** — off at 1440p too; §9cl's padded-rows lead is `[disproved 2026-09-21]` as the
+  main cause.
+
+**What the shot line shows instead** `[verified-live 2026-09-21]`: the same saved zero (−10.7 / −9.5) read
+**as seen −10.9 up / −9.2 right at roll +1.0°** (17:0x, zero good) and **−12.0 up / −7.7 right at roll −4.4°**
+(20:1x, zero off): it turned with the rifle's cant, by over a degree. Across today's 42 shots on this zero the
+roll ran −9.8…+9.1°, i.e. the zero as seen wandered ~±2°. `crop_follow.cpp` applies the zero along the RIFLE's
+own up and right (`root_ay`, `root_ax`) — §9ca found that, and §9cc set it aside because the two-handed miss
+was something else. It was still true.
+
+**And the zero is not an arbitrary number** `[verified-numerically 2026-09-21]`: §9y recorded the headset eye's
+projection as `m00 0.985 m11 1.170 m20 0.174 m21 −0.211`. `atan(0.174/0.985) = 10.0°`, `atan(0.211/1.170) =
+10.2°`. The hand-tuned zero is **−9.5 right / −10.7 up**. **The zero is the eye's off-centre projection**, which
+the exact map ignores (`geom: … proj 0`). That quantity belongs to the VIEW (the camera's up and right), so a
+rifle-frame zero is right only at the cant it was tuned at — which is "each restart nudges it", "off again",
+and eight zeros in one day.
+
+**Built:** `re_scope_zeroframe.txt` = 1 applies the zero along the CAMERA's up and right instead
+(`ZERO-STAYS-WITH-VIEW.bat`, seeded with today's zero as seen: −10.9 / −9.2; `ZERO-TURNS-WITH-RIFLE.bat` goes
+back). `[compile-verified 2026-09-21]`, plugin `5fc622f305673e06…` **installed**. **THE TEST:** zero once in
+view mode, then cant the rifle left and right and shoot — the hit should stay on the crosshair.
+
+⚠️ **This is a better patch, not the repair.** A tilt of the bore is not the same operation as an off-centre
+projection: it matches at the centre and departs from it away from the centre, which is very likely the
+*"world slightly angles"* the wearer still sees `[hypothesis]`. The repair is to give the exact map the eye's
+real projection (`proj 1`), after which the zero should come out near 0/0 — §9ax noted `geom_usep 0` made the
+centres wilder, so that path has a history and wants a careful derivation, not a toggle.
+
+**Settled by the wearer:** 1440p *"framerate is far worse"*, 720p *"pretty damn good"* → `START-SCOPE` now uses
+1280×720; `START-SCOPE-1080` and `START-SCOPE-SHARP-1440` keep the others.
+Evidence: `dev-archive/recon/2026-09-21-snapshot-worn-jitter-gone-zero-turns-with-cant/`.
+
 ### 9cl. ⭐⭐⭐ ONE SUSPECT FOR BOTH REMAINING FAULTS: THE CROP IS HANDED FROM THE GAME THREAD TO PRESENT AS LOOSE ATOMICS — read mid-write (flicker) and not matched to the frame on screen (head-turn stepping). A snapshot hand-off is built. ALSO: `hold 2` does NOT hide the flicker, and the zero moved when the picture size changed (2026-09-21 evening, static + build on RTX; BUILT, NOT INSTALLED)
 
 **What the wearer added after §9ck.** On the head-only test: *"honestly if the picture was like that without
