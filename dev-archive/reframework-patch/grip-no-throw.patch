@@ -1,0 +1,76 @@
+diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
+index 034f37c9..567239f2 100644
+--- a/src/mods/vr/games/RE8VR.cpp
++++ b/src/mods/vr/games/RE8VR.cpp
+@@ -77,6 +77,9 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
+         "last_muzzle_forward", &RE8VR::m_last_muzzle_forward,
+         "was_gripping_weapon", &RE8VR::m_was_gripping_weapon,
+         "is_holding_left_grip", &RE8VR::m_is_holding_left_grip,
++        "grip_relative", &RE8VR::m_grip_relative,
++        "grip_last_engage_deg", &RE8VR::m_grip_last_engage_deg,
++        "grip_engage_count", &RE8VR::m_grip_engage_count,
+         "is_in_cutscene", &RE8VR::m_is_in_cutscene,
+         "is_grapple_aim", &RE8VR::m_is_grapple_aim,
+         "is_reloading", &RE8VR::m_is_reloading,
+@@ -359,6 +362,33 @@ void RE8VR::update_hand_ik() {
+ 
+             auto grip_rot_delta = glm::normalize(current_grip_rot * glm::inverse(original_grip_rot));
+ 
++            // re-village-scope-vr, 2026-09-21: THE GRIP MUST NOT THROW THE GUN.
++            // The grip engages anywhere within 10 cm of the socket, and the line above then
++            // re-aims the gun along the REAL hand-to-hand line at once -- up to ~16 deg with the
++            // hands 35 cm apart. Tefa: "the weapon throwing to the left visibly after putting
++            // hand on the gun". So the rotation present at the moment the grip is taken is
++            // remembered and removed: taking the grip changes nothing, and only what the left
++            // hand does AFTERWARDS steers. It is kept in the gun's own frame so that turning the
++            // whole body does not bring it back. A reload ends the grip, so the hand coming back
++            // after one is a fresh take and does not throw either.
++            // m_grip_relative = false restores praydog's original behaviour for an A/B.
++            if (!m_grip_steering_active) {
++                m_grip_engage_delta_local = glm::normalize(glm::inverse(rh_rotation) * grip_rot_delta * rh_rotation);
++                m_grip_steering_active = true;
++                ++m_grip_engage_count;
++
++                const auto w = glm::clamp(glm::abs(grip_rot_delta.w), 0.0f, 1.0f);
++                m_grip_last_engage_deg = glm::degrees(2.0f * std::acos(w));
++                spdlog::info("[RE8VR] grip taken #{}: the hands' line was {:.2f} deg off the gun -- {}",
++                    m_grip_engage_count, m_grip_last_engage_deg,
++                    m_grip_relative ? "REMOVED, the gun does not move" : "APPLIED at once (original behaviour)");
++            }
++
++            if (m_grip_relative) {
++                const auto engage_delta_world = glm::normalize(rh_rotation * m_grip_engage_delta_local * glm::inverse(rh_rotation));
++                grip_rot_delta = glm::normalize(grip_rot_delta * glm::inverse(engage_delta_world));
++            }
++
+             // Adjust the right hand rotation;
+             rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
+ 
+@@ -371,6 +401,8 @@ void RE8VR::update_hand_ik() {
+         lh_pos = lh_grip_position;
+         lh_rotation = rh_rotation * original_left_rot_relative;
+     } else {
++        m_grip_steering_active = false; // the next take of the grip is a fresh one
++
+         if (m_is_reloading) {
+             lh_pos = lh_grip_position;
+             lh_rotation = rh_rotation * original_left_rot_relative;
+diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
+index dbfb8ae0..a161437c 100644
+--- a/src/mods/vr/games/RE8VR.hpp
++++ b/src/mods/vr/games/RE8VR.hpp
+@@ -113,6 +113,14 @@ private:
+ 
+     bool m_was_gripping_weapon{false};
+     bool m_is_holding_left_grip{false};
++
++    // re-village-scope-vr, 2026-09-21: taking the two-handed grip must not throw the gun.
++    // See update_hand_ik().
++    bool m_grip_relative{true};
++    bool m_grip_steering_active{false};
++    glm::quat m_grip_engage_delta_local{1.0f, 0.0f, 0.0f, 0.0f};
++    float m_grip_last_engage_deg{0.0f};
++    int m_grip_engage_count{0};
+     bool m_is_in_cutscene{false};
+     bool m_is_grapple_aim{false};
+     bool m_is_reloading{false};
