@@ -18,8 +18,11 @@
  So we were not adjusting a good zero - we were redoing one made for a
  different setup.
 
- UPDATE 2026-09-21 14:18: SEVENTH zero, up -11.9 / right -7.1, re-done after a restart
- nudged the sixth a little. These are the saved values now.
+ UPDATE 2026-09-21 16:46: EIGHTH zero, up -10.7 / right -9.5, the first made with the
+ distance correction really reaching the scope picture. Zeroed at 13 m. These are the
+ saved values now.
+ EARLIER 2026-09-21 14:18: SEVENTH zero, up -11.9 / right -7.1, re-done after a restart
+ nudged the sixth a little.
  UPDATE 2026-09-21 13:53: SIXTH zero, up -12.1 / right -8.0, the first with the
  two-handed fix in (the bullet ignores the small gun movement just before each shot,
  one-handed too), so every earlier zero was fitted to moved shots. Zeroed FAR, with
@@ -92,7 +95,7 @@
  PART 2  --  COMPARE WITH THE OLD ZERO
 ---------------------------------------------------------------------------
 
- 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -11.9 / -7.1)
+ 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -10.7 / -9.5)
 
     !! That button RESETS. It does not save. It throws away anything you
     have nudged since. ZERO-SHOW.bat prints the current values safely.
