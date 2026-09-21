@@ -1,0 +1,310 @@
+[2026-09-21 18:16:48.887] [REFramework] [info] [RE8VR] grip taken #1: the hands' line was 14.04 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:17:06.518] [REFramework] [info] [RE8VR] grip taken #2: the hands' line was 13.81 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:17:10.755] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 3.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:10.773] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 5.15 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:10.810] [REFramework] [info] [Plugin] [re-scope-vr] shot #1 STRAIGHTENED along the SCOPE AXIS  was 3.81 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.56 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.26 1.08 1.56 1.54 deg | aim 13.0 m (our ray, nearest raw 12.92 m), crop aimed at 13.0 m, picture turned 1.27 deg for it | roll +1.2 | zero -10.7/-9.5, as seen -10.4 up -9.8 right (points -137 deg) RIGHT-FLIPPED
+[2026-09-21 18:17:11.395] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 9.23 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.414] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 15.43 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.432] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 21.25 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.451] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 23.79 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.526] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 27.51 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.544] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 35.45 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.562] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 40.61 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.581] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 41.83 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.753] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 44.21 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.772] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 46.61 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.791] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 49.56 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:11.865] [REFramework] [info] [RE8VR] grip #2: the ANIMATION has moved the socket 50.87 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:13.407] [REFramework] [info] [RE8VR] grip taken #3: the hands' line was 9.09 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:17:14.724] [REFramework] [info] [Plugin] [re-scope-vr] shot #2 STRAIGHTENED along the SCOPE AXIS  was 0.88 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.37 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.35 1.28 1.37 1.34 deg | aim 17.5 m (our ray, nearest raw 17.41 m), crop aimed at 17.4 m, picture turned 0.88 deg for it | roll +1.2 | zero -10.7/-9.5, as seen -10.3 up -9.9 right (points -136 deg) RIGHT-FLIPPED
+[2026-09-21 18:17:15.264] [REFramework] [info] [RE8VR] grip #3: the ANIMATION has moved the socket 3.20 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:15.302] [REFramework] [info] [RE8VR] grip #3: the ANIMATION has moved the socket 8.41 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:15.322] [REFramework] [info] [RE8VR] grip #3: the ANIMATION has moved the socket 14.23 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:15.342] [REFramework] [info] [RE8VR] grip #3: the ANIMATION has moved the socket 19.07 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:15.360] [REFramework] [info] [RE8VR] grip #3: the ANIMATION has moved the socket 22.29 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:17:18.272] [REFramework] [info] [RE8VR] grip taken #4: the hands' line was 12.07 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:17:35.189] [REFramework] [info] [RE8VR] grip taken #5: the hands' line was 14.41 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:17:59.010] [REFramework] [info] [RE8VR] grip taken #6: the hands' line was 4.31 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:18:01.639] [REFramework] [info] [RE8VR] grip taken #7: the hands' line was 11.60 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:20:36.196] [REFramework] [info] [RE8VR] grip taken #8: the hands' line was 14.19 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:20:36.209] [REFramework] [info] [RE8VR] grip #8: the ANIMATION has moved the socket 2.28 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:36.224] [REFramework] [info] [RE8VR] grip #8: the ANIMATION has moved the socket 4.87 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:36.238] [REFramework] [info] [RE8VR] grip #8: the ANIMATION has moved the socket 7.81 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:36.251] [REFramework] [info] [RE8VR] grip #8: the ANIMATION has moved the socket 11.18 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:36.265] [REFramework] [info] [RE8VR] grip #8: the ANIMATION has moved the socket 14.85 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:36.279] [REFramework] [info] [RE8VR] grip #8: the ANIMATION has moved the socket 19.54 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:42.145] [REFramework] [info] [RE8VR] grip taken #9: the hands' line was 13.32 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:20:42.158] [REFramework] [info] [RE8VR] grip #9: the ANIMATION has moved the socket 3.93 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:42.173] [REFramework] [info] [RE8VR] grip #9: the ANIMATION has moved the socket 8.99 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:20:42.186] [REFramework] [info] [RE8VR] grip #9: the ANIMATION has moved the socket 12.14 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:02.200] [REFramework] [info] [RE8VR] grip taken #10: the hands' line was 8.59 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:04.341] [REFramework] [info] [RE8VR] grip taken #11: the hands' line was 9.39 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:06.758] [REFramework] [info] [RE8VR] grip taken #12: the hands' line was 5.73 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:06.772] [REFramework] [info] [RE8VR] grip #12: the ANIMATION has moved the socket 3.80 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:06.787] [REFramework] [info] [RE8VR] grip #12: the ANIMATION has moved the socket 5.05 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:09.055] [REFramework] [info] [RE8VR] grip taken #13: the hands' line was 9.30 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:09.068] [REFramework] [info] [RE8VR] grip #13: the ANIMATION has moved the socket 1.60 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:09.763] [REFramework] [info] [RE8VR] grip taken #14: the hands' line was 8.03 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:09.777] [REFramework] [info] [RE8VR] grip #14: the ANIMATION has moved the socket 3.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:10.458] [REFramework] [info] [RE8VR] grip taken #15: the hands' line was 8.46 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:10.471] [REFramework] [info] [RE8VR] grip #15: the ANIMATION has moved the socket 2.08 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:10.486] [REFramework] [info] [RE8VR] grip #15: the ANIMATION has moved the socket 4.18 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:11.277] [REFramework] [info] [RE8VR] grip taken #16: the hands' line was 5.59 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:11.320] [REFramework] [info] [RE8VR] grip #16: the ANIMATION has moved the socket 2.93 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:11.348] [REFramework] [info] [RE8VR] grip #16: the ANIMATION has moved the socket 5.02 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:15.054] [REFramework] [info] [RE8VR] grip taken #17: the hands' line was 7.00 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:15.069] [REFramework] [info] [RE8VR] grip #17: the ANIMATION has moved the socket 2.74 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:15.083] [REFramework] [info] [RE8VR] grip #17: the ANIMATION has moved the socket 5.20 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:15.095] [REFramework] [info] [RE8VR] grip #17: the ANIMATION has moved the socket 7.34 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:15.748] [REFramework] [info] [RE8VR] grip taken #18: the hands' line was 7.47 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:15.763] [REFramework] [info] [RE8VR] grip #18: the ANIMATION has moved the socket 2.66 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:15.776] [REFramework] [info] [RE8VR] grip #18: the ANIMATION has moved the socket 5.07 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:15.791] [REFramework] [info] [RE8VR] grip #18: the ANIMATION has moved the socket 7.54 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.155] [REFramework] [info] [RE8VR] grip taken #19: the hands' line was 9.33 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:17.169] [REFramework] [info] [RE8VR] grip #19: the ANIMATION has moved the socket 2.28 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.182] [REFramework] [info] [RE8VR] grip #19: the ANIMATION has moved the socket 4.61 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.835] [REFramework] [info] [RE8VR] grip taken #20: the hands' line was 7.88 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:17.849] [REFramework] [info] [RE8VR] grip #20: the ANIMATION has moved the socket 2.66 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.864] [REFramework] [info] [RE8VR] grip #20: the ANIMATION has moved the socket 5.31 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.877] [REFramework] [info] [RE8VR] grip #20: the ANIMATION has moved the socket 7.55 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.891] [REFramework] [info] [RE8VR] grip #20: the ANIMATION has moved the socket 9.76 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:17.905] [REFramework] [info] [RE8VR] grip #20: the ANIMATION has moved the socket 11.92 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:18.570] [REFramework] [info] [RE8VR] grip taken #21: the hands' line was 9.07 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:19.246] [REFramework] [info] [RE8VR] grip taken #22: the hands' line was 9.76 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:19.261] [REFramework] [info] [RE8VR] grip #22: the ANIMATION has moved the socket 2.01 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:19.275] [REFramework] [info] [RE8VR] grip #22: the ANIMATION has moved the socket 4.04 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:19.290] [REFramework] [info] [RE8VR] grip #22: the ANIMATION has moved the socket 5.93 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:20.038] [REFramework] [info] [RE8VR] grip taken #23: the hands' line was 7.59 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:20.815] [REFramework] [info] [RE8VR] grip taken #24: the hands' line was 9.26 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:20.829] [REFramework] [info] [RE8VR] grip #24: the ANIMATION has moved the socket 3.20 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:21.496] [REFramework] [info] [RE8VR] grip taken #25: the hands' line was 9.26 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:21.510] [REFramework] [info] [RE8VR] grip #25: the ANIMATION has moved the socket 2.52 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:21.523] [REFramework] [info] [RE8VR] grip #25: the ANIMATION has moved the socket 4.71 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:21.539] [REFramework] [info] [RE8VR] grip #25: the ANIMATION has moved the socket 7.13 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:22.191] [REFramework] [info] [RE8VR] grip taken #26: the hands' line was 5.10 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:22.205] [REFramework] [info] [RE8VR] grip #26: the ANIMATION has moved the socket 2.46 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:22.218] [REFramework] [info] [RE8VR] grip #26: the ANIMATION has moved the socket 4.57 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:22.232] [REFramework] [info] [RE8VR] grip #26: the ANIMATION has moved the socket 6.55 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:22.246] [REFramework] [info] [RE8VR] grip #26: the ANIMATION has moved the socket 8.44 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:22.260] [REFramework] [info] [RE8VR] grip #26: the ANIMATION has moved the socket 10.25 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:23.011] [REFramework] [info] [RE8VR] grip taken #27: the hands' line was 8.95 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:24.595] [REFramework] [info] [RE8VR] grip taken #28: the hands' line was 7.16 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:24.609] [REFramework] [info] [RE8VR] grip #28: the ANIMATION has moved the socket 1.36 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:24.623] [REFramework] [info] [RE8VR] grip #28: the ANIMATION has moved the socket 2.74 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:24.636] [REFramework] [info] [RE8VR] grip #28: the ANIMATION has moved the socket 4.10 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:24.651] [REFramework] [info] [RE8VR] grip #28: the ANIMATION has moved the socket 5.54 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:24.664] [REFramework] [info] [RE8VR] grip #28: the ANIMATION has moved the socket 6.80 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:26.043] [REFramework] [info] [RE8VR] grip taken #29: the hands' line was 9.67 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:26.749] [REFramework] [info] [RE8VR] grip taken #30: the hands' line was 3.97 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:26.756] [REFramework] [info] [RE8VR] grip #30: the ANIMATION has moved the socket 1.25 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:26.765] [REFramework] [info] [RE8VR] grip #30: the ANIMATION has moved the socket 2.81 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:26.777] [REFramework] [info] [RE8VR] grip #30: the ANIMATION has moved the socket 5.14 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:28.125] [REFramework] [info] [RE8VR] grip taken #31: the hands' line was 9.65 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:28.139] [REFramework] [info] [RE8VR] grip #31: the ANIMATION has moved the socket 2.38 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:28.153] [REFramework] [info] [RE8VR] grip #31: the ANIMATION has moved the socket 4.69 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:28.819] [REFramework] [info] [RE8VR] grip taken #32: the hands' line was 5.77 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:28.833] [REFramework] [info] [RE8VR] grip #32: the ANIMATION has moved the socket 2.70 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:28.846] [REFramework] [info] [RE8VR] grip #32: the ANIMATION has moved the socket 5.01 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:28.861] [REFramework] [info] [RE8VR] grip #32: the ANIMATION has moved the socket 7.51 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:29.543] [REFramework] [info] [RE8VR] grip taken #33: the hands' line was 8.92 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:29.555] [REFramework] [info] [RE8VR] grip #33: the ANIMATION has moved the socket 2.24 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:29.570] [REFramework] [info] [RE8VR] grip #33: the ANIMATION has moved the socket 4.72 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:31.157] [REFramework] [info] [RE8VR] grip taken #34: the hands' line was 8.20 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:35.826] [REFramework] [info] [RE8VR] grip taken #35: the hands' line was 8.80 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:35.840] [REFramework] [info] [RE8VR] grip #35: the ANIMATION has moved the socket 2.79 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:35.853] [REFramework] [info] [RE8VR] grip #35: the ANIMATION has moved the socket 5.45 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:35.868] [REFramework] [info] [RE8VR] grip #35: the ANIMATION has moved the socket 7.85 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:35.883] [REFramework] [info] [RE8VR] grip #35: the ANIMATION has moved the socket 9.65 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:38.035] [REFramework] [info] [RE8VR] grip taken #36: the hands' line was 10.08 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:38.050] [REFramework] [info] [RE8VR] grip #36: the ANIMATION has moved the socket 2.30 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:38.063] [REFramework] [info] [RE8VR] grip #36: the ANIMATION has moved the socket 4.40 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:38.077] [REFramework] [info] [RE8VR] grip #36: the ANIMATION has moved the socket 5.94 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:38.091] [REFramework] [info] [RE8VR] grip #36: the ANIMATION has moved the socket 7.09 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:39.690] [REFramework] [info] [RE8VR] grip taken #37: the hands' line was 9.66 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:39.703] [REFramework] [info] [RE8VR] grip #37: the ANIMATION has moved the socket 2.26 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:39.717] [REFramework] [info] [RE8VR] grip #37: the ANIMATION has moved the socket 4.34 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:39.731] [REFramework] [info] [RE8VR] grip #37: the ANIMATION has moved the socket 5.88 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:21:59.881] [REFramework] [info] [RE8VR] grip taken #38: the hands' line was 7.41 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:21:59.894] [REFramework] [info] [RE8VR] grip #38: the ANIMATION has moved the socket 1.03 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:01.363] [REFramework] [info] [RE8VR] grip taken #39: the hands' line was 8.34 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:02.059] [REFramework] [info] [RE8VR] grip taken #40: the hands' line was 4.47 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:02.075] [REFramework] [info] [RE8VR] grip #40: the ANIMATION has moved the socket 3.29 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:02.086] [REFramework] [info] [RE8VR] grip #40: the ANIMATION has moved the socket 6.68 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:02.447] [REFramework] [info] [RE8VR] grip taken #41: the hands' line was 6.07 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:02.460] [REFramework] [info] [RE8VR] grip #41: the ANIMATION has moved the socket 3.43 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:02.793] [REFramework] [info] [RE8VR] grip taken #42: the hands' line was 5.37 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:03.452] [REFramework] [info] [RE8VR] grip taken #43: the hands' line was 7.22 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:03.461] [REFramework] [info] [RE8VR] grip #43: the ANIMATION has moved the socket 1.45 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:03.474] [REFramework] [info] [RE8VR] grip #43: the ANIMATION has moved the socket 4.15 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:03.488] [REFramework] [info] [RE8VR] grip #43: the ANIMATION has moved the socket 7.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:04.156] [REFramework] [info] [RE8VR] grip taken #44: the hands' line was 6.03 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:04.171] [REFramework] [info] [RE8VR] grip #44: the ANIMATION has moved the socket 3.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:04.184] [REFramework] [info] [RE8VR] grip #44: the ANIMATION has moved the socket 6.71 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:04.545] [REFramework] [info] [RE8VR] grip taken #45: the hands' line was 5.52 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:04.559] [REFramework] [info] [RE8VR] grip #45: the ANIMATION has moved the socket 3.62 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:04.894] [REFramework] [info] [RE8VR] grip taken #46: the hands' line was 6.41 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:05.559] [REFramework] [info] [RE8VR] grip taken #47: the hands' line was 7.90 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:05.574] [REFramework] [info] [RE8VR] grip #47: the ANIMATION has moved the socket 2.94 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:05.588] [REFramework] [info] [RE8VR] grip #47: the ANIMATION has moved the socket 6.03 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:05.602] [REFramework] [info] [RE8VR] grip #47: the ANIMATION has moved the socket 9.19 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:06.268] [REFramework] [info] [RE8VR] grip taken #48: the hands' line was 5.79 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:06.283] [REFramework] [info] [RE8VR] grip #48: the ANIMATION has moved the socket 3.84 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:06.297] [REFramework] [info] [RE8VR] grip #48: the ANIMATION has moved the socket 7.59 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:06.624] [REFramework] [info] [RE8VR] grip taken #49: the hands' line was 7.35 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:06.638] [REFramework] [info] [RE8VR] grip #49: the ANIMATION has moved the socket 3.64 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:06.652] [REFramework] [info] [RE8VR] grip #49: the ANIMATION has moved the socket 7.04 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.012] [REFramework] [info] [RE8VR] grip taken #50: the hands' line was 7.62 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:07.027] [REFramework] [info] [RE8VR] grip #50: the ANIMATION has moved the socket 2.29 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.041] [REFramework] [info] [RE8VR] grip #50: the ANIMATION has moved the socket 4.37 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.056] [REFramework] [info] [RE8VR] grip #50: the ANIMATION has moved the socket 6.16 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.070] [REFramework] [info] [RE8VR] grip #50: the ANIMATION has moved the socket 7.52 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.082] [REFramework] [info] [RE8VR] grip #50: the ANIMATION has moved the socket 8.61 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.097] [REFramework] [info] [RE8VR] grip #50: the ANIMATION has moved the socket 9.63 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.430] [REFramework] [info] [RE8VR] grip taken #51: the hands' line was 8.33 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:07.486] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 3.78 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.499] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 4.92 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.514] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 6.15 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.542] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 8.28 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.555] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 9.32 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.569] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 10.39 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.597] [REFramework] [info] [RE8VR] grip #51: the ANIMATION has moved the socket 12.50 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.749] [REFramework] [info] [RE8VR] grip taken #52: the hands' line was 7.98 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:07.806] [REFramework] [info] [RE8VR] grip #52: the ANIMATION has moved the socket 3.68 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.819] [REFramework] [info] [RE8VR] grip #52: the ANIMATION has moved the socket 4.99 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.833] [REFramework] [info] [RE8VR] grip #52: the ANIMATION has moved the socket 6.36 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.847] [REFramework] [info] [RE8VR] grip #52: the ANIMATION has moved the socket 7.67 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.861] [REFramework] [info] [RE8VR] grip #52: the ANIMATION has moved the socket 8.85 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:07.874] [REFramework] [info] [RE8VR] grip #52: the ANIMATION has moved the socket 9.93 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.292] [REFramework] [info] [RE8VR] grip taken #53: the hands' line was 8.27 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:08.307] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 1.40 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.319] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 2.87 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.332] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 4.22 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.347] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 5.62 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.362] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 6.89 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.374] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 8.08 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.388] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 9.10 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:08.403] [REFramework] [info] [RE8VR] grip #53: the ANIMATION has moved the socket 10.27 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.080] [REFramework] [info] [RE8VR] grip taken #54: the hands' line was 7.94 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:09.094] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 1.51 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.108] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 3.13 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.122] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 4.81 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.134] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 6.34 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.150] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 8.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.164] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 9.57 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.177] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 10.90 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.192] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 12.15 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.205] [REFramework] [info] [RE8VR] grip #54: the ANIMATION has moved the socket 13.33 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.496] [REFramework] [info] [RE8VR] grip taken #55: the hands' line was 7.21 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:09.512] [REFramework] [info] [RE8VR] grip #55: the ANIMATION has moved the socket 1.69 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.526] [REFramework] [info] [RE8VR] grip #55: the ANIMATION has moved the socket 3.31 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.538] [REFramework] [info] [RE8VR] grip #55: the ANIMATION has moved the socket 4.81 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.551] [REFramework] [info] [RE8VR] grip #55: the ANIMATION has moved the socket 6.12 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.566] [REFramework] [info] [RE8VR] grip #55: the ANIMATION has moved the socket 7.38 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.579] [REFramework] [info] [RE8VR] grip #55: the ANIMATION has moved the socket 8.51 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.873] [REFramework] [info] [RE8VR] grip taken #56: the hands' line was 7.03 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:09.886] [REFramework] [info] [RE8VR] grip #56: the ANIMATION has moved the socket 3.00 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:09.901] [REFramework] [info] [RE8VR] grip #56: the ANIMATION has moved the socket 5.49 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:10.220] [REFramework] [info] [RE8VR] grip taken #57: the hands' line was 6.35 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:10.233] [REFramework] [info] [RE8VR] grip #57: the ANIMATION has moved the socket 2.98 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:10.914] [REFramework] [info] [RE8VR] grip taken #58: the hands' line was 6.51 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:10.928] [REFramework] [info] [RE8VR] grip #58: the ANIMATION has moved the socket 3.63 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:11.275] [REFramework] [info] [RE8VR] grip taken #59: the hands' line was 4.86 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:11.290] [REFramework] [info] [RE8VR] grip #59: the ANIMATION has moved the socket 3.78 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.400] [REFramework] [info] [RE8VR] grip taken #60: the hands' line was 8.19 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:12.415] [REFramework] [info] [RE8VR] grip #60: the ANIMATION has moved the socket 3.27 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.776] [REFramework] [info] [RE8VR] grip taken #61: the hands' line was 8.42 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:12.790] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 1.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.840] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 6.19 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.865] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 7.23 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.880] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 8.73 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.893] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 9.78 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.907] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 10.88 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:12.922] [REFramework] [info] [RE8VR] grip #61: the ANIMATION has moved the socket 11.98 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.128] [REFramework] [info] [RE8VR] grip taken #62: the hands' line was 7.90 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:13.143] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 1.30 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.157] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 2.73 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.170] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 4.30 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.184] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 5.94 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.199] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 7.41 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.213] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 8.90 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.226] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 10.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.241] [REFramework] [info] [RE8VR] grip #62: the ANIMATION has moved the socket 11.48 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.531] [REFramework] [info] [RE8VR] grip taken #63: the hands' line was 8.50 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:13.546] [REFramework] [info] [RE8VR] grip #63: the ANIMATION has moved the socket 2.84 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.559] [REFramework] [info] [RE8VR] grip #63: the ANIMATION has moved the socket 5.52 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.572] [REFramework] [info] [RE8VR] grip #63: the ANIMATION has moved the socket 8.05 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.880] [REFramework] [info] [RE8VR] grip taken #64: the hands' line was 7.62 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:13.893] [REFramework] [info] [RE8VR] grip #64: the ANIMATION has moved the socket 2.99 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:13.906] [REFramework] [info] [RE8VR] grip #64: the ANIMATION has moved the socket 6.32 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:14.269] [REFramework] [info] [RE8VR] grip taken #65: the hands' line was 5.67 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:14.587] [REFramework] [info] [RE8VR] grip taken #66: the hands' line was 6.70 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:14.601] [REFramework] [info] [RE8VR] grip #66: the ANIMATION has moved the socket 3.94 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:14.935] [REFramework] [info] [RE8VR] grip taken #67: the hands' line was 6.65 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:14.949] [REFramework] [info] [RE8VR] grip #67: the ANIMATION has moved the socket 3.91 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:14.962] [REFramework] [info] [RE8VR] grip #67: the ANIMATION has moved the socket 7.41 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:15.629] [REFramework] [info] [RE8VR] grip taken #68: the hands' line was 7.58 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:15.643] [REFramework] [info] [RE8VR] grip #68: the ANIMATION has moved the socket 2.90 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:15.657] [REFramework] [info] [RE8VR] grip #68: the ANIMATION has moved the socket 5.68 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:15.671] [REFramework] [info] [RE8VR] grip #68: the ANIMATION has moved the socket 8.34 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:15.991] [REFramework] [info] [RE8VR] grip taken #69: the hands' line was 6.57 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:16.005] [REFramework] [info] [RE8VR] grip #69: the ANIMATION has moved the socket 3.27 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:16.351] [REFramework] [info] [RE8VR] grip taken #70: the hands' line was 7.47 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:16.366] [REFramework] [info] [RE8VR] grip #70: the ANIMATION has moved the socket 3.17 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:16.686] [REFramework] [info] [RE8VR] grip taken #71: the hands' line was 6.80 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:16.701] [REFramework] [info] [RE8VR] grip #71: the ANIMATION has moved the socket 3.85 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:17.140] [REFramework] [info] [RE8VR] grip taken #72: the hands' line was 8.46 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:17.153] [REFramework] [info] [RE8VR] grip #72: the ANIMATION has moved the socket 1.21 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:17.167] [REFramework] [info] [RE8VR] grip #72: the ANIMATION has moved the socket 2.56 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:17.181] [REFramework] [info] [RE8VR] grip #72: the ANIMATION has moved the socket 3.85 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:17.196] [REFramework] [info] [RE8VR] grip #72: the ANIMATION has moved the socket 5.04 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:17.654] [REFramework] [info] [RE8VR] grip taken #73: the hands' line was 7.39 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:18.309] [REFramework] [info] [RE8VR] grip taken #74: the hands' line was 5.37 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:18.323] [REFramework] [info] [RE8VR] grip #74: the ANIMATION has moved the socket 3.73 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:18.656] [REFramework] [info] [RE8VR] grip taken #75: the hands' line was 7.42 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:18.669] [REFramework] [info] [RE8VR] grip #75: the ANIMATION has moved the socket 3.70 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:19.003] [REFramework] [info] [RE8VR] grip taken #76: the hands' line was 5.88 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:19.017] [REFramework] [info] [RE8VR] grip #76: the ANIMATION has moved the socket 3.71 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:19.031] [REFramework] [info] [RE8VR] grip #76: the ANIMATION has moved the socket 7.22 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:22:19.665] [REFramework] [info] [RE8VR] grip taken #77: the hands' line was 8.58 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:22:19.680] [REFramework] [info] [RE8VR] grip #77: the ANIMATION has moved the socket 2.60 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:23:29.120] [REFramework] [info] [RE8VR] grip taken #78: the hands' line was 5.31 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:23:29.133] [REFramework] [info] [RE8VR] grip #78: the ANIMATION has moved the socket 6.32 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:27:39.258] [REFramework] [info] [RE8VR] grip taken #79: the hands' line was 5.11 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:29:03.341] [REFramework] [info] [RE8VR] grip taken #80: the hands' line was 13.08 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:29:31.814] [REFramework] [info] [RE8VR] grip taken #81: the hands' line was 3.78 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:29:44.026] [REFramework] [info] [RE8VR] grip taken #82: the hands' line was 7.30 deg off the gun -- REMOVED, the gun does not move
+[2026-09-21 18:30:04.015] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 2.97 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.032] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 4.99 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.066] [REFramework] [info] [Plugin] [re-scope-vr] shot #80 STRAIGHTENED along the SCOPE AXIS  was 12.56 deg off, now 0.040 | game ray vs scope axis 0.03 deg | axis 3 tick(s) back USED, 1.64 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.28 1.28 1.64 1.67 deg | aim 9.7 m (our ray, nearest raw 9.74 m), crop aimed at 9.8 m, picture turned 2.13 deg for it | roll -0.9 | zero -10.7/-9.5, as seen -12.2 up -7.5 right (points -148 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:04.651] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 7.68 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.671] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 14.02 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.688] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 19.53 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.706] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 23.28 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.792] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 29.84 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.809] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 37.13 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:04.825] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 40.92 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:05.027] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 45.75 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:05.043] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 48.67 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:05.062] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 49.86 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:05.129] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 51.45 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:06.875] [REFramework] [info] [Plugin] [re-scope-vr] shot #81 STRAIGHTENED along the SCOPE AXIS  was 7.13 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.38 deg from the axis at the shot | muzzle moved over the last 4 ticks: 1.45 1.24 1.38 1.50 deg | aim 16.0 m (our ray, nearest raw 15.97 m), crop aimed at 16.0 m, picture turned 1.36 deg for it | roll -4.7 | zero -10.7/-9.5, as seen -12.4 up -7.0 right (points -151 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:09.227] [REFramework] [info] [Plugin] [re-scope-vr] shot #82 STRAIGHTENED along the SCOPE AXIS  was 8.48 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.64 deg from the axis at the shot | muzzle moved over the last 4 ticks: 1.53 1.52 1.64 1.71 deg | aim 9.6 m (our ray, nearest raw 9.56 m), crop aimed at 9.1 m, picture turned 2.23 deg for it | roll -1.2 | zero -10.7/-9.5, as seen -12.3 up -7.2 right (points -150 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:12.706] [REFramework] [info] [Plugin] [re-scope-vr] shot #83 STRAIGHTENED along the SCOPE AXIS  was 6.64 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.42 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.14 0.66 1.42 1.68 deg | aim 3.0 m (our ray, nearest raw 3.02 m), crop aimed at 3.0 m, picture turned 5.58 deg for it | roll -2.3 | zero -10.7/-9.5, as seen -12.9 up -6.1 right (points -155 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:18.216] [REFramework] [info] [Plugin] [re-scope-vr] shot #84 STRAIGHTENED along the SCOPE AXIS  was 1.86 deg off, now 0.040 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.67 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.52 1.39 1.67 1.59 deg | aim 10.0 m (our ray, nearest raw 10.07 m), crop aimed at 10.0 m, picture turned 2.10 deg for it | roll -9.8 | zero -10.7/-9.5, as seen -12.9 up -6.0 right (points -155 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:24.703] [REFramework] [info] [Plugin] [re-scope-vr] shot #85 STRAIGHTENED along the SCOPE AXIS  was 2.34 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.57 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.50 1.38 1.57 1.48 deg | aim 35.0 m (our ray, nearest raw 32.60 m), crop aimed at 32.7 m, picture turned 0.67 deg for it | roll -3.2 | zero -10.7/-9.5, as seen -12.1 up -7.6 right (points -148 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:27.535] [REFramework] [info] [Plugin] [re-scope-vr] shot #86 STRAIGHTENED along the SCOPE AXIS  was 4.83 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.43 deg from the axis at the shot | muzzle moved over the last 4 ticks: 1.46 1.45 1.43 1.44 deg | aim 28.5 m (our ray, nearest raw 28.28 m), crop aimed at 28.4 m, picture turned 0.77 deg for it | roll -2.8 | zero -10.7/-9.5, as seen -12.2 up -7.5 right (points -148 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:30.484] [REFramework] [info] [Plugin] [re-scope-vr] shot #87 STRAIGHTENED along the SCOPE AXIS  was 4.43 deg off, now 0.040 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.74 deg from the axis at the shot | muzzle moved over the last 4 ticks: 1.68 1.68 1.74 1.70 deg | aim 26.0 m (our ray, nearest raw 25.82 m), crop aimed at 26.2 m, picture turned 0.82 deg for it | roll -1.8 | zero -10.7/-9.5, as seen -12.1 up -7.6 right (points -148 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:35.099] [REFramework] [info] [Plugin] [re-scope-vr] shot #88 STRAIGHTENED along the SCOPE AXIS  was 12.39 deg off, now 0.000 | game ray vs scope axis 0.00 deg | axis 3 tick(s) back USED, 1.34 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.70 1.12 1.34 2.55 deg | aim 9.4 m (our ray, nearest raw 9.35 m), crop aimed at 9.4 m, picture turned 2.06 deg for it | roll +1.0 | zero -10.7/-9.5, as seen -12.0 up -7.8 right (points -147 deg) RIGHT-FLIPPED
+[2026-09-21 18:30:43.753] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 61.76 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.771] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 70.50 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.789] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 76.30 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.807] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 78.48 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.824] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 83.51 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.841] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 87.66 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.859] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 91.41 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.876] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 94.45 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.894] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 97.05 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.912] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 98.80 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.929] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 99.85 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:43.947] [REFramework] [info] [RE8VR] grip #82: the ANIMATION has moved the socket 100.86 deg under a held grip -- IGNORED, the gun does not move
+[2026-09-21 18:30:54.582] [REFramework] [info] [Plugin] [re-scope-vr] shot #89 STRAIGHTENED along the SCOPE AXIS  was 16.41 deg off, now 0.040 | game ray vs scope axis 0.03 deg | axis 3 tick(s) back USED, 4.24 deg from the axis at the shot | muzzle moved over the last 4 ticks: 0.55 1.14 4.24 4.72 deg | aim 22.0 m (our ray, nearest raw 21.79 m), crop aimed at 22.0 m, picture turned 0.78 deg for it | roll -1.0 | zero -10.7/-9.5, as seen -13.1 up -5.5 right (points -157 deg) RIGHT-FLIPPED
