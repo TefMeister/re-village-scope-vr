@@ -1,0 +1,11 @@
+# zero values over the session (count of geom lines at each value, in order)
+     61 zero up -11.9 right -7.1
+     29 zero up -9.9 right -11.1
+     13 zero up -10.3 right -10.7
+      5 zero up -10.3 right -9.9
+     19 zero up -10.7 right -9.9
+    101 zero up -10.7 right -9.5
+
+# mirror latch
+[2026-09-21 16:41:19.563] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 2560x1448 fmt=29 flags=0x1 -> 0000014834E9F450 (numpad . asks for the NEXT acceptable one; the current source stays unti
+[2026-09-21 16:41:19.570] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 2560x1448 fmt=26 -> 0000014837C7EF70 (was the 8-bit SRGB resolve; pre-clip HDR from here on)

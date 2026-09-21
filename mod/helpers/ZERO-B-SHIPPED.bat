@@ -1,6 +1,6 @@
 @echo off
 rem ---------------------------------------------------------------------------
-rem  ZEROING: RESET to the saved defaults (up -11.9, right -7.1).
+rem  ZEROING: RESET to the saved defaults (up -10.7, right -9.5).
 rem
 rem  ZEROING moves the scope PICTURE so that what the crosshair sits on is what
 rem  the bullet actually hits. It does not change where the rifle shoots - it
@@ -36,10 +36,10 @@ if not exist "%~dp0reframework\data" (
   exit /b 1
 )
 
-> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroup -11.9
->> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroright -7.1
+> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroup -10.7
+>> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroright -9.5
 
 echo.
-echo   RESET to the saved zero (up -11.9, right -7.1).
+echo   RESET to the saved zero (up -10.7, right -9.5).
 echo.
 timeout /t 2 /nobreak >nul 2>&1
