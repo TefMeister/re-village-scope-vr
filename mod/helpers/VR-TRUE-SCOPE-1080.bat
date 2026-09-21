@@ -59,8 +59,8 @@ echo   eye, is written at the very end. Close it early and the scope shows Ethan
 echo   clothes and the ground, because the viewpoint stays below your head.
 echo.
 
-echo   [1/4] choosing the 1280x720 (low) scope picture...
-echo fn rtex_1280> "%CMD%"
+echo   [1/4] choosing the 1920x1080 scope picture...
+echo fn rtex_1920> "%CMD%"
 timeout /t 3 /nobreak >nul 2>&1
 
 echo   [2/4] re-arming the mirror latch (pressing numpad . for you)...
