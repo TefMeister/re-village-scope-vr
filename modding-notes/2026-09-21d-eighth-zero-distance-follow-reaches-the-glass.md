@@ -23,7 +23,10 @@ and the zeroing read-me — in the repos and in the game folder.
   really do seem to all go in the right place!"* `[reported 2026-09-21]`, turn figures
   `[verified-live 2026-09-21, n=3 shots, 2 distances]`. Left: confirm on a second day, then make
   distance-follow the shipped default.
+- **And again after a restart (17:01 launch):** the saved zero came up by itself, ten shots near and
+  far, Tefa: *"yes, still land where they have to!"* `[reported 2026-09-21]`
+  `[verified-live 2026-09-21, n=10 shots, 1 restart]`. No zero shift across this restart.
 - The 1920×1080 scope picture. This launch latched the 2560×1448 picture, so the new default size
-  has still never run.
+  has still never run — and the restart did the same, two launches out of two.
 
 Evidence: `dev-archive/recon/2026-09-21-eighth-zero-distance-follow-reaches-the-glass/`.
