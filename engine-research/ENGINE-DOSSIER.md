@@ -2270,6 +2270,54 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cl. ⭐⭐⭐ ONE SUSPECT FOR BOTH REMAINING FAULTS: THE CROP IS HANDED FROM THE GAME THREAD TO PRESENT AS LOOSE ATOMICS — read mid-write (flicker) and not matched to the frame on screen (head-turn stepping). A snapshot hand-off is built. ALSO: `hold 2` does NOT hide the flicker, and the zero moved when the picture size changed (2026-09-21 evening, static + build on RTX; BUILT, NOT INSTALLED)
+
+**What the wearer added after §9ck.** On the head-only test: *"honestly if the picture was like that without
+the warping effect, i think it would be perfect"* — the target is that smoothness, rifle-aimed.
+On the block: *"ran the flicker block - still flickering"*. And: *"somehow the scope zero is off again, we
+gotta find out what is causing it to not stay zeroed"* `[reported 2026-09-21]`.
+
+**`hold 2` is OUT as the flicker fix** `[verified-live 2026-09-21]`: 22 spikes, 22 holds in ~70 s at `t=0.050`,
+and the flicker was still seen. Re-showing the previous frame on a big frame-to-frame change does not remove
+what the eye sees, so the flicker is not (only) a single outlier frame of the composed picture. `hold` stays
+as an instrument.
+
+**The hand-off, read from the code** `[inferred-static 2026-09-21]`:
+1. `crop_follow_update()` stores `h_ok = false` at the TOP of every tick (`crop_follow.cpp:39`) and `true` again
+   ~230 lines later, and writes the exact map's nine floats one atomic at a time. `present` reads them on
+   another thread with no ordering. A present that lands in that window draws one frame WITHOUT the exact map
+   (this evening: roll 58°, stretch 1.10, skew 5°) or with a torn map — *"a different framing for one frame, at
+   random"*, §9z's own description of the flicker.
+2. `present` takes the NEWEST `(cu, cv, H)`. When the game thread is a tick ahead of the render thread, a
+   picture drawn from tick N is cropped with tick N+1's numbers. **The mirror picture depends on the HEAD and
+   not on the gun**, so a newer gun pose is always right for an older picture and a newer head pose never is:
+   an error of (head speed × one frame), present on some frames and absent on others. Stepped, and head-only —
+   the asymmetry the wearer has reported since 2026-09-20 and that no pose theory explained.
+
+**Which step runs last (PROTOCOL §11):** the crop is decided in `crop_follow_update` (game thread) and consumed
+at `present` (render thread) — the hand-off between them is the step, and it is upstream of the blit.
+
+**Built — `plugin/src/crop_snap.cpp`:** the tick publishes ONE complete `CropSnap` under a lock; `present` takes
+one whole (never half a tick) and picks the one for the frame on screen: it tracks how far the tick counter
+leads the present counter, treats the smallest lead of the last 90 presents as "in step", and when the game
+thread is one ahead uses the PREVIOUS tick's snapshot. **Proves itself**, once a second:
+`sync: game thread in step on A presents, 1 tick ahead on B, … | the loose hand-off would have shown NO MAP on N of them`.
+B > 0 while the head turns = the stepping's mechanism confirmed; N matching the flicker count = the flicker's.
+`B = 0 and N = 0` with both faults still seen = this is NOT the cause, and it costs nothing to have learned.
+`re_scope_sync.txt` = 0 restores the loose hand-off live (`PICTURE-SYNC-OFF/ON.bat`).
+`[compile-verified 2026-09-21]`, `re_scope_vr.dll` `2d53744838c85f66…`, **NOT INSTALLED** (game running).
+`UPDATE-RIFLE-PLUGIN.bat` now installs the NEWEST build across all working folders — it used to copy from the
+`/pd` folder only and would have put a 14:44 build over this one.
+
+**The zero, a lead — NOT established** `[hypothesis]`: every zero that held today (16:40, 16:53, 17:01) was made
+and checked on the **2560×1448** picture; the first launch at **1920×1088** was 17:22 and the zero is *"off
+again"* at 1080p. The source is padded (1440→1448, 1080→1088, 720→728) and the crop maths uses the PADDED size
+(`crop_follow_math.h:27` already notes "agree to 0.7%"), so the same angle lands on a slightly different row
+at each size: 0.55 % / 0.73 % / 1.10 % of the frame height. Small, but the wearer zeroes in 0.1° steps.
+**It would also explain this morning's "each restart nudges the zero"** if those launches latched different
+sizes. **The test:** one launch on `START-SCOPE-SHARP-1440.bat` — zero back = confirmed, then the fix is to
+make the crop maths use the picture's real rows, not the padded ones.
+
 ### 9ck. ⭐⭐⭐ THE FLICKER MEASURE IS REPAIRED (the Map asked for 192 bytes more than the buffer holds), AND A RATE WATCH IS BUILT FOR THE STEPPED PICTURE (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
 
 Tefa, parking everything else: *"our 2 remaining things are the flicker and the jitter on the scope picture"*
