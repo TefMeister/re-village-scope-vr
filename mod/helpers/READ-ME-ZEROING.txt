@@ -18,7 +18,11 @@
  So we were not adjusting a good zero - we were redoing one made for a
  different setup.
 
- UPDATE 2026-09-21: done a THIRD time, and the first with the bullet spread
+ UPDATE 2026-09-21 13:53: SIXTH zero, up -12.1 / right -8.0, the first with the
+ two-handed fix in (the bullet ignores the small gun movement just before each shot,
+ one-handed too), so every earlier zero was fitted to moved shots. Zeroed FAR, with
+ distance-follow ON. These are the saved values now.
+ EARLIER 2026-09-21: done a THIRD time, and the first with the bullet spread
  switched off - so the first zero fitted to a point rather than a scatter.
  The saved values are now up -14.9, right -11.8 - zeroed FROM AFAR, from a
  spot Tefa knows, and THE REFERENCE for all tuning from here on. (Before that: -16.4 / -10.6 (re-done later
@@ -86,7 +90,7 @@
  PART 2  --  COMPARE WITH THE OLD ZERO
 ---------------------------------------------------------------------------
 
- 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -14.9 / -11.8)
+ 5. Double-click   ZERO-B-SHIPPED.bat    (RESETS to the saved -12.1 / -8.0)
 
     !! That button RESETS. It does not save. It throws away anything you
     have nudged since. ZERO-SHOW.bat prints the current values safely.
