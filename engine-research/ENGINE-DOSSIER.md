@@ -2270,6 +2270,37 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cj. ⛔⭐⭐⭐ WITHDRAWN: "tracking slide cannot do 30–70°" — the wearer says it always has in this game. A second game-specific amplifier found (the 16 cm wrist lever), and the instrument now measures both candidates side by side (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
+
+**Supersedes: §9ci item 2's conclusion** ("Tracking slide cannot do that … Cause, mine"). The maths error
+in §9cf is real and provable on paper, and it is fixed — **but it cannot be the whole story, and I said it
+was.** Tefa, on reading that claim: *"it does in this game, that's why i said it's really bad in this game
+to the point of unusable sometimes, drift in this game has always been really bad"* `[reported 2026-09-21]`.
+The big swings predate today's patch by weeks. Their sighting is the observation; one 4 Hz log that could
+not tell its two candidate causes apart is what was suspect.
+
+**What I had not looked at** `[inferred-static 2026-09-21]`: the point RE8VR steers by is NOT the left
+controller's position. It is `controller position + (controller ROTATION × left_hand_position_offset)`,
+and that offset is `(-0.025, 0.045, 0.155)` — **a 16 cm lever along the controller, turned by the left
+wrist.** A 30° twist of the left wrist moves the steering point 8 cm with the hand itself still:
+**~18° of rifle at 25 cm.** So in this game the rifle is steered by left-wrist ROTATION as much as by
+left-hand position, and both are amplified by `1 / hand separation`. Add that an occluded Quest controller
+can be tens of centimetres wrong, not the ~2 cm/s I generalised from two seconds of one log, and 30–70° is
+reachable without any bug of mine.
+
+**Built — so the next wear decides instead of me:** both candidate points are measured every frame and
+logged together:
+`grip-watch: … asked by HAND POINT X deg, by CONTROLLER Y deg | left wrist turning N deg/s | …`
+- X large while Y stays small and `wrist turning` is non-zero → the wrist lever is the amplifier; steer by
+  the controller (`fn grip_by_controller`, `GRIP-BY-CONTROLLER.bat` — live, re-takes the reference on switching).
+- X and Y both large with the wrist still → it is position tracking itself; HALF / LOCKED are the levers.
+- both small, rifle still swings → not the left hand at all.
+The 25° limit from §9ci stands whatever the cause. `[compile-verified 2026-09-21]`, `dinput8.dll`
+`4262e54223cdbc18…`, **installed** (game was closed; previous kept).
+
+⚠️ For the record, the pattern: I explained a wearer's long-standing complaint with the bug I had just
+found, because it was mine and it was fresh. `PREFERENCES.md` → *"WHEN TEFA REPORTS WHAT THEY SAW"*.
+
 ### 9ci. ⛔⭐⭐⭐ MY "RELATIVE GRIP" MATHS INVENTED STEERING — up to 71° with the hand still, muzzle at the player; corrected into the gun's own frame. AND: Virtual Desktop never clears the tracked bit (2026-09-21, LIVE VR by Tefa, then build on RTX; BUILT, NOT INSTALLED)
 
 **Supersedes: §9cf's fix as built** (its diagnosis stands; its implementation was wrong), **and §9ch's hope

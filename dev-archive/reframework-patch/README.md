@@ -77,7 +77,9 @@ the 2026-09-04 inbox-drain entry.
   ⛔ **Correction, same patch file (2026-09-21 19:00):** the first "relative" maths invented steering from the
   rifle's own rotation (30–71° with the hand still). Steering is now computed in the gun's frame from plain
   directions, shortest arc, limited to 25°, with `grip_steer_scale` (1 / 0.5 / 0) as a live lever (dossier §9ci).
-  `[compile-verified 2026-09-21]`, not yet worn. Independent of the two mirror patches (different file).
+  Then (§9cj): the instrument logs the steering asked for by praydog's HAND POINT (16 cm wrist lever) and by
+  the CONTROLLER's own position side by side, with `grip_steer_from_controller` as a live switch.
+  `[compile-verified 2026-09-21]`, installed, not yet worn. Independent of the two mirror patches (different file).
 
 - **`build-local-no-csharp.patch`** — build convenience only, no behaviour change: drops `CSharp`
   from the project's languages in `cmake.toml` so the build does not need the C# toolchain.
