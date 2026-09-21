@@ -71,7 +71,7 @@ the 2026-09-04 inbox-drain entry.
   Worn 2026-09-21: the take no longer throws (3.3–15.5° removed per take, n=12). **Second half, same
   patch file:** the grip socket used for steering is frozen at the take, because the body animation
   moves it under a held grip and re-aimed the gun ~4.8° at the first shot after every take (dossier §9cg).
-  `[compile-verified 2026-09-21]`, second half not yet worn. Independent of the two mirror patches (different file).
+  Second half worn the same evening: *"it works :)"*, 11 of 12 shots down from ~4.8° to ~1.5° `[verified-live 2026-09-21, n=12]`. Independent of the two mirror patches (different file).
 
 - **`build-local-no-csharp.patch`** — build convenience only, no behaviour change: drops `CSharp`
   from the project's languages in `cmake.toml` so the build does not need the C# toolchain.
