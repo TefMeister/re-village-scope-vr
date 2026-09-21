@@ -2270,6 +2270,43 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ck. ⭐⭐⭐ THE FLICKER MEASURE IS REPAIRED (the Map asked for 192 bytes more than the buffer holds), AND A RATE WATCH IS BUILT FOR THE STEPPED PICTURE (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
+
+Tefa, parking everything else: *"our 2 remaining things are the flicker and the jitter on the scope picture"*
+`[reported 2026-09-21]`. Both have been blind since 2026-09-16, because the one instrument for them never
+read anything (§9an). This section fixes the instrument; it does not yet fix either fault.
+
+**§9an's suspect is confirmed by arithmetic** `[verified-numerically 2026-09-21]`: the diff target is 16×12
+`R32_FLOAT`; `GetCopyableFootprints` gives `RowPitch = 256` and `total = 256·11 + 16·4 = 2880`, and the
+readback buffer is created `Width = total` (`gpu.cpp`). Both `Map` calls asked for
+`RowPitch · kDiffH = 3072` — 192 bytes past the end — so `Map` failed, `d` kept its `0.0f`, and `hold`,
+`hold 2` and `holddiag` all ran on a number they were never given. Fixed: `diff_readback_bytes()` =
+`RowPitch·(H−1) + W·4`. A failed `Map` now SAYS so (`THE READBACK COULD NOT BE MAPPED`) — the verdict
+`holddiag` could never print because its print lived inside the `Map` it was testing.
+
+**The rate watch, for the jitter.** The wearer's description (§9bb correction 4): stepped, *"a quick
+teleport"*, only while the HEAD turns, none while only the gun turns — a RATE fault. One line a second
+while `hold` is on:
+`rate: N presents in the last second, the scope picture CHANGED on M of them (longest run unchanged K) | camera pose changed on P of Q game ticks | pattern 1010…`
+- It leans on one fact: the game adds grain and sub-pixel jitter to every frame it really draws, so two
+  presents of the SAME drawn frame differ by exactly 0 and two different frames never do
+  `[hypothesis — the first run checks it: a still scene must read CHANGED on most presents]`.
+- **`camera pose changed on P of Q ticks`** is read on the game thread and needs no such assumption: it
+  says whether the head pose handed to the game advances every tick or every other one.
+
+**What one wear decides** (`PICTURE-TEST-1-ON`, play; `-2-HEAD-ONLY`, rifle still + slow head turn ~20 s; `-3-OFF`):
+| the log shows | it means | next |
+| --- | --- | --- |
+| pose changed on ~half the ticks, pattern `1010…` | the head pose reaches the game at HALF rate (both eyes share one pose sample), so the scope picture steps at ~36 Hz while the main view is smoothed by the headset's own reprojection — which the scope picture, being a texture inside the scene, never gets | advance the scope's view by the head's own motion between samples, in the plugin's crop (we own it) |
+| pose changes every tick, picture CHANGED on ~half the presents | the mirror is drawn every other frame | find what gates the mirror pass; or re-place the crop with the pose the picture was DRAWN with |
+| both change every time | not a rate fault in the content at all — the pose used to DRAW the picture and the pose used to PLACE it differ by a frame | capture the draw-time pose in the patched REFramework mirror window and hand it to the plugin |
+| `hold: SPIKE` lines at the moments Tefa sees a flicker | the flicker is in the picture we compose: `hold 2` (re-show the last good frame) finally has a real number to act on | try `hold 2` |
+| flickers seen, no SPIKE | the change happens AFTER our blit (the lens material / the engine's own glass draw) — §9z's own discriminator | look at the glass draw, not the source |
+
+`[compile-verified 2026-09-21]`, `re_scope_vr.dll` `b65387e206979fa1…` installed (game closed; previous kept
+as `re_scope_vr.dll.pre-rate-watch-2026-09-21`). ⚠️ `hold` adds a mid-frame GPU wait — it is a test
+setting, not a way to play.
+
 ### 9cj. ⛔⭐⭐⭐ WITHDRAWN: "tracking slide cannot do 30–70°" — the wearer says it always has in this game. A second game-specific amplifier found (the 16 cm wrist lever), and the instrument now measures both candidates side by side (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
 
 **Supersedes: §9ci item 2's conclusion** ("Tracking slide cannot do that … Cause, mine"). The maths error
