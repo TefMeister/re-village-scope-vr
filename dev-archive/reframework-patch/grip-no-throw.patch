@@ -1,20 +1,22 @@
 diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
-index 034f37c9..d1aa8bcf 100644
+index 034f37c9..7d2e8028 100644
 --- a/src/mods/vr/games/RE8VR.cpp
 +++ b/src/mods/vr/games/RE8VR.cpp
-@@ -77,6 +77,11 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
+@@ -77,6 +77,13 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
          "last_muzzle_forward", &RE8VR::m_last_muzzle_forward,
          "was_gripping_weapon", &RE8VR::m_was_gripping_weapon,
          "is_holding_left_grip", &RE8VR::m_is_holding_left_grip,
 +        "grip_relative", &RE8VR::m_grip_relative,
 +        "grip_last_engage_deg", &RE8VR::m_grip_last_engage_deg,
 +        "grip_engage_count", &RE8VR::m_grip_engage_count,
++        "grip_guard", &RE8VR::m_grip_guard,
++        "grip_untracked_frames", &RE8VR::m_grip_untracked_frames,
 +        "grip_socket_drift_deg", &RE8VR::m_grip_socket_drift_deg,
 +        "grip_socket_drift_max_deg", &RE8VR::m_grip_socket_drift_max_deg,
          "is_in_cutscene", &RE8VR::m_is_in_cutscene,
          "is_grapple_aim", &RE8VR::m_is_grapple_aim,
          "is_reloading", &RE8VR::m_is_reloading,
-@@ -354,11 +359,70 @@ void RE8VR::update_hand_ik() {
+@@ -354,11 +361,143 @@ void RE8VR::update_hand_ik() {
      // Lets the player hold their left hand near the original (grip) position of the weapon
      if (m_was_gripping_weapon && !m_is_reloading) {
          if (glm::length(original_left_pos_relative) >= 0.1f) {
@@ -69,6 +71,8 @@ index 034f37c9..d1aa8bcf 100644
 +            if (!m_grip_steering_active) {
 +                m_grip_engage_delta_local = glm::normalize(glm::inverse(rh_rotation) * grip_rot_delta * rh_rotation);
 +                m_grip_steering_active = true;
++                m_grip_held_delta_local = glm::quat{1.0f, 0.0f, 0.0f, 0.0f};
++                m_grip_left_was_tracked = true;
 +                ++m_grip_engage_count;
 +
 +                const auto w = glm::clamp(glm::abs(grip_rot_delta.w), 0.0f, 1.0f);
@@ -83,10 +87,81 @@ index 034f37c9..d1aa8bcf 100644
 +                grip_rot_delta = glm::normalize(grip_rot_delta * glm::inverse(engage_delta_world));
 +            }
 +
++            // re-village-scope-vr, 2026-09-21: THE LEFT HAND STEERS BY POSITION ALONE. Nothing
++            // above smooths it or asks whether the position is real, and the angle it makes is
++            // (position error) / (distance between the hands) -- 1 cm at 20 cm is 2.9 deg, and the
++            // scope magnifies that again. When one controller hides the other, the headset loses
++            // sight of it and the position is dead-reckoned from the IMU: it slides, and the gun
++            // slides with it. Tefa: "the weapon just starts moving by itself".
++            // GUARD: while the runtime says the left controller's position is NOT TRACKED, hold
++            // the steering the gun had when it was last tracked; on regaining it, carry on from
++            // the held steering rather than snapping to wherever the hand has drifted.
++            // INSTRUMENT: 4 lines a second while gripped, so one wear says whether the runtime
++            // ever clears that bit under occlusion, how far apart the hands really are, and how
++            // fast the "still" hand is moving. m_grip_guard = false leaves only the instrument.
++            {
++                bool left_tracked = true;
++                bool right_tracked = true;
++                float left_speed_cm = -1.0f;
++
++                if (vr->get_runtime()->is_openxr()) {
++                    const auto* oxr = vr->get_runtime<runtimes::OpenXR>();
++                    const auto& lh = oxr->hands[VRRuntime::Hand::LEFT];
++                    const auto& rh = oxr->hands[VRRuntime::Hand::RIGHT];
++
++                    left_tracked = (lh.location.locationFlags & XR_SPACE_LOCATION_POSITION_TRACKED_BIT) != 0;
++                    right_tracked = (rh.location.locationFlags & XR_SPACE_LOCATION_POSITION_TRACKED_BIT) != 0;
++
++                    if ((lh.velocity.velocityFlags & XR_SPACE_VELOCITY_LINEAR_VALID_BIT) != 0) {
++                        const auto& v = lh.velocity.linearVelocity;
++                        left_speed_cm = std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z) * 100.0f;
++                    }
++                }
++
++                if (left_tracked != m_grip_left_was_tracked) {
++                    spdlog::info("[RE8VR] grip: the LEFT controller's position is {} -- {}",
++                        left_tracked ? "TRACKED again" : "NOT TRACKED (the headset cannot see it)",
++                        !m_grip_guard ? "guard off, steering follows it anyway"
++                                      : (left_tracked ? "steering carries on from where it was held" : "steering HELD"));
++                }
++
++                if (m_grip_guard && m_grip_relative) {
++                    if (!left_tracked) {
++                        // hold: the last tracked steering, turned with the gun
++                        grip_rot_delta = glm::normalize(rh_rotation * m_grip_held_delta_local * glm::inverse(rh_rotation));
++                        ++m_grip_untracked_frames;
++                    } else {
++                        if (!m_grip_left_was_tracked) {
++                            // regained: re-base so that the steering now equals the held steering
++                            const auto held_world = glm::normalize(rh_rotation * m_grip_held_delta_local * glm::inverse(rh_rotation));
++                            const auto raw_delta = glm::normalize(current_grip_rot * glm::inverse(original_grip_rot));
++                            const auto new_engage_world = glm::normalize(glm::inverse(held_world) * raw_delta);
++                            m_grip_engage_delta_local = glm::normalize(glm::inverse(rh_rotation) * new_engage_world * rh_rotation);
++                            grip_rot_delta = held_world;
++                        }
++
++                        m_grip_held_delta_local = glm::normalize(glm::inverse(rh_rotation) * grip_rot_delta * rh_rotation);
++                    }
++                }
++
++                m_grip_left_was_tracked = left_tracked;
++
++                const auto now = std::chrono::steady_clock::now();
++                if (now - m_grip_last_report >= std::chrono::milliseconds(250)) {
++                    m_grip_last_report = now;
++                    const auto steer_w = glm::clamp(glm::abs(grip_rot_delta.w), 0.0f, 1.0f);
++                    const auto sep_cm = glm::length(Vector3f{lh_delta_to_rh}) * 100.0f;
++                    spdlog::info("[RE8VR] grip-watch: hands {:.1f} cm apart (1 cm of error = {:.2f} deg) | left {} right {} | left hand speed {:.1f} cm/s | steering {:.2f} deg | untracked frames {}",
++                        sep_cm, sep_cm > 1.0f ? glm::degrees(std::atan(1.0f / sep_cm)) : 0.0f,
++                        left_tracked ? "TRACKED" : "LOST", right_tracked ? "TRACKED" : "LOST",
++                        left_speed_cm, glm::degrees(2.0f * std::acos(steer_w)), m_grip_untracked_frames);
++                }
++            }
++
              // Adjust the right hand rotation;
              rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
  
-@@ -371,6 +435,8 @@ void RE8VR::update_hand_ik() {
+@@ -371,6 +510,8 @@ void RE8VR::update_hand_ik() {
          lh_pos = lh_grip_position;
          lh_rotation = rh_rotation * original_left_rot_relative;
      } else {
@@ -96,10 +171,10 @@ index 034f37c9..d1aa8bcf 100644
              lh_pos = lh_grip_position;
              lh_rotation = rh_rotation * original_left_rot_relative;
 diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
-index dbfb8ae0..21769ad5 100644
+index dbfb8ae0..7701b222 100644
 --- a/src/mods/vr/games/RE8VR.hpp
 +++ b/src/mods/vr/games/RE8VR.hpp
-@@ -113,6 +113,17 @@ private:
+@@ -113,6 +113,23 @@ private:
  
      bool m_was_gripping_weapon{false};
      bool m_is_holding_left_grip{false};
@@ -112,6 +187,12 @@ index dbfb8ae0..21769ad5 100644
 +    Vector4f m_grip_socket_rel_at_take{0.0f, 0.0f, 0.0f, 0.0f};
 +    float m_grip_socket_drift_deg{0.0f};
 +    float m_grip_socket_drift_max_deg{0.0f};
++    // the drift guard and its instrument (2026-09-21), see update_hand_ik()
++    bool m_grip_guard{true};
++    bool m_grip_left_was_tracked{true};
++    glm::quat m_grip_held_delta_local{1.0f, 0.0f, 0.0f, 0.0f};
++    int m_grip_untracked_frames{0};
++    std::chrono::steady_clock::time_point m_grip_last_report{};
 +    float m_grip_last_engage_deg{0.0f};
 +    int m_grip_engage_count{0};
      bool m_is_in_cutscene{false};
