@@ -12,7 +12,10 @@ rem VR-TRUE-SCOPE.bat -- the whole scope set-up in one click, including the new
 rem "true picture" mirror pose. About 50 seconds. Have the sniper rifle in your hands.
 rem
 rem WHAT IT DOES, and why the order matters:
-rem   1. fn rtex_2560   pick the 2560x1440 mirror target. It is higher quality AND safer
+rem   1. fn rtex_1920   pick the 1920x1080 mirror target (2026-09-21: Tefa, 2560x1440 was
+rem                     noticeably costing performance in the headset; the plugin now
+rem                     refuses the game's own 1080-high buffers, so 1920 is safe).
+rem                     BEFORE: fn rtex_2560, higher quality AND safer
 rem                     than the 1920 default: 2560 cannot collide with a 1080p desktop
 rem                     buffer, which is what made the picture go black on 2026-09-18.
 rem   2. numpad .       re-arm the mirror latch BEFORE anything allocates the target.
@@ -57,7 +60,7 @@ echo   clothes and the ground, because the viewpoint stays below your head.
 echo.
 
 echo   [1/4] choosing the 2560x1440 mirror target...
-echo fn rtex_2560> "%CMD%"
+echo fn rtex_1920> "%CMD%"
 timeout /t 3 /nobreak >nul 2>&1
 
 echo   [2/4] re-arming the mirror latch (pressing numpad . for you)...

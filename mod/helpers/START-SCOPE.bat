@@ -6,7 +6,7 @@ rem  THIS NOW FORWARDS TO VR-TRUE-SCOPE.bat, and that is a fix, not tidying.
 rem
 rem  What this file used to do was send `bringup` on its own. That skips the two
 rem  steps that have to come FIRST:
-rem      1. choose the picture target  (fn rtex_2560)
+rem      1. choose the picture target  (fn rtex_1920)
 rem      2. re-arm the picture latch   (numpad .)
 rem  Without them the mod latches onto one of the game's own 1080p buffers about a
 rem  millisecond after start-up and never looks again -- which is exactly the BLACK
