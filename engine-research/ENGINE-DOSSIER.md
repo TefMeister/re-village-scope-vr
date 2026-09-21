@@ -2299,7 +2299,9 @@ gripped now depends on the two controllers only. **Proves itself:** logs
 `[RE8VR] grip #N: the ANIMATION has moved the socket X deg under a held grip -- IGNORED`, and the scope
 plugin's own shot line should fall from ~4.8° to under ~1° on first shots. `re8vr.grip_socket_drift_deg`
 / `_max_deg` readable live. `grip_relative=false` still restores the original for both halves.
-Built 0 errors `[compile-verified 2026-09-21]`, `dinput8.dll` `0a805257f167c1a3…`, **NOT INSTALLED**.
+Built 0 errors `[compile-verified 2026-09-21]`, `dinput8.dll` `0a805257f167c1a3…`, installed by Tefa with `UPDATE-VR-FRAMEWORK.bat`.
+✅ **WORN 18:15–18:31, `dinput8` `0a805257…`: Tefa — *"it works :)"* `[reported 2026-09-21]`.** Log: 82 grip takes, 216 `ANIMATION has moved the socket … IGNORED` lines (up to ~100° during the big animations), and of 12 logged shots **11 moved 1.3–1.7° in the 3 ticks before the bullet (was 4.6–5.1), 1 moved 4.24°** (shot #89, 11 s after a long animation burst) `[verified-live 2026-09-21, n=12 shots]`. The ~1.5° that remains is the one-handed figure of §9cd — not the grip. The single 4.24° is unexplained; watch for it, do not chase it on n=1.
+Evidence: `second-half-worn-1815.txt` in the recon folder below.
 
 ⚠️ **Not covered:** one-handed shots move 1.6° before the bullet (§9cd). No grip is involved there, so
 that is the right hand's own joint against the animation — a separate, smaller thing.
