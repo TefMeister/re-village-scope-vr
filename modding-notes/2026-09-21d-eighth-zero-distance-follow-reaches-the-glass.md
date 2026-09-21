@@ -37,4 +37,14 @@ one when 2560 became first on 2026-09-18. The request was accepted and logged, t
 tightened 1920 latch window, so a black scope is possible — `START-SCOPE-SHARP-1440.bat` is the way
 back.
 
+**17:23 launch — the 1080p fix took.** `mirror RT: using movie_1920_1080.rtex … SELECTED deliberately`,
+`MIRROR SOURCE latched: 1920x1088`, `src_w=1920` on the frame lines, no black scope and no strand
+`[verified-live 2026-09-21, n=1 launch]`. Tefa, the same launch: *"the scope is still high resolution"*
+`[reported 2026-09-21]` — so to the eye 1080p is not visibly softer than 1440p. Frame rate that launch:
+64.7 fps average with the scope picture on (n=277 s, lowest 50.1) against 70.2 with it off (n=43 s)
+`[measured 2026-09-21]`; no like-for-like 1440p figure was kept, so the saving is not known.
+
+**Then: the gun thrown left when the second hand goes on.** Cause found in RE8VR's grip code and a fix
+built into our REFramework — dossier §9cf. Not installed (the game was running).
+
 Evidence: `dev-archive/recon/2026-09-21-eighth-zero-distance-follow-reaches-the-glass/`.
