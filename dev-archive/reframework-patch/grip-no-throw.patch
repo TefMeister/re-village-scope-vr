@@ -1,18 +1,58 @@
 diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
-index 034f37c9..567239f2 100644
+index 034f37c9..d1aa8bcf 100644
 --- a/src/mods/vr/games/RE8VR.cpp
 +++ b/src/mods/vr/games/RE8VR.cpp
-@@ -77,6 +77,9 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
+@@ -77,6 +77,11 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
          "last_muzzle_forward", &RE8VR::m_last_muzzle_forward,
          "was_gripping_weapon", &RE8VR::m_was_gripping_weapon,
          "is_holding_left_grip", &RE8VR::m_is_holding_left_grip,
 +        "grip_relative", &RE8VR::m_grip_relative,
 +        "grip_last_engage_deg", &RE8VR::m_grip_last_engage_deg,
 +        "grip_engage_count", &RE8VR::m_grip_engage_count,
++        "grip_socket_drift_deg", &RE8VR::m_grip_socket_drift_deg,
++        "grip_socket_drift_max_deg", &RE8VR::m_grip_socket_drift_max_deg,
          "is_in_cutscene", &RE8VR::m_is_in_cutscene,
          "is_grapple_aim", &RE8VR::m_is_grapple_aim,
          "is_reloading", &RE8VR::m_is_reloading,
-@@ -359,6 +362,33 @@ void RE8VR::update_hand_ik() {
+@@ -354,11 +359,70 @@ void RE8VR::update_hand_ik() {
+     // Lets the player hold their left hand near the original (grip) position of the weapon
+     if (m_was_gripping_weapon && !m_is_reloading) {
+         if (glm::length(original_left_pos_relative) >= 0.1f) {
+-            auto original_grip_rot = utility::math::to_quat(glm::normalize(lh_grip_delta_to_rh));
++            // re-village-scope-vr, 2026-09-21 (second half): THE ANIMATION MUST NOT STEER THE GUN.
++            // original_left_pos_relative is read from the body animation EVERY frame. When the
++            // animation changes under a held grip -- the first trigger pull after a take moves the
++            // animated hands from the carry pose to the firing pose -- the socket moves, the line
++            // below changes, and the gun re-aims by a fixed ~4.8 deg with both real hands still
++            // (12 takes + 10 shots, 2026-09-21 17:48-17:51: 4.6-5.1 deg on every first shot after a
++            // take, 0.6-0.8 on shots with the hand kept on). So the socket the STEERING measures
++            // against is frozen at the take. The DRAWN hand still follows the live socket below.
++            if (!m_grip_steering_active) {
++                m_grip_socket_rel_at_take = original_left_pos_relative;
++                m_grip_socket_drift_max_deg = 0.0f;
++            }
++
++            auto steer_socket_delta_to_rh = lh_grip_delta_to_rh;
++
++            if (m_grip_relative) {
++                steer_socket_delta_to_rh = glm::normalize(rh_rotation) * m_grip_socket_rel_at_take;
++                steer_socket_delta_to_rh.w = lh_grip_delta_to_rh.w; // a direction, same as the live one
++
++                const auto live_dir = glm::normalize(Vector3f{lh_grip_delta_to_rh});
++                const auto frozen_dir = glm::normalize(Vector3f{steer_socket_delta_to_rh});
++                const auto drift_deg = glm::degrees(std::acos(glm::clamp(glm::dot(live_dir, frozen_dir), -1.0f, 1.0f)));
++
++                if (drift_deg > m_grip_socket_drift_max_deg + 1.0f) {
++                    spdlog::info("[RE8VR] grip #{}: the ANIMATION has moved the socket {:.2f} deg under a held grip -- IGNORED, the gun does not move",
++                        m_grip_engage_count + (m_grip_steering_active ? 0 : 1), drift_deg);
++                }
++
++                m_grip_socket_drift_max_deg = std::max(m_grip_socket_drift_max_deg, drift_deg);
++                m_grip_socket_drift_deg = drift_deg;
++            }
++
++            auto original_grip_rot = utility::math::to_quat(glm::normalize(steer_socket_delta_to_rh));
+             auto current_grip_rot = utility::math::to_quat(glm::normalize(lh_delta_to_rh));
  
              auto grip_rot_delta = glm::normalize(current_grip_rot * glm::inverse(original_grip_rot));
  
@@ -46,7 +86,7 @@ index 034f37c9..567239f2 100644
              // Adjust the right hand rotation;
              rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
  
-@@ -371,6 +401,8 @@ void RE8VR::update_hand_ik() {
+@@ -371,6 +435,8 @@ void RE8VR::update_hand_ik() {
          lh_pos = lh_grip_position;
          lh_rotation = rh_rotation * original_left_rot_relative;
      } else {
@@ -56,10 +96,10 @@ index 034f37c9..567239f2 100644
              lh_pos = lh_grip_position;
              lh_rotation = rh_rotation * original_left_rot_relative;
 diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
-index dbfb8ae0..a161437c 100644
+index dbfb8ae0..21769ad5 100644
 --- a/src/mods/vr/games/RE8VR.hpp
 +++ b/src/mods/vr/games/RE8VR.hpp
-@@ -113,6 +113,14 @@ private:
+@@ -113,6 +113,17 @@ private:
  
      bool m_was_gripping_weapon{false};
      bool m_is_holding_left_grip{false};
@@ -69,6 +109,9 @@ index dbfb8ae0..a161437c 100644
 +    bool m_grip_relative{true};
 +    bool m_grip_steering_active{false};
 +    glm::quat m_grip_engage_delta_local{1.0f, 0.0f, 0.0f, 0.0f};
++    Vector4f m_grip_socket_rel_at_take{0.0f, 0.0f, 0.0f, 0.0f};
++    float m_grip_socket_drift_deg{0.0f};
++    float m_grip_socket_drift_max_deg{0.0f};
 +    float m_grip_last_engage_deg{0.0f};
 +    int m_grip_engage_count{0};
      bool m_is_in_cutscene{false};
