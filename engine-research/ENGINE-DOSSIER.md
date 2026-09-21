@@ -2270,6 +2270,23 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cd. ✅⭐⭐⭐ THE TWO-HANDED FIX WORKS — AND THE GUN MOVES BEFORE *EVERY* SHOT, ONE-HANDED TOO; look-back raised to 3 ticks, and the zero must be redone (2026-09-21, LIVE VR by Tefa, then `/pd`; INSTALLED)
+
+Nine shots on the §9cc build (3 two-handed, then 3 near and 3 far one-handed with distance-follow ON)
+`[verified-live 2026-09-21, n=9]`. Tefa: *"the bullet now works two handed!"*; the visible hop left AFTER the
+shot remains (presentation only) `[reported 2026-09-21]`. The self-log shows how far the axis moved in the
+four ticks before each shot (angle from the axis at the shot, 1..4 ticks back):
+two-handed **1.1 / 2.8 / 4.8 / 4.8°**; one-handed **0.2 / 1.1 / 1.6 / 1.6°**. **The movement is complete 3 ticks
+back and flat after, in both grips** — so the default rises from 2 to 3 (`re_scope_prejump.txt`,
+`TWO-HAND-FIX-ON.bat` now writes 3) `[compile-verified 2026-09-21]`, installed (DLL `477a9933…`).
+**Consequence:** one-handed shots were also being sent along a moved axis (~1.6°) before §9cc, and the
+reference zero was fitted to that. The fix now moves one-handed shots too, which fits Tefa's *"it shoots
+left and up a little"* `[inferred-static 2026-09-21]` → **re-zero with look-back 3 before any near/far judgement.**
+Distance-follow ran as designed: `crop aimed at` tracked our ray (5.2 m near, 13.5/22.3 m far). Tefa still saw a
+near/far difference; the shot line cannot say where the crosshair sat in the world, so this needs a re-zero
+plus marked screenshots. The grey-blue wash did not appear this launch `[reported 2026-09-21]`.
+Evidence: `dev-archive/recon/2026-09-21-prejump-first-wear/`.
+
 ### 9cc. ⛔⭐⭐⭐ THE ROLL IDEA IS DISPROVED; THE TWO-HANDED MISS IS A SNAP JUST BEFORE THE SHOT — the bullet now takes the axis from 2 ticks earlier (2026-09-21, LIVE VR by Tefa, then `/pd`; BUILT, NOT INSTALLED)
 
 Ten shots, five one-handed and five two-handed `[verified-live 2026-09-21, n=10]`: roll +1.2°→+5.7°,
