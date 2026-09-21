@@ -2270,6 +2270,53 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ci. ⛔⭐⭐⭐ MY "RELATIVE GRIP" MATHS INVENTED STEERING — up to 71° with the hand still, muzzle at the player; corrected into the gun's own frame. AND: Virtual Desktop never clears the tracked bit (2026-09-21, LIVE VR by Tefa, then build on RTX; BUILT, NOT INSTALLED)
+
+**Supersedes: §9cf's fix as built** (its diagnosis stands; its implementation was wrong), **and §9ch's hope
+for the tracked bit.**
+
+First wear of §9ch: Tefa — *"it still does that, but … the drift wants to fight the guard now and starts
+janking the weapon back and forth"*, then a screenshot with *"the weapon muzzle pointed at me!"*
+`[reported 2026-09-21]`. The instrument, 365 samples `[verified-live 2026-09-21]`:
+
+1. **`LOST` 0 of 365, both hands.** Quest 3 → Virtual Desktop → OpenXR never clears
+   `XR_SPACE_LOCATION_POSITION_TRACKED_BIT`. **The guard never acted; nothing "fought" it.** The bit is
+   useless on this runtime; §9ch's table row 2 applies.
+2. **`steering` read 30–71° with the left hand at 0.2–5 cm/s**, and went 0→20° in the first half second
+   while the rifle was being raised. Tracking slide cannot do that (30° at 25 cm would be 14 cm).
+   **Cause, mine:** §9cf removed the take's rotation by conjugating it with the gun's rotation,
+   `E_world = rh · E_local · rh⁻¹`. That needs `to_quat(B·d) = B·to_quat(d)`, and `to_quat` is a look-at
+   with a fixed up, so it does not hold: **any rotation of the rifle after the take became steering.**
+   The 17:47 wear said *"steering feels good"* because the test was short takes at one pose; held through
+   a raise and a turn, it runs away. ⚠️ I shipped a formula whose invariance I asserted in a comment and
+   never checked numerically.
+3. A real slide is in there too, and measurable: +10° in 2 s at 1.4–4 cm/s, hands 25 cm apart ≈ 2.2 cm/s.
+
+**Corrected:** steering is now computed **in the gun's own frame from plain directions** —
+`dir_now = rh⁻¹ · (left − right)`, against the same direction stored at the take — and applied as the
+**shortest arc** between them. Rotating both hands together leaves `dir_now` unchanged *by construction*
+(`(B·rh)⁻¹ · B·d = rh⁻¹ · d`), so it cannot invent steering, and a shortest arc carries no roll. `to_quat`
+is no longer used on this path. **Hard limit 25°** (`GRIP_MAX_STEER_DEG`): past it the asked-for steering
+is held at the limit, so no bug or tracking fault can point the muzzle at the player again.
+**New lever, because the tracked bit is dead:** `re8vr.grip_steer_scale` — 1 full, 0.5 half, 0 the front
+locked to the right hand (`fn grip_front_full/half/locked`, `GRIP-FRONT-*.bat`). Slide moves the rifle in
+proportion, so LOCKED is immune by construction; Tefa had said holding the front still would be acceptable.
+`grip-watch` now prints `steering X deg applied (Y asked, scale Z)`.
+`[compile-verified 2026-09-21]`, `dinput8.dll` `82121965b1c7fbf2…`, **NOT INSTALLED** (game running).
+
+**What the next wear decides:** with FULL, `asked` should sit near 0 with the hand still through a raise
+and a turn (was 30–71). If it does, what remains is honest slide, ~2 cm/s ≈ 5°/s at 25 cm; then HALF and
+LOCKED are a feel choice for the wearer.
+Evidence: `dev-archive/recon/2026-09-21-spurious-steering-and-the-untracked-bit-never-clears/`.
+
+**Also settled here — scope picture size:** 1280×728 ran this launch and Tefa judged it *"as sharp still …
+very nice crisp picture"* `[reported 2026-09-21]`; 1080p and 1440p looked the same to them earlier.
+So on the glass as it sits in the headset, picture size is not what limits sharpness `[hypothesis:` the
+glass covers fewer headset pixels than even the 720p crop supplies`]`. 69.3 fps with the picture on at 720p
+vs 64.7 at 1080p `[measured 2026-09-21, different scenes]`. Tefa remembers a clearly pixelated picture
+earlier in the project; what differed then is not known (higher zoom step, a mis-latched source, or the
+pre-HDR path are candidates) — if it returns, note the zoom step.
+
 ### 9ch. ⭐⭐⭐ "THE WEAPON JUST STARTS MOVING BY ITSELF" — RE8VR steers the gun from the left hand's POSITION alone, unsmoothed and unchecked; a tracked-bit guard and a 4 Hz instrument are built (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
 
 Tefa: *"motion controller drift when one controller is behind the other one … right now it is sometimes
