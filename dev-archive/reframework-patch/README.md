@@ -73,7 +73,11 @@ the 2026-09-04 inbox-drain entry.
   moves it under a held grip and re-aimed the gun ~4.8° at the first shot after every take (dossier §9cg).
   Second half worn the same evening: *"it works :)"*, 11 of 12 shots down from ~4.8° to ~1.5° `[verified-live 2026-09-21, n=12]`. **Third part, same patch file (2026-09-21):** a drift guard — steering is held while OpenXR says the
   left controller's position is not tracked — and a 4 Hz `grip-watch` instrument (dossier §9ch).
-  `[compile-verified 2026-09-21]`, installed, not yet worn. Independent of the two mirror patches (different file).
+  Worn: the tracked bit never clears under Virtual Desktop, so the guard is a no-op there.
+  ⛔ **Correction, same patch file (2026-09-21 19:00):** the first "relative" maths invented steering from the
+  rifle's own rotation (30–71° with the hand still). Steering is now computed in the gun's frame from plain
+  directions, shortest arc, limited to 25°, with `grip_steer_scale` (1 / 0.5 / 0) as a live lever (dossier §9ci).
+  `[compile-verified 2026-09-21]`, not yet worn. Independent of the two mirror patches (different file).
 
 - **`build-local-no-csharp.patch`** — build convenience only, no behaviour change: drops `CSharp`
   from the project's languages in `cmake.toml` so the build does not need the C# toolchain.
