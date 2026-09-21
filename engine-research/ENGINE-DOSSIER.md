@@ -2270,6 +2270,34 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ca. ⭐⭐⭐ THE ZERO TURNS WITH THE RIFLE'S ROLL — proven present in the shipped code; every shot line now says by how much, and the plugin keeps its own log (2026-09-21, `/pd`, BUILT + INSTALLED on RTX, NOT RUN)
+
+Follows §9bz. **Static read `[inferred-static 2026-09-21]`:** `crop_follow.cpp` builds the zero's *up*
+from the rifle root's own Y axis and its *right* from the root's own X axis, flipping only their
+**signs** (up to face world-up, right to face the eye's right). A sign flip removes nothing of the
+roll, so the whole ~19° correction turns with the rifle as it rolls about the bore.
+
+**Numeric proof on the shipped `sg_zero_bore()`** (`plugin/tools/shot_frame_test.cpp`, via the new
+`shot_frame_math.h`) `[verified-numerically 2026-09-21, 59/59]`: a roll of R turns the correction as
+the wearer sees it by R, same direction, within 1° over ±85°; aiming the unrolled rig elsewhere
+changes nothing. **A −22° roll from level — §9bz's two-handed median — moves the crosshair 7.1°
+(6.4° right, 3.1° down), which puts the hit LEFT of it: Tefa's direction.** ⚠️ Compared with
+*level*, not with the roll the zero was set at (never logged), so the cause of Tefa's miss stays
+`[hypothesis]`; only the mechanism is proven.
+
+**Built `[compile-verified 2026-09-21]`, installed on RTX (DLL `b86edec6…`, backup
+`re_scope_vr.dll.pre-shot-roll-2026-09-21`), NOT RUN:**
+1. Every `STRAIGHTENED` line in `re_scope_shots.log` now ends
+   `roll ±R | zero U/R, as seen ±u up ±r right (points ±c deg)` plus `UP-FLIPPED`/`RIGHT-FLIPPED` when
+   a sign flip fired. Roll is against WORLD up (+ = top to the wearer's right).
+2. Every plugin log line is also appended to `reframework/data/re_scope_vr_session.log` (banner per
+   launch, `.old` past 8 MB) — a launch can no longer destroy the evidence (§9bz lost it three times).
+
+**The deciding test (`VR USER`):** five shots one-handed, five two-handed. Roll differs and "as seen"
+differs by the miss → move the zero to a roll-free frame. Roll the same in both → not the cause.
+`FLIPPED` only on the missing shots → the flip is it (~24° jump). Full table:
+`modding-notes/2026-09-21-the-zero-turns-with-the-rifle.md`.
+
 ### 9bz. ⛔⭐⭐⭐ DISPROVED AND NARROWED IN ONE TEST: the game's ray and the scope axis agree PERFECTLY even two-handed (0.00° × 10) — so the miss is between the AXIS and the CROSSHAIR, not in the bullet (2026-09-21, LIVE, VR, Tefa wearing)
 
 §9by's hypothesis — that two-handed shots jump because the game's `ShootRay` and the scope's axis
