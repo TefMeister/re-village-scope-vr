@@ -1,0 +1,23 @@
+[2026-09-21 14:11:28.287] [REFramework] [info] [re8-harness] bringup: START -- rig, drive, sliders, armour, shrink+silence, bind, re-bind at +5 s and +20 s
+[2026-09-21 14:11:28.287] [REFramework] [info] [re8-harness] harness: bringup  -> pitch=180.0 yaw=90.0 roll=0.0 rollsim=0.0 steer=false model=eye k=0.500 ads=false cropmode=-1 cropfollow=-1 aspectmode=-1 eyedist=-9.00 retdepth=-9.00 mrollk=-9.00 mrollmode=-9 m
+[2026-09-21 14:11:28.342] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 2560x1448 fmt=29 flags=0x1 -> 000002A960E8B5D0 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-21 14:11:28.348] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 2560x1448 fmt=26 -> 000002A948D00240 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-21 14:11:31.304] [REFramework] [info] [re8-harness] zero: up -12.10 right 0.00
+[2026-09-21 14:11:31.308] [REFramework] [info] [re8-harness] zero: up -12.10 right -8.00
+[2026-09-21 14:11:36.384] [REFramework] [info] [re8-harness] bind: numpad * queued (bringup, first press)
+[2026-09-21 14:11:41.385] [REFramework] [info] [re8-harness] bind: numpad * queued (bringup, re-press 1 at +5 s)
+[2026-09-21 14:11:56.391] [REFramework] [info] [re8-harness] bind: numpad * queued (bringup, re-press 2 at +20 s)
+[2026-09-21 14:11:56.405] [REFramework] [info] [re8-harness] bringup: DONE. Stock crosshair still on the glass? send `bind`. (The tick is expected: any pendulum write detaches the goat.)
+[2026-09-21 14:13:41.116] [REFramework] [info] [re8-harness] zero: up -12.10 right -7.80
+[2026-09-21 14:13:44.638] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.80
+[2026-09-21 14:14:15.382] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.60
+[2026-09-21 14:14:51.962] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.40
+[2026-09-21 14:14:55.497] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.20
+[2026-09-21 14:15:04.177] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.00
+[2026-09-21 14:15:25.517] [REFramework] [info] [re8-harness] zero: up -11.90 right -6.60
+[2026-09-21 14:15:53.511] [REFramework] [info] [re8-harness] zero: up -11.90 right -6.40
+[2026-09-21 14:16:10.637] [REFramework] [info] [re8-harness] zero: up -11.90 right -6.60
+[2026-09-21 14:16:13.673] [REFramework] [info] [re8-harness] zero: up -11.90 right -6.50
+[2026-09-21 14:17:06.052] [REFramework] [info] [re8-harness] zero: up -11.90 right -6.60
+[2026-09-21 14:17:41.628] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.00
+[2026-09-21 14:18:10.102] [REFramework] [info] [re8-harness] zero: up -11.90 right -7.10
