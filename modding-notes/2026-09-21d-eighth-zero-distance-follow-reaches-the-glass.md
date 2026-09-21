@@ -18,8 +18,11 @@ and the zeroing read-me — in the repos and in the game folder.
 
 **Still owed.**
 
-- The near/far test (2 near + 2 far with this zero and no nudging). All seven shots here were at
-  one distance, so the correction is proven to *act*, not yet proven to be *right*.
+- ~~The near/far test.~~ **Done ten minutes later, same launch, zero untouched:** near (5.3 m), far
+  (13.0 m), near again (5.0 m). The picture turned 3.6° / 1.6° / 3.7° for them, and Tefa: *"they
+  really do seem to all go in the right place!"* `[reported 2026-09-21]`, turn figures
+  `[verified-live 2026-09-21, n=3 shots, 2 distances]`. Left: confirm on a second day, then make
+  distance-follow the shipped default.
 - The 1920×1080 scope picture. This launch latched the 2560×1448 picture, so the new default size
   has still never run.
 

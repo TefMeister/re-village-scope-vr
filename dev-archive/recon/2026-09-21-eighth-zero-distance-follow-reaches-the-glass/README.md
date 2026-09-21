@@ -12,11 +12,16 @@ Home PC (RTX), Tefa in the headset. First run of the dossier §9ce build.
   ~2° predicted in §9ce. `[verified-live 2026-09-21, n=1 wearer]`
 - Tefa: *"ok i zeroed the scope, please bake the numbers in."* `[reported 2026-09-21]`
 
+## Near/far, added 16:56 the same launch
+
+**NEAR/FAR, 16:53–16:56, same launch, zero untouched at −10.7 / −9.5:** shot #8 at 5.3 m (picture turned 3.59°), #9 at 13.0 m (1.63°), #10 at 5.0 m (3.68°). Tefa: *"they really do seem to all go in the right place!"* `[reported 2026-09-21]` · turn figures `[verified-live 2026-09-21, n=3 shots, 2 distances]`.
+
+The picture turns more for the near wall than the far one, as §9ce says it should, and the wearer
+saw all three land. Three shots on one day is a good sign, not a settled result: confirm on a
+second day before distance-follow becomes the shipped default.
+
 ## What it does NOT say
 
-- **Near/far has not been re-run.** Every shot in this log is at 13.0 m, so this zero is fitted
-  to one distance. The 2 near + 2 far test from the board row is still owed, and it is the test
-  that judges §9ce.
 - **The 1920×1080 scope picture was not exercised.** The mirror source latched at 2560×1448 in
   this launch, so the tightened 1920 latch window is still `[compile-verified]` only.
 
