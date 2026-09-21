@@ -2270,6 +2270,61 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9bz. ⛔⭐⭐⭐ DISPROVED AND NARROWED IN ONE TEST: the game's ray and the scope axis agree PERFECTLY even two-handed (0.00° × 10) — so the miss is between the AXIS and the CROSSHAIR, not in the bullet (2026-09-21, LIVE, VR, Tefa wearing)
+
+§9by's hypothesis — that two-handed shots jump because the game's `ShootRay` and the scope's axis
+disagree on timing — is **disproved by its own instrument on its first outing.** Ten two-handed shots,
+letting go of the grip and re-gripping between them:
+
+```
+shot #1  STRAIGHTENED along the SCOPE AXIS  was  7.44 deg off, now 0.056 | game ray vs scope axis 0.00 deg | aim 9.8 m
+shot #4  STRAIGHTENED along the SCOPE AXIS  was 12.93 deg off, now 0.000 | game ray vs scope axis 0.00 deg | aim 9.6 m
+shot #10 STRAIGHTENED along the SCOPE AXIS  was 15.30 deg off, now 0.000 | game ray vs scope axis 0.00 deg | aim 9.7 m
+```
+
+`[verified-live 2026-09-21, n=10]` — **`game ray vs scope axis` is 0.00° on every single shot, two-handed
+included.** The two lines never disagreed; §9by's whole premise was wrong, and steering the bullet along
+the scope axis changed nothing because it was already the same direction. ⭐ **The instrument earned its
+keep immediately: one wear, one number, hypothesis dead** — which is exactly what §9bw said every lever
+must do from now on.
+
+**What is now fenced in.** The bullet provably leaves along the scope's own axis, to 0.056°. Tefa still
+sees the hit **left of the crosshair, at the same spot every time**, over five separate grip-and-regrip
+cycles `[reported 2026-09-21, screenshot in the recon folder]`. So:
+
+⛔ **The fault is between the scope AXIS and the CROSSHAIR — in where the picture is pointed, not in where
+the bullet goes.** Everything downstream of the axis is now proven correct, which closes off half the
+project's surface.
+
+⚠️ **And it is NOT parallax:** at the logged 9.7 m the parallax term would push the hit to the **right**
+(§9bw's near-wall shot did exactly that). This miss is to the **left**, and constant.
+
+**Leading hypothesis `[hypothesis]`: the zero is applied in a frame that ROLLS with the rifle.** The zero
+is stored as up/right degrees (−14.9 / −11.8, a ~19° correction) and applied to the picture; if that
+correction rides the rifle's roll, then any consistent change of roll rotates it into a different
+direction and lands the crosshair in a consistent wrong place. **Two-handing changes the grip, and Tefa's
+words are "it pulls my hand to the side … always drags the hand to the same spot"** — a repeatable roll.
+The session's roll while two-handed read a median of **−22.0°** (range −87° to +70°) `[measured 2026-09-21,
+n=66 ticks]`. ⚠️ **The one-handed baseline could not be compared: the previous launch's log was
+overwritten again** — the third time tonight that the game's own log destroyed evidence before it was read.
+
+**NEXT, all `[PD]`, no game needed:**
+1. **Put the roll and the zero into every shot line** in `re_scope_shots.log`, plus the crosshair's own
+   direction. One wear then answers it: if roll differs systematically one- vs two-handed and the miss
+   tracks it, the zero must be applied in a roll-free frame.
+2. **Mirror the game log into our own file at startup** — tonight proved a launch-truncated log is not
+   evidence, three times over.
+3. Only then change how the zero is applied.
+
+**What is settled and must not be re-litigated:** the spread cancel works; the bullet follows the scope
+axis to 0.056°; the ray and the axis agree always; the reference zero stands; parallax is a separate,
+smaller, distance-dependent term that pushes RIGHT.
+
+Evidence: `dev-archive/recon/2026-09-21-two-handed-shots-straightened-but-ray-wrong/` — the shot log, the
+session's crop-follow lines, and Tefa's marked screenshot.
+
+Credit: **praydog** (REFramework, RE8VR). Ten shots, five re-grips and the screenshot by Tefa.
+
 ### 9by. ⭐⭐⭐ TWO-HANDED SHOTS: EVERY BULLET WAS STRAIGHTENED — THE GAME'S *RAY* WAS WRONG. The bullet now follows the scope's own axis (2026-09-21, LIVE + `/pd`, installed, NOT yet worn)
 
 **Supersedes: §9bx's leading hypothesis** (silent exits). Tefa, after more play: *"holding the rifle with
