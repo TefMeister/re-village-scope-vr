@@ -2270,6 +2270,54 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ch. ⭐⭐⭐ "THE WEAPON JUST STARTS MOVING BY ITSELF" — RE8VR steers the gun from the left hand's POSITION alone, unsmoothed and unchecked; a tracked-bit guard and a 4 Hz instrument are built (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
+
+Tefa: *"motion controller drift when one controller is behind the other one … right now it is sometimes
+impossible to aim, because the weapon just starts moving by itself. but honestly it's really bad in RE
+village … maybe there really is something going on in this game specifically"* `[reported 2026-09-21]`.
+
+**What IS specific to this game's VR code** `[inferred-static 2026-09-21]` (`RE8VR::update_hand_ik`):
+
+1. While gripped, the gun's direction is the line **right hand → left hand, by POSITION only.** The left
+   controller's rotation — which comes from its gyro and survives occlusion — is not used for aim at all.
+2. That line is applied **raw, every frame**: no smoothing, no deadband, no plausibility test.
+3. The angle is `atan(position error / hand separation)`. **1 cm of error is 2.9° at 20 cm, 1.9° at 30 cm**,
+   and the scope then magnifies what the eye sees of it ~2.4×.
+4. Nothing reads `XR_SPACE_LOCATION_POSITION_TRACKED_BIT`. OpenXR reports per frame whether a position is
+   *tracked* or only *valid* (estimated); the runtime layer keeps `hand.location` + `hand.velocity` for both
+   hands (`OpenXR.cpp:116-126`) and nothing downstream looks at the flags.
+
+So an occluded left controller — IMU dead-reckoning, position sliding by centimetres — turns directly into
+degrees of gun rotation. A rifle held "properly" puts the left controller straight in front of the right
+one, which is the worst case for inside-out tracking; hence the standing two-hand rule (left ABOVE the
+right, `feedback-two-hand-grip-stacked`).
+
+**Which step runs last (PROTOCOL §11):** same step as §9cf/§9cg — `grip_rot_delta` → `rh_rotation`. The guard
+acts on `grip_rot_delta` itself, upstream of the pose.
+
+**Built:**
+- **Guard** (`re8vr.grip_guard`, default ON; `fn grip_guard_on/off`, `GRIP-GUARD-ON/OFF.bat`): while the
+  runtime says the left position is NOT TRACKED, the steering is held at its last tracked value (kept in
+  the gun's frame, so the right hand still aims the whole rifle); on regaining, the engage reference is
+  re-based so steering carries on from the held value instead of snapping to wherever the hand drifted.
+  **If the runtime never clears the bit, the guard is a no-op** — it cannot make anything worse.
+- **Instrument:** `[RE8VR] grip-watch: hands N cm apart (1 cm of error = X deg) | left TRACKED/LOST right … |
+  left hand speed N cm/s | steering N deg | untracked frames N`, 4 a second while gripped, plus a line on
+  every TRACKED↔LOST change.
+
+`[compile-verified 2026-09-21]`, `dinput8.dll` `335c5023ca5fb57a…`, **installed** (game was closed; previous
+kept as `dinput8.previous.dll`). NOT RUN.
+
+**What one wear decides** — reproduce the drift (left controller hidden behind the right) for ~10 s:
+| the log shows | it means | next |
+| --- | --- | --- |
+| `LOST` appears while it drifts, and the rifle holds | Virtual Desktop reports occlusion honestly; the guard is the fix | tune nothing; ship it |
+| `LOST` never appears, `left hand speed` reads several cm/s with the hand still | the runtime hides the loss; the speed figure IS the drift signature | second guard keyed on motion: slow steady slide with no wrist rotation |
+| `LOST` never appears and speed ≈ 0 while the rifle visibly moves | the movement is not the left hand's position at all | look at the right hand / the animation, not tracking |
+| hands read under ~20 cm apart | the amplification alone explains much of it | consider a longer virtual lever (steer at a fraction) |
+
+Credit: **praydog** (REFramework, RE8VR).
+
 ### 9cg. ⭐⭐⭐ THE JUMP IS AT THE FIRST SHOT AFTER A TAKE, NOT AT THE TAKE — the body ANIMATION moves the grip socket under a held grip, and RE8VR steers by it (2026-09-21, LIVE VR by Tefa, then build on RTX; BUILT, NOT INSTALLED)
 
 **Corrects §9cf's reading of the symptom, not its mechanism.** §9cf's patch was worn: Tefa — *"steering
