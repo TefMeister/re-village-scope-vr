@@ -2270,6 +2270,28 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cb. ⭐⭐⭐ OUR OWN DISTANCE RAY: it skips anything nearer than 1 m and our own objects, and it names what it hit (2026-09-21, `/pd`, BUILT + INSTALLED on RTX, NOT RUN)
+
+Follows §9bw (distance-follow read **0.50 m**, which is RE8VR's nearest-contact crosshair
+distance catching something at the muzzle; suspect `[hypothesis]`: our own rig prop).
+`scripts/re8scope/ray.lua` uses the same cast as RE8VR's live crosshair (`castRayAsync`, all
+hits, near-sorted, issued in `LockScene`, read back once `get_Finished`). It fires from RE8VR's
+muzzle along its axis and walks **every** contact, skipping anything under 1 m and anything
+whose GameObject is ours (rig, spawned prop, rifle) or the player. The first contact left is
+the distance. It reports itself with a `[ray]` census line (used / nearest raw / skipped with
+reason). `pane.lua` prefers it, with RE8VR's number as the fallback, and publishes
+`aim_raw`/`aim_src`. Every `STRAIGHTENED` shot line now carries the distance, its source, the
+nearest raw contact and `crop aimed at` (`g_far_m`, from the easing moved into `far_dist.cpp`).
+**Distance-follow stays OFF.**
+
+`own_ray_test.lua` 15/15 on the shipped script `[verified-numerically 2026-09-21]`. It caught
+two real bugs first (a suppressed first census, and `ipairs` stopping at a nil hole, which hid
+the rifle and player checks). `producer_split_check` 52/52, globals PASS, build clean
+`[compile-verified 2026-09-21]`. **Not established:** that the Collidable owner accessor
+(`get_GameObject`/`get_Owner`) exists on this build (if not, names read `?` and the 1 m rule
+alone filters). Whether the 0.50 m object is our prop is answered by the first VR census.
+Note: `modding-notes/2026-09-21b-our-own-distance-ray.md`.
+
 ### 9ca. ⭐⭐⭐ THE ZERO TURNS WITH THE RIFLE'S ROLL — proven present in the shipped code; every shot line now says by how much, and the plugin keeps its own log (2026-09-21, `/pd`, BUILT + INSTALLED on RTX, NOT RUN)
 
 Follows §9bz. **Static read `[inferred-static 2026-09-21]`:** `crop_follow.cpp` builds the zero's *up*
