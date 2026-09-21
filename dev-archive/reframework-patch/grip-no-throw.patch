@@ -1,8 +1,8 @@
 diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
-index 034f37c9..7d2e8028 100644
+index 034f37c9..d73f2cfb 100644
 --- a/src/mods/vr/games/RE8VR.cpp
 +++ b/src/mods/vr/games/RE8VR.cpp
-@@ -77,6 +77,13 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
+@@ -77,6 +77,15 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
          "last_muzzle_forward", &RE8VR::m_last_muzzle_forward,
          "was_gripping_weapon", &RE8VR::m_was_gripping_weapon,
          "is_holding_left_grip", &RE8VR::m_is_holding_left_grip,
@@ -10,13 +10,15 @@ index 034f37c9..7d2e8028 100644
 +        "grip_last_engage_deg", &RE8VR::m_grip_last_engage_deg,
 +        "grip_engage_count", &RE8VR::m_grip_engage_count,
 +        "grip_guard", &RE8VR::m_grip_guard,
++        "grip_steer_scale", &RE8VR::m_grip_steer_scale,
++        "grip_raw_steer_deg", &RE8VR::m_grip_raw_steer_deg,
 +        "grip_untracked_frames", &RE8VR::m_grip_untracked_frames,
 +        "grip_socket_drift_deg", &RE8VR::m_grip_socket_drift_deg,
 +        "grip_socket_drift_max_deg", &RE8VR::m_grip_socket_drift_max_deg,
          "is_in_cutscene", &RE8VR::m_is_in_cutscene,
          "is_grapple_aim", &RE8VR::m_is_grapple_aim,
          "is_reloading", &RE8VR::m_is_reloading,
-@@ -354,11 +361,143 @@ void RE8VR::update_hand_ik() {
+@@ -354,11 +363,184 @@ void RE8VR::update_hand_ik() {
      // Lets the player hold their left hand near the original (grip) position of the weapon
      if (m_was_gripping_weapon && !m_is_reloading) {
          if (glm::length(original_left_pos_relative) >= 0.1f) {
@@ -71,6 +73,7 @@ index 034f37c9..7d2e8028 100644
 +            if (!m_grip_steering_active) {
 +                m_grip_engage_delta_local = glm::normalize(glm::inverse(rh_rotation) * grip_rot_delta * rh_rotation);
 +                m_grip_steering_active = true;
++                m_grip_take_dir_valid = false; // the relative block below takes a fresh direction
 +                m_grip_held_delta_local = glm::quat{1.0f, 0.0f, 0.0f, 0.0f};
 +                m_grip_left_was_tracked = true;
 +                ++m_grip_engage_count;
@@ -83,8 +86,48 @@ index 034f37c9..7d2e8028 100644
 +            }
 +
 +            if (m_grip_relative) {
-+                const auto engage_delta_world = glm::normalize(rh_rotation * m_grip_engage_delta_local * glm::inverse(rh_rotation));
-+                grip_rot_delta = glm::normalize(grip_rot_delta * glm::inverse(engage_delta_world));
++                // ⛔ 2026-09-21 19:00, CORRECTED THE SAME EVENING. The first version removed the
++                // take's rotation by conjugating it with the gun's rotation. That is only right if
++                // to_quat(B*d) == B*to_quat(d), and it is not: to_quat builds a look-at with a fixed
++                // up, so raising or turning the rifle after the take produced steering out of
++                // nothing -- the instrument read 30-71 deg with the left hand STILL, and Tefa's
++                // screenshot shows the muzzle pointed back at the player. My maths, not tracking.
++                //
++                // Now done entirely in the GUN'S OWN FRAME with plain directions: where the left
++                // hand is, seen from the gun, against where it was at the take. Moving both hands
++                // together leaves that direction unchanged by construction, so it cannot invent
++                // steering; the shortest arc between the two directions carries no roll.
++                const auto inv_rh = glm::inverse(glm::normalize(rh_rotation));
++                const auto dir_now_local = glm::normalize(inv_rh * Vector3f{lh_delta_to_rh});
++
++                if (!m_grip_take_dir_valid) {
++                    m_grip_take_dir_local = dir_now_local;
++                    m_grip_take_dir_valid = true;
++                }
++
++                const auto shortest_arc = [](const Vector3f& a, const Vector3f& b) {
++                    const auto d = glm::dot(a, b);
++                    if (d < -0.9999f) {
++                        return glm::quat{1.0f, 0.0f, 0.0f, 0.0f}; // opposite: refuse rather than flip the gun
++                    }
++                    const auto c = glm::cross(a, b);
++                    return glm::normalize(glm::quat{1.0f + d, c.x, c.y, c.z});
++                };
++
++                auto steer_local = shortest_arc(m_grip_take_dir_local, dir_now_local);
++
++                // A support hand cannot honestly steer a rifle further than this. Past it the
++                // number is tracking gone wrong (or a bug of ours), so it is held at the limit.
++                const auto raw_steer_deg = glm::degrees(2.0f * std::acos(glm::clamp(glm::abs(steer_local.w), 0.0f, 1.0f)));
++                m_grip_raw_steer_deg = raw_steer_deg;
++
++                auto k = glm::clamp(m_grip_steer_scale, 0.0f, 1.0f);
++                if (raw_steer_deg > GRIP_MAX_STEER_DEG) {
++                    k *= GRIP_MAX_STEER_DEG / raw_steer_deg;
++                }
++
++                steer_local = glm::normalize(glm::slerp(glm::quat{1.0f, 0.0f, 0.0f, 0.0f}, steer_local, k));
++                grip_rot_delta = glm::normalize(rh_rotation * steer_local * inv_rh);
 +            }
 +
 +            // re-village-scope-vr, 2026-09-21: THE LEFT HAND STEERS BY POSITION ALONE. Nothing
@@ -132,12 +175,12 @@ index 034f37c9..7d2e8028 100644
 +                        ++m_grip_untracked_frames;
 +                    } else {
 +                        if (!m_grip_left_was_tracked) {
-+                            // regained: re-base so that the steering now equals the held steering
-+                            const auto held_world = glm::normalize(rh_rotation * m_grip_held_delta_local * glm::inverse(rh_rotation));
-+                            const auto raw_delta = glm::normalize(current_grip_rot * glm::inverse(original_grip_rot));
-+                            const auto new_engage_world = glm::normalize(glm::inverse(held_world) * raw_delta);
-+                            m_grip_engage_delta_local = glm::normalize(glm::inverse(rh_rotation) * new_engage_world * rh_rotation);
-+                            grip_rot_delta = held_world;
++                            // regained: re-base the take direction so steering carries on from the
++                            // held value instead of snapping to wherever the hand has drifted
++                            const auto inv_rh_now = glm::inverse(glm::normalize(rh_rotation));
++                            const auto dir_now = glm::normalize(inv_rh_now * Vector3f{lh_delta_to_rh});
++                            m_grip_take_dir_local = glm::normalize(glm::inverse(m_grip_held_delta_local) * dir_now);
++                            grip_rot_delta = glm::normalize(rh_rotation * m_grip_held_delta_local * inv_rh_now);
 +                        }
 +
 +                        m_grip_held_delta_local = glm::normalize(glm::inverse(rh_rotation) * grip_rot_delta * rh_rotation);
@@ -151,17 +194,17 @@ index 034f37c9..7d2e8028 100644
 +                    m_grip_last_report = now;
 +                    const auto steer_w = glm::clamp(glm::abs(grip_rot_delta.w), 0.0f, 1.0f);
 +                    const auto sep_cm = glm::length(Vector3f{lh_delta_to_rh}) * 100.0f;
-+                    spdlog::info("[RE8VR] grip-watch: hands {:.1f} cm apart (1 cm of error = {:.2f} deg) | left {} right {} | left hand speed {:.1f} cm/s | steering {:.2f} deg | untracked frames {}",
++                    spdlog::info("[RE8VR] grip-watch: hands {:.1f} cm apart (1 cm of error = {:.2f} deg) | left {} right {} | left hand speed {:.1f} cm/s | steering {:.2f} deg applied ({:.2f} asked, scale {:.2f}) | untracked frames {}",
 +                        sep_cm, sep_cm > 1.0f ? glm::degrees(std::atan(1.0f / sep_cm)) : 0.0f,
 +                        left_tracked ? "TRACKED" : "LOST", right_tracked ? "TRACKED" : "LOST",
-+                        left_speed_cm, glm::degrees(2.0f * std::acos(steer_w)), m_grip_untracked_frames);
++                        left_speed_cm, glm::degrees(2.0f * std::acos(steer_w)), m_grip_raw_steer_deg, m_grip_steer_scale, m_grip_untracked_frames);
 +                }
 +            }
 +
              // Adjust the right hand rotation;
              rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
  
-@@ -371,6 +510,8 @@ void RE8VR::update_hand_ik() {
+@@ -371,6 +553,8 @@ void RE8VR::update_hand_ik() {
          lh_pos = lh_grip_position;
          lh_rotation = rh_rotation * original_left_rot_relative;
      } else {
@@ -171,10 +214,10 @@ index 034f37c9..7d2e8028 100644
              lh_pos = lh_grip_position;
              lh_rotation = rh_rotation * original_left_rot_relative;
 diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
-index dbfb8ae0..7701b222 100644
+index dbfb8ae0..391e4089 100644
 --- a/src/mods/vr/games/RE8VR.hpp
 +++ b/src/mods/vr/games/RE8VR.hpp
-@@ -113,6 +113,23 @@ private:
+@@ -113,6 +113,29 @@ private:
  
      bool m_was_gripping_weapon{false};
      bool m_is_holding_left_grip{false};
@@ -188,6 +231,12 @@ index dbfb8ae0..7701b222 100644
 +    float m_grip_socket_drift_deg{0.0f};
 +    float m_grip_socket_drift_max_deg{0.0f};
 +    // the drift guard and its instrument (2026-09-21), see update_hand_ik()
++    // steering in the gun's own frame (2026-09-21 19:00 correction), see update_hand_ik()
++    static constexpr float GRIP_MAX_STEER_DEG = 25.0f;
++    Vector3f m_grip_take_dir_local{0.0f, 0.0f, 1.0f};
++    bool m_grip_take_dir_valid{false};
++    float m_grip_steer_scale{1.0f}; // 1 = the left hand steers fully, 0 = the front is locked to the right hand
++    float m_grip_raw_steer_deg{0.0f};
 +    bool m_grip_guard{true};
 +    bool m_grip_left_was_tracked{true};
 +    glm::quat m_grip_held_delta_local{1.0f, 0.0f, 0.0f, 0.0f};
