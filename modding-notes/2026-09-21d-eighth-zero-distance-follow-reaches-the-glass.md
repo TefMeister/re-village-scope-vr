@@ -29,4 +29,12 @@ and the zeroing read-me — in the repos and in the game folder.
 - The 1920×1080 scope picture. This launch latched the 2560×1448 picture, so the new default size
   has still never run — and the restart did the same, two launches out of two.
 
+**17:30 — why the 1080p picture never took.** The size picker in `rig.lua` had no case for
+"prefer 1920": it was written when 1920 was already first in the default order, and nobody added
+one when 2560 became first on 2026-09-18. The request was accepted and logged, then ignored.
+`[inferred-static 2026-09-21]` One line added, existing size test 9/9, installed
+`[compile-verified 2026-09-21]`, not run. The next launch is also the first real test of the
+tightened 1920 latch window, so a black scope is possible — `START-SCOPE-SHARP-1440.bat` is the way
+back.
+
 Evidence: `dev-archive/recon/2026-09-21-eighth-zero-distance-follow-reaches-the-glass/`.
