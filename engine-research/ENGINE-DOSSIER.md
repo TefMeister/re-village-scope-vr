@@ -2270,6 +2270,41 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cg. ⭐⭐⭐ THE JUMP IS AT THE FIRST SHOT AFTER A TAKE, NOT AT THE TAKE — the body ANIMATION moves the grip socket under a held grip, and RE8VR steers by it (2026-09-21, LIVE VR by Tefa, then build on RTX; BUILT, NOT INSTALLED)
+
+**Corrects §9cf's reading of the symptom, not its mechanism.** §9cf's patch was worn: Tefa — *"steering
+feels good, the weapon still sharply jumps left and down slightly after putting hand on it. the last 3
+shots i did, 1st was with the jump, then i held my hand on the rifle and shot 2 more and they did not"*
+`[reported 2026-09-21]`. The log (12 takes, 10 shots) `[verified-live 2026-09-21]`:
+every take **3.3–15.5° REMOVED** (so §9cf's throw was real and is gone); **every first shot after a take
+moved the muzzle 4.6–5.1° in the 3 ticks before the bullet; every shot with the hand kept on, 0.6–0.8°.**
+4.8° is §9cd's pre-patch two-handed figure exactly, so §9cf never touched it.
+
+**Cause** `[inferred-static 2026-09-21]`: `original_left_pos_relative` — the socket, relative to the right
+hand — is read from the body animation **every frame** (`motion.getWorldPosition` of the two IK joints).
+`grip_rot_delta` is measured against it. When the animation changes under a held grip, the socket moves
+and the gun re-aims **with both real hands still**. The first trigger pull after a take moves the animated
+hands from the carry pose to the firing pose: a fixed offset, hence a fixed ~4.8°, always the same way
+(left and down), starting when the trigger goes down (3 ticks before the bullet). Staying in the firing
+pose, later shots move nothing. Working the bolt counts as a reload, which ends the grip, returns the
+carry pose, and re-arms the jump — which is why it looked like "after putting the hand on".
+This also explains §9bx/§9by's *"the FIRST bullet after putting my hand on the gun always goes wrong"*.
+
+**Which step runs last (PROTOCOL §11):** same step as §9cf — `rh_rotation` in `update_hand_ik` — and the
+socket feeds it, so freezing the socket is upstream of the pose.
+
+**Fix:** the socket the STEERING measures against is frozen at the take (`m_grip_socket_rel_at_take`);
+the DRAWN left hand still follows the live socket, so it stays on the rifle. With §9cf, steering while
+gripped now depends on the two controllers only. **Proves itself:** logs
+`[RE8VR] grip #N: the ANIMATION has moved the socket X deg under a held grip -- IGNORED`, and the scope
+plugin's own shot line should fall from ~4.8° to under ~1° on first shots. `re8vr.grip_socket_drift_deg`
+/ `_max_deg` readable live. `grip_relative=false` still restores the original for both halves.
+Built 0 errors `[compile-verified 2026-09-21]`, `dinput8.dll` `0a805257f167c1a3…`, **NOT INSTALLED**.
+
+⚠️ **Not covered:** one-handed shots move 1.6° before the bullet (§9cd). No grip is involved there, so
+that is the right hand's own joint against the animation — a separate, smaller thing.
+Evidence: `dev-archive/recon/2026-09-21-grip-take-removed-first-shot-still-jumps/`.
+
 ### 9cf. ⭐⭐⭐ THE GUN IS THROWN LEFT WHEN THE SECOND HAND GOES ON — the cause is three lines of RE8VR, and the fix is built (2026-09-21, static + build on RTX; BUILT, NOT INSTALLED — the game was running)
 
 Tefa: *"the weapon throwing to the left visibly after putting hand on the gun"* `[reported 2026-09-21]`.

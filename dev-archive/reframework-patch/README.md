@@ -68,7 +68,10 @@ the 2026-09-04 inbox-drain entry.
   Taking the two-handed grip no longer re-aims the gun at once: the rotation present at the moment
   the grip is taken is remembered in the gun's frame and removed afterwards. Logs every take with the
   angle it removed. `re8vr.grip_relative = false` restores the original. Reasoning: dossier §9cf.
-  `[compile-verified 2026-09-21]`, not yet worn. Independent of the two mirror patches (different file).
+  Worn 2026-09-21: the take no longer throws (3.3–15.5° removed per take, n=12). **Second half, same
+  patch file:** the grip socket used for steering is frozen at the take, because the body animation
+  moves it under a held grip and re-aimed the gun ~4.8° at the first shot after every take (dossier §9cg).
+  `[compile-verified 2026-09-21]`, second half not yet worn. Independent of the two mirror patches (different file).
 
 - **`build-local-no-csharp.patch`** — build convenience only, no behaviour change: drops `CSharp`
   from the project's languages in `cmake.toml` so the build does not need the C# toolchain.
