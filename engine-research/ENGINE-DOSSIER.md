@@ -2307,6 +2307,8 @@ while `hold` is on:
 as `re_scope_vr.dll.pre-rate-watch-2026-09-21`). ⚠️ `hold` adds a mid-frame GPU wait — it is a test
 setting, not a way to play.
 
+✅ **WORN 19:52–19:58 — THE MEASURE WORKS, FOR THE FIRST TIME** `[verified-live 2026-09-21]`: `avg` 0.0015–0.047 (was 0.0000 since 09-16). **18 spikes in 3.5 min against the wearer's ~20 flickers** (*"some stronger than the others"* `[reported]` — the rest sit under the 0.08 threshold; 6 of the 18 fall inside `bringup`). **So the flicker is in the picture we compose, before our blit**, and `hold 2` has a number to act on: `FLICKER-BLOCK-ON.bat` = `holdt 0.05` + `hold 2`, not yet worn. **Rate: the picture changed on every present and the camera rotation on every tick — nothing runs at half rate; table rows 1 and 2 are OUT.** And with `cropfollow 0` the wearer saw **no jitter** `[reported 2026-09-21]` → **the stepping is made by the CROP PLACEMENT** (row 3). `hold 1` cost 5 fps (66.1 vs 71.3). Evidence: `dev-archive/recon/2026-09-21-first-real-flicker-and-rate-readings/`.
+
 ### 9cj. ⛔⭐⭐⭐ WITHDRAWN: "tracking slide cannot do 30–70°" — the wearer says it always has in this game. A second game-specific amplifier found (the 16 cm wrist lever), and the instrument now measures both candidates side by side (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
 
 **Supersedes: §9ci item 2's conclusion** ("Tracking slide cannot do that … Cause, mine"). The maths error
