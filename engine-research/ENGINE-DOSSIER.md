@@ -2270,6 +2270,23 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cc. ⛔⭐⭐⭐ THE ROLL IDEA IS DISPROVED; THE TWO-HANDED MISS IS A SNAP JUST BEFORE THE SHOT — the bullet now takes the axis from 2 ticks earlier (2026-09-21, LIVE VR by Tefa, then `/pd`; BUILT, NOT INSTALLED)
+
+Ten shots, five one-handed and five two-handed `[verified-live 2026-09-21, n=10]`: roll +1.2°→+5.7°,
+zero as seen moved under 1°, so **§9ca's roll hypothesis is `[disproved 2026-09-21]`** (its mechanism is
+real, but too small here). Tefa: two-handed, *"the gun teleports the muzzle a little to the left and that's
+where the shot lands … the janking … must happen a frame before the bullet flies out"* `[reported 2026-09-21, n=5]`.
+The bullet follows the axis AT the shot (0.00°), which is the post-snap axis; the crosshair was aimed with
+the pre-snap one. **Fix:** `bore_history.h` keeps 16 ticks of axis, and the bullet uses the axis N ticks back
+(`re_scope_prejump.txt`, default 2, 0 = old). Every shot logs the muzzle movement over the last 4 ticks, so
+the log names the right N `[compile-verified 2026-09-21]`, `bore_history_test` 10/10.
+**Also:** our own ray (§9cb) works live, reading the aimed-at walls at 13.0/22.5 m, with names resolving;
+our parts never appeared in 76 census lines, so §9bw's 0.50 m was most likely a world object
+`[inferred-static 2026-09-21]`. One-handed hits right-and-up at 13 m fit uncorrected parallax (§9bw),
+so distance-follow is the next thing to try. The grey-blue wash on the right of the glass is back
+(capture in recon), and it is NOT diagnosed. Note: `modding-notes/2026-09-21c-roll-disproved-the-two-hand-snap.md`;
+evidence `dev-archive/recon/2026-09-21-roll-disproved-two-hand-snap/`.
+
 ### 9cb. ⭐⭐⭐ OUR OWN DISTANCE RAY: it skips anything nearer than 1 m and our own objects, and it names what it hit (2026-09-21, `/pd`, BUILT + INSTALLED on RTX, NOT RUN)
 
 Follows §9bw (distance-follow read **0.50 m**, which is RE8VR's nearest-contact crosshair
