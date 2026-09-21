@@ -2270,6 +2270,25 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9ce. ⛔⭐⭐⭐ DISTANCE-FOLLOW NEVER REACHED THE PICTURE — the exact map is directions-only; now it does (2026-09-21, LIVE VR by Tefa, then `/pd`; INSTALLED, NOT RUN)
+
+After the seventh zero (up −11.9 / right −7.1, which HELD across a restart — far shots on the crosshair
+`[verified-live 2026-09-21, n=2]`), near shots at 5.2 m landed slightly RIGHT, twice, same offset
+`[reported 2026-09-21, n=2, marked capture in recon]` — with `crop aimed at 5.2 m` in the log. **Static read
+`[inferred-static 2026-09-21]`:** with `geom` on, the glass is drawn from the homography `H`, built from the bore
+DIRECTION only (§9z said so: "the exact map is directions-only"). `far_pt` — the only thing distance-follow
+(§9bu) changes — feeds the legacy crop candidates (`cu`,`cv`), which `geom` does not use, and the `eyepar` branch,
+which is OFF (`eye_par=0`). So the measured distance never reached the picture, and "right at near range" is
+plain uncorrected parallax: atan(0.4/5.2) − atan(0.4/13) ≈ 2.6°. ⚠️ This also re-reads §9bw: the first
+distance-follow shot "missed like no correction at all" because there WAS none; the 0.50 m reading was a
+second, separate fault. ⚠️ And it withdraws §9cd's/the board's "near and far hit the same spot": that was
+judged by eye on one pair of captures, and nothing had changed to make it true.
+**Fix:** distance-follow ON now also takes the reflected-eye→far-point aim (the `eyepar` branch,
+`eye_parallax_test` 14/14) `[compile-verified 2026-09-21]`; every shot line adds `picture turned X deg for it`
+(0.00 = the distance did not reach the picture). DLL `e569c79e…` installed. **The zero must be redone once
+more** — the old one absorbed ~1.8° of parallax at the 13 m zeroing wall. Evidence:
+`dev-archive/recon/2026-09-21-near-right-distance-never-reached-the-map/`.
+
 ### 9cd. ✅⭐⭐⭐ THE TWO-HANDED FIX WORKS — AND THE GUN MOVES BEFORE *EVERY* SHOT, ONE-HANDED TOO; look-back raised to 3 ticks, and the zero must be redone (2026-09-21, LIVE VR by Tefa, then `/pd`; INSTALLED)
 
 Nine shots on the §9cc build (3 two-handed, then 3 near and 3 far one-handed with distance-follow ON)
