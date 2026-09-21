@@ -64,6 +64,12 @@ the 2026-09-04 inbox-drain entry.
   Reach them with `GetProcAddress(GetModuleHandleW(L"dinput8.dll"), "REF_SetMirrorSteerAngles")`.
   ⚠️ The exports exist in the built DLL `[compile-verified 2026-09-19]`; **nothing has called them yet.**
 
+- **`grip-no-throw.patch`** — added 2026-09-21 (home PC). `src/mods/vr/games/RE8VR.cpp` + `.hpp`.
+  Taking the two-handed grip no longer re-aims the gun at once: the rotation present at the moment
+  the grip is taken is remembered in the gun's frame and removed afterwards. Logs every take with the
+  angle it removed. `re8vr.grip_relative = false` restores the original. Reasoning: dossier §9cf.
+  `[compile-verified 2026-09-21]`, not yet worn. Independent of the two mirror patches (different file).
+
 - **`build-local-no-csharp.patch`** — build convenience only, no behaviour change: drops `CSharp`
   from the project's languages in `cmake.toml` so the build does not need the C# toolchain.
 

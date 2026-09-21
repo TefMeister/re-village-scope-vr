@@ -2270,6 +2270,56 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cf. ⭐⭐⭐ THE GUN IS THROWN LEFT WHEN THE SECOND HAND GOES ON — the cause is three lines of RE8VR, and the fix is built (2026-09-21, static + build on RTX; BUILT, NOT INSTALLED — the game was running)
+
+Tefa: *"the weapon throwing to the left visibly after putting hand on the gun"* `[reported 2026-09-21]`.
+
+**Cause, read in our own REFramework tree** (`src/mods/vr/games/RE8VR.cpp`, `update_hand_ik()`,
+fork `gmankab/reframework-pd-upscaler-build` @ `76298bd`) `[inferred-static 2026-09-21]`:
+
+1. The grip is taken whenever the virtual left hand is **within 10 cm** of the weapon's animated grip
+   socket (`lh_grip_distance <= 0.1f`), and then held by the grip button.
+2. From that frame on the gun is rotated by `grip_rot_delta` = (right hand → **real** left hand) against
+   (right hand → **socket**). It is applied **whole, in the first frame** — no blend, no reference.
+3. So whatever part of that 10 cm lies across the barrel becomes an instant re-aim: with the hands
+   ~35 cm apart, up to `atan(0.10 / 0.35)` ≈ **16°**. It goes the same way every time because a given
+   person's hand sits the same side of the socket every time — for Tefa, left.
+
+This is the *"weapon jumps in my hand"* of §9by and the snap §9cc/§9cd worked around for the bullet; those
+fixed where the **bullet** goes, this removes the **throw itself**.
+
+**Which step runs last (PROTOCOL §11):** the gun's pose is decided at `rh_rotation` in `update_hand_ik`;
+the muzzle joint, RE8VR's `ShootRay` and our `world_tick` all read it afterwards. The change is made AT
+that step, so it is upstream of everything that showed the symptom.
+
+**Fix:** the rotation present at the moment the grip is taken is remembered **in the gun's own frame**
+(so turning the whole body does not bring it back) and removed from `grip_rot_delta` every frame after.
+Taking the grip changes nothing; only what the left hand does afterwards steers. Any frame outside the
+grip branch — letting go, or a reload — clears it, so the hand coming back after a reload is a fresh take
+and does not throw either (§9bx's "first shot after gripping or reloading").
+`m_grip_relative` (Lua: `re8vr.grip_relative`, default true) restores praydog's behaviour for an A/B;
+harness words `fn grip_keep` / `fn grip_snap` / `fn grip_show`, helpers `GRIP-KEEP.bat` / `GRIP-SNAP.bat`.
+
+**It proves its own effect:** every take logs
+`[RE8VR] grip taken #N: the hands' line was X deg off the gun -- REMOVED, the gun does not move`.
+X is the throw that WOULD have happened. X ≈ 0 on a visible throw means the throw comes from somewhere
+else; X of several degrees with no visible throw means it worked.
+
+Built with MSBuild against `build/RE8.vcxproj`, 0 errors `[compile-verified 2026-09-21]`,
+`dinput8.dll` sha256 `3b9cba91a66977c0…`. **NOT INSTALLED** — the game held the file; `UPDATE-VR-FRAMEWORK.bat`
+(new, keeps the old one as `dinput8.previous.dll`) installs it. Patch: `dev-archive/reframework-patch/grip-no-throw.patch`.
+
+⚠️ **Known consequence, to be judged in the headset:** while gripped, the gun no longer points along the
+real line between the hands; it keeps the one-handed aim and steers from there. That is the point, but it
+is a feel question only a wearer can answer.
+⚠️ **Separate and NOT addressed:** the muzzle still moves 1.6° (one hand) / 4.8° (two) in the 3 ticks
+before every shot (§9cd). That is not the grip take.
+**Side finding for the "dead left-hand offset" row (§9as):** while gripped the drawn left hand is *pinned
+to the socket* (`lh_pos = lh_grip_position`), so writing `left_hand_position_offset` cannot move the drawn
+hand there — it changes the gun's direction instead, through `lh_delta_to_rh` `[inferred-static 2026-09-21]`.
+
+Credit: **praydog** (REFramework, RE8VR) — the grip system is his; this is a small change to how it starts.
+
 ### 9ce. ⛔⭐⭐⭐ DISTANCE-FOLLOW NEVER REACHED THE PICTURE — the exact map is directions-only; now it does (2026-09-21, LIVE VR by Tefa, then `/pd`; INSTALLED, NOT RUN)
 
 After the seventh zero (up −11.9 / right −7.1, which HELD across a restart — far shots on the crosshair
