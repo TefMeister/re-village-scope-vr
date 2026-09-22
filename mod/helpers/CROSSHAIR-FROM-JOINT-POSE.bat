@@ -12,6 +12,7 @@ if not exist "%~dp0reframework\data" (
   exit /b 1
 )
 > "%~dp0reframework\data\re_scope_drawpose.txt" echo 0
+> "%~dp0reframework\data\re_scope_panesrc.txt" echo 0
 > "%~dp0reframework\data\re_scope_zeroframe.txt" echo 1
 > "%~dp0reframework\data\re_scope_cmd.txt" echo zeroup -10.9
 >> "%~dp0reframework\data\re_scope_cmd.txt" echo zeroright -9.2

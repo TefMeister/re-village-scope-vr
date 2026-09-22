@@ -2314,6 +2314,23 @@ Installed on RTX: `dinput8.dll` `72c19937…` (previous kept), `re_scope_vr.dll`
 2026-09-22` kept). Helpers: `STACKED-GRIP-ON/OFF.bat`, `CROSSHAIR-FROM-DRAWN-POSE.bat`,
 `CROSSHAIR-FROM-JOINT-POSE.bat`. Note `modding-notes/2026-09-22a-three-answers-zero-stacked-grip-flicker.md`.
 
+**Worn 11:00–11:25 the same day** (`modding-notes/2026-09-22b-…`) `[reported + verified-live 2026-09-22]`:
+- The drawn pose was IN USE; while aiming it sits **4.7–6.1° from the joint pose, of which only ~1–2° up
+  and ~0.1° right** (the rest roll), 8.7 cm away (n=4). Docked shots landed with the OLD zero. **So the
+  two-cameras gap is real but is not the 10° zero.** With the scope down the game camera wanders 47–53°
+  from the joint — harmless while aiming, worth knowing.
+- **Next suspect, with numbers:** the plugin's recomputed pane normal is **4.0–4.6° from the Lua's applied
+  plane** at rest with steering off (n=2). A plane 4.5° off reflects the bore 9° off, rigid to the rifle —
+  the zero's size, and it changes with the hold (stacked shots landed LOW). This is §9ap's unfixed row.
+  `[hypothesis]`. Lever: `re_scope_panesrc.txt` = 1 (the Lua's plane drives the map), `plane-check:` line
+  once a second. Shipped fix if it lands: read the pane's own transform every tick, not the sliders.
+- Grip: the socket take fired while the hand was still travelling (0 → 25° applied in 0.75 s, capped).
+  Tefa's asks built: dock only with the left grip button, reference at the press, no 25° limit.
+- Flicker: play-time spikes carry a STILL map (centre Δ 0.0003, 5 of 7) and the map hold stood in 0/s in
+  play → the map-less-tick suspect is `[disproved 2026-09-22]` for the play-time flicker. Built: the frame
+  dump (`spike_dump.cpp`, first six spikes → `flicker-spike-N-{src,now,prev}.ppm`).
+Afternoon builds `dinput8` `bce0cf0a…`, plugin `2cc90ba3…` — **not installed, the game was running.**
+
 ### 9cm. ⭐⭐⭐ WHY THE ZERO WILL NOT STAY: IT LIVES IN THE RIFLE'S FRAME, AND WHAT IT CORRECTS LIVES IN THE VIEW'S — the ~14° zero IS the headset eye's off-centre projection. Snapshot hand-off worn: jitter gone, flicker not (2026-09-21 evening, LIVE VR by Tefa + build on RTX; INSTALLED, NOT RUN)
 
 > ⚠️ **2026-09-22:** the "IS the eye's off-centre projection" identification is withdrawn by §9cn (today's
