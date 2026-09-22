@@ -98,6 +98,20 @@ cmake .. -G "Visual Studio 17 2022" -A x64 -DDEVELOPER_MODE=ON -DCMKR_SKIP_GENER
 cmake --build . --config Release
 ```
 
+**2026-09-22 (home PC):** `vr-cpp-all-patches.patch` is the complete `src/mods/VR.cpp` + `VR.hpp` diff
+against `76298bd` as built today — it CONTAINS `mirror-exemption-v2` and `mirror-steering` (kept for their
+history), plus the new export **`REF_GetMirrorDrawPose(float* m16, int* kind, unsigned* gen)`**: the world
+matrix the mirror layer was drawn from (kind 1 = the game's own camera, plan C on; 2 = the headset pose),
+published on every mirror window. Apply this ONE file to VR.cpp instead of the two older ones. Why: the
+scope plugin placed its crosshair with the camera-joint pose while the picture was drawn from the plan C
+pose — the wandering zero (`modding-notes/2026-09-22a-…`, dossier §9cn). `grip-no-throw.patch` was
+regenerated the same morning and now also carries **the stacked grip**: the left controller held 3–35 cm
+above the right one (within 12 cm sideways) takes and keeps the two-handed grip, the rifle follows the
+right hand alone, the drawn left hand stays on the forestock; `re8vr.grip_stacked` (default true),
+`grip_stacked_active`, `grip_stacked_takes` are exposed to Lua. Built with MSBuild against
+`build/RE8.vcxproj`, Release x64, 0 errors `[compile-verified 2026-09-22]`, installed on the home PC as
+`dinput8.dll` `72c19937…`.
+
 The file that matters comes out at **`build/bin/RE8/dinput8.dll`** and is copied into
 `C:\Steam\steamapps\common\Resident Evil Village BIOHAZARD VILLAGE\` on the home PC.
 

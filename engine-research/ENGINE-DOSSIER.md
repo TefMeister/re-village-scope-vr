@@ -2270,7 +2270,54 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
+### 9cn. ⭐⭐⭐ THE PICTURE AND THE CROSSHAIR USED TWO DIFFERENT CAMERAS — plan C draws the mirror from the game's own camera pose, the crop maths read the headset pose; the drawn pose is now handed over. Plus the stacked grip, and a map-hold + spike instrument for the flicker (2026-09-22 morning, static + two builds on RTX; INSTALLED, NOT RUN)
+
+**Supersedes: §9cm's identification of the zero with the eye's off-centre projection** (that part only). Today's
+logged projection (`P00 0.9027 P20 ±0.2425 P11 0.8355 P21 −0.1932`, 20:16 on 2026-09-21) gives 15.0° sideways
+/ 13.0° up against the fitted 9.2° / 10.9° `[verified-numerically 2026-09-22]` — the match §9cm found was
+between a different session's projection and an approximate zero. `[hypothesis]` at most. The view-frame
+zero it led to remains a good change and stays.
+
+**The cause, read from the two code bases** `[inferred-static 2026-09-22]`: REFramework's *"Mirror Uses Original
+Camera Pose (plan C)"* (`VR_MirrorUsesOriginalCamera=true` in `re2_fw_config.txt`) has been ON since 2026-09-12.
+In `on_camera_get_view_matrix`, inside a mirror window, it rewrites the view as `view · W_hmd · W_orig⁻¹`, i.e.
+**the mirror is drawn from `m_original_camera_matrix` — the game's own camera pose before REFramework wrote
+the headset pose into the camera joint.** The plugin's `crop_follow_update` receives `cpos / crot` read off
+that joint on the game thread — **the headset pose.** The 2026-09-18 bore-plane derivation and every zero since
+assumed the picture was drawn from the pose the plugin reads. The angle between the two poses is a crosshair
+error in the VIEW's frame that changes with posture: the whole §9cm symptom list.
+
+**Built.** REFramework: `REF_GetMirrorDrawPose(float* m16, int* kind, unsigned* gen)` — the world matrix the
+mirror was drawn from (kind 1 = plan C / game camera, 2 = headset pose), published in the window each frame
+(`dev-archive/reframework-patch/vr-cpp-all-patches.patch`). Plugin: `draw_pose.cpp` imports it, converts
+(`draw_pose_math.h`, `tools/draw_pose_test.cpp` 84 round trips 0 failures), and with `re_scope_drawpose.txt`
+= 1 (default) **the crop maths uses the drawn pose**; once a second `draw-pose:` logs the angle between the two
+poses in the joint's right/up terms and the position gap. **Built-in check:** with plan C off both are the
+joint pose and the line must read ~0°. **Test:** `CROSSHAIR-FROM-DRAWN-POSE.bat` (zero 0/0, view frame),
+near/far, canted — hits on the cross = the zero is closed by construction. `CROSSHAIR-FROM-JOINT-POSE.bat`
+restores 2026-09-21's setting.
+
+**The stacked grip** (`RE8VR.cpp`, `grip-no-throw.patch`): RE8VR takes the grip only within 10 cm of the
+forestock socket and steers along the hand-to-hand line — neither fits a support hand held ABOVE the trigger
+hand. Now a zone 3–35 cm above the right controller (within 12 cm sideways, 18 to release) takes and keeps
+the grip by itself, the rifle follows the right hand alone while stacked, the drawn left hand sits on the
+forestock; leaving the zone re-bases ordinary steering. `re8vr.grip_stacked` default true. Both controllers
+stay in the headset's view, which is the point. RE2/RE3 use the identical rule (`FirstPerson.cpp:902-909`).
+
+**The flicker, one more suspect with its instrument:** a tick whose map cannot be computed publishes
+`h_ok=false`, and `present` draws that frame with the LEGACY crop (`crop[20..28]` = identity) — one frame of
+a different framing `[hypothesis]`; the 1 Hz log samples one tick in sixty. Built: the last good map is held
+up to 36 ticks (`h_held`, `map-hold:` count), and each `SPIKE` line prints the map's change since the previous
+present. Decides between "our crop moved" and "the content moved" in one wear.
+
+Installed on RTX: `dinput8.dll` `72c19937…` (previous kept), `re_scope_vr.dll` `87b0f32c…` (`.pre-draw-pose-
+2026-09-22` kept). Helpers: `STACKED-GRIP-ON/OFF.bat`, `CROSSHAIR-FROM-DRAWN-POSE.bat`,
+`CROSSHAIR-FROM-JOINT-POSE.bat`. Note `modding-notes/2026-09-22a-three-answers-zero-stacked-grip-flicker.md`.
+
 ### 9cm. ⭐⭐⭐ WHY THE ZERO WILL NOT STAY: IT LIVES IN THE RIFLE'S FRAME, AND WHAT IT CORRECTS LIVES IN THE VIEW'S — the ~14° zero IS the headset eye's off-centre projection. Snapshot hand-off worn: jitter gone, flicker not (2026-09-21 evening, LIVE VR by Tefa + build on RTX; INSTALLED, NOT RUN)
+
+> ⚠️ **2026-09-22:** the "IS the eye's off-centre projection" identification is withdrawn by §9cn (today's
+> numbers give 15.0/13.0° against 9.2/10.9°); the cant finding and the view-frame zero stand.
 
 **Worn, §9cl's build (20:13, at 2560×1448).** Tefa: *"zero is still off to the left and down … flickers still
 there, the picture does not jitter, but the world still slightly - angles - … it does move the picture in the

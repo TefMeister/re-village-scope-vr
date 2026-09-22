@@ -1,8 +1,8 @@
 diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
-index 034f37c9..0818dddf 100644
+index 034f37c9..8ed152ac 100644
 --- a/src/mods/vr/games/RE8VR.cpp
 +++ b/src/mods/vr/games/RE8VR.cpp
-@@ -77,6 +77,16 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
+@@ -77,6 +77,19 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
          "last_muzzle_forward", &RE8VR::m_last_muzzle_forward,
          "was_gripping_weapon", &RE8VR::m_was_gripping_weapon,
          "is_holding_left_grip", &RE8VR::m_is_holding_left_grip,
@@ -16,10 +16,55 @@ index 034f37c9..0818dddf 100644
 +        "grip_untracked_frames", &RE8VR::m_grip_untracked_frames,
 +        "grip_socket_drift_deg", &RE8VR::m_grip_socket_drift_deg,
 +        "grip_socket_drift_max_deg", &RE8VR::m_grip_socket_drift_max_deg,
++        "grip_stacked", &RE8VR::m_grip_stacked,
++        "grip_stacked_active", &RE8VR::m_grip_stacked_active,
++        "grip_stacked_takes", &RE8VR::m_grip_stacked_takes,
          "is_in_cutscene", &RE8VR::m_is_in_cutscene,
          "is_grapple_aim", &RE8VR::m_is_grapple_aim,
          "is_reloading", &RE8VR::m_is_reloading,
-@@ -354,11 +364,211 @@ void RE8VR::update_hand_ik() {
+@@ -349,16 +362,258 @@ void RE8VR::update_hand_ik() {
+     const auto lh_grip_delta = (lh_grip_position - lh_pos);
+     const auto lh_grip_distance = glm::length(lh_grip_delta);
+ 
+-    m_was_gripping_weapon = lh_grip_distance <= 0.1f || (m_was_gripping_weapon && m_is_holding_left_grip);
++    // re-village-scope-vr, 2026-09-22: THE STACKED GRIP. Tefa: "hold the left controller above the
++    // right one to not have motion control drift and occlusion and the weapon still look straight in
++    // the game, not pointing up". Holding the support hand out on the forestock puts the left
++    // controller in front of the right one, where the headset cannot see it, and the rifle is then
++    // steered by a dead-reckoned position. Held ABOVE the right controller instead, both stay in
++    // view. So: the left controller sitting in a zone above the right one TAKES the two-handed grip
++    // (no reaching for the socket, no button) and KEEPS it while it stays there, the rifle follows
++    // the right hand alone (no steering at all -- the hand-to-hand line would point it at the sky),
++    // and the drawn left hand still rests on the forestock, as it does for any held grip.
++    // Zone: 3-35 cm above the right controller (world up), within 12 cm sideways to enter and 18 cm
++    // to leave, so a small wobble cannot make it flicker on and off. m_grip_stacked = false removes
++    // the zone entirely. Measured on the controller's own position, not the wrist-lever hand point.
++    bool stacked_now = false;
++    {
++        const auto lh_ctrl_pos = updated_camera_pos + (original_camera_rotation * left_controller_offset);
++        const auto up_m = lh_ctrl_pos.y - rh_pos.y;
++        const auto side_m = std::sqrt((lh_ctrl_pos.x - rh_pos.x) * (lh_ctrl_pos.x - rh_pos.x) +
++                                      (lh_ctrl_pos.z - rh_pos.z) * (lh_ctrl_pos.z - rh_pos.z));
++        const auto side_limit = m_grip_stacked_active ? GRIP_STACK_SIDE_LEAVE_M : GRIP_STACK_SIDE_ENTER_M;
++        stacked_now = m_grip_stacked && !m_is_reloading &&
++                      up_m >= GRIP_STACK_UP_MIN_M && up_m <= GRIP_STACK_UP_MAX_M && side_m <= side_limit;
++
++        if (stacked_now != m_grip_stacked_active) {
++            if (stacked_now) {
++                ++m_grip_stacked_takes;
++                spdlog::info("[RE8VR] stacked grip #{}: TAKEN -- the left controller is {:.0f} cm above the right and {:.0f} cm to the side; the rifle follows the right hand only",
++                    m_grip_stacked_takes, up_m * 100.0f, side_m * 100.0f);
++            } else {
++                spdlog::info("[RE8VR] stacked grip: RELEASED ({:.0f} cm above, {:.0f} cm to the side) -- ordinary steering from here",
++                    up_m * 100.0f, side_m * 100.0f);
++                m_grip_take_dir_valid = false;   // a grip carried on from here measures from a fresh reference
++            }
++            m_grip_stacked_active = stacked_now;
++        }
++    }
++
++    m_was_gripping_weapon = lh_grip_distance <= 0.1f || stacked_now || (m_was_gripping_weapon && m_is_holding_left_grip);
+ 
      // Lets the player hold their left hand near the original (grip) position of the weapon
      if (m_was_gripping_weapon && !m_is_reloading) {
          if (glm::length(original_left_pos_relative) >= 0.1f) {
@@ -229,10 +274,16 @@ index 034f37c9..0818dddf 100644
 +                }
 +            }
 +
++            // 2026-09-22: stacked grip -- the left hand is above the right, not along the rifle,
++            // so the hand-to-hand line means nothing. The rifle keeps the right hand's aim.
++            if (m_grip_stacked_active) {
++                grip_rot_delta = glm::quat{1.0f, 0.0f, 0.0f, 0.0f};
++            }
++
              // Adjust the right hand rotation;
              rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
  
-@@ -371,6 +581,8 @@ void RE8VR::update_hand_ik() {
+@@ -371,6 +626,8 @@ void RE8VR::update_hand_ik() {
          lh_pos = lh_grip_position;
          lh_rotation = rh_rotation * original_left_rot_relative;
      } else {
@@ -242,10 +293,10 @@ index 034f37c9..0818dddf 100644
              lh_pos = lh_grip_position;
              lh_rotation = rh_rotation * original_left_rot_relative;
 diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
-index dbfb8ae0..23556c39 100644
+index dbfb8ae0..c49ff462 100644
 --- a/src/mods/vr/games/RE8VR.hpp
 +++ b/src/mods/vr/games/RE8VR.hpp
-@@ -113,6 +113,34 @@ private:
+@@ -113,6 +113,42 @@ private:
  
      bool m_was_gripping_weapon{false};
      bool m_is_holding_left_grip{false};
@@ -277,6 +328,14 @@ index dbfb8ae0..23556c39 100644
 +    std::chrono::steady_clock::time_point m_grip_last_report{};
 +    float m_grip_last_engage_deg{0.0f};
 +    int m_grip_engage_count{0};
++    // the stacked grip (2026-09-22): left controller held ABOVE the right one, see update_hand_ik()
++    static constexpr float GRIP_STACK_UP_MIN_M = 0.03f;
++    static constexpr float GRIP_STACK_UP_MAX_M = 0.35f;
++    static constexpr float GRIP_STACK_SIDE_ENTER_M = 0.12f;
++    static constexpr float GRIP_STACK_SIDE_LEAVE_M = 0.18f;
++    bool m_grip_stacked{true};
++    bool m_grip_stacked_active{false};
++    int m_grip_stacked_takes{0};
      bool m_is_in_cutscene{false};
      bool m_is_grapple_aim{false};
      bool m_is_reloading{false};
