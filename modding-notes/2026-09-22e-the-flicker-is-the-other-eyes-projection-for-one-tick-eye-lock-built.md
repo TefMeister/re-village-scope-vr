@@ -54,7 +54,23 @@ lines appearing at about the old flicker rate. Then `EYE-LOCK-OFF.bat` for thirt
 `EYE-LOCK-ON.bat`. If the picture sits differently (zero shifted) with the lock on, the lock chose the
 minority eye: `re_scope_eyelock.txt` = 2 relearns it.
 
+## WORN 18:31–18:39 — THE FLICKER IS GONE `[verified-live 2026-09-22, n=1 wearer, ~8 min]`
+
+Tefa: *"it removed the flicker!"* The self-proof held: the lock chose `P[8] > 0` (27 of 30 learning
+reads) and then rejected other-eye reads at **about 10 per minute, in bursts of 2–3 within a couple of
+seconds** (36 in the first 3 min 10 s; 141 per-second lines over the run) — the same rate and the same
+bursts Tefa had been counting as flickers since 09-13 (*"some in a quick succession of 3 to 4 flickers
+in 2 seconds"*). Each rejected read would have been one flicker frame.
+
+What Tefa sees now, rifle still, only the head moving `[reported 2026-09-22]`: head up/down **moves**
+the picture; head left/right **slightly warps** it — *"so slightly that this might be ok for now"*;
+*"jittery scope is replaced with a picture that slightly warps inside the scope"*. The up/down movement
+is the plan-C gap seen earlier today (the game's own camera follows head yaw but not head pitch, so the
+mirror is drawn from a pose that lags the head in pitch only) — a separate, smaller item, parked by Tefa.
+
 ## NOT established
 
-- Whether the rejected-read count matches the seen flicker count (the self-proof) — next wear.
-- Which eye "+0.174" is (left or right) — does not matter for the fix; the zero was tuned on it.
+- Which eye "+0.174" is (left or right) — does not matter for the fix; the zero was tuned on it and
+  Tefa did not report the crosshair sitting differently.
+- The `EYE-LOCK-OFF` half of the A/B was not reported; the count line and the wearer's verdict stand
+  on their own.
