@@ -1,5 +1,5 @@
 diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
-index 034f37c9..134a3765 100644
+index 034f37c9..95bccdd7 100644
 --- a/src/mods/vr/games/RE8VR.cpp
 +++ b/src/mods/vr/games/RE8VR.cpp
 @@ -77,6 +77,21 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
@@ -24,7 +24,7 @@ index 034f37c9..134a3765 100644
          "is_in_cutscene", &RE8VR::m_is_in_cutscene,
          "is_grapple_aim", &RE8VR::m_is_grapple_aim,
          "is_reloading", &RE8VR::m_is_reloading,
-@@ -349,16 +364,273 @@ void RE8VR::update_hand_ik() {
+@@ -349,16 +364,276 @@ void RE8VR::update_hand_ik() {
      const auto lh_grip_delta = (lh_grip_position - lh_pos);
      const auto lh_grip_distance = glm::length(lh_grip_delta);
  
@@ -98,7 +98,10 @@ index 034f37c9..134a3765 100644
 +
 +            auto steer_socket_delta_to_rh = lh_grip_delta_to_rh;
 +
-+            if (m_grip_relative) {
++            // 2026-09-22 evening: the frozen socket applies in BOTH modes now that the SNAP mode is the
++            // default again (see m_grip_relative) -- without it the first shot after a take would
++            // re-aim the gun ~4.8 deg again (dossier 9cg).
++            {
 +                steer_socket_delta_to_rh = glm::normalize(rh_rotation) * m_grip_socket_rel_at_take;
 +                steer_socket_delta_to_rh.w = lh_grip_delta_to_rh.w; // a direction, same as the live one
 +
@@ -300,7 +303,7 @@ index 034f37c9..134a3765 100644
              // Adjust the right hand rotation;
              rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
  
-@@ -371,6 +643,8 @@ void RE8VR::update_hand_ik() {
+@@ -371,6 +646,8 @@ void RE8VR::update_hand_ik() {
          lh_pos = lh_grip_position;
          lh_rotation = rh_rotation * original_left_rot_relative;
      } else {
@@ -310,17 +313,23 @@ index 034f37c9..134a3765 100644
              lh_pos = lh_grip_position;
              lh_rotation = rh_rotation * original_left_rot_relative;
 diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
-index dbfb8ae0..5407c23b 100644
+index dbfb8ae0..82dc8405 100644
 --- a/src/mods/vr/games/RE8VR.hpp
 +++ b/src/mods/vr/games/RE8VR.hpp
-@@ -113,6 +113,45 @@ private:
+@@ -113,6 +113,51 @@ private:
  
      bool m_was_gripping_weapon{false};
      bool m_is_holding_left_grip{false};
 +
 +    // re-village-scope-vr, 2026-09-21: taking the two-handed grip must not throw the gun.
 +    // See update_hand_ik().
-+    bool m_grip_relative{true};
++    // 2026-09-22 evening, Tefa after the button-only wear: docking from below and from above left the
++    // rifle at DIFFERENT angles, because the relative grip keeps whatever aim the right hand had at the
++    // press. Asked for: the rifle must SNAP so the forestock socket sits in the left hand at every take --
++    // "always the same position in the player's left hand". That is praydog's original absolute
++    // steering (relative = false), now taken at the button press instead of at 10 cm, so it no longer
++    // throws: the hand is already where the player wants the rifle. GRIP-KEEP.bat = the relative mode.
++    bool m_grip_relative{false};
 +    bool m_grip_steering_active{false};
 +    glm::quat m_grip_engage_delta_local{1.0f, 0.0f, 0.0f, 0.0f};
 +    Vector4f m_grip_socket_rel_at_take{0.0f, 0.0f, 0.0f, 0.0f};
