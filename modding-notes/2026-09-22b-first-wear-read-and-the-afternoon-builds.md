@@ -62,7 +62,35 @@ so **neither new DLL is installed yet** — close the game, then `UPDATE-VR-FRAM
    picture and the previous shown picture are written to `reframework/data/flicker-spike-N-{src,now,prev}.ppm`.
    One wear with `PICTURE-TEST-1-ON`, then I look at the frames.
 
+## Second wear (evening) and what followed `[reported 2026-09-22]`
+
+- *"hand docking feels good now"* — the button-only grip stays. But docking from below and from above
+  leaves the rifle at **different angles**, and Tefa wants one thing first: **the rifle must snap so the
+  forestock sits in the left hand at every take** ("always the same position in the player's left hand"),
+  whether the button is held on the way in or pressed once the hand is already there.
+  → **Built and installed:** praydog's absolute steering is the default again (`grip_relative = false`),
+  now taken at the button press instead of at 10 cm, so it does not throw; the frozen socket (§9cg) is
+  applied in both modes so the first-shot jump does not return. `GRIP-KEEP.bat` = the relative mode.
+  `dinput8.dll` `2150cdbc…`.
+- `CROSSHAIR-FROM-LUA-PLANE.bat`: *"made the picture turn and rotate in all sorts of ways"* — expected
+  and worse than warned: the Lua's plane arrives at 2 Hz and the `plane-check` line read **53.5°** while
+  moving. And at rest with steering ON it read **0.0°** — the morning's 4.0–4.6° lines were taken with
+  steering OFF, where the map uses the baked pane. So with steering on the plane is **not** the zero.
+  Lever left in, default off. `[disproved 2026-09-22]` as the zero while steering is on.
+- The DRAWN-POSE / JOINT-POSE helpers *"made the picture flip backwards"* — the drawn pose IN USE turns
+  the picture over whenever the game camera wanders from the joint (47–53° with the scope down). Default
+  now **logged only** (`re_scope_drawpose.txt` = 0).
+- ⚠️ **Tefa believes "this morning the 0/0 worked".** It did not run: the morning's shots landed with the
+  old −10.7 / −9.5 (the log shows it), because `CROSSHAIR-FROM-DRAWN-POSE.bat` was never run. Said so in
+  the reply; the 0/0 zero has not yet been shown to work anywhere.
+- Flicker test run (`PICTURE-TEST-1-ON`, `-3-OFF` not pressed): summary `frames=1800 spikes=0 avg=0.0386
+  max=0.192` — **no spikes at all** although flickers were seen, because a busier scene lifted the
+  running average past the 4× rule, so **no frames were saved**. The dump now also fires on an absolute
+  change (d ≥ 0.10, at most once a second, numbered 1001+), so it cannot come back empty again.
+
 ## NOT established
 
-- Whether the plane is the zero (one shot test decides). Whether the button-gated grip feels right.
-- What a flicker frame looks like — that is what the dump is for.
+- Whether the snap-on-dock grip gives the same pose from below and from above (next wear).
+- What a flicker frame looks like — the dump now has two triggers.
+- The zero: both of today's leads are out or small; it is unexplained again. `MODEL: FABLE` when it is
+  next taken up, and start from a measurement, not a derivation.
