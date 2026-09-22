@@ -1,8 +1,8 @@
 diff --git a/src/mods/vr/games/RE8VR.cpp b/src/mods/vr/games/RE8VR.cpp
-index 034f37c9..8ed152ac 100644
+index 034f37c9..134a3765 100644
 --- a/src/mods/vr/games/RE8VR.cpp
 +++ b/src/mods/vr/games/RE8VR.cpp
-@@ -77,6 +77,19 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
+@@ -77,6 +77,21 @@ void RE8VR::on_lua_state_created(sol::state& lua) {
          "last_muzzle_forward", &RE8VR::m_last_muzzle_forward,
          "was_gripping_weapon", &RE8VR::m_was_gripping_weapon,
          "is_holding_left_grip", &RE8VR::m_is_holding_left_grip,
@@ -19,10 +19,12 @@ index 034f37c9..8ed152ac 100644
 +        "grip_stacked", &RE8VR::m_grip_stacked,
 +        "grip_stacked_active", &RE8VR::m_grip_stacked_active,
 +        "grip_stacked_takes", &RE8VR::m_grip_stacked_takes,
++        "grip_needs_button", &RE8VR::m_grip_needs_button,
++        "grip_max_steer_deg", &RE8VR::m_grip_max_steer_deg,
          "is_in_cutscene", &RE8VR::m_is_in_cutscene,
          "is_grapple_aim", &RE8VR::m_is_grapple_aim,
          "is_reloading", &RE8VR::m_is_reloading,
-@@ -349,16 +362,258 @@ void RE8VR::update_hand_ik() {
+@@ -349,16 +364,273 @@ void RE8VR::update_hand_ik() {
      const auto lh_grip_delta = (lh_grip_position - lh_pos);
      const auto lh_grip_distance = glm::length(lh_grip_delta);
  
@@ -46,7 +48,7 @@ index 034f37c9..8ed152ac 100644
 +        const auto side_m = std::sqrt((lh_ctrl_pos.x - rh_pos.x) * (lh_ctrl_pos.x - rh_pos.x) +
 +                                      (lh_ctrl_pos.z - rh_pos.z) * (lh_ctrl_pos.z - rh_pos.z));
 +        const auto side_limit = m_grip_stacked_active ? GRIP_STACK_SIDE_LEAVE_M : GRIP_STACK_SIDE_ENTER_M;
-+        stacked_now = m_grip_stacked && !m_is_reloading &&
++        stacked_now = m_grip_stacked && !m_is_reloading && (!m_grip_needs_button || m_is_holding_left_grip) &&
 +                      up_m >= GRIP_STACK_UP_MIN_M && up_m <= GRIP_STACK_UP_MAX_M && side_m <= side_limit;
 +
 +        if (stacked_now != m_grip_stacked_active) {
@@ -63,7 +65,19 @@ index 034f37c9..8ed152ac 100644
 +        }
 +    }
 +
-+    m_was_gripping_weapon = lh_grip_distance <= 0.1f || stacked_now || (m_was_gripping_weapon && m_is_holding_left_grip);
++    // 2026-09-22 (afternoon), Tefa after the first wear: the hand docked BY ITSELF within 10 cm of the
++    // socket and steered the rifle with no button held -- and because that take happens while the hand
++    // is still travelling up to the rifle, the rest of the travel became steering (8.9 -> 25 deg in
++    // three quarters of a second in the grip-watch log). Asked for: no docking at all without the left
++    // grip button, and the rifle to keep the right hand's aim when the hand goes on. So with
++    // m_grip_needs_button (default true) the LEFT GRIP BUTTON is the switch: held near the socket or in
++    // the stacked zone it takes the grip, released it lets go, and the steering reference is the hand
++    // where it was at the press -- nothing moves at the take, only what the hand does afterwards.
++    if (m_grip_needs_button) {
++        m_was_gripping_weapon = m_is_holding_left_grip && (lh_grip_distance <= 0.1f || stacked_now || m_was_gripping_weapon);
++    } else {
++        m_was_gripping_weapon = lh_grip_distance <= 0.1f || stacked_now || (m_was_gripping_weapon && m_is_holding_left_grip);
++    }
  
      // Lets the player hold their left hand near the original (grip) position of the weapon
      if (m_was_gripping_weapon && !m_is_reloading) {
@@ -187,8 +201,11 @@ index 034f37c9..8ed152ac 100644
 +                m_grip_raw_steer_deg = raw_steer_deg;
 +
 +                auto k = glm::clamp(m_grip_steer_scale, 0.0f, 1.0f);
-+                if (raw_steer_deg > GRIP_MAX_STEER_DEG) {
-+                    k *= GRIP_MAX_STEER_DEG / raw_steer_deg;
++                // 2026-09-22: the 25 deg limit is OFF by default (180 = none). Tefa: "it doesn't feel
++                // natural to hold a gun this way". It existed for the hand-still-travelling take, which
++                // the button-gated take above removes. grip_max_steer_deg puts a limit back if wanted.
++                if (raw_steer_deg > m_grip_max_steer_deg && raw_steer_deg > 0.01f) {
++                    k *= m_grip_max_steer_deg / raw_steer_deg;
 +                }
 +
 +                steer_local = glm::normalize(glm::slerp(glm::quat{1.0f, 0.0f, 0.0f, 0.0f}, steer_local, k));
@@ -283,7 +300,7 @@ index 034f37c9..8ed152ac 100644
              // Adjust the right hand rotation;
              rh_rotation = glm::normalize(grip_rot_delta * rh_rotation);
  
-@@ -371,6 +626,8 @@ void RE8VR::update_hand_ik() {
+@@ -371,6 +643,8 @@ void RE8VR::update_hand_ik() {
          lh_pos = lh_grip_position;
          lh_rotation = rh_rotation * original_left_rot_relative;
      } else {
@@ -293,10 +310,10 @@ index 034f37c9..8ed152ac 100644
              lh_pos = lh_grip_position;
              lh_rotation = rh_rotation * original_left_rot_relative;
 diff --git a/src/mods/vr/games/RE8VR.hpp b/src/mods/vr/games/RE8VR.hpp
-index dbfb8ae0..c49ff462 100644
+index dbfb8ae0..5407c23b 100644
 --- a/src/mods/vr/games/RE8VR.hpp
 +++ b/src/mods/vr/games/RE8VR.hpp
-@@ -113,6 +113,42 @@ private:
+@@ -113,6 +113,45 @@ private:
  
      bool m_was_gripping_weapon{false};
      bool m_is_holding_left_grip{false};
@@ -336,6 +353,9 @@ index dbfb8ae0..c49ff462 100644
 +    bool m_grip_stacked{true};
 +    bool m_grip_stacked_active{false};
 +    int m_grip_stacked_takes{0};
++    // 2026-09-22 afternoon: the left grip button is the only way to dock; no steering limit by default
++    bool m_grip_needs_button{true};
++    float m_grip_max_steer_deg{180.0f};
      bool m_is_in_cutscene{false};
      bool m_is_grapple_aim{false};
      bool m_is_reloading{false};
