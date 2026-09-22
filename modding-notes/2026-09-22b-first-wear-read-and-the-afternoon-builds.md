@@ -88,9 +88,30 @@ so **neither new DLL is installed yet** — close the game, then `UPDATE-VR-FRAM
   running average past the 4× rule, so **no frames were saved**. The dump now also fires on an absolute
   change (d ≥ 0.10, at most once a second, numbered 1001+), so it cannot come back empty again.
 
+## Third wear (12:28–12:35) `[reported 2026-09-22]`
+
+- **The grip is settled.** Tefa: *"yes! a major thing you have done, the actual snapping of two handed
+  weapons needs to be like this! no occlusion can occur unless pointing down by quite a lot … this is one
+  biiiig thing sorted!"* → a universal rule now (`claude-memory/PREFERENCES.md`, memory file
+  `feedback-two-handed-grip-snap-on-button`): dock only while the grip button is held, snap the forestock
+  into the support hand at the press, no angle cap, frozen socket kept. Visceral gets the same change.
+- **"Picture in scope is still backwards" — my evening switch-off caused it, and it is undone.** The
+  session's map centres read (1.04, 0.15), (0.74, −0.62) — off the render — against ~(0.5, 0.6) in the
+  morning, with the drawn pose *logged only*. The game camera (which the mirror is drawn from, plan C)
+  sat **15–37° from the joint while aiming** this session (`+14.9 … +34.6 up`), against 2–6° at 11:03.
+  So the gap is not constant, and the joint pose is the wrong pose for the map whenever they drift apart.
+  The picture was right all morning WITH the drawn pose in use and went backwards at 11:49 the moment the
+  JOINT-POSE helper switched it off `[verified-live 2026-09-22]`. **Drawn pose IN USE is the default again**
+  (`re_scope_drawpose.txt` = 1, code default 1). ⚠️ Lesson: I blamed the lever for what its removal did.
+- **Flicker frames: the capture works, the session does not count.** Five captures (`flicker-spike-1,
+  1001, 2, 1002, 1003`), 15 files. Every composed frame is the wrong-pose picture (rotated, warped,
+  cropped at the edge), so nothing can be read about the flicker from them; the mirror SOURCE frame is a
+  clean, upright first-person view with the rifle in it, which at least shows the source is sane. Re-run
+  with the drawn pose on. PNG copies kept out of git (size); the PPMs stay in `reframework/data/`.
+
 ## NOT established
 
-- Whether the snap-on-dock grip gives the same pose from below and from above (next wear).
+- What a flicker frame looks like — next `PICTURE-TEST-1-ON` with the picture right.
 - What a flicker frame looks like — the dump now has two triggers.
 - The zero: both of today's leads are out or small; it is unexplained again. `MODEL: FABLE` when it is
   next taken up, and start from a measurement, not a derivation.
