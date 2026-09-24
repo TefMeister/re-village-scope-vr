@@ -47,6 +47,18 @@ if not exist "%~dp0reframework\data" (
   pause
   exit /b 1
 )
+rem 2026-09-24: when SCOPE-AUTO-ON is set, the scope starts itself as the rifle is drawn.
+rem Running this as well would pick the picture target again under a live rig, so step aside.
+set "AUTO="
+if exist "%~dp0reframework\data\re_scope_autostart.txt" set /p AUTO=<"%~dp0reframework\data\re_scope_autostart.txt"
+if "%AUTO:~0,1%"=="1" (
+  echo.
+  echo   Scope auto-start is ON, so the scope sets itself up when you draw the rifle.
+  echo   Nothing to do here. ^(SCOPE-AUTO-OFF.bat goes back to using this file.^)
+  echo.
+  timeout /t 6 /nobreak >nul 2>&1
+  exit /b 0
+)
 
 echo.
 echo   Setting up the scope.
