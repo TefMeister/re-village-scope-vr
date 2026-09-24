@@ -54,9 +54,10 @@ echo.
 echo   THE PICTURE USUALLY APPEARS IN UNDER A SECOND - look through the scope as
 echo   soon as it is there, no need to watch this window.
 echo.
-echo   BUT DO NOT CLOSE THIS WINDOW. The last step, which aims the picture at your
-echo   eye, is written at the very end. Close it early and the scope shows Ethan's
-echo   clothes and the ground, because the viewpoint stays below your head.
+echo   NEW 2026-09-24: the picture is aimed at your eye as the scope is built, so
+echo   it should NOT show Ethan's clothes first any more. The last step still sends
+echo   the same aim again as a safety net - leave this window open until it ends.
+echo   If you DO still see his clothes for the first ~45 s, say so.
 echo.
 
 echo   [1/4] choosing the 2560x1440 (sharp) scope picture...
@@ -77,9 +78,9 @@ echo         Measured cold on 2026-09-19: the rig and the picture are live 61 ms
 echo         after this point. The long wait that follows is NOT the scope being
 echo         built - it is the harness re-pressing 'bind' at +5 s and +20 s in case
 echo         the first press did not take, and this script sitting out the worst
-echo         case before it writes the pane pose. Left alone deliberately: whether
-echo         the pose can safely be written earlier is untested, and the ordering
-echo         against those re-presses is not understood yet.
+echo         case before it re-sends the pane pose. Since 2026-09-24 bringup itself
+echo         writes the pose ~3 s after the rig appears (untested in the game); the
+echo         re-send below is kept as a safety net and changes nothing if it took.
 echo bringup> "%CMD%"
 timeout /t 45 /nobreak >nul 2>&1
 

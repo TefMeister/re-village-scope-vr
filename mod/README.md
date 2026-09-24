@@ -59,6 +59,24 @@ you always know where to look. You are in **`mod/`**.
 | [`engine-research/`](../engine-research/) | Distilled engine reference (dossier) + reusable VR RE playbook. |
 | [`external-research/`](../external-research/) | Ongoing public-research leads, gathered separately from hands-on modding work. |
 
+## Known limitations
+
+These are known and will ship as they are. They are listed here so nobody is
+surprised by them.
+
+- **The scope picture can streak at its edge if you move your head far off
+  the line of the scope.** Lowering your head well below the rifle, or
+  leaning a long way to one side, makes the picture smear at its top or right
+  edge. It only happens on those two sides. Ordinary aiming, with your eye
+  behind the scope, does not reach it. We have not fixed it, and we do not
+  yet fully understand why it happens.
+- **Moving your head still moves the scope picture a little** while the
+  rifle is held still. A real scope would not do this. It is much smaller
+  than it was, and it is parked for now.
+
+> ⚠️ **Caution:** this mod is unfinished, and VR mods like this one may cause
+> severe motion sickness and discomfort. Stop at once if you feel unwell.
+
 ## Credits, scope, and legality
 
 Non-commercial fan project; requires an owned copy; redistributes no original
