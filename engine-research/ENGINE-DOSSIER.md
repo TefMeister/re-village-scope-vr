@@ -4667,3 +4667,20 @@ Credit: **praydog** (REFramework).
 **Not established:** the self-proof count vs seen flickers (next wear); whether the majority eye is the one the zero was tuned on (if the zero sits differently with the lock on, relearn with `2`).
 
 **Method, for the record.** The instrument that found it had no threshold in it: the wearer was the detector and the plugin only kept the pictures. Two earlier readings of the same evening were wrong in ways worth remembering: the first ring read used a bright-scene threshold on a dark scene and said "no odd frame" (the plugin's own numbers said otherwise); and an upside-down picture that cost four A/B launches was a stray in-headset panel press that had toggled `glass_flip_v` and been saved (note 2026-09-22d). Compare against the last GOOD launch's `settings loaded` line first.
+
+### 9cp. ⭐⭐⭐ THE LIGHTS FOLLOW THE SCOPE'S AIM — and the engine draws ONE MIRROR LAYER PER EYE CAMERA, each BEFORE its eye (2026-09-25 afternoon, home PC, VR, Tefa in the headset)
+
+- **Symptom** `[reported 2026-09-25]`: with the scope up, the world is lit as if seen from where the rifle points — the shadow-casting lights
+  (the Duke's key light) go out where Tefa looks and come on where the scope looks; the candles stay. Rifle backwards = nearly every light out.
+  Bisect: not the glass, host, loader exemption, pane tilt or parked rig; rig destroyed = fine `[reported 2026-09-25, n=1 session]`.
+- **Layer order, rifle out** `[verified-live 2026-09-25, n=1]`: Output → OutputCommon · Scene(view 2, cam A, mirror OURS) · Scene(view 0, cam A, main eye)
+  · Scene(view 3, cam B, mirror OURS) · Scene(view 1, cam B, cloned eye) · OutputOverlay. Praydog's multipass = two eye Scene layers; the engine
+  adds a mirror Scene layer per eye camera, ahead of that eye. Our capture hooks hold the view-3 one.
+- **API** `[verified-live 2026-09-25]`: `via.render.RenderLayer` — `getPriority()`, `get_Independent()`, `removeLayer(RenderLayer)`;
+  `via.render.layer.Output` — `setLayerIndex(UInt32, UInt32)`, `get_BeginLayerIndex()`, `get_EndLayerIndex()`, `get_Mask()`.
+  Native render layers have **no TDB fields** (field dump = 0). Recon: `dev-archive/recon/2026-09-25-layer-order-and-api-dump/`.
+- **Dead ends** `[disproved 2026-09-25]`: mirror `LightWeightMode` true crashes both live (30 ms) and at creation (pre-hook of `set_RenderTarget`,
+  before any draw) — dumps on `D:\RE Village REFramework builds\`. Layer `ClippingEnable` true: no effect on the lights. Shadow Cache off: none.
+- **Hypothesis**: a per-frame shadow-light (or light-list) budget handed out in layer order, so the scope's two views claim it before the eyes.
+  Lever built, not run: `layermove <a> <b>` = `Output.setLayerIndex(a, b)` from `re8_scope_layer_knobs.lua`. Note:
+  `modding-notes/2026-09-25-the-lights-follow-the-scope-and-the-layer-order.md`.
