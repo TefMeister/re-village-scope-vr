@@ -4684,3 +4684,19 @@ Credit: **praydog** (REFramework).
 - **Hypothesis**: a per-frame shadow-light (or light-list) budget handed out in layer order, so the scope's two views claim it before the eyes.
   Lever built, not run: `layermove <a> <b>` = `Output.setLayerIndex(a, b)` from `re8_scope_layer_knobs.lua`. Note:
   `modding-notes/2026-09-25-the-lights-follow-the-scope-and-the-layer-order.md`.
+
+### 9cq. A REAL CAMERA ON THE RIFLE — the probe, and why (2026-09-25 late, `/pd` Fable, home PC — STATIC ONLY, NOT RUN)
+
+- **Premise** `[inferred-static 2026-09-25]`: the mirror rig's Scene layers use the eyes' camera objects (§9l), and the engine keeps per-camera
+  state the last drawer overwrites — the light list (§9cp, fixed by priority) and whatever carries the scope picture into both eyes when the
+  scope draws after them (§9cp, open). praydog's multipass second camera renders cleanly as its own object: `CameraDuplicator.cpp:154-300` —
+  fresh GameObject, `shouldDraw=false`/`shouldUpdate=false` BEFORE any component, parented to the main camera's transform, the game's `app.*`
+  camera controllers never copied ("cause the camera to become the main one"). Our 2026-08-25 `via.Camera` on the rifle's own GameObject
+  (update on, weapon components beside it) was promoted to primary; `via.SceneView` has no `set_PrimaryCamera` `[verified-live 2026-08-25]`.
+- **Built** `[compile-verified 2026-09-25]`: `scripts/re8_scope_cam_probe.lua` — `camprobe` / `cammake [fov] [type]` / `camkill`: a `ScopeCam`
+  GameObject (draw+update off, parented to the rifle's transform, local identity), `via.Camera` (FOV 20), optional `via.CameraType`, then
+  `via.render.RenderOutput` id 2 → the rig's holder; logs the primary camera before/after and the Scene-layer list 2 s later. Read-out table in
+  `modding-notes/2026-09-25-pd-a-real-camera-on-the-rifle-and-the-sideways-zero.md`.
+- **The sideways zero** `[reported 2026-09-25]` + `[verified-live 2026-09-25, n=4 shots]`: the bullet is straightened along the scope axis on every
+  shot; the cross is what is wrong, and its error grows with the bore-off-gaze angle — a scale error in the crop's projection mapping
+  `[hypothesis]`. The ten-shot measurement that fits it is in the same note. If the rifle camera works, the crop and this row go away together.
