@@ -4700,3 +4700,9 @@ Credit: **praydog** (REFramework).
 - **The sideways zero** `[reported 2026-09-25]` + `[verified-live 2026-09-25, n=4 shots]`: the bullet is straightened along the scope axis on every
   shot; the cross is what is wrong, and its error grows with the bore-off-gaze angle — a scale error in the crop's projection mapping
   `[hypothesis]`. The ten-shot measurement that fits it is in the same note. If the rifle camera works, the crop and this row go away together.
+- **RUN THE SAME EVENING (22:40–22:50, Tefa at the keys)** `[verified-live 2026-09-25, n=2 makes]`: **no takeover** — the primary stayed `MainCamera` —
+  and the engine added a new fully-rendered Scene layer for `ScopeCam` (view 5, no mirror), plus a mirror layer on our camera while the rig lived.
+  `set_UpdateSelf(false)` stuck, `set_Draw(false)` did not; FOV asked 20 read back 90 then 26.2 (re-set by something, `[hypothesis]` the VR mod).
+  The glass never showed it: the plugin's MIRROR-SOURCE catcher (a fresh 1280/1920-wide fmt=29 allocation after numpad `.`) saw nothing from the
+  new layer (re-arm PENDING ×3) — it renders at another size or through a path the hook does not cover; only the holder receives the final copy.
+  Next: a plugin `source = holder` mode that reads the RenderOutput's target texture.
