@@ -81,6 +81,19 @@ the 2026-09-04 inbox-drain entry.
   the CONTROLLER's own position side by side, with `grip_steer_from_controller` as a live switch.
   `[compile-verified 2026-09-21]`, installed, not yet worn. Independent of the two mirror patches (different file).
 
+- **`2026-09-25-tree-state-builds-5b6c7b42.patch`** — added 2026-09-25 (home PC, the clean-install day).
+  The **whole uncommitted diff of the source tree** on `D:` as it stood that day (6 files, +801/−7),
+  which is what builds `dinput8.dll` `5b6c7b42…` (the 2026-09-22 15:20 "morning grip rebuilt" build).
+  Saved because the tree differed from `vr-cpp-all-patches.patch` by 371 diff lines, i.e. git no longer
+  held what the tree held — the exact loss this folder exists to prevent.
+  ⚠️ **What is NOT recoverable:** the source state of `dinput8.dll` `2150cdbc…` (2026-09-22 12:02,
+  absolute steering at the button press, frozen socket) — the build Tefa has worn since 2026-09-22
+  and the one carried in the 2026-09-25 clean-install package. The tree was moved back to the morning
+  design at 15:20 the same day for an A/B and never returned. `grip-no-throw.patch`, committed at
+  12:03 that day, is most likely its grip half `[hypothesis]`; nobody has rebuilt it to check. The
+  binary itself is archived on `D:` with a manifest (`builds/re-village-scope-vr/2026-09-22_1202_2150cdbc_reframework/`).
+  **Unlike the earlier claim at the top of this file, the worn loader does NOT rebuild from this folder in one command.**
+
 - **`build-local-no-csharp.patch`** — build convenience only, no behaviour change: drops `CSharp`
   from the project's languages in `cmake.toml` so the build does not need the C# toolchain.
 
