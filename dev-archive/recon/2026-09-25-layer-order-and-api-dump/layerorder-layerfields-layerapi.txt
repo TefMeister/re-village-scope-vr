@@ -1,0 +1,34 @@
+ layerorder: parent via.render.layer.Output@1891146416816 has 6 child layer(s); ours is @1891012305904
+   [0] via.render.layer.OutputCommon@1891146417744 children=1
+   [1] via.render.layer.Scene@1891012311408 view=2 enable=true cam=1890753961120 mirror=1890660196192 children=12
+   [2] via.render.layer.Scene@1891003164688 view=0 enable=true cam=1890753961120 mirror=nil children=13
+   [3] via.render.layer.Scene@1891012305904 view=3 enable=true cam=1890740936848 mirror=1890660196192  <== OURS children=12
+   [4] via.render.layer.Scene@1891006124752 view=1 enable=true cam=1890740936848 mirror=nil children=13
+   [5] via.render.layer.OutputOverlay@1891146418464 children=0
+ layer fields: 0
+ mirror fields: 0
+ parent fields: 0
+ layerapi via.render.RenderLayer:
+   System.UInt32 getPriority()
+   System.Boolean isJunctionLayer()
+   System.Void removeLayer(via.render.RenderLayer)
+   System.Void resize()
+   System.UInt32 get_ID()
+   System.UInt32 get_RenderOutputID()
+   via.render.RenderLayer get_Parent()
+   via.render.RenderLayer[] get_Layers()
+   System.Boolean get_Enable()
+   System.Boolean get_Independent()
+   System.UInt32 get_Version()
+ layerapi via.render.layer.Output:
+   System.Void setLayerIndex(System.UInt32, System.UInt32)
+   via.SceneView get_SceneView()
+   via.Rect get_Viewport()
+   System.UInt32 get_BeginLayerIndex()
+   System.UInt32 get_EndLayerIndex()
+   via.Float2 get_SubPixelOffset()
+   System.Void set_SubPixelOffset(via.Float2)
+   System.Boolean get_Capturing()
+   System.Void set_Capturing(System.Boolean)
+   System.Single get_FarPlaneDistance()
+   System.UInt64 get_Mask()
