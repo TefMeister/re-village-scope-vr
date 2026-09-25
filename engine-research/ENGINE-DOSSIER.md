@@ -4706,3 +4706,7 @@ Credit: **praydog** (REFramework).
   The glass never showed it: the plugin's MIRROR-SOURCE catcher (a fresh 1280/1920-wide fmt=29 allocation after numpad `.`) saw nothing from the
   new layer (re-arm PENDING ×3) — it renders at another size or through a path the hook does not cover; only the holder receives the final copy.
   Next: a plugin `source = holder` mode that reads the RenderOutput's target texture.
+- **23:20, own 1920 target** `[verified-live 2026-09-25, n=1]`: `cammake` after numpad `.` → the plugin's catcher latched our camera's 1920x1088
+  fmt=29 target and upgraded to its fmt=26 HDR buffer — so the catcher needs no change; a fresh target on an unused .rtex path is enough.
+  The glass then showed a uniform sky-blue, not the room `[reported 2026-09-25]` — `[hypothesis]` the camera sits at the world origin because
+  its GameObject's UpdateSelf is off (the transform never takes the rifle's pose). Next: update on after creation, or pose it from Lua.
