@@ -4867,3 +4867,6 @@ the reader's note folded here.
   `clonekill`; the next draw returns early because the RIG is still alive → no new clone, the glass freezes on the dead target. Fix:
   decide the re-draw on `clone_go`. Risks: another fresh fmt=29 target latched first; the clone's own layer may take the shadow lights
   like the mirror layers did (check in VR). File: `engine-research/inbox/2026-09-26-reader-glass-without-mirror.md` (folded; removed).
+- **Rifle camera only, built (`/pd` Opus)** `[compile-verified 2026-09-26]`: autostart `clone` = clonescope → glassaspect 1.0 + numpad `*`
+  (+1/+5/+20 s), no mirror rig; `clonerig` = the verified rig-first way; the re-draw decides on `clone_go` (the frozen-glass bug fixed).
+  Test 36/36. Run: `dev-archive/recon/2026-09-26k-rifle-camera-self-start/NEXT-RUN.md` (also the speckle A/B and the fps comparison).
