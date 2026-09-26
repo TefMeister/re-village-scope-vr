@@ -1,0 +1,8 @@
+2026-09-26 19:33:43.588e8-camfix] loaded -- test tool; words: cloneil [0|1|off|rm <n>], clonetm [copy|taa <n>|ae <n>|off], clonediff <Type>, clonecomp <Type> 0|1. Nothing runs by itself.
+2026-09-26 19:35:44.489e8-camfix] clonetm: AutoExposure main=0 clone=2 DIFF | TemporalAA main=3 clone=2 DIFF | TemporalAAAlgorithm main=3 clone=1 DIFF | NeighborhoodClamp main=0 clone=0 | Vignetting main=0 clone=0 | copy=nil pins taa=nil ae=nil
+2026-09-26 19:35:45.493e8-camfix] clonediff via.render.ToneMapping.getAutoExposure main=0 clone=2
+2026-09-26 19:35:45.493e8-camfix] clonediff via.render.ToneMapping.getTemporalAA main=3 clone=2
+2026-09-26 19:35:45.493e8-camfix] clonediff via.render.ToneMapping.getTemporalAAAlgorithm main=3 clone=1
+2026-09-26 19:35:45.494e8-camfix] clonediff via.render.ToneMapping: 3 differ, 29 equal (scalar getters only)
+2026-09-26 19:35:46.498e8-camfix] clonetm copy: 5 value(s) set
+2026-09-26 19:35:46.498e8-camfix] clonetm: AutoExposure main=0 clone=0 | TemporalAA main=3 clone=3 | TemporalAAAlgorithm main=3 clone=3 | NeighborhoodClamp main=0 clone=0 | Vignetting main=0 clone=0 | copy=true pins taa=nil ae=nil

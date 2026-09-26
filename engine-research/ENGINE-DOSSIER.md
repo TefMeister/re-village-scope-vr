@@ -4904,3 +4904,25 @@ log `[inferred-static 2026-09-26]`.
 - **Outdoors the picture is blown out** (uniform light blue): the exposure item, unchanged. VR untested.
 - Evidence `dev-archive/recon/2026-09-26m-the-32-ms-was-ours/`; notes `modding-notes/2026-09-26-the-32-ms-was-ours.md`.
   **Lesson:** a per-frame cost that does not scale with what is drawn is the signature of our own hooks — `ftime 1` first.
+
+### 9cz. THE SPECKLE BAND IS THE FILM-GRAIN COMPONENT (`via.render.RetroFilm`); OUTDOOR BLOW-OUT STILL OPEN (2026-09-26 night, `/lm` flat + reader)
+
+- **Where it lives:** numpad `+` now also dumps the latched source and our composed picture as PPM (plugin e28d975f). The speckle is
+  **in the clone's own target** (rows ~821..1088 of 1088, redrawn every frame: 3 % of speck positions shared between dumps), so the
+  compositor is not the cause `[verified-live 2026-09-26, n=1]`.
+- **Which component:** `cloneskip <words>` (new) leaves components out of the next clone. Bare clone clean; skip the noisy set
+  (SSAO, SSR, GodRay, VolumetricFog, MotionBlur, RetroFilm, GeometryAO, LightShaft) clean; keep them speckled; skip only
+  VolumetricFog → speckled; **skip only RetroFilm → clean** `[verified-live 2026-09-26, n=1 each]`. `via.render.RetroFilm` is now in
+  the clone's skip list; the glass shows no band after a relaunch `[verified-live 2026-09-26, n=1]`. Why it covers only the last
+  quarter: the reader's reading — REFramework's TemporalUpscaler spoofs `via.SceneView` size to the render size (1114x835), so a
+  pass sized from the view stops short of our 1088 rows `[hypothesis]` (1088×1088/1440 = 822 also fits; not decided).
+- **Outdoors blown out:** the source itself is saturated white outdoors (not our gain). `clonetm` (reader's `re8_scope_cam_fix.lua`)
+  found three ToneMapping values differing (AutoExposure main 0 / clone 2, TemporalAA 3/2, TemporalAAAlgorithm 3/1); `clonetm copy`
+  made them equal and the outdoor part only dimmed slightly — **not the fix** `[verified-live 2026-09-26, n=1]`. MainCamera has
+  AutoExposure OFF, so its exposure comes from elsewhere (the skipped `app.ToneMapController` / `app.ColorCorrectController` driving
+  per-frame values, or a scene-level exposure the clone's layer does not get) `[hypothesis]`. Next: `clonediff` the other
+  components after a few seconds outdoors, and read what `app.ToneMapController` writes each frame.
+- **Reader's other notes, unchecked:** `config.ini` `RenderingMethod` = Interlaced; praydog forces `RenderOutput.set_Interleave(false)`
+  on RE4's scope (`cloneil` exists). The plugin still applies the mirror-era `flip_h`/`flip_v` in clone mode, so the glass picture may
+  be upside down / mirrored `[hypothesis]` — check on a scene with an obvious up (stairs, sky).
+- Evidence `dev-archive/recon/2026-09-26n-the-speckle-is-film-grain/`. Reader inbox note folded here, file removed.
