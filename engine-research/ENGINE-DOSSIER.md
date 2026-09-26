@@ -4849,3 +4849,8 @@ skips crop-follow and geom, and passes it at unit gain (the 8-bit knob 0.168, tu
 shows the front sight, **0.60 m clear**, 1.00 m clips through the door. Open: a white speckle band at the top (likely the 8 padding rows
 of the 1448-row target sampled whole `[hypothesis]`), dim indoors. Recon `dev-archive/recon/2026-09-26j-rifle-camera-on-the-glass/`;
 the reader's note folded here.
+- **Polish built (`/pd` Opus, no launch)** `[compile-verified 2026-09-26]`: plugin `a169a870` samples only the rows the camera draws in
+  clone mode (`clone_rows.h`: the movie targets are padded to 1448/1088/728 rows; 9/9 checks) — the speckle band `[hypothesis]`;
+  `clonenear` (default 0.60 m, re-asserted each LockScene) hides the sight with the near plane, the push along the bore defaults to 0
+  (a push moved the eye through the door); the autostart's `clone` word runs `clonescope 20` after the rig is DONE (the rig binds the
+  glass) and kills the clone when the rifle is put away (30/30). Run: `…/2026-09-26j-rifle-camera-on-the-glass/NEXT-RUN.md`.
