@@ -4971,3 +4971,6 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   clone mode switching the geom map off. The shader draws the lens circle at the RT centre with radius 0.485 and aspect `glassAspect`
   in every mode; geom only changes the sampled picture point. Both starts set `glassaspect 1.0` and bind onto the same game lens
   mesh, so placement is identical to the mirror scope's. Next check is in the headset (the mirror picture sat right there, worn).
+- **VR first look (Tefa, 22:02)** `[verified-live 2026-09-26, n=1]`: in VR the shared PrepareOutput texture is 1559x1670 and written
+  TWICE a frame; copying write #1 showed grey / huge UI letters. Plugin 69def0c8 copies every write (last wins); a stale address in
+  `re_scope_po.txt` from the previous session is now ignored. Evidence `dev-archive/recon/2026-09-26q-rifle-camera-vr-first-look/`.
