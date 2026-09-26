@@ -4796,3 +4796,22 @@ true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and
   `camcmp` (raw dword diff main vs clone + View/Projection/World matrices element by element), `matscan` (find the matrix rows in the
   0x1000-byte camera), `clonemake ... upd` (UpdateSelf on from creation); numpad `+` (the HDR probe) already reads the latched target's
   pixels back. Run: `dev-archive/recon/2026-09-26g-flat-matrices-run/NEXT-RUN.md`. Reader inbox (plan B) folded into §9ct; file removed.
+
+### 9cu. THE CLONE'S MATRICES ARE IDENTITY — THE SCENE NEVER COMPUTES A RUNTIME GAMEOBJECT'S WORLD MATRIX (2026-09-26 evening, `/lm` flat + reader)
+
+- `camcmp` `[verified-live 2026-09-26, n=1]`: MainCamera's View/World matrices real (world row 3 = its position); **the clone's View and
+  World are exact identity** with update OFF and ON; projection default 90°/1.77/0.1/1000. **Unparented + `set_Position`/`set_Rotation`
+  by hand: `transform:get_Position()` reads the new value, `transform:get_WorldMatrix()` row 3 and the camera's World/View row 3 stay
+  (0,0,0).** A GameObject made at runtime is never given a world matrix by the scene; the camera's view follows from it → our camera is at
+  the origin with an identity view whatever we set. `matscan`: the position is nowhere in via.Camera's 0x1000 bytes.
+- **The picture probably DOES render** `[hypothesis 2026-09-26]`: numpad `+` on our target's 8-bit resolve = luminance 0.73–1.00, bright
+  centre, smooth fall-off to every edge (a post-process vignette over a bright field — what a camera at the origin looking into fog makes).
+  Fits the 09-25 VR "flat sky-blue". The fmt-26 "junk" the plugin upgrades to is then an intermediate, not the output.
+- **Reader, correcting §9ct** `[inferred-static 2026-09-26]`: REFramework installs its camera matrix hooks in `Hooks.cpp` l.634-707 as
+  NATIVE hooks on the inner function (flat too); the renderer calls that inner function directly, so a **Lua `sdk.hook` on
+  `get_ViewMatrix`/`get_ProjectionMatrix` cannot change what is rendered**. Its view hook multiplies the engine's own view (`eye * mtx`);
+  only the projection is replaced — so praydog's clone still gets its VIEW from the engine in VR `[hypothesis: then the engine does
+  update his clone's transform — why, when ours is not, is open]`. No update/calc/refresh method exists on via.Camera / via.Transform.
+- **Next, no game:** write the world matrix into the clone's via.Transform memory every LockScene (find `RETransform`'s world-matrix field
+  in REFramework's sdk), then read the camera's View back; if the camera keeps identity, locate its own matrix copy and write that too.
+  Evidence `dev-archive/recon/2026-09-26g-flat-matrices-run/`; reader file in the inbox.
