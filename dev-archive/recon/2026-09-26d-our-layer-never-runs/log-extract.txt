@@ -1,0 +1,120 @@
+[2026-09-26 13:28:50.609] [REFramework] [info] [re8-camprobe]   camera 1699024701984 on 'ScopeCam' type=0 fov=26.229999542236  <== OURS
+[2026-09-26 13:28:50.609] [REFramework] [info] [re8-camprobe]   camera 1699124529616 on 'MainCamera' type=0 fov=51.321155548096
+[2026-09-26 13:28:50.633] [REFramework] [info] [re8-camprobe]   ScopeCam at (0.00, 0.00, 0.00)  rifle at (-100.04, -10.59, -30.08)  updateself=false  campose=false
+[2026-09-26 13:28:50.633] [REFramework] [info] [re8-camprobe]   scene layer [1] view=0 cam=1699124529616 mirror=nil
+[2026-09-26 13:28:50.633] [REFramework] [info] [re8-camprobe]   scene layer [2] view=3 cam=1699024701984 mirror=nil  <== OUR CAMERA
+[2026-09-26 13:28:50.633] [REFramework] [info] [re8-camprobe]   scene layer [3] view=1 cam=1699124529616 mirror=1699013023840
+[2026-09-26 13:28:50.633] [REFramework] [info] [re8-camprobe]   scene layer [4] view=2 cam=1699024701984 mirror=1699013023840  <== OUR CAMERA
+[2026-09-26 13:28:53.118] [REFramework] [info] [re8-camprobe] campose 1: copying the rifle's world pose into ScopeCam every frame
+[2026-09-26 13:28:53.150] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:28:55.158] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:28:57.187] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:28:57.786] [REFramework] [info] [re8-camprobe] camopts our RenderOutput (48 methods): Cut Equals GetHashCode GetType MemberwiseClone ReferenceEquals ToString applyWorldOffset destroy equals getOutputType getRenderMode get_BackgroundColor get_Chain get_ClipingEnable get_Clipplane get_Cutscene get_DeltaTime get_DistortionType get_GameObject get_HorizontalScreenScale get_ImageQuality get_Interleave get_ManualAspectUse get_Region get_RenderModeChangable get_RenderOutputID get_RenderTarget get_UseCustomSceneLayer get_Valid op_Equality op_Implicit op_Inequality setOutputType setRenderMode set_BackgroundColor set_ClipingEnable set_Clipplane set_Cutscene set_DistortionType set_HorizontalScreenScale set_ImageQuality set_Interleave set_ManualAspectUse set_Region set_RenderOutputID set_RenderTarget set_UseCustomSceneLayer
+[2026-09-26 13:28:57.786] [REFramework] [info] [re8-camprobe] camopts our via.Camera (39 methods): Equals GetHashCode GetType MemberwiseClone ReferenceEquals ToString destroy equals get_AspectRatio get_CameraType get_Chain get_DebugCamera get_DeltaTime get_FOV get_FarClipPlane get_GameObject get_LookAtDistance get_LookAtPosition get_NearClipPlane get_ProjectionMatrix get_ProjectionType get_Valid get_VerticalEnable get_ViewFrustum get_ViewMatrix get_ViewProjMatrix get_WorldMatrix op_Equality op_Implicit op_Inequality set_AspectRatio set_CameraType set_DebugCamera set_FOV set_FarClipPlane set_LookAtDistance set_NearClipPlane set_ProjectionType set_VerticalEnable
+[2026-09-26 13:28:57.786] [REFramework] [info] [re8-camprobe] camopts our plain layer (61 methods): Equals GetHashCode GetType MemberwiseClone ReferenceEquals ToString getDepthBoundTestParam getPriority get_BackgroundColor get_Camera get_ClipPlane get_ClippingEnable get_Cut get_Cutscene get_DistortionType get_Enable get_FilterSize get_HMDResolutionType get_HorizontalScreenScale get_ID get_ImageQuality get_ImageQualityRegion get_Independent get_Interleave get_LODBias get_Layers get_LightWeightMode get_ManualAspect get_Mirror get_MultiResolutionFlip get_OddFrame get_OutputRenderTarget get_Parent get_PostSize get_Region get_RenderOutputID get_ResizeFrame get_SharedTag get_Size get_TemporalDeinterlace get_UpdateHorizontalScreenScale get_Version get_ViewID isJunctionLayer removeLayer resize set_BackgroundColor set_Camera set_ClipPlane set_ClippingEnable set_Cut set_Cutscene set_DistortionType set_HorizontalScreenScale set_ImageQuality set_Interleave set_ManualAspect set_Mirror set_OutputRenderTarget set_ViewID swapDeinterlaceTarget
+[2026-09-26 13:28:57.787] [REFramework] [info] [re8-camprobe] camopts OutputType: ours nil via get_OutputType | main nil via get_OutputType
+[2026-09-26 13:28:57.787] [REFramework] [info] [re8-camprobe] camopts RenderMode: ours nil via get_RenderMode | main nil via get_RenderMode
+[2026-09-26 13:28:59.188] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:00.910] [REFramework] [info] [re8-camprobe] camset outtype 1: nil -> nil (setter set_OutputType)
+[2026-09-26 13:29:01.209] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:03.232] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:05.261] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:06.174] [REFramework] [info] [re8-camprobe] camset outtype 2: nil -> nil (setter set_OutputType)
+[2026-09-26 13:29:07.289] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:09.289] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:10.924] [REFramework] [info] [re8-camprobe] camset outtype 0: nil -> nil (setter set_OutputType)
+[2026-09-26 13:29:11.293] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:13.040] [REFramework] [info] [re8-camprobe] camset rendermode 1: nil -> nil (setter set_RenderMode)
+[2026-09-26 13:29:13.302] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:15.334] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:17.346] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:17.803] [REFramework] [info] [re8-camprobe] camset rendermode 0: nil -> nil (setter set_RenderMode)
+[2026-09-26 13:29:19.374] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:19.907] [REFramework] [info] [re8-camprobe] camset camtype 2: 0 -> 2 (setter set_CameraType)
+[2026-09-26 13:29:21.409] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:23.444] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:25.182] [REFramework] [info] [re8-camprobe] camset camtype 6: 2 -> 6 (setter set_CameraType)
+[2026-09-26 13:29:25.478] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:27.482] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:29.493] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:29.936] [REFramework] [info] [re8-camprobe] camset camtype 0: 6 -> 0 (setter set_CameraType)
+[2026-09-26 13:29:31.518] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:33.532] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:35.536] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:37.548] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:39.571] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:41.576] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:43.586] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:45.592] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:47.610] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:49.621] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:51.646] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:52.733] [REFramework] [info] [re8-camprobe] camlua: -> ours out=0 mode=0 | main out=0 mode=0
+[2026-09-26 13:29:53.676] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:54.835] [REFramework] [info] [re8-camprobe] camlua: -> 1
+[2026-09-26 13:29:55.697] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:57.697] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:29:59.579] [REFramework] [info] [re8-camprobe] camlua: -> 2
+[2026-09-26 13:29:59.728] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:01.745] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:03.747] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:04.859] [REFramework] [info] [re8-camprobe] camlua: -> 0
+[2026-09-26 13:30:05.768] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:07.446] [REFramework] [info] [re8-camprobe] camlua: -> 0
+[2026-09-26 13:30:07.789] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:09.807] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:11.819] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:12.762] [REFramework] [info] [re8-camprobe] camlua: -> 0
+[2026-09-26 13:30:13.825] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:15.836] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:17.873] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:19.895] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:21.932] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:23.960] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:25.970] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:27.999] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:30.017] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:32.036] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:32.708] [REFramework] [info] [re8-camprobe] camlua: -> draw=true drawself=true upd=false
+[2026-09-26 13:30:34.045] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:34.838] [REFramework] [info] [re8-camprobe] camlua: -> 3
+[2026-09-26 13:30:36.057] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:38.065] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:39.607] [REFramework] [info] [re8-camprobe] camlua: -> v0=nil v1=nil v5=nil v6=nil
+[2026-09-26 13:30:40.068] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:42.104] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:44.133] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:46.151] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:48.155] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:50.160] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:51.714] [REFramework] [info] [re8-camprobe] camlua: -> via.render.layer.Output: get_SceneView/0 get_Viewport/0
+[2026-09-26 13:30:52.173] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:53.815] [REFramework] [info] [re8-camprobe] camprobe: primary camera = 1699124529616 on 'MainCamera'
+[2026-09-26 13:30:53.815] [REFramework] [info] [re8-camprobe]   camera 1699024701984 on 'ScopeCam' type=0 fov=26.229999542236  <== OURS
+[2026-09-26 13:30:53.815] [REFramework] [info] [re8-camprobe]   camera 1699124529616 on 'MainCamera' type=0 fov=51.321155548096
+[2026-09-26 13:30:53.835] [REFramework] [info] [re8-camprobe]   ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)  updateself=false  campose=true
+[2026-09-26 13:30:53.835] [REFramework] [info] [re8-camprobe]   scene layer [1] view=0 cam=1699124529616 mirror=nil
+[2026-09-26 13:30:53.835] [REFramework] [info] [re8-camprobe]   scene layer [2] view=6 cam=1699024701984 mirror=nil  <== OUR CAMERA
+[2026-09-26 13:30:53.835] [REFramework] [info] [re8-camprobe]   scene layer [3] view=1 cam=1699124529616 mirror=1699013023840
+[2026-09-26 13:30:53.835] [REFramework] [info] [re8-camprobe]   scene layer [4] view=5 cam=1699024701984 mirror=1699013023840  <== OUR CAMERA
+[2026-09-26 13:30:54.180] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:56.213] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:30:58.224] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:00.249] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:02.257] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:04.276] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:06.291] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:07.047] [REFramework] [info] [re8-camprobe] camlua: -> 1699124529616 main=1699124529616
+[2026-09-26 13:31:08.308] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:10.328] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:11.833] [REFramework] [info] [re8-camprobe] camlua: -> 1699024701984
+[2026-09-26 13:31:12.366] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:14.398] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:16.425] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:18.441] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:20.472] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:22.501] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:24.502] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:26.535] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:28.549] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
+[2026-09-26 13:31:30.565] [REFramework] [info] [re8-camprobe] campose: ScopeCam at (-100.04, -10.59, -30.08)  rifle at (-100.04, -10.59, -30.08)
