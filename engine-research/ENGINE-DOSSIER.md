@@ -4815,3 +4815,9 @@ true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and
 - **Next, no game:** write the world matrix into the clone's via.Transform memory every LockScene (find `RETransform`'s world-matrix field
   in REFramework's sdk), then read the camera's View back; if the camera keeps identity, locate its own matrix copy and write that too.
   Evidence `dev-archive/recon/2026-09-26g-flat-matrices-run/`; reader file in the inbox.
+- **Reader's matrix-hook file, folded (2026-09-26 `/pd`)**: REFramework hooks the camera matrix getters natively in `Hooks.cpp` (flat too);
+  Lua `sdk.hook` sees only reflected callers; for a by-value Matrix4x4f the pre-hook's `args[1]` is the result pointer, `args[3]` the camera;
+  `sdk.to_valuetype` copies, so a post-hook can write only through `sdk.call_native_func(ptr, via.mat4, "set_mN", Vector4f)` (`[hypothesis]`
+  that via.mat4 owns set_m0..m3). No update/calc/refresh method on via.Camera or via.Transform. Kept as the fallback; the direct route is
+  writing the transform's own WorldTransform (praydog's re8 layout: Position 0x30, Rotation 0x40, Scale 0x50, Scene* 0x60, Parent 0x78,
+  **WorldTransform 0x80**, UpdateFrame 0xCC, DirtySelf 0xD1, DirtyUpwards 0xD2) `[inferred-static 2026-09-26]`. File removed.
