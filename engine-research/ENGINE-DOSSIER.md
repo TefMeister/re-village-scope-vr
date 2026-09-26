@@ -4730,3 +4730,10 @@ Credit: **praydog** (REFramework).
 - **Open**: what an RE8-era object that renders a camera into a texture carries that ours does not (in-game monitors, the factory's
   security cameras). praydog's `CameraDuplicator` is not in the current REFramework tree (`gh` search 2026-09-26) — a newer-engine
   recipe. Evidence `dev-archive/recon/2026-09-26b-rifle-camera-draws-nothing/`; note `modding-notes/2026-09-26-the-rifle-camera-draws-nothing.md`.
+
+- **Static follow-up, same day (`/pd`, no launch)** `[inferred-static 2026-09-26]`: `re8.exe` names RenderOutput members the property
+  dump never showed — `getOutputType` (enum stored beside Default / Composite / CompositeElement), `getRenderMode` (Default / LightWeight),
+  `set_OutputLowerLimit`, `setDrawDynamicShadow`, `setCacheEnable` — plus `via.render.RenderTargetCompositor`, a `CaptureToTexture`
+  component and several SceneViews (`via.SceneManager.getSceneViews`; `via.SceneView` has its own camera type). praydog's `VR.cpp` has no
+  second-camera path for RE8 (alternate-eye on one camera). The next flat run is written as command-file one-liners:
+  `dev-archive/recon/2026-09-26c-hidden-renderoutput-settings/README.md`.
