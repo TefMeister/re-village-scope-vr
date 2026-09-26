@@ -4929,3 +4929,13 @@ log `[inferred-static 2026-09-26]`.
 - **Correction, same night (Tefa, who watched the screen during the run):** the rifle camera's picture on the glass is the RIGHT
   WAY UP `[reported 2026-09-26]` — the reader's "flip_h/flip_v still applied, so upside down" is `[disproved 2026-09-26]` by that
   sighting. Tefa also: the rifle-camera build stays installed as it is (not switched on by default) until it works or is removed.
+
+### 9da. THE RIFLE CAMERA'S PICTURE IS UNGRADED AND CLAMPED — four exposure levers fail; PrepareOutput is the lead (2026-09-26 night, `/lm` flat)
+
+`[verified-live 2026-09-26, n=1 each]`: EV already equal (3.0/3.0); ToneMapping/LDRPostProcess/SoftBloom off → no change;
+bloom set to main's algorithm → no change; AutoExposure 0 → slightly darker only. 8-bit target: outdoors 255. Authored float
+.rtex (`clonehdr 1`): raw fmt 26 but max 1.00. Mirror-era upgrade (`clonehdr 2`, before the first clone): a fmt-26 buffer,
+max 1.00, flat grey. So the RenderOutput target gets the scene **before grading, clamped** `[hypothesis]`. praydog reads the
+clone's picture from its layer's **PrepareOutput** output (VR.cpp `on_prepare_output_layer_draw`), which is graded — the next
+move `[hypothesis]`. Tefa's question "same as the golden veil?": same family (a second view missing part of the game's
+grading), different route. Evidence `dev-archive/recon/2026-09-26o-rifle-camera-exposure/`.
