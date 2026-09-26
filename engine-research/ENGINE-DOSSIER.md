@@ -4768,3 +4768,9 @@ What the clone does, in order `[inferred-static 2026-09-26, read from source]`:
 the 09-25 "draw=true" read-back was the managed getter, not byte 0x13. `cammake` now ends with `draw_on()` (managed `set_Draw`/`set_DrawSelf`
 true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and `campri [n]` exist for the flat run `[compile-verified
 2026-09-26]`. Praydog's `is_fully_rendered` name filter (`MainCamera*`) is REFramework's own heuristic, not the engine's.
+- **Correction, same night (`/lm`, flat)** `[verified-live 2026-09-26, n=1]`: **the draw flag was never off.** Before `draw_on()` touched
+  it, ScopeCam's bytes read `Update=255 Draw=1 UpdateSelf=0 DrawSelf=1` and the managed getters true — our `set_Draw(false)` in `make()`
+  never took. So the §9cs reading "our draw flag was left off" is `[disproved 2026-09-26]`; the glass stayed empty with draw on and
+  camera+0x48 = -1. Next leads (reader, `[hypothesis]`): build inside `LockScene` like praydog; **do not call `set_RenderTarget`** (he never
+  does — his clone renders to its default output, ID 3, and VR.cpp copies it out of the clone layer's `PrepareOutput`); skip
+  `ExperimentalRayTrace`; copy MainCamera's components in order. Evidence `dev-archive/recon/2026-09-26e-draw-flag-was-already-on/`.
