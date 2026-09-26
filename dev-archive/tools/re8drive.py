@@ -162,7 +162,10 @@ def boot(timeout=180.0):
         if any(n in log for n in GAMEPLAY_NEEDLES) and cont_pressed:
             close_ref_menu(hwnd); print("PLAYING after %.0f s" % (time.time() - t0)); return
         if u.GetForegroundWindow() != hwnd: H.focus(hwnd)   # focus costs 0.4 s: only when lost
-        s = which_screen(H.grab(hwnd), tpl)
+        try:
+            s = which_screen(H.grab(hwnd), tpl)
+        except (SystemExit, OSError, ValueError):    # 2026-09-26: the first window has no client area for a moment
+            time.sleep(POLL_S); continue
         if s != last: print("%5.1f s  screen: %s" % (time.time() - t0, s)); last = s
         if s == "load_prompt":
             H.tap("w", settle=0.3); H.tap("f", settle=0.8)
