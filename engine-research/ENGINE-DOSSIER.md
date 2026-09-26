@@ -4821,3 +4821,15 @@ true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and
   that via.mat4 owns set_m0..m3). No update/calc/refresh method on via.Camera or via.Transform. Kept as the fallback; the direct route is
   writing the transform's own WorldTransform (praydog's re8 layout: Position 0x30, Rotation 0x40, Scale 0x50, Scene* 0x60, Parent 0x78,
   **WorldTransform 0x80**, UpdateFrame 0xCC, DirtySelf 0xD1, DirtyUpwards 0xD2) `[inferred-static 2026-09-26]`. File removed.
+
+### 9cv. 🏆 THE RIFLE CAMERA RENDERS — WRITE THE WORLD MATRIX THE SCENE NEVER COMPUTES (2026-09-26 evening, `/lm` flat)
+
+`[verified-live 2026-09-26, n=1]`. A runtime GameObject's via.Transform keeps `WorldTransform` (+0x80) = identity and `UpdateFrame`
+= 0xFFFFFFFE forever (Scene* is valid; `setParent` did not take: Parent* = 0). **Copying a real object's 16 world floats into the clone's
+transform +0x80 every LockScene (`clonepose`) makes the camera's `get_ViewMatrix`/`get_WorldMatrix` follow exactly** — the camera derives
+its view from that cached matrix — **and the clone's layer renders the world into our target**: numpad `+` shows a structured scene that
+changes with movement; the glass (crop-follow off, FOV 20) shows the magnified carved wall from MainCamera's pose, and a close
+texture from the rifle's root (inside the hand). Dark: exposure not copied. Recon `dev-archive/recon/2026-09-26h-write-the-world-matrix/`.
+Reader (inbox `2026-09-26-reader-camera-matrix-source.md`): RECamera holds no matrix (near 0x30, far 0x34, fov 0x38, aspect 0x44, type
+0x50); SceneInfo offsets per layer (view 0x40, proj 0xC0 …); praydog also sets joint 0 when posing a second camera — not needed here.
+**Next:** bore pose (offset along the muzzle past the tube), exposure copy, FOV per scope, autostart integration, then VR.
