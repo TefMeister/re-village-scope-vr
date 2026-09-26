@@ -4951,3 +4951,9 @@ Built: `clonepo` (Lua finds the clone's layer → PrepareOutput child → writes
 `po_source.cpp` (walks the chain SEH-guarded, tries every RTV slot 0x80..0xE0, accepts only a resource whose vtable matches
 the latched one, then swaps the glass source) `[compile-verified 2026-09-26]`. Open `[hypothesis]`: whether that texture
 still holds the clone's picture at Present (praydog copies during the draw). Test: `dev-archive/recon/2026-09-26p-prepareoutput-route/NEXT-RUN.md`.
+- **Run, same night (`/lm`, Tefa watching)** `[verified-live 2026-09-26, n=1]`: the chain resolved exactly (Texture at RTV+0x88;
+  resource 1114x835 fmt 87) — but at Present it holds the **main** view: the PrepareOutput output is shared and the main layer
+  overwrites it. The copy must happen during the frame (D3D12 hook) `[hypothesis]`. Also: the clone picture was **upside down**
+  on the glass (Tefa; the earlier "right way up" was withdrawn by Tefa) — the mirror flips no longer apply in clone mode
+  (plugin b736de79). The 9cz/earlier "picture is right way up" line is `[disproved 2026-09-26]`. Evidence
+  `dev-archive/recon/2026-09-26p-prepareoutput-route/RESULT.md`.
