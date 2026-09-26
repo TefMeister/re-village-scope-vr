@@ -31,3 +31,10 @@ looks right in **both eyes** in the headset is a wear-it-and-see question — a 
 the wrong depth would look like dirt on the lens, not a reflection.
 
 Verbatim record: [`inbox/2026-09-21b-re-village-a-glass-shine-over-the-scope-picture.md`](../inbox/2026-09-21b-re-village-a-glass-shine-over-the-scope-picture.md)
+
+Chosen by Tefa: 2026-09-26
+
+
+---
+
+**Tefa, 2026-09-26, when keeping it:** "there already is some shine, but make it more noticable."

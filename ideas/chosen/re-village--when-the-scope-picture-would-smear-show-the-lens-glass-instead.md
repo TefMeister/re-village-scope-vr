@@ -33,3 +33,5 @@ here — a hard cut would read as a bug of its own.
 demand at a chosen moment is not known.
 
 Verbatim record: [`inbox/2026-09-20-re-village-mask-the-scope-streak-with-lens-glare.md`](../inbox/2026-09-20-re-village-mask-the-scope-streak-with-lens-glare.md)
+
+Chosen by Tefa: 2026-09-26

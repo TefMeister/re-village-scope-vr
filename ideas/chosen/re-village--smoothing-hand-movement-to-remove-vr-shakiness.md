@@ -15,3 +15,5 @@ See that page for the fuller note; the short version is a rolling-average/low-pa
 tracking, trading a little lag for less jitter, with the right amount being a headset judgement call.
 
 ---
+
+Chosen by Tefa: 2026-09-26
