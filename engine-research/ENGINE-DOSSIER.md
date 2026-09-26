@@ -4870,3 +4870,12 @@ the reader's note folded here.
 - **Rifle camera only, built (`/pd` Opus)** `[compile-verified 2026-09-26]`: autostart `clone` = clonescope → glassaspect 1.0 + numpad `*`
   (+1/+5/+20 s), no mirror rig; `clonerig` = the verified rig-first way; the re-draw decides on `clone_go` (the frozen-glass bug fixed).
   Test 36/36. Run: `dev-archive/recon/2026-09-26k-rifle-camera-self-start/NEXT-RUN.md` (also the speckle A/B and the fps comparison).
+
+### 9cx. THE BARREL, THE SPECKLE, AND A ~32 ms COST PER FRAME (2026-09-26 evening, `/lm` flat)
+
+`[verified-live 2026-09-26, n=1]`. Rifle camera only (no rig) starts cleanly (latched, 0.61 s). **Barrel:** `vfx_muzzle` is 0.797 m
+ahead of the scope camera, 6.3 cm below its axis (in view at FOV 20) → near plane = muzzle distance + 0.05 m, per frame. **Speckle:** not
+the barrel; absent on the 1920×1088 target, present on 2560×1448. **Frame rate:** any rendering clone (full, bare, LightWeight, 1920,
+2560) → 26 fps (37.7 ms steady) vs 177–182 without; the mirror rig ran at 159. A fixed ~32 ms per frame whatever the clone draws —
+a wait, not work `[hypothesis]`; suspects: the pd-upscaler TemporalUpscaler/DLSS seeing a second view, a per-view GPU sync.
+Recon `dev-archive/recon/2026-09-26l-barrel-and-frame-rate/`; the reader's muzzle note folded here.
