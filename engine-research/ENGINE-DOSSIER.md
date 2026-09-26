@@ -4926,3 +4926,6 @@ log `[inferred-static 2026-09-26]`.
   on RE4's scope (`cloneil` exists). The plugin still applies the mirror-era `flip_h`/`flip_v` in clone mode, so the glass picture may
   be upside down / mirrored `[hypothesis]` — check on a scene with an obvious up (stairs, sky).
 - Evidence `dev-archive/recon/2026-09-26n-the-speckle-is-film-grain/`. Reader inbox note folded here, file removed.
+- **Correction, same night (Tefa, who watched the screen during the run):** the rifle camera's picture on the glass is the RIGHT
+  WAY UP `[reported 2026-09-26]` — the reader's "flip_h/flip_v still applied, so upside down" is `[disproved 2026-09-26]` by that
+  sighting. Tefa also: the rifle-camera build stays installed as it is (not switched on by default) until it works or is removed.
