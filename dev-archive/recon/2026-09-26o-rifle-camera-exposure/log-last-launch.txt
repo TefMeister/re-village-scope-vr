@@ -1,0 +1,18 @@
+2026-09-26 20:36:27.887e8-camfix] loaded -- test tool; words: cloneil [0|1|off|rm <n>], clonetm [copy|taa <n>|ae <n>|off], clonediff <Type>, clonecomp <Type> 0|1. Nothing runs by itself.
+2026-09-26 20:38:17.908e8-camfix] clonehdr 2: 8-bit target + the plugin upgrades to the engine's float intermediate; clonekill + clonescope to apply
+2026-09-26 20:39:05.484lugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 000002CC20D22C80 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+2026-09-26 20:39:05.520lugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 000002CC210D40F0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: mirror 1920x1088 fmt=26(R11G11B10F raw HDR), raw luminance min=0.0034 max=1.00, 26.3% of pixels below current skyThresh 0.500
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: row 0 |    0.021    0.032    0.896    0.999    0.999    0.999    0.999    0.999
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: row 1 |    0.024    0.036    0.896    0.999    0.999    0.999    0.999    0.999
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: row 2 |    0.024    0.037    0.896    0.999    0.999    0.999    0.999    0.999
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: row 3 |    0.024    0.039    0.896    0.999    0.999    0.999    0.999    0.999
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: row 4 |    0.022    0.037    0.901    0.999    0.999    0.999    0.999    0.999
+2026-09-26 20:39:38.587lugin] [re-scope-vr] HDR probe: row 5 |    0.019    0.033    0.905    0.999    0.999    0.999    0.999    0.939
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: mirror 480x360 fmt=28(UNORM -- NOT raw HDR), raw luminance min=0.0000 max=0.66, 99.7% of pixels below current skyThresh 0.500
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: row 0 |    0.020    0.027    0.057    0.117    0.117    0.057    0.027    0.020
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: row 1 |    0.030    0.086    0.092    0.092    0.089    0.092    0.086    0.029
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: row 2 |    0.064    0.092    0.092    0.092    0.089    0.092    0.092    0.039
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: row 3 |    0.064    0.090    0.089    0.089    0.087    0.089    0.090    0.039
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: row 4 |    0.031    0.086    0.092    0.092    0.089    0.092    0.087    0.030
+2026-09-26 20:39:38.588lugin] [re-scope-vr] HDR probe: row 5 |    0.020    0.027    0.058    0.074    0.074    0.058    0.028    0.020
