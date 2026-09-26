@@ -4957,3 +4957,7 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   on the glass (Tefa; the earlier "right way up" was withdrawn by Tefa) — the mirror flips no longer apply in clone mode
   (plugin b736de79). The 9cz/earlier "picture is right way up" line is `[disproved 2026-09-26]`. Evidence
   `dev-archive/recon/2026-09-26p-prepareoutput-route/RESULT.md`.
+- **Mid-frame copy, built, not run (`/pd` Opus, same night)** `[compile-verified 2026-09-26]`: the plugin hooks the command
+  list's ResourceBarrier (slot 26) and copies the shared PrepareOutput texture at its Nth RENDER_TARGET exit of the frame into its
+  own texture, on the game's own list; `clonepo N` picks N. Also `clonestage` (move the rifle-pose write later; Tefa saw the
+  scope picture slide instead of sticking to the glass) `[reported 2026-09-26]`. Test: `.../2026-09-26p-prepareoutput-route/NEXT-RUN-2.md`.
