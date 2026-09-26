@@ -4833,3 +4833,9 @@ texture from the rifle's root (inside the hand). Dark: exposure not copied. Reco
 Reader (inbox `2026-09-26-reader-camera-matrix-source.md`): RECamera holds no matrix (near 0x30, far 0x34, fov 0x38, aspect 0x44, type
 0x50); SceneInfo offsets per layer (view 0x40, proj 0xC0 …); praydog also sets joint 0 when posing a second camera — not needed here.
 **Next:** bore pose (offset along the muzzle past the tube), exposure copy, FOV per scope, autostart integration, then VR.
+- **Built on §9cv (`/pd` Opus, no launch)** `[compile-verified 2026-09-26]`: `clonepose bore` = the rifle's Body joint + the mirror rig's
+  LENS_MOUNT (0, 0.151, 0.099), pushed along the joint's forward axis (default z, 0.30 m), camera −Z on it (`cloneaim fwd|flip|axis`);
+  `clonefov` re-asserted each LockScene; `clonelook 1` copies MainCamera's post-process/exposure component properties (praydog's
+  m_wanted_components, same skips) every 10 LockScenes; `clonescope [fov]` sets it all up. The muzzle axis and the push are
+  `[hypothesis]`. Stub test: quaternion rows, bore position, orthonormal rows, flip, FOV re-assert. Run:
+  `dev-archive/recon/2026-09-26i-scope-pose-exposure/NEXT-RUN.md`. Reader inbox (camera matrix source) folded in §9cv; file removed.
