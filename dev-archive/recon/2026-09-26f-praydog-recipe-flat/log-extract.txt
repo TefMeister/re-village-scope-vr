@@ -1,0 +1,92 @@
+[2026-09-26 14:18:39.354] [REFramework] [info] [re8-camclone] loaded -- test tool; words: clonemake [rifle] [rt] [bare], clonekill, clonewatch, clonehook, cloneorder. Nothing runs by itself.
+[2026-09-26 14:18:39.354] [REFramework] [info] [re8-camprobe] loaded -- test tool; words: camprobe, cammake [fov] [type], camkill, camupdate 0|1, campose 0|1, camlayer <view>, camlayerout <view> [rig], camdump, camcopy [post|all], camlua <code>, camopts, camset <what> <n>, camdraw [0|1], campri [n]. Nothing runs by itself.
+[2026-09-26 14:21:35.817] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1280x728 fmt=29 flags=0x1 -> 000001A844CB81D0 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 14:21:35.826] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1280x728 fmt=26 -> 000001A84485ED70 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-26 14:21:45.052] [REFramework] [info] [re8-camclone] cloneorder: MainCamera has 42 component(s): 0:via.Transform 1:via.Camera 2:via.render.RenderOutput 3:via.render.LDRPostProcess 4:via.render.Fog 5:app.FogController(skip) 6:app.ColorCorrectController(skip) 7:via.render.ToneMapping 8:app.ToneMapController(skip) 9:via.render.SoftBloom 10:app.SoftBloomController(skip) 11:via.render.SSAOControl 12:app.SSAOController(skip) 13:via.render.SSRControl 14:via.wwise.WwiseListener(skip) 15:app.LensDistortionController(skip) 16:via.render.LightShaftFilterControl 17:via.render.DepthOfField 18:via.render.SSSSSControl 19:via.render.FakeLensflare 20:via.render.MotionBlur 21:app.RenderResolutioinController(skip) 22:app.CameraDOFController(skip) 23:app.CameraMotionBlurController(skip) 24:via.render.GeometryAOControl 25:via.render.GodRay 26:app.GodRayController(skip) 27:via.render.SubsurfaceSettings 28:via.render.VolumetricFog 29:via.render.VolumetricFogControl 30:app.VolumetricFogControllApp(skip) 31:via.render.Outline 32:app.RadialBlurController(skip) 33:app.OnPauseCameraCaller(skip) 34:via.render.TessellationFactor 35:via.render.RetroFilm 36:via.render.ExperimentalRayTrace(skip) 37:app.ExperimentalRayTraceController(skip) 38:app.SSSSSController(skip) 39:app.HazeFilterController(skip) 40:app.ImagePlaneController(skip) 41:app.ObjectDefinitionDynamic(skip)
+[2026-09-26 14:21:47.563] [REFramework] [info] [re8-camclone] clonewatch t0 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:21:47.563] [REFramework] [info] [re8-camclone] clonewatch t0 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:21:48.563] [REFramework] [info] [re8-camclone] clonewatch t1 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:21:48.563] [REFramework] [info] [re8-camclone] clonewatch t1 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:21:48.563] [REFramework] [info] [re8-camclone] clonewatch: view 0 ResizeFrame 4382 -> 4382 (still)
+[2026-09-26 14:21:48.563] [REFramework] [info] [re8-camclone] clonewatch: view 1 ResizeFrame 87217 -> 87217 (still)
+[2026-09-26 14:21:51.587] [REFramework] [info] [re8-camclone] clonemake: queued for the next LockScene ()
+[2026-09-26 14:21:51.592] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @1802098265312 flags after OFF [Update=0 Draw=0 DrawSelf=1]
+[2026-09-26 14:21:51.592] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 14:21:51.594] [REFramework] [info] [re8-camclone] clonemake: 21 made in MainCamera's order: via.Camera via.render.RenderOutput via.render.LDRPostProcess via.render.Fog via.render.ToneMapping via.render.SoftBloom via.render.SSAOControl via.render.SSRControl via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur via.render.GeometryAOControl via.render.GodRay via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl via.render.Outline via.render.TessellationFactor via.render.RetroFilm
+[2026-09-26 14:21:51.594] [REFramework] [info] [re8-camclone] clonemake: 21 skipped: via.Transform app.FogController app.ColorCorrectController app.ToneMapController app.SoftBloomController app.SSAOController via.wwise.WwiseListener app.LensDistortionController app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController app.GodRayController app.VolumetricFogControllApp app.RadialBlurController app.OnPauseCameraCaller via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 14:21:51.594] [REFramework] [info] [re8-camclone] clonemake: camera @1802098266960 output id=3 target=nil flags [Update=0 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 14:21:56.112] [REFramework] [info] [re8-camclone] clonewatch t0 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:21:56.112] [REFramework] [info] [re8-camclone] clonewatch t0 view=3 cam=1802098266960 mirror=nil size=1114.0x835.0 frame=89871 odd=0  <== CLONE
+[2026-09-26 14:21:56.112] [REFramework] [info] [re8-camclone] clonewatch t0 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:21:56.112] [REFramework] [info] [re8-camclone] clonewatch t0 view=2 cam=1802098266960 mirror=1802096490208 size=1280.0x728.0 frame=89871 odd=0  <== CLONE
+[2026-09-26 14:21:57.117] [REFramework] [info] [re8-camclone] clonewatch t1 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:21:57.117] [REFramework] [info] [re8-camclone] clonewatch t1 view=3 cam=1802098266960 mirror=nil size=1114.0x835.0 frame=89871 odd=0  <== CLONE
+[2026-09-26 14:21:57.117] [REFramework] [info] [re8-camclone] clonewatch t1 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:21:57.117] [REFramework] [info] [re8-camclone] clonewatch t1 view=2 cam=1802098266960 mirror=1802096490208 size=1280.0x728.0 frame=89871 odd=0  <== CLONE
+[2026-09-26 14:21:57.117] [REFramework] [info] [re8-camclone] clonewatch: view 0 ResizeFrame 4382 -> 4382 (still)
+[2026-09-26 14:21:57.118] [REFramework] [info] [re8-camclone] clonewatch: view 3 ResizeFrame 89871 -> 89871 (still)
+[2026-09-26 14:21:57.118] [REFramework] [info] [re8-camclone] clonewatch: view 1 ResizeFrame 87217 -> 87217 (still)
+[2026-09-26 14:21:57.118] [REFramework] [info] [re8-camclone] clonewatch: view 2 ResizeFrame 89871 -> 89871 (still)
+[2026-09-26 14:21:59.632] [REFramework] [info] [re8-camclone] clonekill: destroy -> true
+[2026-09-26 14:22:04.156] [REFramework] [info] [re8-camclone] clonemake: queued for the next LockScene (rt)
+[2026-09-26 14:22:04.162] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @1802089970560 flags after OFF [Update=0 Draw=0 DrawSelf=1]
+[2026-09-26 14:22:04.162] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 14:22:04.163] [REFramework] [info] [re8-camclone] own render target movie/rtex/movie_2560_1440.rtex
+[2026-09-26 14:22:04.165] [REFramework] [info] [re8-camclone] clonemake: 21 made in MainCamera's order: via.Camera via.render.RenderOutput via.render.LDRPostProcess via.render.Fog via.render.ToneMapping via.render.SoftBloom via.render.SSAOControl via.render.SSRControl via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur via.render.GeometryAOControl via.render.GodRay via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl via.render.Outline via.render.TessellationFactor via.render.RetroFilm
+[2026-09-26 14:22:04.165] [REFramework] [info] [re8-camclone] clonemake: 21 skipped: via.Transform app.FogController app.ColorCorrectController app.ToneMapController app.SoftBloomController app.SSAOController via.wwise.WwiseListener app.LensDistortionController app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController app.GodRayController app.VolumetricFogControllApp app.RadialBlurController app.OnPauseCameraCaller via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 14:22:04.165] [REFramework] [info] [re8-camclone] clonemake: camera @1802089972208 output id=3 target=1802089963840 flags [Update=0 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 14:22:04.167] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm: 2560x1448 fmt=29 flags=0x1 -> 000001A844CB5200 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 14:22:04.183] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1280x728 fmt=26 -> 000001A8A88FC7B0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-26 14:22:10.202] [REFramework] [info] [re8-camclone] clonewatch t0 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:22:10.202] [REFramework] [info] [re8-camclone] clonewatch t0 view=4 cam=1802089972208 mirror=nil size=2560.0x1448.0 frame=91538 odd=0  <== CLONE
+[2026-09-26 14:22:10.202] [REFramework] [info] [re8-camclone] clonewatch t0 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:22:10.202] [REFramework] [info] [re8-camclone] clonewatch t0 view=3 cam=1802089972208 mirror=1802096490208 size=1280.0x728.0 frame=91537 odd=0  <== CLONE
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch t1 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch t1 view=4 cam=1802089972208 mirror=nil size=2560.0x1448.0 frame=91538 odd=0  <== CLONE
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch t1 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch t1 view=3 cam=1802089972208 mirror=1802096490208 size=1280.0x728.0 frame=91537 odd=0  <== CLONE
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch: view 0 ResizeFrame 4382 -> 4382 (still)
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch: view 4 ResizeFrame 91538 -> 91538 (still)
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch: view 1 ResizeFrame 87217 -> 87217 (still)
+[2026-09-26 14:22:11.207] [REFramework] [info] [re8-camclone] clonewatch: view 3 ResizeFrame 91537 -> 91537 (still)
+[2026-09-26 14:22:13.726] [REFramework] [info] [re8-camclone] clonehook: get_PrimaryCamera guard -> true
+[2026-09-26 14:22:14.738] [REFramework] [info] [re8-camclone] clonewatch t0 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:22:14.738] [REFramework] [info] [re8-camclone] clonewatch t0 view=4 cam=1802089972208 mirror=nil size=2560.0x1448.0 frame=91538 odd=0  <== CLONE
+[2026-09-26 14:22:14.738] [REFramework] [info] [re8-camclone] clonewatch t0 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:22:14.738] [REFramework] [info] [re8-camclone] clonewatch t0 view=3 cam=1802089972208 mirror=1802096490208 size=1280.0x728.0 frame=91537 odd=0  <== CLONE
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch t1 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch t1 view=4 cam=1802089972208 mirror=nil size=2560.0x1448.0 frame=91538 odd=0  <== CLONE
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch t1 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch t1 view=3 cam=1802089972208 mirror=1802096490208 size=1280.0x728.0 frame=91537 odd=0  <== CLONE
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch: view 0 ResizeFrame 4382 -> 4382 (still)
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch: view 4 ResizeFrame 91538 -> 91538 (still)
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch: view 1 ResizeFrame 87217 -> 87217 (still)
+[2026-09-26 14:22:15.741] [REFramework] [info] [re8-camclone] clonewatch: view 3 ResizeFrame 91537 -> 91537 (still)
+[2026-09-26 14:22:18.775] [REFramework] [info] [re8-camclone] clonekill: destroy -> true
+[2026-09-26 14:22:20.785] [REFramework] [info] [re8-camclone] clonemake: queued for the next LockScene (bare)
+[2026-09-26 14:22:20.789] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @1802086684400 flags after OFF [Update=0 Draw=0 DrawSelf=1]
+[2026-09-26 14:22:20.789] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 14:22:20.789] [REFramework] [info] [re8-camclone] clonemake: 2 made in MainCamera's order: via.Camera via.render.RenderOutput
+[2026-09-26 14:22:20.789] [REFramework] [info] [re8-camclone] clonemake: 40 skipped: via.Transform via.render.LDRPostProcess via.render.Fog app.FogController app.ColorCorrectController via.render.ToneMapping app.ToneMapController via.render.SoftBloom app.SoftBloomController via.render.SSAOControl app.SSAOController via.render.SSRControl via.wwise.WwiseListener app.LensDistortionController via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController via.render.GeometryAOControl via.render.GodRay app.GodRayController via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl app.VolumetricFogControllApp via.render.Outline app.RadialBlurController app.OnPauseCameraCaller via.render.TessellationFactor via.render.RetroFilm via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 14:22:20.789] [REFramework] [info] [re8-camclone] clonemake: camera @1802086686048 output id=3 target=nil flags [Update=0 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 14:22:24.842] [REFramework] [info] [re8-camclone] clonewatch t0 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:22:24.842] [REFramework] [info] [re8-camclone] clonewatch t0 view=5 cam=1802086686048 mirror=nil size=1114.0x835.0 frame=93418 odd=0  <== CLONE
+[2026-09-26 14:22:24.842] [REFramework] [info] [re8-camclone] clonewatch t0 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:22:24.842] [REFramework] [info] [re8-camclone] clonewatch t0 view=4 cam=1802086686048 mirror=1802096490208 size=1280.0x728.0 frame=93418 odd=0  <== CLONE
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch t1 view=0 cam=1802203745008 mirror=nil size=1114.0x835.0 frame=4382 odd=0
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch t1 view=5 cam=1802086686048 mirror=nil size=1114.0x835.0 frame=93418 odd=0  <== CLONE
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch t1 view=1 cam=1802203745008 mirror=1802096490208 size=1280.0x728.0 frame=87217 odd=0
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch t1 view=4 cam=1802086686048 mirror=1802096490208 size=1280.0x728.0 frame=93418 odd=0  <== CLONE
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch: view 0 ResizeFrame 4382 -> 4382 (still)
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch: view 5 ResizeFrame 93418 -> 93418 (still)
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch: view 1 ResizeFrame 87217 -> 87217 (still)
+[2026-09-26 14:22:25.846] [REFramework] [info] [re8-camclone] clonewatch: view 4 ResizeFrame 93418 -> 93418 (still)
+[2026-09-26 14:22:57.133] [REFramework] [info] [re8-camclone] clonekill: destroy -> true
+[2026-09-26 14:23:01.148] [REFramework] [info] [re8-camclone] clonemake: queued for the next LockScene ()
+[2026-09-26 14:23:01.153] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @1802090560688 flags after OFF [Update=0 Draw=0 DrawSelf=1]
+[2026-09-26 14:23:01.153] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 14:23:01.155] [REFramework] [info] [re8-camclone] clonemake: 21 made in MainCamera's order: via.Camera via.render.RenderOutput via.render.LDRPostProcess via.render.Fog via.render.ToneMapping via.render.SoftBloom via.render.SSAOControl via.render.SSRControl via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur via.render.GeometryAOControl via.render.GodRay via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl via.render.Outline via.render.TessellationFactor via.render.RetroFilm
+[2026-09-26 14:23:01.155] [REFramework] [info] [re8-camclone] clonemake: 21 skipped: via.Transform app.FogController app.ColorCorrectController app.ToneMapController app.SoftBloomController app.SSAOController via.wwise.WwiseListener app.LensDistortionController app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController app.GodRayController app.VolumetricFogControllApp app.RadialBlurController app.OnPauseCameraCaller via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 14:23:01.155] [REFramework] [info] [re8-camclone] clonemake: camera @1802090562336 output id=3 target=nil flags [Update=0 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 14:23:26.349] [REFramework] [info] [re8-camprobe] camlua: -> follow installed
+[2026-09-26 14:24:23.770] [REFramework] [info] [re8-camclone] clonekill: destroy -> true
