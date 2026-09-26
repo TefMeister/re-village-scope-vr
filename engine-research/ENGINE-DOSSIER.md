@@ -4737,3 +4737,9 @@ Credit: **praydog** (REFramework).
   component and several SceneViews (`via.SceneManager.getSceneViews`; `via.SceneView` has its own camera type). praydog's `VR.cpp` has no
   second-camera path for RE8 (alternate-eye on one camera). The next flat run is written as command-file one-liners:
   `dev-archive/recon/2026-09-26c-hidden-renderoutput-settings/README.md`.
+- **Evening flat run (`/lm`)** `[verified-live 2026-09-26, n=1]`: `setOutputType` 1/2/0, `setRenderMode` 1/0, `set_CameraType` 2/6/0,
+  `set_RenderOutputID 3` — all read back, none changes a pixel. **Putting MainCamera itself on OUR Scene layer (`set_Camera`, read back)
+  changes nothing either: the layer the engine builds for a camera of ours is never executed.** The Output layer exposes no
+  `registerScene` to Lua. Real names: `getOutputType`/`setOutputType`/`getRenderMode`/`setRenderMode` (both cameras 0/0). A call to a
+  nonexistent method returns nil silently. Next: praydog's `CameraDuplicator.cpp` (branch `pd-upscaler`, `TDB_VER >= 69`) — how its
+  clone's layer gets run. Evidence `dev-archive/recon/2026-09-26d-our-layer-never-runs/`; reader report in the inbox.
