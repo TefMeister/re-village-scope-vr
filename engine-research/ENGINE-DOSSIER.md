@@ -4939,3 +4939,15 @@ max 1.00, flat grey. So the RenderOutput target gets the scene **before grading,
 clone's picture from its layer's **PrepareOutput** output (VR.cpp `on_prepare_output_layer_draw`), which is graded — the next
 move `[hypothesis]`. Tefa's question "same as the golden veil?": same family (a second view missing part of the game's
 grading), different route. Evidence `dev-archive/recon/2026-09-26o-rifle-camera-exposure/`.
+
+### 9db. THE PREPAREOUTPUT ROUTE — BUILT, NOT RUN (2026-09-26 night, `/pd` Opus, NO LAUNCH)
+
+praydog's second view is read from its Scene layer's **PrepareOutput** child: output state → RTV 0 → texture (VR.cpp
+`on_prepare_output_layer_draw` copies it into `native_res_copies` during the layer draw; `on_end_rendering` clones it)
+`[inferred-static 2026-09-26]`. For RE8 (TDB 69): PrepareOutput **+0xF8** = TargetState `[verified-live 2026-09-26, REFramework's
+own log line, n=4 launches]`; TargetState +0x10 rtvs / +0x20 num_rtv; RTV → Texture at typesize+8 (fallback 0x88); Texture
++0x98 → DirectXResource; +0x10 → ID3D12Resource `[inferred-static 2026-09-26]` (RenderResource is 0x10 bytes below TDB 73).
+Built: `clonepo` (Lua finds the clone's layer → PrepareOutput child → writes its address to `re_scope_po.txt`) and
+`po_source.cpp` (walks the chain SEH-guarded, tries every RTV slot 0x80..0xE0, accepts only a resource whose vtable matches
+the latched one, then swaps the glass source) `[compile-verified 2026-09-26]`. Open `[hypothesis]`: whether that texture
+still holds the clone's picture at Present (praydog copies during the draw). Test: `dev-archive/recon/2026-09-26p-prepareoutput-route/NEXT-RUN.md`.
