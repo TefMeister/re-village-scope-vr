@@ -4978,3 +4978,7 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   (the loading text the monitor froze on, mirrored). In VR multipass that output is the desktop path, not the clone's. **Next,
   static:** read REFramework VR (pd-upscaler) for what it does to non-eye scene layers' PrepareOutput / output states in multipass
   (VR.cpp on_end_rendering, CameraDuplicator, Desktop Recording Fix) and find where the clone's finished picture lands in VR.
+- **VR lead, static (`/pd` Opus, 23:0x)** `[inferred-static 2026-09-26]`: REFramework VR writes `DistortionType` (1 left / 2 right) on the
+  primary camera's RenderOutput every frame and on the scene layer around PostEffect; the clone copied MainCamera's components, so it
+  may render into the eye path. Built, not run: `clonedist [n|off]` (read / pin 0 on the clone's RenderOutput + layer) and a plugin
+  "po watch" that re-walks the PrepareOutput chain for 300 presents and logs whether it rotates. Plan: `.../NEXT-RUN-VR.md`.
