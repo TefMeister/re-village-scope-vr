@@ -1,0 +1,138 @@
+[2026-09-26 15:41:09.092] [REFramework] [info] [re8-camclone] loaded -- test tool; words: clonemake [rifle] [rt] [bare] [upd], clonekill, clonewatch, clonehook, cloneorder, camcmp, matscan. Nothing runs by itself.
+[2026-09-26 15:41:09.093] [REFramework] [info] [re8-camprobe] loaded -- test tool; words: camprobe, cammake [fov] [type], camkill, camupdate 0|1, campose 0|1, camlayer <view>, camlayerout <view> [rig], camdump, camcopy [post|all], camlua <code>, camopts, camset <what> <n>, camdraw [0|1], campri [n]. Nothing runs by itself.
+[2026-09-26 15:44:07.018] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1280x728 fmt=29 flags=0x1 -> 00000260F0EA7A10 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 15:44:07.026] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1280x728 fmt=26 -> 00000261286BA4D0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-26 15:44:19.332] [REFramework] [info] [re8-camclone] clonemake: queued for the next LockScene (rt)
+[2026-09-26 15:44:19.338] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @2597006897056 flags after OFF [Update=0 Draw=0 DrawSelf=1]
+[2026-09-26 15:44:19.338] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 15:44:19.338] [REFramework] [info] [re8-camclone] own render target movie/rtex/movie_2560_1440.rtex
+[2026-09-26 15:44:19.339] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm: 2560x1448 fmt=29 flags=0x1 -> 00000261760F6780 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 15:44:19.340] [REFramework] [info] [re8-camclone] clonemake: 21 made in MainCamera's order: via.Camera via.render.RenderOutput via.render.LDRPostProcess via.render.Fog via.render.ToneMapping via.render.SoftBloom via.render.SSAOControl via.render.SSRControl via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur via.render.GeometryAOControl via.render.GodRay via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl via.render.Outline via.render.TessellationFactor via.render.RetroFilm
+[2026-09-26 15:44:19.340] [REFramework] [info] [re8-camclone] clonemake: 21 skipped: via.Transform app.FogController app.ColorCorrectController app.ToneMapController app.SoftBloomController app.SSAOController via.wwise.WwiseListener app.LensDistortionController app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController app.GodRayController app.VolumetricFogControllApp app.RadialBlurController app.OnPauseCameraCaller via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 15:44:19.340] [REFramework] [info] [re8-camclone] clonemake: camera @2597006912928 output id=3 target=2597017731360 flags [Update=0 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 15:44:19.342] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 2560x1448 fmt=26 -> 0000025C89C4E070 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp: 43 dwords equal, 17 differ between MainCamera @2597119384928 and ours @2597006912928
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp:   +0x10 main=2959137776 ours=2846650272 | +0x18 main=2959138320 ours=2846666576 | +0x20 main=0 ours=2959138144 | +0x24 main=0 ours=604 | +0x28 main=2846666144 ours=0 | +0x2C main=604 ours=0
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp:   +0x30 main=1008981770 ours=1036831949 | +0x34 main=1165623296 ours=1148846080 | +0x38 main=1112361181 ours=1119092736 | +0x3C main=1103885815 ours=1089470464 | +0x40 main=1 ours=0 | +0x44 main=1068156116 ours=1071795296
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp:   +0x48 main=187437 ours=4294967295 | +0x54 main=0 ours=32759 | +0x58 main=0 ours=2846666944 | +0x5C main=0 ours=604 | +0x9C main=0 ours=1640531535
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp main get_ViewMatrix [7 non-zero]: -0.000 0.000 1.000 0.000 0.000 1.000 -0.000 0.000 -1.000 0.000 -0.000 0.000 -29.896 10.302 99.959 1.000
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp ours get_ViewMatrix [4 non-zero]: 1.000 0.000 -0.000 0.000 -0.000 1.000 -0.000 0.000 -0.000 0.000 1.000 0.000 0.000 -0.000 0.000 1.000
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp main get_ProjectionMatrix [5 non-zero]: 1.560 0.000 0.000 0.000 0.000 2.082 0.000 0.000 0.000 0.000 -1.000 -1.000 0.000 0.000 -0.010 0.000
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp ours get_ProjectionMatrix [5 non-zero]: 1.000 0.000 0.000 0.000 0.000 1.768 0.000 0.000 0.000 0.000 -1.000 -1.000 0.000 0.000 -0.100 0.000
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp main get_WorldMatrix [7 non-zero]: -0.000 0.000 -1.000 0.000 0.000 1.000 0.000 0.000 1.000 0.000 -0.000 0.000 -99.959 -10.302 -29.896 1.000
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp ours get_WorldMatrix [4 non-zero]: 1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000
+[2026-09-26 15:44:24.365] [REFramework] [info] [re8-camclone] camcmp: main FOV=51.321155548096 near=0.0099999997764826 far=4000.0 aspect=1.3341317176819 | ours FOV=90.0 near=0.10000000149012 far=1000.0 aspect=1.7679557800293
+[2026-09-26 15:44:26.379] [REFramework] [info] [re8-camclone] matscan: MainCamera world position (-99.959, -10.302, -29.896); scanning +0x10..+0x1000 for a row holding it
+[2026-09-26 15:44:26.379] [REFramework] [info] [re8-camclone] matscan: 0 hit(s)
+[2026-09-26 15:44:29.702] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe requested (numpad + in MIRROR mode) -- one-shot mirror readback next frame
+[2026-09-26 15:44:29.712] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [SOURCE -- what the mirror hands us]:
+[2026-09-26 15:44:29.714] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 2560x1448 fmt=29(UNORM -- NOT raw HDR), raw luminance min=0.7353 max=1.00, 0.0% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:29.714] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:29.714] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.937    0.976    0.993    0.997    0.995    0.991    0.974    0.905
+[2026-09-26 15:44:29.714] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.949    0.986    0.996    0.997    0.997    0.995    0.981    0.941
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.969    0.994    0.997    0.998    0.998    0.996    0.989    0.959
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.973    0.991    0.997    0.999    0.999    0.996    0.991    0.965
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.944    0.987    0.994    0.995    0.995    0.993    0.986    0.943
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.917    0.969    0.984    0.985    0.984    0.983    0.969    0.905
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 5 col 7, avg RGB (0.9719, 0.9033, 0.7250) lum 0.9050 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [OUR RT -- what the compositor produced]:
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 480x360 fmt=28(UNORM -- NOT raw HDR), raw luminance min=0.0000 max=0.66, 99.7% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.020    0.031    0.077    0.132    0.130    0.067    0.029    0.020
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.041    0.136    0.139    0.117    0.104    0.107    0.100    0.034
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.099    0.153    0.149    0.136    0.126    0.129    0.128    0.089
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.103    0.145    0.144    0.132    0.123    0.127    0.127    0.090
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.043    0.140    0.147    0.142    0.134    0.138    0.129    0.040
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.020    0.034    0.085    0.108    0.104    0.081    0.034    0.020
+[2026-09-26 15:44:29.715] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 0 col 0, avg RGB (0.0196, 0.0196, 0.0196) lum 0.0196 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:33.481] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe requested (numpad + in MIRROR mode) -- one-shot mirror readback next frame
+[2026-09-26 15:44:33.493] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [SOURCE -- what the mirror hands us]:
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 2560x1448 fmt=29(UNORM -- NOT raw HDR), raw luminance min=0.7297 max=1.00, 0.0% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.937    0.976    0.993    0.997    0.995    0.991    0.974    0.905
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.949    0.986    0.996    0.997    0.997    0.995    0.981    0.941
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.969    0.994    0.997    0.998    0.998    0.996    0.989    0.959
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.973    0.991    0.997    0.999    0.999    0.996    0.991    0.965
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.944    0.988    0.994    0.996    0.996    0.994    0.987    0.943
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.917    0.969    0.983    0.984    0.983    0.982    0.969    0.904
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 5 col 7, avg RGB (0.9709, 0.9028, 0.7253) lum 0.9045 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [OUR RT -- what the compositor produced]:
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 480x360 fmt=28(UNORM -- NOT raw HDR), raw luminance min=0.0000 max=0.66, 99.7% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.020    0.033    0.080    0.140    0.128    0.066    0.029    0.020
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.040    0.138    0.148    0.139    0.113    0.111    0.103    0.035
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.102    0.148    0.152    0.146    0.130    0.132    0.132    0.092
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.103    0.150    0.144    0.142    0.128    0.129    0.130    0.092
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.043    0.145    0.147    0.145    0.134    0.137    0.130    0.040
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.020    0.034    0.086    0.109    0.104    0.078    0.032    0.020
+[2026-09-26 15:44:33.496] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 0 col 0, avg RGB (0.0196, 0.0196, 0.0196) lum 0.0196 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:36.977] [REFramework] [info] [re8-camclone] clonekill: destroy -> true
+[2026-09-26 15:44:41.021] [REFramework] [info] [re8-camprobe] camlua: -> 1920 holder ready
+[2026-09-26 15:44:41.022] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm: 1920x1088 fmt=29 flags=0x1 -> 00000261760F5DF0 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 15:44:42.004] [REFramework] [info] [re8-camclone] clonemake: queued for the next LockScene (rt upd)
+[2026-09-26 15:44:42.009] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @2597004124176 flags after OFF [Update=255 Draw=0 DrawSelf=1]
+[2026-09-26 15:44:42.009] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 15:44:42.011] [REFramework] [info] [re8-camclone] clonemake: 21 made in MainCamera's order: via.Camera via.render.RenderOutput via.render.LDRPostProcess via.render.Fog via.render.ToneMapping via.render.SoftBloom via.render.SSAOControl via.render.SSRControl via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur via.render.GeometryAOControl via.render.GodRay via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl via.render.Outline via.render.TessellationFactor via.render.RetroFilm
+[2026-09-26 15:44:42.011] [REFramework] [info] [re8-camclone] clonemake: 21 skipped: via.Transform app.FogController app.ColorCorrectController app.ToneMapController app.SoftBloomController app.SSAOController via.wwise.WwiseListener app.LensDistortionController app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController app.GodRayController app.VolumetricFogControllApp app.RadialBlurController app.OnPauseCameraCaller via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 15:44:42.011] [REFramework] [info] [re8-camclone] clonemake: camera @2597004125824 output id=3 target=2597004117120 flags [Update=255 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 15:44:42.012] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 0000026175DE0AA0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp: 43 dwords equal, 17 differ between MainCamera @2597119384928 and ours @2597004125824
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp:   +0x10 main=2959137776 ours=2843877392 | +0x18 main=2959138320 ours=2843879472 | +0x20 main=0 ours=2959138144 | +0x24 main=0 ours=604 | +0x28 main=2843879040 ours=0 | +0x2C main=604 ours=0
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp:   +0x30 main=1008981770 ours=1036831949 | +0x34 main=1165623296 ours=1148846080 | +0x38 main=1112361181 ours=1119092736 | +0x3C main=1103885815 ours=1089470464 | +0x40 main=1 ours=1986676736 | +0x44 main=1068156116 ours=1071768034
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp:   +0x48 main=192865 ours=4294967295 | +0x54 main=0 ours=604 | +0x58 main=0 ours=4294967295 | +0x5C main=0 ours=7077888 | +0x7C main=0 ours=7208960
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp main get_ViewMatrix [7 non-zero]: -0.000 0.000 1.000 0.000 0.000 1.000 -0.000 0.000 -1.000 0.000 -0.000 0.000 -29.896 10.302 99.959 1.000
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp ours get_ViewMatrix [4 non-zero]: 1.000 0.000 -0.000 0.000 -0.000 1.000 -0.000 0.000 -0.000 0.000 1.000 0.000 0.000 -0.000 0.000 1.000
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp main get_ProjectionMatrix [5 non-zero]: 1.560 0.000 0.000 0.000 0.000 2.082 0.000 0.000 0.000 0.000 -1.000 -1.000 0.000 0.000 -0.010 0.000
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp ours get_ProjectionMatrix [5 non-zero]: 1.000 0.000 0.000 0.000 0.000 1.765 0.000 0.000 0.000 0.000 -1.000 -1.000 0.000 0.000 -0.100 0.000
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp main get_WorldMatrix [7 non-zero]: -0.000 0.000 -1.000 0.000 0.000 1.000 0.000 0.000 1.000 0.000 -0.000 0.000 -99.959 -10.302 -29.896 1.000
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp ours get_WorldMatrix [4 non-zero]: 1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000 0.000 0.000 0.000 0.000 1.000
+[2026-09-26 15:44:47.054] [REFramework] [info] [re8-camclone] camcmp: main FOV=51.321155548096 near=0.0099999997764826 far=4000.0 aspect=1.3341317176819 | ours FOV=90.0 near=0.10000000149012 far=1000.0 aspect=1.7647058963776
+[2026-09-26 15:44:50.394] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe requested (numpad + in MIRROR mode) -- one-shot mirror readback next frame
+[2026-09-26 15:44:50.405] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [SOURCE -- what the mirror hands us]:
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 1920x1088 fmt=29(UNORM -- NOT raw HDR), raw luminance min=0.7260 max=1.00, 0.0% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.937    0.976    0.993    0.997    0.995    0.991    0.974    0.905
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.949    0.986    0.996    0.997    0.997    0.995    0.981    0.941
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.969    0.994    0.997    0.998    0.998    0.996    0.989    0.959
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.973    0.991    0.997    0.999    0.999    0.996    0.991    0.965
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.944    0.987    0.994    0.995    0.995    0.993    0.987    0.943
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.916    0.970    0.982    0.984    0.983    0.982    0.969    0.904
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 5 col 7, avg RGB (0.9709, 0.9020, 0.7246) lum 0.9039 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [OUR RT -- what the compositor produced]:
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 480x360 fmt=28(UNORM -- NOT raw HDR), raw luminance min=0.0000 max=0.67, 99.7% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.020    0.033    0.083    0.143    0.128    0.066    0.029    0.020
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.040    0.139    0.151    0.141    0.121    0.120    0.111    0.038
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.103    0.149    0.151    0.144    0.127    0.129    0.130    0.090
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.105    0.151    0.143    0.143    0.130    0.131    0.132    0.094
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.043    0.141    0.146    0.142    0.132    0.134    0.127    0.041
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.020    0.034    0.086    0.110    0.103    0.079    0.033    0.020
+[2026-09-26 15:44:50.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 0 col 0, avg RGB (0.0196, 0.0196, 0.0196) lum 0.0196 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:57.401] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe requested (numpad + in MIRROR mode) -- one-shot mirror readback next frame
+[2026-09-26 15:44:57.407] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [SOURCE -- what the mirror hands us]:
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 1920x1088 fmt=29(UNORM -- NOT raw HDR), raw luminance min=0.7291 max=1.00, 0.0% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.937    0.976    0.993    0.997    0.995    0.991    0.974    0.905
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.949    0.986    0.996    0.997    0.997    0.995    0.981    0.941
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.969    0.994    0.997    0.998    0.998    0.996    0.989    0.959
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.973    0.991    0.997    0.999    0.999    0.996    0.991    0.965
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.945    0.988    0.995    0.996    0.996    0.994    0.987    0.943
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.915    0.969    0.982    0.983    0.984    0.982    0.968    0.903
+[2026-09-26 15:44:57.408] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 5 col 7, avg RGB (0.9703, 0.9013, 0.7225) lum 0.9030 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe [OUR RT -- what the compositor produced]:
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: mirror 480x360 fmt=28(UNORM -- NOT raw HDR), raw luminance min=0.0000 max=0.66, 99.7% of pixels below current skyThresh 0.500
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: 8x6 block-average raw luminance (row 0 = texture TOP; the mirror arrives V-flipped, so the SKY is usually the BOTTOM rows here):
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 0 |    0.020    0.032    0.078    0.132    0.128    0.066    0.029    0.020
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 1 |    0.040    0.140    0.144    0.125    0.109    0.110    0.102    0.035
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 2 |    0.100    0.152    0.150    0.138    0.129    0.134    0.134    0.093
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 3 |    0.105    0.145    0.144    0.137    0.126    0.129    0.130    0.092
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 4 |    0.043    0.141    0.146    0.141    0.133    0.137    0.129    0.040
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: row 5 |    0.020    0.034    0.084    0.107    0.101    0.078    0.032    0.020
+[2026-09-26 15:44:57.409] [REFramework] [info] [Plugin] [re-scope-vr] HDR probe: darkest block row 0 col 0, avg RGB (0.0196, 0.0196, 0.0196) lum 0.0196 -- if this is the dome, the sky threshold wants to sit just above it
+[2026-09-26 15:45:27.513] [REFramework] [info] [re8-camprobe] camlua: ERROR [string "camlua"]:1: attempt to index a nil value (global 'go')
+[2026-09-26 15:45:30.537] [REFramework] [info] [re8-camprobe] camlua: ERROR [string "camlua"]:1: attempt to index a nil value (global 'go')
+[2026-09-26 15:45:32.556] [REFramework] [info] [re8-camprobe] camlua: -> camW row3 later=nil,nil,nil
+[2026-09-26 15:45:45.167] [REFramework] [info] [re8-camprobe] camlua: -> tf pos=(-97.998,-10.302,-29.896) camW row3=(0.000,0.000,0.000)
+[2026-09-26 15:45:48.191] [REFramework] [info] [re8-camprobe] camlua: -> copyJointsLocalMatrix/1 get_WorldMatrix/0 get_LocalMatrix/0
+[2026-09-26 15:45:50.701] [REFramework] [info] [re8-camprobe] camlua: -> camW row3 later=(0.000,0.000,0.000) view row3=(0.000,-0.000,0.000) tfW=(0.000,0.000,0.000)
+[2026-09-26 15:46:19.413] [REFramework] [info] [re8-camclone] clonekill: destroy -> true
