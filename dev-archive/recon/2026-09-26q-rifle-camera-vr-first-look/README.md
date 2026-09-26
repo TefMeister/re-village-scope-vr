@@ -10,3 +10,11 @@
   VR: the second). `clonepo 1` / `clonepo 2` pick one write if the last is not ours.
 - Tefa asked how to unfreeze the desktop monitor while playing in VR: REFramework menu (Insert) → VR → Desktop Recording Fix →
   Enabled / Skip Present (both on in re2_fw_config.txt). Effect not read in source yet [hypothesis: Skip Present stops the desktop copy].
+
+## Second VR look, 22:50 (Tefa in the headset, `clonepo 2`)
+`[reported 2026-09-26]`: the glass showed the text of the FROZEN DESKTOP WINDOW ("Checking for additional content. Please do not
+close the game...", the loading screen the monitor froze on), mirrored left-right — Tefa read it letter by letter. So in VR the
+texture reached through our clone's PrepareOutput TargetState is the desktop/flat output that REFramework's VR mode stops updating,
+not the clone's picture. Both writes (the texture leaves RENDER_TARGET twice a frame) belong to that path. The picture dump key does
+not work in VR, so no dump. Also: "outside while inside" for the first second happens in flat too (Tefa) — most likely the near plane
+(muzzle + 5 cm = ~0.85 m) clipping a nearby wall [hypothesis].
