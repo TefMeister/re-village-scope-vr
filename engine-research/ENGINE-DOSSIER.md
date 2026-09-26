@@ -4858,3 +4858,12 @@ the reader's note folded here.
   **0.81 s after the rifle was seen**, looking along the main camera, near plane 0.60 m (no front sight), door magnified and sharp. **The
   speckle band survives excluding the padding rows → that reading is `[disproved 2026-09-26]`**; cause open. Recon
   `dev-archive/recon/2026-09-26k-rifle-camera-self-start/`.
+- **The glass without the mirror (reader, 2026-09-26)** `[inferred-static 2026-09-26]`: the glass needs only the plugin's own 1170-wide
+  holder (made on the first present), the rifle in hand and a numpad `*` bind (plus re-presses at +1/+5/+20 s; one press does not always
+  take, §9au) and `glassaspect 1.0`; after the first bind `g_glass_keep` re-binds on every re-draw. Everything else in bringup (rtex, `.`,
+  p10/pfb, drive, goat, model/steer/geom/zero/pose words) serves the MIRROR. So a **clone-only start** = `clonescope 20` → wait for the clone
+  → `glassaspect 1.0` + numpad `*` with re-presses, the Mirror never created. Fallback: keep bringup, then `fn destroy_rig` (the glass stays
+  bound after destroy, §9n; lights normal with the rig destroyed, §9cp). **Bug in today's autostart** `[inferred-static]`: put away →
+  `clonekill`; the next draw returns early because the RIG is still alive → no new clone, the glass freezes on the dead target. Fix:
+  decide the re-draw on `clone_go`. Risks: another fresh fmt=29 target latched first; the clone's own layer may take the shadow lights
+  like the mirror layers did (check in VR). File: `engine-research/inbox/2026-09-26-reader-glass-without-mirror.md` (folded; removed).
