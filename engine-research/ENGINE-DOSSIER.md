@@ -4790,3 +4790,9 @@ true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and
   `[hypothesis]`; so is whether his clone draws in flat (it is switched off there).
 - Plan B (reader, `[hypothesis]`): an "is it drawing" check in our plugin (log allocations at the clone's scene size after `clonemake`,
   read one back each frame), then port praydog's PrepareOutput→texture read. Evidence `dev-archive/recon/2026-09-26f-praydog-recipe-flat/`.
+- **Late, `/pd` Fable, no launch — the matrix reading.** REFramework's `on_camera_get_view_matrix` / `_projection_matrix` hooks overwrite
+  the result for BOTH multipass cameras in VR and return early without a headset (`VR.cpp` pd-upscaler l.255-291, 326+) `[inferred-static
+  2026-09-26]`. So praydog's clone (update off) gets its matrices from REFramework; ours, in flat, from nobody `[hypothesis]`. Built:
+  `camcmp` (raw dword diff main vs clone + View/Projection/World matrices element by element), `matscan` (find the matrix rows in the
+  0x1000-byte camera), `clonemake ... upd` (UpdateSelf on from creation); numpad `+` (the HDR probe) already reads the latched target's
+  pixels back. Run: `dev-archive/recon/2026-09-26g-flat-matrices-run/NEXT-RUN.md`. Reader inbox (plan B) folded into §9ct; file removed.
