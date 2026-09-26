@@ -4743,3 +4743,28 @@ Credit: **praydog** (REFramework).
   `registerScene` to Lua. Real names: `getOutputType`/`setOutputType`/`getRenderMode`/`setRenderMode` (both cameras 0/0). A call to a
   nonexistent method returns nil silently. Next: praydog's `CameraDuplicator.cpp` (branch `pd-upscaler`, `TDB_VER >= 69`) — how its
   clone's layer gets run. Evidence `dev-archive/recon/2026-09-26d-our-layer-never-runs/`; reader report in the inbox.
+
+### 9cs. PRAYDOG'S CLONE CAMERA READ IN FULL — the draw flag is his render switch, and our probe left it OFF (2026-09-26 late, `/pd` Fable, NO LAUNCH)
+
+Source: REFramework branch **`pd-upscaler`**, `src/mods/vr/CameraDuplicator.cpp` (744 lines) + `VR.cpp` + `shared/sdk/Renderer.cpp`, fetched
+2026-09-26; the reader's inbox drop of the same day (folded here, file removed). Its commit log runs 2023-04-01 → 2024-10-21 and includes
+*"RE3: Fix CameraDuplicator breaking character movement"* and *"RE7: Fix new rendering method not working"* — **so a second `via.Camera` of
+a mod's own IS rendered by this engine generation** `[reported 2026-09-26, praydog's commits]`.
+
+What the clone does, in order `[inferred-static 2026-09-26, read from source]`:
+1. `via.GameObject.create("MainCamera (Clone)")`, then `set_shouldDraw(false)` + `set_shouldUpdate(false)` (raw bytes: re8 layout
+   `Update 0x12, Draw 0x13, UpdateSelf 0x14, DrawSelf 0x15`), parented to the MAIN camera's transform.
+2. `createComponent` of every component on MainCamera in its order, skipping `app.*`/`snow.*`, `via.motion.*Camera`, `WwiseListener`,
+   `Colliders`, `ExperimentalRayTrace`; the clone's `RenderOutput` gets **`set_RenderOutputID(3)`**; the clone's `via.Camera` gets
+   **`+0x48 = -1`** (his "priority": never primary), rewritten every frame.
+3. **`set_shouldDraw(true)` after the components** — *"YES draw by default, this is the counterpart to the main camera"* — and every frame
+   `set_shouldDraw(camera_gameobject == new_camera_gameobject)`: **the GameObject draw flag is the per-camera render switch.**
+4. Inside a `via.SceneView.get_PrimaryCamera` hook the clone's `CameraType` (+0x50) is flipped to Debug for the call and back to Game after.
+5. Per frame (multipass on) it copies near/far/FOV/vertical/aspect and ~20 `via.render.*` component properties from the main camera.
+6. `VR.cpp` never drives the clone's layer: it only hooks `on_pre_scene_layer_update` (SceneInfo matrices) and copies the clone's
+   `PrepareOutput` texture in `on_prepare_output_layer_draw`. The engine executes the clone's Scene layer by itself.
+
+**Against our `cammake`:** we did 1 and 2 (id 2, no priority write), and **never did 3** — `set_Draw(false)` was called and never undone;
+the 09-25 "draw=true" read-back was the managed getter, not byte 0x13. `cammake` now ends with `draw_on()` (managed `set_Draw`/`set_DrawSelf`
+true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and `campri [n]` exist for the flat run `[compile-verified
+2026-09-26]`. Praydog's `is_fully_rendered` name filter (`MainCamera*`) is REFramework's own heuristic, not the engine's.
