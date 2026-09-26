@@ -4710,3 +4710,23 @@ Credit: **praydog** (REFramework).
   fmt=29 target and upgraded to its fmt=26 HDR buffer — so the catcher needs no change; a fresh target on an unused .rtex path is enough.
   The glass then showed a uniform sky-blue, not the room `[reported 2026-09-25]` — `[hypothesis]` the camera sits at the world origin because
   its GameObject's UpdateSelf is off (the transform never takes the rifle's pose). Next: update on after creation, or pose it from Lua.
+
+### 9cr. THE RIFLE CAMERA IS REGISTERED BUT NEVER DRAWN (2026-09-26, home PC, flat, Claude driving; Opus then Fable)
+
+- **Pose** `[verified-live 2026-09-26, n=1]`: parented with `UpdateSelf=false`, ScopeCam sat at (0,0,0) while the rifle was at
+  (−100.04,−10.59,−30.08); `campose 1` (copy the rifle's world position+rotation each frame) fixes it; `set_UpdateSelf(true)` after
+  the components exist causes **no takeover** either. Evidence `dev-archive/recon/2026-09-26-rifle-camera-at-world-origin/`.
+- **The two buffers the catcher latches for our camera** `[verified-live 2026-09-26, n=3 processes]`: the fmt=29 `.rtex` target is a
+  flat colour (cleared, never drawn); the fmt=26 "raw-HDR" allocation it UPGRADES to is junk memory (cloud blob + horizontal
+  streaks, flickering, indifferent to the camera). The 09-25 "flat sky-blue" in VR and today's flat grey are the same undrawn target.
+- **Disproved levers** `[verified-live 2026-09-26, n=1 each]`: pose; `UpdateSelf`; walking; creating every `via.render.*` component of
+  MainCamera on ScopeCam (20 made, no takeover, no crash); `set_BackgroundColor(1,0,0)` on the RenderOutput and on the layer (both
+  read back red, glass unchanged); a fresh 2560×1448 target. **The engine still builds two Scene layers for the camera with 13 passes
+  each, sized to the target, `Enable=true`, `RenderOutputID=2`, near 0.1 / far 1000** — registered, never executed. The FOV asked
+  for (20) is overwritten to 26.23 within 2 s `[hypothesis: the VR mod's FOV push]`.
+- **Method** `[verified-live 2026-09-26]`: `Reset scripts` rebuilds the rig before the layer hooks return → "no parent" everywhere;
+  a second `rerig` per process re-uses the `.rtex` texture → catcher PENDING, glass frozen. Relaunch instead. `camlua <code>` runs one
+  line of Lua from the command file. The catcher needs a FRESH allocation: use an unused `.rtex` size to re-latch.
+- **Open**: what an RE8-era object that renders a camera into a texture carries that ours does not (in-game monitors, the factory's
+  security cameras). praydog's `CameraDuplicator` is not in the current REFramework tree (`gh` search 2026-09-26) — a newer-engine
+  recipe. Evidence `dev-archive/recon/2026-09-26b-rifle-camera-draws-nothing/`; note `modding-notes/2026-09-26-the-rifle-camera-draws-nothing.md`.
