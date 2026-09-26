@@ -4879,3 +4879,28 @@ the barrel; absent on the 1920×1088 target, present on 2560×1448. **Frame rate
 2560) → 26 fps (37.7 ms steady) vs 177–182 without; the mirror rig ran at 159. A fixed ~32 ms per frame whatever the clone draws —
 a wait, not work `[hypothesis]`; suspects: the pd-upscaler TemporalUpscaler/DLSS seeing a second view, a per-view GPU sync.
 Recon `dev-archive/recon/2026-09-26l-barrel-and-frame-rate/`; the reader's muzzle note folded here.
+
+### 9cy. 🏆 THE "32 ms" WAS OUR OWN PER-FRAME CODE — the rifle camera runs at 150–160 fps (2026-09-26 evening, Fable, flat)
+
+`[verified-live 2026-09-26, n=1]`. **Supersedes the cause hunt in §9cx** (the "wait, not work / upscaler" hypothesis is
+`[disproved 2026-09-26]`). Method: `re8_scope_frametime.lua` (word `ftime 1|0`) times every `via.ModuleEntry` stage per
+frame (inside / before), and the plugin's frame line carries the end-of-present fence wait (build 7f13b159). Result with
+the rifle camera up: frame 26.9 ms, fence wait 3.7 ms, **`LockScene 0.1 / 20.9`** — 20.9 ms in the gap before LockScene,
+where scripts' pre-hooks run. `clonepose off` → 7.2 ms (139 fps) at once. **Cause:** `body_joint()` called
+`rig.find_rifle()` every LockScene — a snapshot of every `via.render.Mesh` plus `get_GameObject` + `get_Name` on each.
+That is why the cost was fixed whatever the clone drew (bare/full, 1920/2560: the bare clone still had the bore pose).
+**Fix:** the rifle is found once per clone and kept; re-found only when the joint stops answering, at most twice a second
+(`RIFLE_REFIND_S`); `clonekill` forgets it. Numbers, same spot: no clone 5.45 ms (183 fps) · clone + pose off 7.2 ms ·
+bore pose before 27.0 ms (37 fps) · **after 6.7 ms (150 fps) at 2560, 6.3 ms (158 fps) at 1920** — a real second view
+costs ~1.5 ms. The upscaler was never involved: `TemporalUpscaler::on_scene_layer_update` keeps only layers whose camera
+GameObject is named `MainCamera*` (`is_fully_rendered`), so `ScopeCam2` is skipped, and no NGX re-creation appears in the
+log `[inferred-static 2026-09-26]`.
+- **The barrel (Tefa's ask):** the near plane follows `vfx_muzzle` — distance along the view axis + 0.05 m, clamped
+  0.30..1.20, from the kept joint every frame (`clonenear auto`; `clonenear <m>` pins). Live: muzzle 0.797 m, plane 0.85;
+  no barrel tip on the glass. At the door (< 1 m) the plane cuts the door and the snow shows through — the known trade.
+- **1920 first** (`CLONE_RTEX` order); 2560 stays the fallback.
+- **Withdrawn:** §9cx's "speckle absent on the 1920×1088 target" — seen on 1920 too this run, and with `clonelook 0`
+  (n=1 against n=1). The band (top ~25 %) is **open**: not the barrel, not the target size, not post-processing.
+- **Outdoors the picture is blown out** (uniform light blue): the exposure item, unchanged. VR untested.
+- Evidence `dev-archive/recon/2026-09-26m-the-32-ms-was-ours/`; notes `modding-notes/2026-09-26-the-32-ms-was-ours.md`.
+  **Lesson:** a per-frame cost that does not scale with what is drawn is the signature of our own hooks — `ftime 1` first.
