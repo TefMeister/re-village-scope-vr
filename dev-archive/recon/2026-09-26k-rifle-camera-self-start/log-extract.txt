@@ -1,0 +1,30 @@
+[2026-09-26 16:53:42.545] [REFramework] [info] [ScriptState] Running script C:\Steam\steamapps\common\Resident Evil Village BIOHAZARD VILLAGE\reframework\autorun\re8_scope_autostart.lua...
+[2026-09-26 16:53:42.545] [REFramework] [info] [re8-autostart] loaded -- boots OFF; SCOPE-AUTO-ON.bat switches it on (re_scope_autostart.txt)
+[2026-09-26 16:53:42.547] [REFramework] [info] [re8-camclone] loaded -- test tool; words: clonemake [rifle] [rt] [bare] [upd], clonekill, clonewatch, clonehook, cloneorder, camcmp, matscan, clonetf, clonepose main|rifle|bore|off, clonescene, cloneaim, clonefov, clonenear, clonelook, clonescope. Nothing runs by itself.
+[2026-09-26 16:53:42.557] [REFramework] [info] [re8-autostart] ON -- will start the scope when the rifle is drawn (picture 1920, then the RIFLE CAMERA)
+[2026-09-26 16:54:13.322] [REFramework] [info] [re8-autostart] autostart: rifle in hand -- starting the scope
+[2026-09-26 16:54:13.328] [REFramework] [info] [re8-autostart] autostart: 1/3 picture target 1920 (quick)
+[2026-09-26 16:54:13.333] [REFramework] [info] [re8-autostart] autostart: 2/3 re-arm queued (numpad . through the plugin's own key channel)
+[2026-09-26 16:54:13.487] [REFramework] [info] [re8-autostart] autostart: re-arm taken by the plugin 0.15 s after it was queued
+[2026-09-26 16:54:13.487] [REFramework] [info] [re8-autostart] autostart: 3/3 bringup sent, 0.16 s after the rifle was seen
+[2026-09-26 16:54:13.523] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE latched: 1920x1088 fmt=29 flags=0x1 -> 000002A525072C80 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 16:54:13.530] [REFramework] [info] [re8-autostart] autostart: DONE -- rig present 0.04 s after bringup, 0.21 s after the rifle was seen; the eye pose went in with it
+[2026-09-26 16:54:13.530] [REFramework] [info] [re8-camclone] clone_src #30854 published: the plugin catches the clone's target itself (no numpad .); build in 0.6 s
+[2026-09-26 16:54:13.530] [REFramework] [info] [re8-camclone] clonescope: queued -- clonemake rt at the next LockScene, then clonepose bore, clonefov, clonelook 1
+[2026-09-26 16:54:13.530] [REFramework] [info] [re8-autostart] autostart: 4/4 rifle camera queued (clonescope 20.0)
+[2026-09-26 16:54:13.532] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE UPGRADED to raw-HDR allocation: 1920x1088 fmt=26 -> 000002A517DD08B0 (was the 8-bit SRGB resolve; pre-clip HDR from here on)
+[2026-09-26 16:54:13.562] [REFramework] [info] [Plugin] [re-scope-vr] aspect: source 1920x1088 = 1.765 -> uvHalf u=0.0708 v=0.1250 (picture was 1.76x too tall before this correction)
+[2026-09-26 16:54:13.616] [REFramework] [info] [Plugin] [re-scope-vr] clone_src #30854: re-arm PENDING for the clone camera's target (next fresh fmt=29 1280/1920/2560-wide); no fmt-26 upgrade, sampled whole + centred
+[2026-09-26 16:54:14.133] [REFramework] [info] [re8-camclone] clonemake: 'ScopeCam2' @2888116845728 flags after OFF [Update=0 Draw=0 DrawSelf=1]
+[2026-09-26 16:54:14.133] [REFramework] [info] [re8-camclone] clonemake: parented to MainCamera -> true
+[2026-09-26 16:54:14.133] [REFramework] [info] [re8-camclone] own render target movie/rtex/movie_2560_1440.rtex
+[2026-09-26 16:54:14.134] [REFramework] [info] [Plugin] [re-scope-vr] [hook] MIRROR SOURCE REPLACED on pending re-arm: 2560x1448 fmt=29 flags=0x1 -> 000002A52506FCB0 (numpad . asks for the NEXT acceptable one; the current source stays until it arrives)
+[2026-09-26 16:54:14.135] [REFramework] [info] [re8-camclone] clonemake: 21 made in MainCamera's order: via.Camera via.render.RenderOutput via.render.LDRPostProcess via.render.Fog via.render.ToneMapping via.render.SoftBloom via.render.SSAOControl via.render.SSRControl via.render.LightShaftFilterControl via.render.DepthOfField via.render.SSSSSControl via.render.FakeLensflare via.render.MotionBlur via.render.GeometryAOControl via.render.GodRay via.render.SubsurfaceSettings via.render.VolumetricFog via.render.VolumetricFogControl via.render.Outline via.render.TessellationFactor via.render.RetroFilm
+[2026-09-26 16:54:14.135] [REFramework] [info] [re8-camclone] clonemake: 21 skipped: via.Transform app.FogController app.ColorCorrectController app.ToneMapController app.SoftBloomController app.SSAOController via.wwise.WwiseListener app.LensDistortionController app.RenderResolutioinController app.CameraDOFController app.CameraMotionBlurController app.GodRayController app.VolumetricFogControllApp app.RadialBlurController app.OnPauseCameraCaller via.render.ExperimentalRayTrace app.ExperimentalRayTraceController app.SSSSSController app.HazeFilterController app.ImagePlaneController app.ObjectDefinitionDynamic
+[2026-09-26 16:54:14.135] [REFramework] [info] [re8-camclone] clonemake: camera @2888116806480 output id=3 target=2888127771072 flags [Update=0 Draw=1 DrawSelf=1]; primary UNCHANGED (no takeover)
+[2026-09-26 16:54:14.135] [REFramework] [info] [re8-autostart] autostart: DONE -- rifle camera on the glass, 0.81 s after the rifle was seen
+[2026-09-26 16:54:14.159] [REFramework] [info] [re8-camclone] clonepose bore: scope pose at (-100.175, -10.334, -30.043), looking (-1.000, -0.000, 0.000) [-Z], fwd 0.00 m flip 0 axis z; every LockScene from here
+[2026-09-26 16:54:14.159] [REFramework] [info] [re8-camclone] clonefov: 20.0 deg (re-asserted every LockScene); reads 20.0
+[2026-09-26 16:54:14.159] [REFramework] [info] [re8-camclone] clonenear: 0.60 m (re-asserted every LockScene); reads 0.60000002384186
+[2026-09-26 16:54:14.161] [REFramework] [info] [re8-camclone] clonelook 1: copied 219 property value(s) from MainCamera's post-process components (0 refused); repeats every 10 LockScenes
+[2026-09-26 16:54:14.211] [REFramework] [info] [Plugin] [re-scope-vr] aspect: source 2560x1448 = 1.768 -> uvHalf u=0.2812 v=0.4972 (picture was 1.77x too tall before this correction)

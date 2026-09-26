@@ -4854,3 +4854,7 @@ the reader's note folded here.
   `clonenear` (default 0.60 m, re-asserted each LockScene) hides the sight with the near plane, the push along the bore defaults to 0
   (a push moved the eye through the door); the autostart's `clone` word runs `clonescope 20` after the rig is DONE (the rig binds the
   glass) and kills the clone when the rifle is put away (30/30). Run: `…/2026-09-26j-rifle-camera-on-the-glass/NEXT-RUN.md`.
+- **Self-start verified** `[verified-live 2026-09-26, n=1]`: autostart `1 1920 clone` → rig DONE 0.21 s → rifle camera on the glass
+  **0.81 s after the rifle was seen**, looking along the main camera, near plane 0.60 m (no front sight), door magnified and sharp. **The
+  speckle band survives excluding the padding rows → that reading is `[disproved 2026-09-26]`**; cause open. Recon
+  `dev-archive/recon/2026-09-26k-rifle-camera-self-start/`.
