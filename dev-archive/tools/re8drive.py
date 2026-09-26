@@ -16,6 +16,7 @@ Usage:
     python re8drive.py wait-log "<needle>" 60
     python re8drive.py tail 40 [filter]
     python re8drive.py close
+    python re8drive.py boot [timeout]   launch if needed, then title -> Continue -> Yes -> F, by watching the screen
 """
 import ctypes, ctypes.wintypes as w, importlib.util, os, sys, time
 
@@ -97,6 +98,88 @@ def since_mark():
         return ""
 
 
+# ---- boot: launch (if needed) and get into gameplay by WATCHING the screen (2026-09-26) ------------
+# Tefa: "there is a lot of waiting time between button presses". The old route slept fixed 25 s / 30 s
+# between keys. This one grabs the window every POLL_S and presses the key for the screen it sees, the
+# moment it appears. Three small grey patches (cut from our own screenshots, kept OFF GitHub in
+# TEMPLATE_DIR because they are pictures of the game's UI) tell the screens apart; measured mean
+# differences: own screen 0.0-0.4, every other screen 25+ (logo: 15 on an animated menu frame).
+TEMPLATE_DIR = r"D:\RE Village REFramework builds\driver-templates"
+BOOT_SCREENS = {   # name: (box in the 1920-wide window grab, match threshold)
+    "load_prompt": ((770, 545, 1150, 595), 8.0),     # "Load most recent saved data?" -> Yes = w, f
+    "f_continue":  ((870, 1300, 1060, 1345), 8.0),   # the loading card's "F Continue" -> f
+    "title_start":   ((870, 780, 1050, 830), 7.0),   # title screen "Start Game" -> enter
+    "menu_continue": ((890, 845, 1030, 885), 7.0),   # main menu with Continue highlighted -> f
+}   # (the VILLAGE logo alone matched both the title and the menu: not used)
+POLL_S = 0.5
+NUDGE_S = 2.0          # before the menu: press enter this often to skip the intro / title
+GAMEPLAY_NEEDLES = ("rifle in hand", "autostart: DONE")   # log lines that mean we are playing
+LAUNCH_BAT = os.path.join(GAME, "LAUNCH-VILLAGE.bat")
+
+
+def which_screen(img, tpl):
+    from PIL import ImageChops, ImageStat
+    g = img.convert("L")
+    for name, (box, thr) in BOOT_SCREENS.items():
+        if ImageStat.Stat(ImageChops.difference(g.crop(box), tpl[name])).mean[0] < thr:
+            return name
+    return None
+
+
+REF_MENU = ((60, 120, 400, 190), 10.0)   # REFramework's own menu, open on start (Insert toggles it)
+
+
+def close_ref_menu(hwnd):
+    from PIL import Image, ImageChops, ImageStat
+    t = Image.open(os.path.join(TEMPLATE_DIR, "ref_menu.png"))
+    box, thr = REF_MENU
+    d = ImageStat.Stat(ImageChops.difference(H.grab(hwnd).convert("L").crop(box), t)).mean[0]
+    if d < thr:
+        H.tap("insert", settle=0.3); print("closed REFramework's menu (match %.1f)" % d)
+
+
+def boot(timeout=180.0):
+    from PIL import Image
+    tpl = {k: Image.open(os.path.join(TEMPLATE_DIR, k + ".png")) for k in BOOT_SCREENS}
+    t0 = time.time()
+    mark()
+    try:
+        hwnd, _ = find_window()
+    except SystemExit:
+        import subprocess
+        subprocess.Popen(["cmd", "/c", LAUNCH_BAT], cwd=GAME)
+        print("launched")
+        hwnd = None
+    while hwnd is None and time.time() - t0 < timeout:
+        time.sleep(1.0)
+        try: hwnd, _ = find_window()
+        except SystemExit: pass
+    if hwnd is None: print("TIMEOUT no window"); sys.exit(1)
+    # (no "LOCK" line exists in this build's log: the old route's wait-log for it always ran out)
+    menu_seen, cont_pressed, last_nudge, last = False, None, 0.0, None
+    while time.time() - t0 < timeout:
+        log = since_mark()
+        if any(n in log for n in GAMEPLAY_NEEDLES) and cont_pressed:
+            close_ref_menu(hwnd); print("PLAYING after %.0f s" % (time.time() - t0)); return
+        if u.GetForegroundWindow() != hwnd: H.focus(hwnd)   # focus costs 0.4 s: only when lost
+        s = which_screen(H.grab(hwnd), tpl)
+        if s != last: print("%5.1f s  screen: %s" % (time.time() - t0, s)); last = s
+        if s == "load_prompt":
+            H.tap("w", settle=0.3); H.tap("f", settle=0.8)
+        elif s == "f_continue":
+            H.tap("f", settle=0.8); cont_pressed = cont_pressed or time.time()
+        elif s == "title_start":
+            H.tap("enter", settle=1.0)
+        elif s == "menu_continue":
+            menu_seen = True; H.tap("f", settle=1.0)
+        elif not menu_seen and time.time() - last_nudge > NUDGE_S:
+            H.tap("enter", settle=0.2); last_nudge = time.time()
+        elif cont_pressed and time.time() - cont_pressed > 8.0:
+            close_ref_menu(hwnd); print("PLAYING (no gameplay log line; nothing on screen to press) after %.0f s" % (time.time() - t0)); return
+        time.sleep(POLL_S)
+    print("TIMEOUT at screen", last); sys.exit(1)
+
+
 def wait_log(needle, timeout):
     t0 = time.time()
     while time.time() - t0 < timeout:
@@ -128,6 +211,8 @@ if __name__ == "__main__":
         with open(CMD, "a") as f:
             for line in rest: f.write(line + "\n")
         print("queued:", rest); sys.exit()
+    if cmd == "boot":
+        boot(float(rest[0]) if rest else 180.0); sys.exit()
     hwnd, title = find_window()
     if cmd == "close":
         u.PostMessageW(hwnd, 0x0010, 0, 0)
