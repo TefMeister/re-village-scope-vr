@@ -12,3 +12,13 @@ VR mod never uses a render target for its second camera; it copies the finished 
 (PrepareOutput). That is the next thing to build, after reading his code statically.
 
 Detail: `dev-archive/recon/2026-09-26o-rifle-camera-exposure/`, dossier 9da.
+
+## Faster launches (Tefa: "there is a lot of waiting time between button presses")
+
+`re8drive.py boot` launches the game (if it is not running) and gets into gameplay by WATCHING the screen: every half second
+it grabs the window, recognises the title ("Start Game"), the menu (Continue highlighted), the load prompt and the loading
+card's "F Continue" from small patches, and presses the key for that screen at once; at the end it closes REFramework's own
+menu. **Closed to playing: 31 s and 34 s** `[verified-live 2026-09-26, n=2]`, against about 95-120 s with the old fixed
+sleeps. The old route also waited on a log line ("LOCK") that this build never writes, so every run spent its full timeout
+there. The patches are pictures of the game's UI, so they live only on the home PC in
+`D:\RE Village REFramework builds\driver-templates\` (not on GitHub); remake them from any screenshot of those screens.
