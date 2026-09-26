@@ -4839,3 +4839,13 @@ Reader (inbox `2026-09-26-reader-camera-matrix-source.md`): RECamera holds no ma
   m_wanted_components, same skips) every 10 LockScenes; `clonescope [fov]` sets it all up. The muzzle axis and the push are
   `[hypothesis]`. Stub test: quaternion rows, bore position, orthonormal rows, flip, FOV re-assert. Run:
   `dev-archive/recon/2026-09-26i-scope-pose-exposure/NEXT-RUN.md`. Reader inbox (camera matrix source) folded in §9cv; file removed.
+
+### 9cw. 🏆 THE RIFLE CAMERA ON THE GLASS, AUTOMATICALLY (2026-09-26 night, `/lm` flat)
+
+`[verified-live 2026-09-26, n=1]`. Clone-source mode (plugin `6004633f`, staging `6ba3028`): the Lua publishes `clone_src` when
+`clonemake rt` makes the target; the plugin arms its own re-arm, keeps the clone's fmt=29 target (no fmt-26 upgrade), centres it,
+skips crop-follow and geom, and passes it at unit gain (the 8-bit knob 0.168, tuned for the mirror, had crushed it to black). With
+`clonescope 20` the glass shows the live magnified view down the rifle; it changes as the player moves. Push along the bore: 0.30 m
+shows the front sight, **0.60 m clear**, 1.00 m clips through the door. Open: a white speckle band at the top (likely the 8 padding rows
+of the 1448-row target sampled whole `[hypothesis]`), dim indoors. Recon `dev-archive/recon/2026-09-26j-rifle-camera-on-the-glass/`;
+the reader's note folded here.
