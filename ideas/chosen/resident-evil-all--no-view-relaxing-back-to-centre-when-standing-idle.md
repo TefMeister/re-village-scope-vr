@@ -16,3 +16,10 @@ movement, and the ask is to turn that off. Whether this is a VR-framework behavi
 ---
 
 _Other categories appear as they arrive — gameplay, weapons, visuals, audio, level design, UI, enemies, performance. Nothing is missing; none of them have been needed yet._
+
+Chosen by Tefa: 2026-09-26
+
+
+---
+
+**Tefa, 2026-09-26, when keeping it:** "not sure what i meant by it." Kept anyway; ask Tefa what it means before any work on it.

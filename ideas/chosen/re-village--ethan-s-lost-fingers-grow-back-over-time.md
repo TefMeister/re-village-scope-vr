@@ -18,3 +18,5 @@ be seen constantly — worth checking how the VR hands are drawn before assuming
 is the one to change.
 
 🔗 **Sibling idea on RE7:** Ethan's staples coming out — [`re7.md`](re7.md).
+
+Chosen by Tefa: 2026-09-26

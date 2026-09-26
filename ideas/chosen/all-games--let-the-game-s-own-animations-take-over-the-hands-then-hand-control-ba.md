@@ -35,3 +35,10 @@ the promising ones; anything where the arms were deleted for the VR port has not
 action it belongs to varies enormously per game, and on some it may not be separable at all.
 
 ---
+
+Chosen by Tefa: 2026-09-26
+
+
+---
+
+**Tefa, 2026-09-26, when keeping it:** (said of ideas 11, 12 and 13 together) "11,12,13 is done not parked - now needs a slider in-game if doable for weapons separately, not just one universal offset." So: treat as built; the next step is an in-game slider per weapon instead of one offset for all.

@@ -35,3 +35,5 @@ second drawing can be paused and resumed cleanly on this engine, which is exactl
 has bitten before.
 
 Verbatim record: [`inbox/2026-09-21c-re-village-upscale-the-scope-picture-separately.md`](../inbox/2026-09-21c-re-village-upscale-the-scope-picture-separately.md)
+
+Chosen by Tefa: 2026-09-26

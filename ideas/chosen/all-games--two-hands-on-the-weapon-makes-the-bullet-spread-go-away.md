@@ -32,3 +32,10 @@ then find the step where the bullet is BUILT, not a step that merely reports it.
 
 ⚠️ **Decided for RE Village for now (see `decisions.md`, 2026-09-21): NO two-hand condition there —
 the rifle is simply always accurate.** This idea stays floating for RE2 and everything else.
+
+Chosen by Tefa: 2026-09-26
+
+
+---
+
+**Tefa, 2026-09-26, when keeping it:** (said of ideas 11, 12 and 13 together) "11,12,13 is done not parked - now needs a slider in-game if doable for weapons separately, not just one universal offset." So: treat as built; the next step is an in-game slider per weapon instead of one offset for all.

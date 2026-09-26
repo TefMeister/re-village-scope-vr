@@ -52,3 +52,5 @@ _Other categories appear as they arrive — gameplay, visuals, audio, level desi
 
 **To add one:** `[village] your idea` — anywhere, any time.
 🔗 Ideas for **all four** Resident Evil games at once: [`resident-evil-all.md`](resident-evil-all.md).
+
+Chosen by Tefa: 2026-09-26
