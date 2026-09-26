@@ -4967,3 +4967,7 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   unchanged. Now automatic 2 s after each new clone. Remaining: Tefa's sliding picture (`clonestage BeginRendering` set live for
   Tefa to judge) and contrast/brightness (judge on the graded picture). One launch died 2 s into REFramework init (before any
   script) right after a close; the next clean launch was fine; `re8drive boot` now retries an empty first window.
+- **Correction (`/pd` Opus, 21:55)** `[inferred-static 2026-09-26]`: the flat "picture out of place / slides" (Tefa) is NOT explained by
+  clone mode switching the geom map off. The shader draws the lens circle at the RT centre with radius 0.485 and aspect `glassAspect`
+  in every mode; geom only changes the sampled picture point. Both starts set `glassaspect 1.0` and bind onto the same game lens
+  mesh, so placement is identical to the mirror scope's. Next check is in the headset (the mirror picture sat right there, worn).
