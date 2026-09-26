@@ -4961,3 +4961,9 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   list's ResourceBarrier (slot 26) and copies the shared PrepareOutput texture at its Nth RENDER_TARGET exit of the frame into its
   own texture, on the game's own list; `clonepo N` picks N. Also `clonestage` (move the rifle-pose write later; Tefa saw the
   scope picture slide instead of sticking to the glass) `[reported 2026-09-26]`. Test: `.../2026-09-26p-prepareoutput-route/NEXT-RUN-2.md`.
+- 🏆 **Run, same night (`/lm` 21:28-21:35)** `[verified-live 2026-09-26, n=2 launches]`: the mid-frame copy WORKS. The shared
+  texture leaves RENDER_TARGET once per frame (150 of 150 frames) and that write is the clone's; the glass shows the rifle
+  camera's **finished, graded** picture — outdoors stone steps and ledges in the game's colours, no white-out. No crash, fps
+  unchanged. Now automatic 2 s after each new clone. Remaining: Tefa's sliding picture (`clonestage BeginRendering` set live for
+  Tefa to judge) and contrast/brightness (judge on the graded picture). One launch died 2 s into REFramework init (before any
+  script) right after a close; the next clean launch was fine; `re8drive boot` now retries an empty first window.
