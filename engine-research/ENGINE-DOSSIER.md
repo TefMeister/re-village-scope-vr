@@ -4774,3 +4774,19 @@ true + bytes 0x13/0x15 = 1, logging the bytes before/after); `camdraw [0|1]` and
   camera+0x48 = -1. Next leads (reader, `[hypothesis]`): build inside `LockScene` like praydog; **do not call `set_RenderTarget`** (he never
   does — his clone renders to its default output, ID 3, and VR.cpp copies it out of the clone layer's `PrepareOutput`); skip
   `ExperimentalRayTrace`; copy MainCamera's components in order. Evidence `dev-archive/recon/2026-09-26e-draw-flag-was-already-on/`.
+
+### 9ct. PRAYDOG'S RECIPE IN FLAT: STILL NEVER DRAWN — BUT HIS OWN CLONE RENDERS HERE IN VR (2026-09-26 night, `/lm` flat + reader)
+
+- `re8_scope_cam_clone.lua` = his recipe step for step (LockScene build, MainCamera parent, 21 components in order, id 3, priority -1,
+  draw off→on, `get_PrimaryCamera` guard). **Flat: the layer still never draws** `[verified-live 2026-09-26, n=1]`. With id 3 and no
+  target the clone's output **replaces the screen** with the same junk the glass shows (over-bright blob + streaks), unchanged by pose,
+  walking, or a window resize — the output path is live, the layer's buffers are never written. `rt` (our target) → glass flat colour.
+- `get_ResizeFrame` is **not** an execution counter (MainCamera's never moves) `[verified-live 2026-09-26]`.
+- **Correction to §9cr** ("praydog's VR.cpp has no second-camera path for RE8"): the installed REFramework is the `pd-upscaler` merge
+  (76298bd9, 2026-03-11) with `VR_RenderingTechnique_V2=2` (multipass); **its CameraDuplicator runs on this PC in VR** — the 2026-09-05
+  VR logs carry "Hooking getPrimaryCamera", "Cloning MainCamera @" and the same 21 components `[verified-live 2026-09-05, n=2]`
+  (`dev-archive/recon/2026-09-05-vr-model-test/launch2-full-re2_framework_log.txt`). So this engine DOES draw a second non-primary
+  camera — in VR, where REFramework also resizes the window and scene view every frame. Whether a camera of OURS draws in VR is untested
+  `[hypothesis]`; so is whether his clone draws in flat (it is switched off there).
+- Plan B (reader, `[hypothesis]`): an "is it drawing" check in our plugin (log allocations at the clone's scene size after `clonemake`,
+  read one back each frame), then port praydog's PrepareOutput→texture read. Evidence `dev-archive/recon/2026-09-26f-praydog-recipe-flat/`.
