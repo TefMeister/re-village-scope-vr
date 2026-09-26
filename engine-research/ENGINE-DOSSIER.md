@@ -4982,3 +4982,9 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   primary camera's RenderOutput every frame and on the scene layer around PostEffect; the clone copied MainCamera's components, so it
   may render into the eye path. Built, not run: `clonedist [n|off]` (read / pin 0 on the clone's RenderOutput + layer) and a plugin
   "po watch" that re-walks the PrepareOutput chain for 300 presents and logs whether it rotates. Plan: `.../NEXT-RUN-VR.md`.
+- 🏆 **THE RIFLE CAMERA WORKS IN VR (23:36-23:45, Tefa in the headset)** `[reported 2026-09-26]`: the clone rendering into the authored
+  FLOAT target (fmt 26), shown through the mirror-era HDR/GT path, gives *"the correct picture with correct colours"*; shots land where the
+  rifle points at any angle, slightly LOW (by about the left-controller raise used against occlusion drift — Tefa's read). Colours a
+  little dark. The eye-tag (DistortionType) lead is `[disproved 2026-09-26]` (all 0); the PrepareOutput chain does not rotate. In VR the
+  PrepareOutput texture is the desktop path; flat keeps the PrepareOutput copy. Automatic now (plugin 561e367f): VR → float target, no
+  clonepo; the clone ignores `glass_flip_v`. Needs `natives/stm/movie/rtex/scope_1920_1080_hdr.rtex.5` installed.
