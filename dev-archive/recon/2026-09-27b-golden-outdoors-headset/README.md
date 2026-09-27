@@ -1,0 +1,41 @@
+# 2026-09-27 15:20–15:29 — the golden VR glass: Tefa's headset test, then two remote tries
+
+Supersedes: dev-archive/recon/2026-09-27-golden-outdoors-static/README.md §"Two findings", first bullet ("the source in VR
+is NOT clamped at 1.0"). It is clamped. The rest of that file stands.
+
+## Tefa's test (outdoors, in the headset)
+
+- *"everything is still golden outside, 2 made it brighter and 0 made it bluer, but the goldenness of it still stays"*
+  `[reported 2026-09-27]`.
+- The numpad + probe (15:22:15) read the rifle camera's float target: **max 1.00, block averages 0.45–0.99, most blocks
+  above 0.9; the darkest block RGB (0.59, 0.43, 0.22)** `[measured 2026-09-27, n=1]`. So in VR too the picture arrives
+  clipped at 1.0 and warm. My static inference that it was not clamped was wrong: I assumed the glass shows our output
+  as-is, but the glass is part of the world, so the main camera's own exposure and grading act on it afterwards.
+- Numpad 2 lowering our gain made the glass BRIGHTER to Tefa. Fits the same picture: the scope fills much of the view,
+  so a darker glass makes the game's eye adaptation brighten everything, the glass included `[hypothesis]`.
+- EV during the walk: 3.00 outdoors, 2.89 then 2.00 at the indoor zone changes. So EV does follow in VR; the
+  "EV stuck at 3" worry is withdrawn.
+
+**Conclusion:** the gold is baked into the clipped source. Nothing after the clip can take it out; the fix has to act
+before it. That is the `clonetm ev` lever (staging `d2fb794`), which is therefore the right one after all.
+
+## The remote tries (the game still running, Tefa out of the headset)
+
+- `clonetm` read: clone AutoExposure 2 (Disable), EV 3.0, **PreTonemapRange 1.0 on both** (the clip level's likely name).
+- `clonetm ptr 16` read back **0.0**; `clonetm ptr 1.0` read back 1.0. `clonetm ev 5` read back **-0.0**.
+  **Cause: an integer typed in the command reaches a float setter as 0; a decimal works** `[verified-live 2026-09-27, n=2]`.
+  Fixed: the `ev` and `ptr` pins now always pass a float (`+ 0.0`), test suite passes, installed.
+- The game closed at 15:28:30, just after the EV-0 write: **Tefa quit it** `[reported 2026-09-27]`. Not a crash.
+  The corrected `clonetm ev 5.0` never reached the game.
+
+## Next (in the headset, outdoors, scope raised)
+
+Harness lines into `reframework/data/re_scope_cmd.txt`, ALWAYS with a decimal point; the probe is `107` into
+`reframework/data/re_scope_vr_keys.txt` (numpad +, works only while the scope picture is up):
+1. `clonetm ev 4.0` → probe → Tefa: still golden?
+2. `clonetm ev 5.0` → probe → same question. Golden gone and the probe max below 1.0 = the fix; then bring the
+   brightness back with numpad 8 and make EV follow the game's (clone EV = main EV + offset, every frame).
+3. If EV changes nothing on the probe: try `clonetm ptr 4.0` (is PreTonemapRange the clip?).
+
+Settings changed by Tefa's test and saved: `exposure_gt` 1.95 → 0.998, `wb_amount` 1.0 → 0.5. Left as they are until the
+fix lands; the brightness gets re-tuned then anyway.
