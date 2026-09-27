@@ -45,3 +45,20 @@ variable by name, held each tick; `census=1` lists all 25). Both default off.
 
 The sky: white in the scope, dark slate in the world. Candidates: the GT knob a step lower, a stronger shoulder for the
 clone, or the clone's own sky still clipping at EV+3 (probe outdoors with the scope on open sky).
+
+## 🏆 19:06-19:15 — BEATEN
+
+Tefa's clip (`D:\vid\re village scope vid for Claude.mp4`, 19:06, not committed) read frame by frame: in every ~9 frames ONE
+frame showed the darker, correctly exposed picture (mountains, sky) and the rest the flat clipped grey. Cause: OURS —
+`clonelook` (re8_scope_cam_clone.lua) copied MainCamera's `set_EV` and SoftBloom `set_Enabled` onto the clone every 10
+LockScenes, undoing the VR look every cycle. So every "darker" test today mostly showed the reset picture
+`[verified-live 2026-09-27, n=1 clip]`. Live fix `clonelook 0`; Tefa: *"i think it's the boss fight, that took us a month
+and 5 days, i think it's finished.......... i can't really belive it"* `[reported 2026-09-27 19:15]`.
+
+Shipped (staging, installed for the next start): clonelook skips the setters another script owns (`st.clone_look_skip`);
+the VR look (bloom off + clone EV = main EV + 3) runs every LockScene.
+
+**The whole fix, in one line:** in VR the rifle camera's own bloom glow and its highlight clip made the gold; switch its
+bloom off, run it 3 EV darker than the main view (our GT knob ~4x up to match), and stop our own copy loop from undoing it.
+
+Built but NOT needed (kept, unrun): the Scene-layer `HDRTarget` grab (`scene=`/`ts=` in re_scope_po.txt, staging `512348e`).
