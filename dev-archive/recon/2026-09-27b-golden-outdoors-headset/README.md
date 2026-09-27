@@ -61,3 +61,27 @@ buffer** (fmt 26, values in the tens, before any clip) and grading it ourselves 
 float target stays clipped at 1.0 whatever we set, so the translation is the same move: find the rifle camera's own
 unclipped scene buffer. `clonehdr 2` (the mirror-era upgrade, applied to the clone) was tried once in FLAT on 09-26 and
 gave flat grey (recon `2026-09-26o`); it has never run in VR. That is the next lead, static first.
+
+## Static follow-up, 16:00 (Opus): the August trick, and why the next try is the colour grade
+
+- **The August trick as recorded** (dossier §9d, notes 09-05k / 09-16 / 09-17c / 09-18): the mirror's 8-bit resolve
+  (fmt 29) = black sky + golden; the fix was to switch to the mirror's own raw-HDR scene buffer (fmt 26, allocated right
+  after it, values in the tens) and grade it ourselves. That buffer exists because a reflection is an HDR texture the
+  scene samples; a camera's output is not.
+- **Translated to the rifle camera on 09-26 (`clonehdr 2`)**: the next fmt-26 allocation after the clone's 8-bit target
+  (1920x1088, 36 ms later) was also clipped at 0.999 and nearly flat — an engine intermediate, not a pre-clip scene
+  `[measured 2026-09-26, n=1]`. Today's VR target is also 1920x1088 fmt 26 and clipped. No unclipped copy of the rifle
+  camera's picture has been found to grab `[inferred-static]`.
+- **So what the rifle camera's picture lacks is not range but the grade.** Darkening it 3 stops kept it golden
+  (Tefa: not brightness, not hue). The game's grade lives in `via.render.LDRPostProcess.get_ColorCorrect()`
+  (`via.render.LDRColorCorrect`, dumped 08-30), set per area by `app.ColorCorrectController`, which the clone is built
+  WITHOUT (09-27 log: `clonemake: 22 skipped: ... app.ColorCorrectController ...`). A fresh LDRPostProcess keeps a
+  neutral grade, which also explains why switching the clone's LDRPostProcess off changed nothing on 09-26 `[hypothesis]`.
+- **Built:** `clonecc` (read both grades, every getter, DIFF-marked), `clonecc copy` (set the clone's ColorCorrect to
+  MainCamera's, re-asserted every 10 LockScenes), `clonecc off`. Test suite extended and passing, all script suites
+  pass, installed `[compile-verified 2026-09-27]` (Lua: suite-verified), unrun.
+
+## Next (headset, outdoors, scope up)
+
+`clonecc` (the read: expect DIFFs) → `clonecc copy` → Tefa: is the gold gone? If the read shows no DIFF, the grade
+is not the difference and this lead closes.
