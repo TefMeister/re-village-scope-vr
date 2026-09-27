@@ -85,3 +85,25 @@ gave flat grey (recon `2026-09-26o`); it has never run in VR. That is the next l
 
 `clonecc` (the read: expect DIFFs) → `clonecc copy` → Tefa: is the gold gone? If the read shows no DIFF, the grade
 is not the difference and this lead closes.
+
+## Third headset round, ~16:10 (Tefa outdoors, scope up)
+
+- `clonecc` read: both LDRPostProcess present; the grade's scalars equal (16 cube elements, blend rates 0, 8 linear
+  params); the five object-valued getters print different Lua wrapper addresses, which does not show whether their
+  CONTENTS differ `[measured 2026-09-27, n=1]`.
+- `clonecc copy`: set=true, game fine. Tefa: *"looks the same, but hard to tell as it's all bright and golden"*.
+- Plus `clonetm ev 5.0` (darker): *"still golden, just darker"* `[reported 2026-09-27]`.
+- **The colour-grade copy does not remove the gold** `[reported 2026-09-27, n=1]`. Restored: EV 3.0, `clonecc off`
+  (the clone keeps the copied grade until the next launch).
+
+## Closed today, and the one oddity worth Fable's time
+
+Closed: our compositor's blue shift, our gain, darkening the clone 1–3 stops, PreTonemapRange (capped at 1), the
+colour-grade copy. Tefa, twice: it is not brightness and not hue.
+
+**Oddity:** the "OUR RT" half of the probe (480x360, our compositor's output) printed the SAME block values to three
+decimals on 09-26 20:39 (flat, a different scene) and 09-27 15:22 (VR, outdoors): `0.020 0.027 0.057 0.117 0.117 0.057
+0.027 0.020` on row 0, and so on. An output that does not change with the scene suggests that texture is not what the
+glass shows in clone mode (or is not refreshed there) `[hypothesis]`. Worth settling first: which texture the lens
+actually samples in VR clone mode, and whether the gold is already in it, or is added by the glass material / the
+world's lighting on the lens (Tefa: "only the picture inside the scope" is golden).
