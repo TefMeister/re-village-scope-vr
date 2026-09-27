@@ -39,3 +39,25 @@ Harness lines into `reframework/data/re_scope_cmd.txt`, ALWAYS with a decimal po
 
 Settings changed by Tefa's test and saved: `exposure_gt` 1.95 → 0.998, `wb_amount` 1.0 → 0.5. Left as they are until the
 fix lands; the brightness gets re-tuned then anyway.
+
+## Second headset round, 15:38–15:48 (Tefa outdoors, scope up; Claude sending the lines)
+
+- `clonetm ev 4.0` read back 4.0; probe before/after: min 0.29 → 0.13, darkest block (0.93, 0.63, 0.29) → (0.55, 0.39, 0.26),
+  **max still 1.00** `[measured 2026-09-27, n=1]`. Tefa: *"still golden, a bit darker i think"*.
+- `clonetm ev 6.0` read back 6.0 (the probe did not fire: the scope was down while Tefa typed). Tefa: *"still golden - it
+  is not a setting for brightness or the hue of it, it's something else"* `[reported 2026-09-27]`.
+- `clonetm ptr 16.0` read back **1.0**: the game keeps PreTonemapRange at or below 1, so it is not a clip we can lift
+  `[verified-live 2026-09-27, n=1]`. EV put back to 3.0.
+- **Darkening the rifle camera before the clip does NOT remove the gold** `[reported 2026-09-27, n=2 steps]`. The
+  "darken before the clip" lever is closed.
+
+Also seen: twice the game closed ~1 s after an OpenXR "interaction profile changed" event while Tefa was out of the game
+view typing; the first time Tefa had quit it, the second is unexplained `[hypothesis: leaving the game view]`.
+
+## Tefa's pointer: "we won by using the prop"
+
+The August golden veil was the 8-bit, clipped mirror picture; it was beaten by taking the mirror's **raw-HDR scene
+buffer** (fmt 26, values in the tens, before any clip) and grading it ourselves (dossier §7/§9d). The rifle camera's
+float target stays clipped at 1.0 whatever we set, so the translation is the same move: find the rifle camera's own
+unclipped scene buffer. `clonehdr 2` (the mirror-era upgrade, applied to the clone) was tried once in FLAT on 09-26 and
+gave flat grey (recon `2026-09-26o`); it has never run in VR. That is the next lead, static first.
