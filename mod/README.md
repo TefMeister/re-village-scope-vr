@@ -10,9 +10,13 @@ or a flat overlay. (Not to be confused with the mod's flat-monitor mode,
 which additionally shows a picture-in-picture magnifier circle on screen;
 in VR the lens is the whole show.)
 
-> **Status: early work in progress — nothing playable is released yet.** This
-> repository will hold releases only; watch it if you want to know the moment
-> there is something to try.
+> **Status: v1.0.0 released (2026-09-27).** Download the zip from the
+> [Releases page](https://github.com/TefMeister/re-village-scope-vr/releases) — its `README.txt` has step-by-step
+> install instructions and the exact REFramework, DLSS and NVIDIA versions it was tested with. No `.bat` files: it is
+> a set of files copied into the game folder, on top of praydog's REFramework.
+>
+> ⚠️ **This mod may cause severe motion sickness and discomfort.** Take breaks and stop at the first sign of discomfort.
+> It is a fan-made add-on, not affiliated with Capcom or REFramework, and contains no game files and no REFramework files.
 
 ## Why this exists
 
