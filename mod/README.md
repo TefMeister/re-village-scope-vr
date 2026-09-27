@@ -77,9 +77,6 @@ surprised by them.
   rifle is held still. A real scope would not do this. It is much smaller
   than it was, and it is parked for now.
 
-> ⚠️ **Caution:** this mod is unfinished, and VR mods like this one may cause
-> severe motion sickness and discomfort. Stop at once if you feel unwell.
-
 ## Credits, scope, and legality
 
 Non-commercial fan project; requires an owned copy; redistributes no original
