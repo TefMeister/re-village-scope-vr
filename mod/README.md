@@ -46,7 +46,8 @@ and the cross-engine
 - Your own legitimate copy of **Resident Evil Village** (this mod contains
   **no** game files).
 - [REFramework](https://github.com/praydog/REFramework) (the RE8 build).
-- A PC VR headset via SteamVR/OpenXR (Quest over Link/Virtual Desktop works).
+- A PC VR headset. The mod works well with both OpenXR and SteamVR (OpenVR);
+  Quest over Link or Virtual Desktop works.
 
 ## The folders for the RE Village VR scope
 
