@@ -11,6 +11,8 @@ single technique, a document, or something used purely for testing counts.
   against. praydog's example plugin and VR/FirstPerson sources were studied as
   technique references (never copied); his `re8_vr.lua` scope/reticle handling
   is the starting point this work extends.
+- **Andyalpa** — the picture-in-picture (PIP) scope idea that started this
+  whole project.
 - **[cursey](https://github.com/cursey)** — the
   [REFramework Book](https://cursey.github.io/reframework-book/), the Lua API
   documentation used to establish what scripting can and cannot do.
