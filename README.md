@@ -2,6 +2,8 @@
 
 **Resident Evil Village — VR sniper scope** — a flat-to-VR modding project.
 
+📦 **Finished.** Download v1.0.0 from the [Releases page](https://github.com/TefMeister/re-village-scope-vr/releases) or from [Nexus Mods](https://www.nexusmods.com/residentevilvillage/mods/827).
+
 Consolidated on 2026-08-30: each folder below used to be one of this project's
 six separate repositories (`re-village-scope-vr-mod`, `-dev-archive`, and so on)
 and carries its full git history.
