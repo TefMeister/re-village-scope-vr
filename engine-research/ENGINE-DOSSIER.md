@@ -4988,3 +4988,7 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
   little dark. The eye-tag (DistortionType) lead is `[disproved 2026-09-26]` (all 0); the PrepareOutput chain does not rotate. In VR the
   PrepareOutput texture is the desktop path; flat keeps the PrepareOutput copy. Automatic now (plugin 561e367f): VR → float target, no
   clonepo; the clone ignores `glass_flip_v`. Needs `natives/stm/movie/rtex/scope_1920_1080_hdr.rtex.5` installed.
+
+## Inbox folds, 2026-09-29
+
+**2026-09-29 (`/gr`, folded): the rifle camera's FOV change (20 → 26.23) is not REFramework's doing unless it became the primary camera.** REFramework's VR mod writes FOV/aspect every frame only on `via.SceneView.get_PrimaryCamera`; its projection override reaches every camera, its view override only the primary one `[inferred-static 2026-09-29]`. Cheap live check: read `get_PrimaryCamera` while the rifle camera exists. No public TDB-70 render-to-texture example was found. Topic: `external-research/topics/2026-09-29-reframework-writes-fov-only-on-the-primary-camera.md`.
