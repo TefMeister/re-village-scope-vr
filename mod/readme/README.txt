@@ -1,4 +1,6 @@
-RE VILLAGE VR SCOPE  v1.0.0  (2026-09-27)
+RE VILLAGE VR SCOPE  v1.0.1  (2026-09-30)
+
+v1.0.1: the install text is corrected (the DLSS versions that actually work); the mod's own files are unchanged from v1.0.0.
 ==========================================
 
 WHAT THIS IS
