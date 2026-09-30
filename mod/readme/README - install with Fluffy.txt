@@ -77,8 +77,9 @@ Unzip it into a folder of its own (not inside the game folder) and start Modmana
 
 5.4  Tick "RE Village VR Scope" in the list, so it installs.
 
-5.5  Add this line to re2_fw_config.txt in the game folder (or tick "Loose File Loader" in the REFramework menu):
+5.5  Change this line in re2_fw_config.txt, in the game folder, from false to true (or tick "Loose File Loader" in the REFramework menu):
           LooseFileLoader_Enabled=true
+If you created re2_fw_config.txt yourself, you might need to add that line manually.
 
 
 STEP 6 - Play
