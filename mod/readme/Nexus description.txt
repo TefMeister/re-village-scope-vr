@@ -72,7 +72,7 @@ Unzip it into a folder of its own (not inside the game folder) and start Modmana
 
 5.2  Open Fluffy Mod Manager and choose Resident Evil Village.
 
-5.3  Drag "RE-Village-VR-Scope-v1.0.0-Fluffy.zip" into the Fluffy window.
+5.3  Drag "RE-Village-VR-Scope-v1.0.1-Fluffy.zip" into the Fluffy window.
 (Or put the zip into Fluffy's Games\RE8\Mods folder and restart Fluffy.)
 
 5.4  Tick "RE Village VR Scope" in the list, so it installs.
