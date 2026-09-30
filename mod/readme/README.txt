@@ -41,7 +41,7 @@ STEP 2 - praydog's REFramework (the DLSS "pd-upscaler" build a24c3459, 5 Septemb
 STEP 3 - DLSS (optional, but this is how it was tested)
   3.1  PureDark's "Upscaler Base Plugin" version 1.1.2 from Nexus Mods (not 1.2.0: that one loads but finds no DLSS with this REFramework build, tested 30 September 2026):
        https://www.nexusmods.com/site/mods/502  (under Files, pick the 1.1.2 version: UpscalerBasePlugin-502-1-1-2-....zip)
-       Copy only PDPerfPlugin.dll into the game folder. (The ffx_*.dll files are for AMD FSR; not needed for DLSS.)
+       Copy PDPerfPlugin.dll into the game folder (the 1.1.2 zip holds just that one file).
   3.2  NVIDIA's DLSS library, version 310.5.3, from NVIDIA's official repository (the newer 310.9.1 does not work with the 1.1.2 plugin):
        https://github.com/NVIDIA/DLSS/tree/v310.5.3/lib/Windows_x86_64/rel
        Download nvngx_dlss.dll and copy it into the game folder.
