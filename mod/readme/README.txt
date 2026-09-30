@@ -62,8 +62,9 @@ STEP 5 - This mod
   5.1  Open the folder "Resident Evil Village BIOHAZARD VILLAGE" inside this package.
   5.2  Copy EVERYTHING inside it into the game folder. If Windows asks to merge folders, say yes.
        (The full list of what is added is in FILES.txt.)
-  5.3  Add this line to re2_fw_config.txt in the game folder (or tick "Loose File Loader" in the REFramework menu):
+  5.3  Change this line in re2_fw_config.txt, in the game folder, from false to true (or tick "Loose File Loader" in the REFramework menu):
            LooseFileLoader_Enabled=true
+       If you created re2_fw_config.txt yourself, you might need to add that line manually.
 
 STEP 6 - Play
   6.1  Start the game in VR and load your save.
