@@ -48,3 +48,25 @@ v1.0.1 stays as it is.
 ## Corrected the same day: the download link was NOT broken
 
 I reported the install text's REFramework link as dead after ONE request to its direct-download form answered "not found". Tefa had installed from it the day before without trouble. Re-checked: the link opens the page with all three downloads, and its REFramework.zip is 13,249,715 bytes, the same size as the tested build `[verified-live 2026-10-01, n=2]`. The one failure was a passing hiccup of the download site `[hypothesis]`. The texts and the v1.0.1 download were put back exactly as they were (the zip is byte-identical to the original). Lesson: one failed request is not a dead link; retry, and ask the person who installed it last.
+
+## Later the same day: the flat picture comes up by itself `[verified-live 2026-10-01, n=1 launch]`
+
+- **The fix:** the flat copy has `reframework/data/re_scope_autostart.txt` = `1 1280`. That tells the automatic start to use
+  the mirror picture at 1280 instead of the rifle camera, and it then does the three steps itself (`fn rtex_1280`, the
+  re-arm, `bringup`) 0.32 s after the rifle is drawn. The picture shows; nothing was sent by hand
+  (`3-scope-came-up-by-itself.png`, `autostart-by-itself-log.txt`). No code change was needed for this.
+- **Why not the rifle camera (the release default) on this PC:** its picture stays near black here: the scope circle
+  averages about 2 of 255 against about 19 for the wall it points at, with the 8-bit target and with the float target
+  `[measured 2026-10-01]` (pictures 4 and 5). Part of the cause was found and fixed: the step that takes the rifle
+  camera's finished picture looked for its layer next to the mirror layers, and in the factory those are detached, so
+  it looked at nothing. It now finds the layer through the renderer and retries (staging, tested). The add-on's
+  next link still fails: the view's texture slot is empty, which in REFramework's own code also means "no picture".
+  Likely because this PC runs with no upscaler (a GTX 1660 Super cannot run DLSS) and the game then draws its final
+  picture straight to the window's buffers `[hypothesis]`. Home, with DLSS, found the picture at the same slot.
+- **Installed on the flat copy:** the add-on rebuilt here from the committed source plus a diagnostic that names the
+  broken link (`bf2146280a43`; the release build `7b8dd4912575` contains the same 309 log messages, so it came from
+  the same source, and the size difference is the compiler).
+- **Saves:** Tefa saw the other save slots reported as corrupted in this copy. The slot files were not written
+  today (only the autosave and the settings file, at 18:02, when the game loaded); a full copy of the save folder
+  was taken first to `D:\claude video game stuff\save-backups\re-village-2026-10-01-1810\` (27 files). Whether the
+  slots load in the normal install is not checked yet.
