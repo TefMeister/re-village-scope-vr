@@ -26,7 +26,7 @@ STEP 1 - The game
 
 STEP 2 - praydog's REFramework (the DLSS "pd-upscaler" build a24c3459, 5 September 2026 - Fluffy does not install this part)
 
-2.1  Open [url=https://nightly.link/praydog/REFramework/actions/runs/33940315972]REFramework (pd-upscaler build)[/url]
+2.1  Open [url=https://nightly.link/praydog/REFramework/workflows/dev-release/pd-upscaler]REFramework (pd-upscaler build)[/url]
 (the same build on GitHub: [url=https://github.com/praydog/REFramework/actions/runs/33940315972]Same build on GitHub[/url] - possibly needs a GitHub login)
 
 2.2  Download two files: "REFramework.zip" and "VR.zip".
