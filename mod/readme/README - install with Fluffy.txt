@@ -24,16 +24,15 @@ STEP 1 - The game
 1.3  Start the game once, reach the main menu, and quit.
 
 
-STEP 2 - praydog's REFramework (the DLSS "pd-upscaler" build a24c3459, 5 September 2026 - Fluffy does not install this part)
+STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (build 76298bd, 11 March 2026 - Fluffy does not install this part)
 
-2.1  Open https://nightly.link/praydog/REFramework/workflows/dev-release/pd-upscaler
-(the same build on GitHub: https://github.com/praydog/REFramework/actions/runs/33940315972 - possibly needs a GitHub login)
+2.1  Open https://github.com/praydog/REFramework/releases/tag/v1.5.9.1 and download "RE8.zip".
 
-2.2  Download two files: "REFramework.zip" and "VR.zip".
+2.2  From RE8.zip, copy dinput8.dll, openxr_loader.dll and the whole "reframework" folder into the game folder. Tried it with OpenVR and SteamVR too and worked just fine.
 
-2.3  From REFramework.zip, copy dinput8.dll into the game folder.
+2.3  Now the DLSS loader files. From the scope mod's GitHub release page, download "REFramework-DLSS-loader-76298bd-files.zip" and copy its contents into the game folder, saying YES to overwrite. These five files are praydog's own DLSS ("pd-upscaler") build 76298bd, unmodified; they are offered there only because GitHub no longer has that build for download.
 
-2.4  From VR.zip, copy openxr_loader.dll and the whole "reframework" folder into the game folder. Tried it with OpenVR and SteamVR too and worked just fine.
+WHY THIS BUILD: the newer September 2026 DLSS build (a24c3459) can crash the game the moment the VR headset becomes ready, before the main menu, on some setups (it did on ours, nearly every start). The March build does not.
 
 
 STEP 3 - DLSS (optional, but this is how it was tested)
