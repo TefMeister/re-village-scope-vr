@@ -19,7 +19,7 @@ A working sniper scope for **Resident Evil Village in VR**, as an add-on for pra
 ## Install
 Also on Nexus Mods: https://www.nexusmods.com/residentevilvillage/mods/827
 
-Download **RE-Village-VR-Scope-v1.0.2.zip** (manual install) or **RE-Village-VR-Scope-v1.0.2-Fluffy.zip** (Fluffy Mod
+Download **RE-Village-VR-Scope-v1.0.2-manual.zip** (manual install) or **RE-Village-VR-Scope-v1.0.2-fluffyMM.zip** (Fluffy Mod
 Manager) below and follow the readme inside it. In short, the versions this was tested with on a clean install:
 - praydog's REFramework release v1.5.9.1, with the five DLSS ("pd-upscaler") build `76298bd` files on top
 - Works well with both OpenXR and SteamVR (OpenVR)
