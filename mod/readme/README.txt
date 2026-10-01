@@ -8,9 +8,12 @@ A fan-made add-on for praydog's REFramework VR mod for Resident Evil Village. It
 scope in VR:
 - a real magnified view through the lens that points exactly where the bullets go,
 - the game's own colours outdoors and indoors,
-- a steady two-handed grip (the "stacked" hold: left controller a little above the right),
-- no stray weapon clicks when the rifle dips or comes up,
-- the scope keeps working through hits, knockdowns and weapon switches.
+- a steady two-handed grip: holding the left grip button with the left controller will lower the rifle a little, so
+  aiming straight means that left motion controller is visibly above the right one, to avoid occlusion drift,
+- no stray weapon clicks when the rifle dips or comes up (the game had 3 different left hand positions on the rifle,
+  each playing a quick "gun click sound" when it triggered; now there is only one left hand pose gripping the rifle),
+- the scope keeps working through hits, knockdowns and weapon switches, where before it kept freezing for a second
+  each time after getting hit or changing back to the rifle.
 
 WHAT THIS IS NOT
 - Not a VR mod on its own. It needs praydog's REFramework (with its VR mode) installed first.
@@ -23,7 +26,7 @@ STEP-BY-STEP INSTALL
 Tested on 2026-09-27 on a clean Steam install, with exactly the versions below.
 
 STEP 1 - The game
-  1.1  Install Resident Evil Village from Steam.
+  1.1  Install Resident Evil Village from Steam (only tested with the Steam version).
   1.2  Find the game folder: in Steam, right-click the game > Manage > Browse local files.
        This is the folder that contains re8.exe. Every "game folder" below means this folder.
   1.3  Start the game once, reach the main menu, and quit. (This lets Steam and the game finish their setup.)
@@ -44,9 +47,9 @@ STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (b
        The March build does not.
 
 STEP 3 - DLSS (optional, but this is how it was tested)
-  3.1  PureDark's "Upscaler Base Plugin" version 1.1.2 from Nexus Mods (not 1.2.0: that one loads but finds no DLSS with this REFramework build, tested 30 September 2026):
-       https://www.nexusmods.com/site/mods/502  (under Files, pick the 1.1.2 version: UpscalerBasePlugin-502-1-1-2-....zip)
-       Copy PDPerfPlugin.dll into the game folder (the 1.1.2 zip holds just that one file).
+  3.1  PureDark's "Upscaler Base Plugin" version 1.1.2 (under Files, pick the 1.1.2 version, not 1.2.0: that one loads but finds no DLSS with this REFramework build, tested 30 September 2026):
+       https://www.nexusmods.com/site/mods/502
+       Copy only PDPerfPlugin.dll into the game folder.
   3.2  NVIDIA's DLSS library, version 310.5.3, from NVIDIA's official repository (the newer 310.9.1 does not work with the 1.1.2 plugin):
        https://github.com/NVIDIA/DLSS/tree/v310.5.3/lib/Windows_x86_64/rel
        Download nvngx_dlss.dll and copy it into the game folder.
@@ -69,7 +72,7 @@ STEP 5 - This mod
        (The full list of what is added is in FILES.txt.)
   5.3  Change this line in re2_fw_config.txt, in the game folder, from false to true (or tick "Loose File Loader" in the REFramework menu):
            LooseFileLoader_Enabled=true
-       If you created re2_fw_config.txt yourself, you might need to add that line manually.
+       If you created the re2_fw_config.txt file yourself, you might need to add that line manually.
 
 STEP 6 - Play
   6.1  Start the game in VR and load your save.
