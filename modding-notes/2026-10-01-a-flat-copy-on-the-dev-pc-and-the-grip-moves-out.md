@@ -45,8 +45,6 @@ half loads, and `grip` answers "Dr.BeGonE is not installed -- VR only". **Not ye
 ⚠️ **The next scope release must not ship before Dr.BeGonE has a download**, or players lose the grip. Until then
 v1.0.1 stays as it is.
 
-## Also fixed
+## Corrected the same day: the download link was NOT broken
 
-The install text pointed at a REFramework download page that now answers "not found" (the newest pd-upscaler run
-has no files). All three install texts and the v1.0.1 download now point at the exact tested run, which downloads
-without a GitHub login. The mod's files in the download are unchanged.
+I reported the install text's REFramework link as dead after ONE request to its direct-download form answered "not found". Tefa had installed from it the day before without trouble. Re-checked: the link opens the page with all three downloads, and its REFramework.zip is 13,249,715 bytes, the same size as the tested build `[verified-live 2026-10-01, n=2]`. The one failure was a passing hiccup of the download site `[hypothesis]`. The texts and the v1.0.1 download were put back exactly as they were (the zip is byte-identical to the original). Lesson: one failed request is not a dead link; retry, and ask the person who installed it last.
