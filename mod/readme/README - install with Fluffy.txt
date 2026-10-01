@@ -30,7 +30,7 @@ STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (b
 
 2.2  From RE8.zip, copy dinput8.dll, openxr_loader.dll and the whole "reframework" folder into the game folder. Tried it with OpenVR and SteamVR too and worked just fine.
 
-2.3  Now the DLSS loader files. From the scope mod's GitHub release page (https://github.com/TefMeister/re-village-scope-vr/releases/tag/v1.0.1), download "REFramework-DLSS-loader-76298bd-files.zip" and copy its contents into the game folder, saying YES to overwrite. These five files are praydog's own DLSS ("pd-upscaler") build 76298bd, unmodified; they are offered there only because GitHub no longer has that build for download.
+2.3  Now the DLSS loader files. From the scope mod's GitHub release page (https://github.com/TefMeister/re-village-scope-vr/releases/latest), download "REFramework-DLSS-loader-76298bd-files.zip" and copy its contents into the game folder, saying YES to overwrite. These five files are praydog's own DLSS ("pd-upscaler") build 76298bd, unmodified; they are offered there only because GitHub no longer has that build for download.
 
 WHY THIS BUILD: the newer September 2026 DLSS build (a24c3459) can crash the game the moment the VR headset becomes ready, before the main menu, on some setups (it did on ours, nearly every start). The March build does not.
 
@@ -70,7 +70,7 @@ STEP 5 - Install this mod with Fluffy Mod Manager
 
 5.2  Open Fluffy Mod Manager (see the downloads button there; it might need you to download a newer version of the mod manager first), then choose Resident Evil Village.
 
-5.3  Drag "RE-Village-VR-Scope-v1.0.1-Fluffy.zip" into the Fluffy window.
+5.3  Drag "RE-Village-VR-Scope-v1.0.2-Fluffy.zip" into the Fluffy window.
 (Or put the zip into Fluffy's Games\RE8\Mods folder and restart Fluffy.)
 
 5.4  Tick "RE Village VR Scope" in the list, so it installs.
