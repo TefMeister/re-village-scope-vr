@@ -28,15 +28,20 @@ STEP 1 - The game
        This is the folder that contains re8.exe. Every "game folder" below means this folder.
   1.3  Start the game once, reach the main menu, and quit. (This lets Steam and the game finish their setup.)
 
-STEP 2 - praydog's REFramework (the DLSS "pd-upscaler" build a24c3459, 5 September 2026)
-  2.1  Open https://nightly.link/praydog/REFramework/workflows/dev-release/pd-upscaler
-       (the same build on GitHub: https://github.com/praydog/REFramework/actions/runs/33940315972 - needs a GitHub login)
-  2.2  Download two files: "REFramework.zip" and "VR.zip".
-  2.3  From REFramework.zip, copy dinput8.dll into the game folder.
-  2.4  From VR.zip, copy the whole "reframework" folder into the game folder, plus the file for the way you play:
+STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (build 76298bd, 11 March 2026)
+  2.1  Open https://github.com/praydog/REFramework/releases/tag/v1.5.9.1 and download "RE8.zip".
+  2.2  From RE8.zip, copy dinput8.dll and the whole "reframework" folder into the game folder, plus the file for
+       the way you play:
          - openxr_loader.dll for OpenXR (for example Virtual Desktop or Quest Link set to OpenXR), or
          - openvr_api.dll for SteamVR (OpenVR).
        This mod works well with both OpenXR and SteamVR (OpenVR).
+  2.3  Now the DLSS loader files. From the scope mod's release page, download
+       "REFramework-DLSS-loader-76298bd-files.zip" and copy its contents into the game folder, saying YES to
+       overwrite. These five files are praydog's own DLSS ("pd-upscaler") build 76298bd, unmodified; they are
+       offered there only because GitHub no longer has that build for download.
+       WHY THIS BUILD: the newer September 2026 DLSS build (a24c3459) can crash the game the moment the VR
+       headset becomes ready, before the main menu, on some setups (it did on ours, nearly every start).
+       The March build does not.
 
 STEP 3 - DLSS (optional, but this is how it was tested)
   3.1  PureDark's "Upscaler Base Plugin" version 1.1.2 from Nexus Mods (not 1.2.0: that one loads but finds no DLSS with this REFramework build, tested 30 September 2026):

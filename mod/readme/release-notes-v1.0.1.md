@@ -1,5 +1,13 @@
 A working sniper scope for **Resident Evil Village in VR**, as an add-on for praydog's REFramework VR mod.
 
+## Update 2026-10-01: the REFramework build to use has changed
+The September DLSS build this text first named (`a24c3459`) can crash the game the moment the VR headset becomes
+ready, before the main menu, on some setups: on our test PC it did on nearly every start, and the March build
+`76298bd` started every time. GitHub no longer offers that March build, so its five files are attached here as
+**REFramework-DLSS-loader-76298bd-files.zip**: praydog's own files, unmodified, with his licence. Install order:
+praydog's release v1.5.9.1 first, then those five files on top, then the scope mod. The `README.txt` inside the
+mod zip still shows the old step 2; the current text is in the repo under `mod/readme/`.
+
 ## What changed in v1.0.1
 - The install text now names the DLSS versions that actually work: PureDark's Upscaler Base Plugin **1.1.2** and NVIDIA DLSS **310.5.3**. (v1.0.0 named 1.2.0 and 310.9.1, which load but find no DLSS with this REFramework build.)
 - The start-up "hiccup" note is gone: that crash turned out to be a downloaded save set, not REFramework.
@@ -17,7 +25,7 @@ Also on Nexus Mods: https://www.nexusmods.com/residentevilvillage/mods/827
 
 Download **RE-Village-VR-Scope-v1.0.1.zip** below and follow `README.txt` inside it. It lists every step and the exact
 versions this was tested with on a clean install:
-- praydog's REFramework, DLSS ("pd-upscaler") build `a24c3459` (5 September 2026)
+- praydog's REFramework release v1.5.9.1, with the five DLSS ("pd-upscaler") build `76298bd` files on top (see the update above)
 - Works well with both OpenXR and SteamVR (OpenVR)
 - PureDark's Upscaler Base Plugin 1.1.2 (Nexus Mods, site mod 502) and NVIDIA DLSS 310.5.3 (optional, for DLSS)
 
