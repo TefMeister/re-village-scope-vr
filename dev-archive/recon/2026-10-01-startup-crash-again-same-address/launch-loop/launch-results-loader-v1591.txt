@@ -1,0 +1,3 @@
+loader-v1591 launch 1: STARTED | VR ready=True | last resize: buffer_count 3 width 2688 height 2880 new_format 28 swap_chain_flags 2114 | probe:  | 23:22:00
+loader-v1591 launch 2: STARTED | VR ready=True | last resize: buffer_count 3 width 2688 height 2880 new_format 28 swap_chain_flags 2114 | probe:  | 23:22:53
+loader-v1591 launch 3: STARTED | VR ready=True | last resize: buffer_count 3 width 2688 height 2880 new_format 28 swap_chain_flags 2114 | probe:  | 23:23:45
