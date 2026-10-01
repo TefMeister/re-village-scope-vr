@@ -40,3 +40,15 @@ picture to go on (the rifle's lens is its material 2/3). So the picture needs a 
 `pane`/`spawn` code the rifle used before the glass bind) placed in the sight's window, or another way to give it one. The
 sight window's position is not a named point, so it is measured or set by a knob. Also: the scope code recognises only the
 sniper rifle (`ri3042`), so the shotgun (`ri3048`) has to be added as a second scoped weapon.
+
+## Correction 2 (Tefa's screenshot): the sight DOES have a glass
+
+Tefa's screenshot shows a bluish glass in the sight `[reported 2026-10-01]`; "no glass" above was wrong. It is not a
+material of its own: hiding the shotgun's materials one at a time (live, put back after) showed that **material 0
+(`Shotgun_03_B`) is the whole top block: the sight ring, its glass and the receiver**, and material 1 (`_A`) the rails,
+barrel and lower body `[verified-live 2026-10-01, n=1]` (`materials-hidden-...png`). There is only one shotgun model near the
+camera (`ri3048_Inventory`), so this is the drawn gun.
+
+So the rifle's method (put our picture on the lens material) would cover the whole top of the gun. The picture needs its
+own surface inside the sight ring (the mod's spawned pane, sized and placed to the ring), or a mask that limits it to the
+glass. That is the design question for the next session.
