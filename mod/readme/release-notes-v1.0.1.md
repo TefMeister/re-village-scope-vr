@@ -16,9 +16,9 @@ mod zip still shows the old step 2; the current text is in the repo under `mod/r
 ## What it does
 - A real magnified view through the rifle's lens that points exactly where the bullets go.
 - The game's own colours, outdoors and indoors.
-- A steady two-handed grip: hold the left grip button with the left controller a little **above** the right one.
-- No stray weapon clicks when the rifle dips or comes up; the bolt and reload sounds stay.
-- The scope keeps working through hits, knockdowns and weapon switches.
+- A steady two-handed grip: holding the left grip button with the left controller lowers the rifle a little, so aiming straight means the left controller is visibly **above** the right one, to avoid occlusion drift.
+- No stray weapon clicks when the rifle dips or comes up: the game had three left-hand positions on the rifle, each with a quick "gun click" sound; now there is one left-hand pose. The bolt and reload sounds stay.
+- The scope keeps working through hits, knockdowns and weapon switches, where before it froze for a second after a hit or a switch back to the rifle.
 
 ## Install
 Also on Nexus Mods: https://www.nexusmods.com/residentevilvillage/mods/827
