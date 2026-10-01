@@ -1,5 +1,6 @@
-RE VILLAGE VR SCOPE  v1.0.1  (2026-09-30)
+RE VILLAGE VR SCOPE  v1.0.2  (2026-10-02)
 
+v1.0.2: updated readme for the installation steps (which REFramework build to use, and why); the mod's own files are unchanged.
 v1.0.1: the install text is corrected (the DLSS versions that actually work); the mod's own files are unchanged from v1.0.0.
 ==========================================
 
@@ -38,7 +39,8 @@ STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (b
          - openxr_loader.dll for OpenXR (for example Virtual Desktop or Quest Link set to OpenXR), or
          - openvr_api.dll for SteamVR (OpenVR).
        This mod works well with both OpenXR and SteamVR (OpenVR).
-  2.3  Now the DLSS loader files. From the scope mod's release page, download
+  2.3  Now the DLSS loader files. From the scope mod's release page
+       (https://github.com/TefMeister/re-village-scope-vr/releases/latest), download
        "REFramework-DLSS-loader-76298bd-files.zip" and copy its contents into the game folder, saying YES to
        overwrite. These five files are praydog's own DLSS ("pd-upscaler") build 76298bd, unmodified; they are
        offered there only because GitHub no longer has that build for download.
