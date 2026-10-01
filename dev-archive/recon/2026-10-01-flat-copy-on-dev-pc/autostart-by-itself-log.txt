@@ -1,0 +1,10 @@
+ 18:01:25.115] [REFramework] [info] [ScriptState] Running script E:\RE Village flat\reframework\autorun\re8_scope_autostart.lua...
+ 18:01:25.161] [REFramework] [info] [re8-autostart] loaded -- with no re_scope_autostart.txt the scope starts by itself with the rifle camera; the file overrides it
+ 18:01:25.188] [REFramework] [info] [re8-camclone] loaded -- test tool; words: clonemake [rifle] [rt] [bare] [upd], clonekill, clonewatch, clonehook, cloneorder, camcmp, matscan, clonetf, clonepose main|rifle|bore|off, clonescene, cloneaim, clonefov
+ 18:01:25.331] [REFramework] [info] [re8-autostart] ON -- will start the scope when the rifle is drawn (picture 1280)
+ 18:02:50.925] [REFramework] [info] [re8-autostart] autostart: rifle in hand -- starting the scope
+ 18:02:50.942] [REFramework] [info] [re8-autostart] autostart: 1/3 picture target 1280 (quick)
+ 18:02:50.960] [REFramework] [info] [re8-autostart] autostart: 2/3 re-arm queued (numpad . through the plugin's own key channel)
+ 18:02:51.249] [REFramework] [info] [re8-autostart] autostart: re-arm taken by the plugin 0.29 s after it was queued
+ 18:02:51.250] [REFramework] [info] [re8-autostart] autostart: 3/3 bringup sent, 0.32 s after the rifle was seen
+ 18:02:51.461] [REFramework] [info] [re8-autostart] autostart: DONE -- rig present 0.21 s after bringup, 0.54 s after the rifle was seen; the eye pose went in with it
