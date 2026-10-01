@@ -29,7 +29,7 @@ STEP 1 - The game
   1.3  Start the game once, reach the main menu, and quit. (This lets Steam and the game finish their setup.)
 
 STEP 2 - praydog's REFramework (the DLSS "pd-upscaler" build a24c3459, 5 September 2026)
-  2.1  Open https://nightly.link/praydog/REFramework/workflows/dev-release/pd-upscaler
+  2.1  Open https://nightly.link/praydog/REFramework/actions/runs/33940315972
        (the same build on GitHub: https://github.com/praydog/REFramework/actions/runs/33940315972 - needs a GitHub login)
   2.2  Download two files: "REFramework.zip" and "VR.zip".
   2.3  From REFramework.zip, copy dinput8.dll into the game folder.
