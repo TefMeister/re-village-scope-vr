@@ -53,20 +53,26 @@ STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (b
        headset becomes ready, before the main menu, on some setups (it did on ours, nearly every start).
        The March build does not.
 
-STEP 3 - DLSS (optional, but this is how it was tested)
+STEP 3 - DLSS (3.1 and 3.2 are optional, but this is how it was tested), then the settings file (3.3 and 3.4, needed by everyone)
   3.1  PureDark's "Upscaler Base Plugin" version 1.1.2 (under Files, pick the 1.1.2 version, not 1.2.0: that one loads but finds no DLSS with this REFramework build, tested 30 September 2026):
        https://www.nexusmods.com/site/mods/502
        Copy only PDPerfPlugin.dll into the game folder.
   3.2  NVIDIA's DLSS library, version 310.5.3, from NVIDIA's official repository (the newer 310.9.1 does not work with the 1.1.2 plugin):
        https://github.com/NVIDIA/DLSS/tree/v310.5.3/lib/Windows_x86_64/rel
        Download nvngx_dlss.dll and copy it into the game folder.
-  3.3  In the game folder, create a text file named re2_fw_config.txt (or open it if it exists) and make sure it
-       contains these lines:
+  3.3  Start the game once more (with or without the headset), reach the main menu, and quit. This start makes
+       REFramework create the file re2_fw_config.txt in the game folder and fill it with its settings.
+       Do this step even if you skipped DLSS.
+  3.4  Open re2_fw_config.txt in the game folder (Notepad is fine) and check that all of these lines are there, set as
+       shown. If one is missing, add it.
+           LooseFileLoader_Enabled=true      (it says false at first: change it to true)
+       If you installed DLSS in 3.1 and 3.2, also:
            TemporalUpscaler_Enabled=true
            TemporalUpscaler_UpscaleQuality=1
            TemporalUpscaler_SharpnessEnable=true
            TemporalUpscaler_SharpnessAmount=0.000000
            TemporalUpscaler_UseNativeResolution=false
+       Save the file.
 
 STEP 4 - Check VR works before adding this mod
   4.1  Start your VR runtime (for example Virtual Desktop, Quest Link or SteamVR).
@@ -77,9 +83,7 @@ STEP 5 - This mod
   5.1  Open the folder "Resident Evil Village BIOHAZARD VILLAGE" inside this package.
   5.2  Copy EVERYTHING inside it into the game folder. If Windows asks to merge folders, say yes.
        (The full list of what is added is in FILES.txt.)
-  5.3  Change this line in re2_fw_config.txt, in the game folder, from false to true (or tick "Loose File Loader" in the REFramework menu):
-           LooseFileLoader_Enabled=true
-       If you created the re2_fw_config.txt file yourself, you might need to add that line manually.
+  5.3  Check that re2_fw_config.txt, in the game folder, says LooseFileLoader_Enabled=true (you changed it in step 3.4).
 
 STEP 6 - Play
   6.1  Start the game in VR and load your save.
