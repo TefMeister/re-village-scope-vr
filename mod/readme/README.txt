@@ -1,5 +1,8 @@
-RE VILLAGE VR SCOPE  v1.0.2  (2026-10-02)
+RE VILLAGE VR SCOPE  v1.1.1  (2026-10-02)
 
+v1.1.1: the left hand lets go of the gun with a short pull (about 10 cm, or about 25 degrees sideways); on the pistol it
+        rests on the grip without steering the gun; the rifle's left-hand spot no longer moves the left hand on other
+        weapons; the grip comes from Dr.BeGonE (Occlusion Drift BeG0nE), now part of this mod.
 v1.0.2: updated readme for the installation steps (which REFramework build to use, and why); the mod's own files are unchanged.
 v1.0.1: the install text is corrected (the DLSS versions that actually work); the mod's own files are unchanged from v1.0.0.
 ==========================================
@@ -82,6 +85,8 @@ STEP 6 - Play
   6.3  To hold the rifle with both hands: hold the LEFT GRIP button with the left controller a few centimetres ABOVE the
        right controller. The left hand goes on the forestock, the rifle aims with your right hand, and the headset can
        see both controllers.
+  6.4  Bring the left hand to the front of any two-handed gun and it docks by itself; pull it about 10 cm away (or about
+       25 degrees sideways) and it lets go. On the pistol the left hand rests on the grip but does not steer the gun.
 
 
 UNINSTALL
