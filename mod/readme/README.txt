@@ -1,5 +1,7 @@
-RE VILLAGE VR SCOPE  v1.1.1  (2026-10-02)
+RE VILLAGE VR SCOPE  v1.1.2  (2026-10-02)
 
+v1.1.2: the sniper rifle no longer jumps to the right when it fires; the scope picture now brightens and dims with the
+        game, indoors and outdoors, and its blue tint is gone.
 v1.1.1: the left hand lets go of the gun with a short pull (about 10 cm, or about 25 degrees sideways); on the pistol it
         rests on the grip without steering the gun; the rifle's left-hand spot no longer moves the left hand on other
         weapons; the rifle no longer points off to the side after a restart.
