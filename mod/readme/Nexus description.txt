@@ -51,7 +51,7 @@ STEP 2 - praydog's REFramework (release v1.5.9.1), then the DLSS loader files (b
 WHY THIS BUILD: the newer September 2026 DLSS build (a24c3459) can crash the game the moment the VR headset becomes ready, before the main menu, on some setups (it did on ours, nearly every start). The March build does not.
 
 
-STEP 3 - DLSS (optional, but this is how it was tested)
+STEP 3 - DLSS (3.1 and 3.2 are optional, but this is how it was tested), then the settings file (3.3 and 3.4, needed by everyone)
 
 3.1  PureDark's "Upscaler Base Plugin" version 1.1.2 (under Files, pick the 1.1.2 version, not 1.2.0: that one loads but finds no DLSS with this REFramework build, tested 30 September 2026):
 [url=https://www.nexusmods.com/site/mods/502]PureDark's Upscaler Base Plugin[/url]
@@ -61,13 +61,17 @@ STEP 3 - DLSS (optional, but this is how it was tested)
 [url=https://github.com/NVIDIA/DLSS/blob/v310.5.3/lib/Windows_x86_64/rel/nvngx_dlss.dll]NVIDIA DLSS 310.5.3[/url]
 Click the download button (the down-arrow, top right of the file box) to download nvngx_dlss.dll, then copy it into the game folder.
 
-3.3  In the game folder, create a text file named re2_fw_config.txt (or open it if it exists) and make sure it
-contains these lines:
+3.3  Start the game once more (with or without the headset), reach the main menu, and quit. This start makes REFramework create the file re2_fw_config.txt in the game folder and fill it with its settings. Do this step even if you skipped DLSS.
+
+3.4  Open re2_fw_config.txt in the game folder (Notepad is fine) and check that all of these lines are there, set as shown. If one is missing, add it.
+LooseFileLoader_Enabled=true   (it says false at first: change it to true)
+If you installed DLSS in 3.1 and 3.2, also:
 TemporalUpscaler_Enabled=true
 TemporalUpscaler_UpscaleQuality=1
 TemporalUpscaler_SharpnessEnable=true
 TemporalUpscaler_SharpnessAmount=0.000000
 TemporalUpscaler_UseNativeResolution=false
+Save the file.
 
 
 STEP 4 - Check VR works before adding this mod
@@ -90,9 +94,7 @@ STEP 5 - Install this mod with [url=https://www.nexusmods.com/residentevilvillag
 
 5.4  Tick "RE Village VR Scope" in the list, so it installs.
 
-5.5  Change this line in re2_fw_config.txt, in the game folder, from false to true (or tick "Loose File Loader" in the REFramework menu):
-          LooseFileLoader_Enabled=true
-If you created the re2_fw_config.txt file yourself, you might need to add that line manually.
+5.5  Check that re2_fw_config.txt, in the game folder, says LooseFileLoader_Enabled=true (you changed it in step 3.4).
 
 ---------- STEPS FOR MANUAL INSTALL ----------
 
@@ -101,9 +103,7 @@ If you created the re2_fw_config.txt file yourself, you might need to add that l
 5.2  Copy EVERYTHING inside it into the game folder. If Windows asks to merge folders, say yes.
      (The full list of what is added is in FILES.txt.)
 
-5.3  Change this line in re2_fw_config.txt, in the game folder, from false to true (or tick "Loose File Loader" in the REFramework menu):
-          LooseFileLoader_Enabled=true
-If you created the re2_fw_config.txt file yourself, you might need to add that line manually.
+5.3  Check that re2_fw_config.txt, in the game folder, says LooseFileLoader_Enabled=true (you changed it in step 3.4).
 
 
 STEP 6 - Play
