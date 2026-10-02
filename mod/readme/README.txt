@@ -2,7 +2,7 @@ RE VILLAGE VR SCOPE  v1.1.1  (2026-10-02)
 
 v1.1.1: the left hand lets go of the gun with a short pull (about 10 cm, or about 25 degrees sideways); on the pistol it
         rests on the grip without steering the gun; the rifle's left-hand spot no longer moves the left hand on other
-        weapons; the grip comes from Dr.BeGonE (Occlusion Drift BeG0nE), now part of this mod.
+        weapons; the rifle no longer points off to the side after a restart.
 v1.0.2: updated readme for the installation steps (which REFramework build to use, and why); the mod's own files are unchanged.
 v1.0.1: the install text is corrected (the DLSS versions that actually work); the mod's own files are unchanged from v1.0.0.
 ==========================================
