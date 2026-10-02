@@ -18,7 +18,7 @@ Changes in v1.1.1
 The left hand lets go of the gun with a short pull: about 10 cm, or about 25 degrees sideways.
 On the pistol the left hand rests on the grip, but does not steer the gun.
 The rifle's left-hand spot no longer moves the left hand on other weapons.
-The grip comes from Dr.BeGonE (Occlusion Drift BeG0nE), now part of this mod.
+The rifle no longer points off to the side after a restart.
 
 
 Installation instructions

@@ -8,10 +8,8 @@ A working sniper scope for **Resident Evil Village in VR**, as an add-on for pra
 - **Every weapon keeps its own left-hand spot.** The rifle's left-hand spot was being used on every weapon once the
   rifle had been out, so the left hand floated in the air beside the pistol and the shotgun. Now it only applies to the
   sniper rifle.
-- **The grip now comes from Dr.BeGonE** ([Occlusion Drift BeG0nE](https://github.com/TefMeister/BeG0nE/tree/main/occlusion-drift)),
-  our cure for occlusion drift, now part of this mod: the left hand docks by itself on any two-handed gun (the left grip
-  button still works), and the reference it aims against is only taken once the hand has settled, so the rifle no
-  longer points off to the side after a restart.
+- **The left hand docks by itself on any two-handed gun** (the left grip button still works).
+- **The rifle no longer points off to the side after a restart.**
 - Install steps are unchanged from v1.0.2.
 
 ## What it does
