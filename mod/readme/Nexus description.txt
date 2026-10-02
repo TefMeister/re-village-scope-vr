@@ -12,6 +12,13 @@ Not an official Capcom or REFramework product, and not affiliated with either.
 It contains no original game files and no REFramework files. You must own Resident Evil Village.
 
 
+Changes in v1.1.2
+
+
+The sniper rifle no longer jumps to the right when it fires.
+The scope picture now brightens and dims with the game, indoors and outdoors, and its blue tint is gone.
+
+
 Changes in v1.1.1
 
 
@@ -78,7 +85,7 @@ STEP 5 - Install this mod with [url=https://www.nexusmods.com/residentevilvillag
 
 5.2  Open Fluffy Mod Manager (see the downloads button there; it might need you to download a newer version of the mod manager first), then choose Resident Evil Village.
 
-5.3  Drag "RE-Village-VR-Scope-v1.1.1-fluffyMM.zip" into the Fluffy window.
+5.3  Drag "RE-Village-VR-Scope-v1.1.2-fluffyMM.zip" into the Fluffy window.
 (Or put the zip into Fluffy's Games\RE8\Mods folder and restart Fluffy.)
 
 5.4  Tick "RE Village VR Scope" in the list, so it installs.

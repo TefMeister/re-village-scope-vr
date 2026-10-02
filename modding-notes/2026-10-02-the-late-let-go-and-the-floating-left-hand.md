@@ -64,7 +64,31 @@ DLL loading). The RE2 copy carries `steam_appid.txt`; the Village copy now has o
   the weapon grip"*). A grip socket under 15 cm from the right hand (pistol ~6 cm; shotgun/rifle 39-46 cm) is now a support
   hand only: drawn on the gun, no steering (`GRIP_STEER_MIN_M`). Tests 36/36. Deployed to the D: copy 14:00, not worn.
 
+## 15:00: the rifle turns in the hand at every shot (shot recorder, 6 shots)
+
+Tefa: only the rifle jumps, in every hold, *"tip goes right"*; pistol and shotgun stay put `[reported 2026-10-02]`.
+`re8_vrz_shot_recorder.lua` (probe, D: copy only) logged the barrel line in the right hand target's frame around each
+shot. Same one-handed (shots 1-3) and two-handed (4-6): flat to 0.05 deg until ~2 frames before the bullet, then 1.1-1.2
+deg, ~3.2-3.5 deg at the shot, then a STEADY ~1.77 deg (1.35 sideways = the tip right, 1.14 down) still there 0.48 s
+later; the hand target itself moved 0.4-0.8 deg `[measured 2026-10-02, n=6 shots]`. So: the rifle's own firing
+animation turns the gun below the wrist; neither the grip nor praydog's steering causes it.
+
+Built `re8_vrz_rifle_steady.lua` (D: copy, not worn): with the rifle in hand it takes the barrel's line in the hand as a
+reference once the rifle has held still 0.5 s after a draw, and on every hand update turns the right hand target by the
+difference whenever it is between 0.05 and 6 deg. One frame late by design (the barrel is read from the last drawn
+frame), so the first frame of the spike may still flash; the steady 1.8 deg is taken out. Logs per shot what it took out
+and what was left. Test `tests/rifle_steady_test.lua` 6/6 `[compile-verified 2026-10-02]`.
+
+## 15:05: worn. Tefa: "rifle stays still now"
+
+`[reported 2026-10-02]`, 6 shots one- and two-handed. The log: reference taken 2.8 s after the draw; it took out up to
+3.3-5.6 deg per shot. Its "left after it" figure read 15-17 deg on every shot: that window (0.6 s) runs into the bolt
+cycle, which is bigger than the 6 deg limit and left alone on purpose, so the figure measures the bolt, not a fault.
+Narrow it to the frames before the bolt if it is ever needed. Next ask from Tefa: *"the scope picture is really dim,
+needs a brightness boost quite a bit"* -- the knob is numpad 8 (x1.25 per press, saved at once, `exposure_gt`, now 6.875).
+
 ## Shipped
 
-Tefa, 14:05: *"done, all three work as they should"* (pistol, rifle, shotgun on the D: copy)
-`[verified-live 2026-10-02, n=1 wearer]`. Packaged as v1.1.1, installed in the Steam game with Fluffy, released.
+v1.1.1 (14:15): the let-go, every weapon's own left-hand spot, the pistol not steered. v1.1.2 (16:00): the still rifle at
+the shot, and the scope following the game's auto-exposure (Tefa: "it's perfect now!", "this build as it is, is ready for a
+proper playthrough") `[reported 2026-10-02]`.

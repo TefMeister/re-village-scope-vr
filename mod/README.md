@@ -10,7 +10,7 @@ or a flat overlay. (Not to be confused with the mod's flat-monitor mode,
 which additionally shows a picture-in-picture magnifier circle on screen;
 in VR the lens is the whole show.)
 
-> **Status: finished. v1.1.1 released (2026-10-02; v1.0.0 on 2026-09-27).** Download the zip from the
+> **Status: finished. v1.1.2 released (2026-10-02; v1.0.0 on 2026-09-27).** Download the zip from the
 > [Releases page](https://github.com/TefMeister/re-village-scope-vr/releases) or from
 > [Nexus Mods](https://www.nexusmods.com/residentevilvillage/mods/827) — its `README.txt` has step-by-step
 > install instructions and the exact REFramework, DLSS and NVIDIA versions it was tested with. No `.bat` files: it is
