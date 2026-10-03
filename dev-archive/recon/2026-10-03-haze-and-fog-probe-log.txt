@@ -1,0 +1,50 @@
+[2026-10-03 22:27:41.451] [REFramework] [info] [re8-haze] loaded (read-only haze probe; logs on change, every 2.0 s)
+[2026-10-03 22:27:41.471] [REFramework] [info] [re8-haze] MAIN  haze: VolumeNoiseTexture=<via.render.TextureResourceHolder> HazeSrc=<via.render.TextureResourceHolder> InvSrc=false Direction=(0 -1 0 ) Speed=0.005 NoiseTexScale=1 MoveScale=0 HazeScale=0.05 UseBorder=false BorderWidth=0.04 BorderFade=0 UseDepthHeight=false EnableDepth=true EnableHeight=true DepthStart=1000 DepthEnd=3e+04 DepthDiffBias=0 HeightStart=100 HeightEnd=0 Enabled=false
+[2026-10-03 22:27:41.471] [REFramework] [info] [re8-haze] MAIN  app.HazeFilterController: ._HazeFilter=<via.render.LDRHazeFilter> ._EspFilterMode=false Enabled=true UpdateCost=0 LateUpdateCost=0
+[2026-10-03 22:27:41.471] [REFramework] [info] [re8-haze] CLONE haze: VolumeNoiseTexture=<via.render.TextureResourceHolder> HazeSrc=<via.render.TextureResourceHolder> InvSrc=false Direction=(0 -1 0 ) Speed=0.005 NoiseTexScale=1 MoveScale=0 HazeScale=0.05 UseBorder=false BorderWidth=0.04 BorderFade=0 UseDepthHeight=false EnableDepth=true EnableHeight=true DepthStart=1000 DepthEnd=3e+04 DepthDiffBias=0 HeightStart=100 HeightEnd=0 Enabled=false
+[2026-10-03 22:38:51.033] [REFramework] [info] [re8-haze] round 2 loaded: fog main vs clone, every 5.0 s (MAX_VALUES 120)
+[2026-10-03 22:38:51.048] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:38:51.048] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:38:51.049] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 0 of 24 values differ
+[2026-10-03 22:38:56.060] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:38:56.061] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:38:56.061] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 0 of 24 values differ
+[2026-10-03 22:39:01.066] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:01.066] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:01.066] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 0 of 24 values differ
+[2026-10-03 22:39:06.078] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:06.078] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:06.079] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=2
+[2026-10-03 22:39:11.087] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:11.088] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:11.088] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=3 clone=1
+[2026-10-03 22:39:16.095] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:16.095] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:16.095] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 0 of 24 values differ
+[2026-10-03 22:39:21.104] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:21.104] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:21.105] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=3
+[2026-10-03 22:39:26.115] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:26.115] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:26.115] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=3 clone=4
+[2026-10-03 22:39:31.122] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:31.122] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:31.123] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 0 of 24 values differ
+[2026-10-03 22:39:36.125] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:36.125] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:36.125] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=3
+[2026-10-03 22:39:41.136] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:41.136] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:41.137] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=4
+[2026-10-03 22:39:46.148] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:46.148] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:46.148] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=2
+[2026-10-03 22:39:51.157] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:51.158] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:51.158] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=2
+[2026-10-03 22:39:56.160] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:39:56.160] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:39:56.160] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=2
+[2026-10-03 22:40:01.163] [REFramework] [info] [re8-haze] via.render.Fog: 0 of 42 values differ
+[2026-10-03 22:40:01.163] [REFramework] [info] [re8-haze] via.render.VolumetricFog: 0 of 15 values differ
+[2026-10-03 22:40:01.163] [REFramework] [info] [re8-haze] via.render.VolumetricFogControl: 1 of 24 values differ: VolumetricFogCount main=5 clone=3

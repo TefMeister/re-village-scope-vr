@@ -4992,3 +4992,19 @@ still holds the clone's picture at Present (praydog copies during the draw). Tes
 ## Inbox folds, 2026-09-29
 
 **2026-09-29 (`/gr`, folded): the rifle camera's FOV change (20 → 26.23) is not REFramework's doing unless it became the primary camera.** REFramework's VR mod writes FOV/aspect every frame only on `via.SceneView.get_PrimaryCamera`; its projection override reaches every camera, its view override only the primary one `[inferred-static 2026-09-29]`. Cheap live check: read `get_PrimaryCamera` while the rifle camera exists. No public TDB-70 render-to-texture example was found. Topic: `external-research/topics/2026-09-29-reframework-writes-fov-only-on-the-primary-camera.md`.
+
+### 2026-10-03 night: the outdoor blue is not the haze filter and not the fog settings
+
+Read live outdoors and indoors with a read-only probe (`dev-archive/archive/re8_scope_haze_probe.lua`, log in
+`dev-archive/recon/2026-10-03-haze-and-fog-probe-log.txt`):
+- `via.render.LDRHazeFilter` (through `LDRPostProcess.get_HazeFilter`) is **Enabled=false on both cameras**, indoors and
+  out; it is a heat-haze distortion (noise texture, scroll speed), not a fog veil `[verified-live 2026-10-03, n=1]`.
+  `app.HazeFilterController` exists on MainCamera and does not switch it on here. Lead dropped.
+- The clone's `via.render.Fog` (42 values), `VolumetricFog` (15) and `VolumetricFogControl` (24) **match MainCamera's
+  exactly** every 5 s outdoors, except **`VolumetricFogCount`: main 5, clone 2-4** `[verified-live 2026-10-03, n=1,
+  ~12 samples]`. So the settings are copied; what differs is how many fog volumes the clone's view takes in.
+  Open `[hypothesis]`: fewer volumes = less grey in-scattering = the bluer, more saturated scope picture outdoors.
+  Unknown whether the count is just the narrow FOV culling volumes or the clone missing volumes it should get.
+  Next: find what feeds VolumetricFogCount (per-view culling of fog volume components) and whether the clone can be
+  given the main camera's list. `app.FogController` animates the main camera's fog all the time outdoors (timer,
+  zone data); its values do reach the clone (clonelook).
