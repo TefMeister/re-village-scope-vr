@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox drained (the 09-26 second-camera questions): REFramework writes the FOV only on the primary camera but the eye projection on every camera, so the rifle camera's 20→26.23 FOV is not REFramework's doing unless it became primary; no public TDB-70 render-to-texture example found.
+**Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the scope-colour rows are headset judgements. REFramework nightly is still 2026-09-16 and its release still v1.5.9.1. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox drained (the 09-26 second-camera questions): REFramework writes the FOV only on the primary camera but the eye projection on every camera, so the rifle camera's 20→26.23 FOV is not REFramework's doing unless it became primary; no public TDB-70 render-to-texture example found._
 
 _Previous: Last `/gr` pass: 2026-09-23 (estate sweep) — FULL.** Checked against phunkaeg's *VR Modding Playbook*: theHunter: Call of the Wild VR's measured scope design and its flicker post-mortem (same object, same code path); transfer to our lens-drawn scope is a hypothesis.
 
