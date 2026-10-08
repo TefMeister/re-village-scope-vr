@@ -12,6 +12,13 @@ Not an official Capcom or REFramework product, and not affiliated with either.
 It contains no original game files and no REFramework files. You must own Resident Evil Village.
 
 
+Changes in v1.1.3
+
+
+The scope no longer sees through a wall right in front of the rifle in tight spaces.
+Everything else is as in v1.1.2.
+
+
 Changes in v1.1.2
 
 
@@ -89,7 +96,7 @@ STEP 5 - Install this mod with [url=https://www.nexusmods.com/residentevilvillag
 
 5.2  Open Fluffy Mod Manager (see the downloads button there; it might need you to download a newer version of the mod manager first), then choose Resident Evil Village.
 
-5.3  Drag "RE-Village-VR-Scope-v1.1.2-fluffyMM.zip" into the Fluffy window.
+5.3  Drag "RE-Village-VR-Scope-v1.1.3-fluffyMM.zip" into the Fluffy window.
 (Or put the zip into Fluffy's Games\RE8\Mods folder and restart Fluffy.)
 
 5.4  Tick "RE Village VR Scope" in the list, so it installs.
