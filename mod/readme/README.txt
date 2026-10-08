@@ -1,5 +1,7 @@
-RE VILLAGE VR SCOPE  v1.1.2  (2026-10-02)
+RE VILLAGE VR SCOPE  v1.1.3  (2026-10-08)
 
+v1.1.3: the scope no longer sees through a wall right in front of the rifle in tight spaces (its near limit is now 5 cm from
+        the lens instead of following the muzzle); everything else is as in v1.1.2.
 v1.1.2: the sniper rifle no longer jumps to the right when it fires; the scope picture now brightens and dims with the
         game, indoors and outdoors, and its blue tint is gone.
 v1.1.1: the left hand lets go of the gun with a short pull (about 10 cm, or about 25 degrees sideways); on the pistol it
