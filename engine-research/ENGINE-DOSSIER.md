@@ -5008,3 +5008,27 @@ Read live outdoors and indoors with a read-only probe (`dev-archive/archive/re8_
   Next: find what feeds VolumetricFogCount (per-view culling of fog volume components) and whether the clone can be
   given the main camera's list. `app.FogController` animates the main camera's fog all the time outdoors (timer,
   zone data); its values do reach the clone (clonelook).
+
+### 9cz. MESH DETAIL (LOD) IS PER MESH, NOT PER CAMERA -- "low mesh on the scope only" is not an engine switch (2026-10-09, desk)
+
+Asked by Tefa after the scope camera got its own low picture effects: can the SCOPE draw low mesh detail while the world stays at
+max? Read from the game program's own reflection names (no SDK dump on this PC; every name below sits in `re8.exe`, grouped with
+its class's other members) `[inferred-static 2026-10-09]`:
+- **`via.render.Mesh` owns the LOD choice, one per mesh component:** `LodMode` (`via.render.LodMode` = Automatic / Manual),
+  `LodLevel`, **`LodFollowTarget`** (a `via.GameObjectRef`: the object whose position the distance is measured from),
+  `EnableLodEffectiveRange` / `LodEffectiveRange`, and the shadow twins `ShadowLodMode` / `ShadowLodLevel`. Neighbours in the same
+  member block: `DrawShadowCast`, `RealMeshShadow`, `DrawFarCascadeShadowCast`, `LodCount`, `ShadowLodCount`.
+- **The quality knob is global:** `via.render.RenderConfig.set_MeshQuality` (`via.render.RenderConfig.Quality`, the menu's
+  `Option_PC_MeshQuality`, applied by `onApplyMeshQuality` next to every other menu row), plus a renderer-level `LodBias`
+  (member block with frustum-culling and indirect-draw settings) and `via.render.GlobalLodSettings` / `GlobalLodParameter`
+  (`LodMinimumSize`, `LodMaximumSize`, `LodSettingsPath`). Nothing LOD-shaped on `via.Camera` or a render layer.
+- So a mesh is at ONE level per frame, decided before drawing from its follow target (by default the player / main camera);
+  the main view and the rifle camera's clone then both draw that level. There is no per-camera bias to set, and changing the
+  global bias between the two passes would not help: the level is state, not a per-pass decision.
+- **What this means for the scope today:** far objects seen through the 4x scope are drawn at their FAR (low) level, chosen by
+  their distance from the player, not by how big they look in the lens. The scope pass is already the cheap one for distance;
+  the only way to a leaner scope pass is the per-camera effects list (cam_clone `LOW_SKIP`) and the clone's target size.
+- Not tried, on purpose: `LodFollowTarget` per mesh would move the level for the main view too (same mesh), and `Manual`
+  `LodLevel` per mesh is a per-object override, not a per-camera one. A hook that re-decides LOD for the clone's pass would be
+  a renderer-internals job (`updateComponentLOD` / `decideLod` / `calculateLod` exist as names) -- out of proportion for a
+  scope that already draws far things at far detail. CLOSED as "no".
