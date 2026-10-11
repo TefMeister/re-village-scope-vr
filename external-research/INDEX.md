@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the scope-colour rows are headset judgements. REFramework nightly is still 2026-09-16 and its release still v1.5.9.1. Nothing new.
+**Last `/gr` pass: 2026-10-11 (estate sweep) — CHECK-IN.** Inbox empty. REFramework master moved again 2026-10-10/11 (nightly-01432); nothing in it touches the scope. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the scope-colour rows are headset judgements. REFramework nightly is still 2026-09-16 and its release still v1.5.9.1. Nothing new._
 
 _Previous: **Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox drained (the 09-26 second-camera questions): REFramework writes the FOV only on the primary camera but the eye projection on every camera, so the rifle camera's 20→26.23 FOV is not REFramework's doing unless it became primary; no public TDB-70 render-to-texture example found._
 
