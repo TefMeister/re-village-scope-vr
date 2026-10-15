@@ -12,7 +12,7 @@ in VR the lens is the whole show.)
 
 > **Status: finished. Current version v1.1.5 (2026-10-10, confirmed in play). Released on GitHub 2026-10-14 (v1.0.0 on 2026-09-27, v1.1.2 on 2026-10-02); v1.1.3 added the scope's 5 cm near limit (no seeing through nearby walls); v1.1.4 removed the rifle-up lag and tuned the colour; v1.1.5 keeps reloads from being cancelled by the VR block gesture when both hands hold the gun.** Download the v1.1.5 zip from the
 > [Releases page](https://github.com/TefMeister/re-village-scope-vr/releases/latest) (also on
-> [Nexus Mods](https://www.nexusmods.com/residentevilvillage/mods/827), which may still list an older version) — its `README.txt` has step-by-step
+> [Nexus Mods](https://www.nexusmods.com/residentevilvillage/mods/827)) — its `README.txt` has step-by-step
 > install instructions and the exact REFramework, DLSS and NVIDIA versions it was tested with. No `.bat` files: it is
 > a set of files copied into the game folder, on top of praydog's REFramework.
 >
