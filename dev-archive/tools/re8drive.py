@@ -115,6 +115,7 @@ POLL_S = 0.5
 NUDGE_S = 2.0          # before the menu: press enter this often to skip the intro / title
 GAMEPLAY_NEEDLES = ("rifle in hand", "autostart: DONE")   # log lines that mean we are playing
 LAUNCH_BAT = os.path.join(GAME, "LAUNCH-VILLAGE.bat")
+STEAM_URL = "steam://rungameid/1196590"
 
 
 def which_screen(img, tpl):
@@ -147,8 +148,14 @@ def boot(timeout=180.0):
         hwnd, _ = find_window()
     except SystemExit:
         import subprocess
-        subprocess.Popen(["cmd", "/c", LAUNCH_BAT], cwd=GAME)
-        print("launched")
+        # 2026-10-24: LAUNCH-VILLAGE.bat went with the 2026-10-01 clean install, and cmd /c on a missing file fails silently
+        # (the boot then waited 180 s for a window that never came). Fall back to Steam's own launch.
+        if os.path.isfile(LAUNCH_BAT):
+            subprocess.Popen(["cmd", "/c", LAUNCH_BAT], cwd=GAME)
+            print("launched (%s)" % os.path.basename(LAUNCH_BAT), flush=True)
+        else:
+            os.startfile(STEAM_URL)
+            print("launched (%s; no %s)" % (STEAM_URL, os.path.basename(LAUNCH_BAT)), flush=True)
         hwnd = None
     while hwnd is None and time.time() - t0 < timeout:
         time.sleep(1.0)
@@ -166,7 +173,7 @@ def boot(timeout=180.0):
             s = which_screen(H.grab(hwnd), tpl)
         except (SystemExit, OSError, ValueError):    # 2026-09-26: the first window has no client area for a moment
             time.sleep(POLL_S); continue
-        if s != last: print("%5.1f s  screen: %s" % (time.time() - t0, s)); last = s
+        if s != last: print("%5.1f s  screen: %s" % (time.time() - t0, s), flush=True); last = s
         if s == "load_prompt":
             H.tap("w", settle=0.3); H.tap("f", settle=0.8)
         elif s == "f_continue":
