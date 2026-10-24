@@ -18,8 +18,8 @@ import os
 import numpy as np
 from PIL import Image
 
-SRC = r"~\github-backups-pd\re-village-scope-vr\dev-archive\recon\2026-09-05e-flat-control-and-eyebox-ladder\sweep-0.5deg"
-OUT = r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad"
+SRC = os.path.expanduser(r"~\github-backups-pd\re-village-scope-vr\dev-archive\recon\2026-09-05e-flat-control-and-eyebox-ladder\sweep-0.5deg")
+OUT = os.path.expanduser(r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad")
 
 
 def load(p):

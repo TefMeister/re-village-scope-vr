@@ -7,7 +7,7 @@ Reported (dx,dy) = displacement of the CONTENT from base -> frame.
 import numpy as np, os, json
 from PIL import Image
 
-D=r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures'
+D=os.path.expanduser(r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures')
 OUT=os.path.dirname(os.path.abspath(__file__))
 def g(n): return np.asarray(Image.open(os.path.join(D,n)).convert('L'),dtype=np.float64)
 

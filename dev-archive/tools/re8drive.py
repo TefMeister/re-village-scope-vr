@@ -20,7 +20,7 @@ Usage:
 """
 import ctypes, ctypes.wintypes as w, importlib.util, os, sys, time
 
-TOOLKIT = r"~\github-backups\flat-to-vr-RE-toolkit\tools\game-harness.py"
+TOOLKIT = os.path.expanduser(r"~\github-backups\flat-to-vr-RE-toolkit\tools\game-harness.py")
 GAME = r"C:\Steam\steamapps\common\Resident Evil Village BIOHAZARD VILLAGE"
 LOG = os.path.join(GAME, "re2_framework_log.txt")   # the fork names it re2_ for every RE game
 CMD = os.path.join(GAME, "reframework", "data", "re_scope_cmd.txt")

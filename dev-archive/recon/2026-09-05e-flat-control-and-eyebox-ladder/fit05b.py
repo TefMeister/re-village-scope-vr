@@ -22,8 +22,8 @@ import os
 import numpy as np
 from PIL import Image
 
-SRC = r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad\lm\sweep"
-OUT = r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad\lm"
+SRC = os.path.expanduser(r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad\lm\sweep")
+OUT = os.path.expanduser(r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad\lm")
 
 
 def load(p):

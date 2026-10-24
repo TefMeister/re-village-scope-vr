@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 import os
-D=r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures'
+D=os.path.expanduser(r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures')
 def g(n):
     return np.asarray(Image.open(os.path.join(D,n)).convert('L'),dtype=np.float64)
 base=g('base-p180-y90.jpg')

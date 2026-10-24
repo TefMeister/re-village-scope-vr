@@ -1,5 +1,5 @@
 import os, subprocess, sys, time
-HERE = r"~\re-village-scope-vr\dev-archive\tools"
+HERE = os.path.expanduser(r"~\re-village-scope-vr\dev-archive\tools")
 DRIVE = os.path.join(HERE, "re8drive.py")
 OUT = sys.argv[1]
 os.makedirs(OUT, exist_ok=True)
