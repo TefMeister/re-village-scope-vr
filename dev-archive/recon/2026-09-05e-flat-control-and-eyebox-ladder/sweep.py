@@ -11,13 +11,13 @@ import importlib.util
 import os
 import time
 
-DRIVE = r"~\re-village-scope-vr\dev-archive\tools\re8drive.py"
+DRIVE = os.path.expanduser(r"~\re-village-scope-vr\dev-archive\tools\re8drive.py")
 spec = importlib.util.spec_from_file_location("re8drive", DRIVE)
 D = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(D)
 H = D.H
 
-OUT = r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad\lm\sweep"
+OUT = os.path.expanduser(r"~\AppData\Local\Temp\claude\C--Steam-steamapps-common\f9a9208a-d9a3-4409-b891-2ea19c978b48\scratchpad\lm\sweep")
 os.makedirs(OUT, exist_ok=True)
 
 hwnd, title = D.find_window()

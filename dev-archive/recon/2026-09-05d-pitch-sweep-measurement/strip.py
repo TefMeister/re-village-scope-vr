@@ -1,6 +1,6 @@
 import numpy as np, os
 from PIL import Image
-D=r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures'
+D=os.path.expanduser(r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures')
 order=[('base-p180-y90.jpg','base'),('pitch-185.jpg','+5'),('pitch-190.jpg','+10'),
        ('pitch-195.jpg','+15'),('pitch-200.jpg','+20'),('pitch-205.jpg','+25'),('back-p180.jpg','back')]
 # crop the scope picture only: x 380..895, y 100..600

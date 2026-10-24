@@ -1,3 +1,4 @@
+import os
 """Click inside the game window using CLIENT coordinates (which equal screenshot
 pixels here, client is 1920x1080).
 
@@ -9,7 +10,7 @@ Usage: python click2.py <client_x> <client_y> [hold_seconds]
 """
 import ctypes, ctypes.wintypes as w, importlib.util, sys, time
 
-TOOLKIT = r"~\github-backups\flat-to-vr-RE-toolkit\tools\game-harness.py"
+TOOLKIT = os.path.expanduser(r"~\github-backups\flat-to-vr-RE-toolkit\tools\game-harness.py")
 spec = importlib.util.spec_from_file_location("harness", TOOLKIT)
 H = importlib.util.module_from_spec(spec); spec.loader.exec_module(H)
 u = ctypes.windll.user32

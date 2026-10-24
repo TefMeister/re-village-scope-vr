@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 import os
-D=r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures'
+D=os.path.expanduser(r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures')
 def g(n): return np.asarray(Image.open(os.path.join(D,n)).convert('L'),dtype=np.float64)
 names=['base-p180-y90.jpg','pitch-185.jpg','pitch-190.jpg','pitch-195.jpg','pitch-200.jpg','pitch-205.jpg',
        'yaw-95.jpg','yaw-100.jpg','yaw-105.jpg','yaw-110.jpg','yaw-115.jpg','back-p180.jpg','back-y90.jpg']

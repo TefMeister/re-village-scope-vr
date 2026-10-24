@@ -21,7 +21,7 @@ values that produced it. Read the picture's roll off a straight edge (door frame
 """
 import os, subprocess, sys, time
 
-DRIVE = r"~\github-backups\re-village-scope-vr\dev-archive\tools\re8drive.py"
+DRIVE = os.path.expanduser(r"~\github-backups\re-village-scope-vr\dev-archive\tools\re8drive.py")
 OUT = sys.argv[1] if len(sys.argv) > 1 else "."
 MODE = sys.argv[2].lower() if len(sys.argv) > 2 else "pitchyaw"
 SETTLE = 1.2

@@ -1,6 +1,6 @@
 import numpy as np, os
 from PIL import Image
-D=r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures'
+D=os.path.expanduser(r'~/github-backups-pd/re-village-scope-vr/dev-archive/recon/2026-09-05-steering-sweep-flat/captures')
 CX,CY=636.0,353.0; H,W=720,1280
 valid=np.load('valid.npy')
 def rgb(n): return np.asarray(Image.open(os.path.join(D,n)).convert('RGB'),dtype=np.float64)

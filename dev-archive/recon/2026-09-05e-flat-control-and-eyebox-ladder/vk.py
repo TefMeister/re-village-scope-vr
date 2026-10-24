@@ -1,3 +1,4 @@
+import os
 """Send an arbitrary virtual key to the RE Village window.
 
 re8drive.py's `num` only covers the numpad digits (0x60+n). The scope panel also
@@ -14,12 +15,12 @@ import importlib.util
 import sys
 import time
 
-TOOLKIT = r"~\github-backups\flat-to-vr-RE-toolkit\tools\game-harness.py"
+TOOLKIT = os.path.expanduser(r"~\github-backups\flat-to-vr-RE-toolkit\tools\game-harness.py")
 spec = importlib.util.spec_from_file_location("harness", TOOLKIT)
 H = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(H)
 
-DRIVE = r"~\re-village-scope-vr\dev-archive\tools\re8drive.py"
+DRIVE = os.path.expanduser(r"~\re-village-scope-vr\dev-archive\tools\re8drive.py")
 spec2 = importlib.util.spec_from_file_location("re8drive", DRIVE)
 D = importlib.util.module_from_spec(spec2)
 spec2.loader.exec_module(D)
