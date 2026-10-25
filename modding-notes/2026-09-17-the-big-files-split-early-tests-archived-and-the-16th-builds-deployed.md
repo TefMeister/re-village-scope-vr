@@ -8,7 +8,7 @@ which the user approved today.
 ## What changed
 
 **Backups first.**
-- Tag `pre-split-2026-09-17` in `staging` (at `95557a5`) and in `psychonauts-vr` (at `ac86506`).
+- Tag `pre-split-2026-09-17` in `staging` (at `95557a5`) and in `psychonauts-vr` (at `ab6afde`).
 - Copies of the three big files and the split map in `~\big-file-backups-2026-09-17\`.
 - The install as it was, in `reframework/_archive-2026-09-17/deployed-before-2026-09-17/`
   (plugin `38518f0`, producer `6d111ac`, harness `fc5e535`).
@@ -36,7 +36,7 @@ Move only; `staging` `4f9fcb6`.
   The modules have 6–37 each.
 
 **Psychonauts `proxy_d3d9.c` (6,550 lines) → 14 `px_NN_*.c.inc` parts** in the same order, largest
-736 lines. The DLL is byte-identical to the pre-split build `[measured 2026-09-17]`. `psychonauts-vr` `da51b90`.
+736 lines. The DLL is byte-identical to the pre-split build `[measured 2026-09-17]`. `psychonauts-vr` `ab2516d`.
 
 **The install, tidied.** Everything below went to `reframework/_archive-2026-09-17/`, where nothing
 is loaded and nothing is deleted:
