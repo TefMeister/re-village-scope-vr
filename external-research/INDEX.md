@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-10-11 (estate sweep) — CHECK-IN.** Inbox empty. REFramework master moved again 2026-10-10/11 (nightly-01432); nothing in it touches the scope. Nothing new.
+**Last `/gr` pass: 2026-10-26 — CHECK-IN.** Inbox empty; the scope is done (v1.1.5). REFramework moved once since 10-11 (nightly-01433, a Dragon's Dogma 2 window fix), nothing for Village. Read praydog's one-handed gun pose for the "rifle points up" row: a fixed, runtime-dependent hand offset, so a tilt that comes and goes is tracking; one topic, pointer sent to the dossier.
+
+_Previous: **Last `/gr` pass: 2026-10-11 (estate sweep) — CHECK-IN.** Inbox empty. REFramework master moved again 2026-10-10/11 (nightly-01432); nothing in it touches the scope. Nothing new._
 
 _Previous: **Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the scope-colour rows are headset judgements. REFramework nightly is still 2026-09-16 and its release still v1.5.9.1. Nothing new._
 
@@ -36,6 +38,7 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
+| 2026-10-26 | [The one-handed gun pose is the controller's rotation times a fixed offset, and the offset depends on the runtime](topics/2026-10-26-the-one-handed-gun-pose-is-controller-times-a-fixed-offset.md) | 🆕 | Answers the "rifle points up" row's no-game first step: praydog adds a constant per-hand offset (different for OpenXR and OpenVR, live sliders in his menu), so a tilt that comes and goes is the controller's tracking, not the offset. |
 | 2026-09-29 | [REFramework writes the FOV only on the primary camera, but the eye projection on every camera](topics/2026-09-29-reframework-writes-fov-only-on-the-primary-camera.md) | 🆕 | Answers the 09-26 hand-off, question 3; questions 1 and 2 not found publicly. |
 | 2026-09-23 | [theHunter: Call of the Wild VR: a measured scope design, and a flicker post-mortem worth reading first](topics/2026-09-23-thehunter-vr-scope-design-and-the-same-object-same-path-rule.md) | 🆕 | A one-eye-then-other-eye shot test for per-eye aim, and a flicker caused by one object drawn by two routes. |
 | 2026-09-11 | [Capcom's later scopes magnify by scaling a lens image, and a public MIT-0 fix names the exact fields](topics/2026-09-11-capcoms-later-scopes-magnify-by-scaling-a-lens-image-and-a-public-fix-names-the-fields.md) | 🆕 new | **Aimed at the ⭐⭐ `[PD]` "read Capcom's own VR scope" row.** RE9's flat scope renders wide and **scales the lens image** (`app.ScopeCameraControllerV3` → `_ParamUserData` → `_LensImageDefaultScale` / `_LensImageZoomRate`); TonWonton's public fix turns that off and zooms by `_ZoomFov` instead, claiming full resolution and better frame time `[reported 2026-09-11]`. RE8 flat is a FOV zoom (§2) so nothing to flip there — but it makes `ExpansionRate` on `VrWeaponSniperScopeLensUpdater` read as a lens-image magnification term `[hypothesis]`, and is a minimal worked pattern for hooking an `app.*` controller's parameter block. Negative re-checked: REFramework `master` still has no mirror/scope exemption in the projection override. |
