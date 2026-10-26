@@ -67,3 +67,7 @@ just grateful to have learned from it.
 
 - **phunkaeg**, VR Modding Playbook — https://github.com/phunkaeg/vr-modding-playbook
 - **vaas993**, theHunterCotW-VR — https://github.com/vaas993/theHunterCotW-VR
+
+## Sources (2026-10-26)
+
+- **praydog**, REFramework: `scripts/re8_vr.lua` and `src/mods/vr/games/RE8VR.cpp` (the one-handed hand pose and its offsets), read online — https://github.com/praydog/REFramework
