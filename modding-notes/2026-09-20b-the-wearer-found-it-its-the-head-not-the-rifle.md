@@ -1,6 +1,6 @@
 # The wearer found it: it is the HEAD, not the rifle — and it clips on two sides only
 
-**2026-09-20, home PC (RTX), live, wearer present.** The best data of the whole project, and none
+**2026-09-20, home PC, live, wearer present.** The best data of the whole project, and none
 of it came from an instrument.
 
 ## What Tefa reported, unprompted

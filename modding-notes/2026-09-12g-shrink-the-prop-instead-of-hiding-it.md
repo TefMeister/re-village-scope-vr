@@ -1,4 +1,4 @@
-# Shrink the prop instead of hiding it — Tefa's idea, and the one line of code that decides it (2026-09-12 night, home PC `RTX`, `/pd`)
+# Shrink the prop instead of hiding it — Tefa's idea, and the one line of code that decides it (2026-09-12 night, home PC, `/pd`)
 
 **The game was not launched and nothing here has been run.** Built, parse-checked, deployed and
 hash-stamped.

@@ -1,6 +1,6 @@
 # DISPROVED: the projection at that hook does not draw the scope picture
 
-**2026-09-19, home PC (RTX), live, wearer present.** The clean negative that ends the evening's
+**2026-09-19, home PC, live, wearer present.** The clean negative that ends the evening's
 main line of work, and takes a premise from §9aq with it.
 
 ## The test and the result

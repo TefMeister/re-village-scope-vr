@@ -1,6 +1,6 @@
 # The vertical zero flipped sign — and it was causing the streak as well
 
-**2026-09-20, home PC (RTX), live, wearer firing.** The measurement that ties the aim and the streak
+**2026-09-20, home PC, live, wearer firing.** The measurement that ties the aim and the streak
 together.
 
 ## What was measured

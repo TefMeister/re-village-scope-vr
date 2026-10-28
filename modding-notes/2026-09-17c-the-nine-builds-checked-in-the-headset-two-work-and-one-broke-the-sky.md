@@ -1,4 +1,4 @@
-# 2026-09-17c — the nine 2026-09-16 builds checked in the headset: two work, one broke the sky (`/ms`, home PC `RTX`, Tefa wearing, 21:54–00:05)
+# 2026-09-17c — the nine 2026-09-16 builds checked in the headset: two work, one broke the sky (`/ms`, home PC, Tefa wearing, 21:54–00:05)
 
 **Tefa's brief:** *"let's get all the features that dev pc built checked today, but not work on
 them, just make sure what works and what doesn't."* So this is a verdict sheet. Nothing in the
@@ -194,7 +194,7 @@ the 09-16f static read. Not done: a dump while scoped in, or after a shot.
   inversion; keep the player out of the mirror; the re-bind's one-second wait; the hand's real
   offset; hotkey saves persisting harness overrides.
 
-## 4. What was changed on `RTX`
+## 4. What was changed on `home PC`
 
 Settings file only, game closed both times, backed up first
 (`re_scope_vr_settings.txt.bak-2026-09-17`, `.bak-2026-09-18-end-of-session`):

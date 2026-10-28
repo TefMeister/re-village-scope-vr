@@ -1,6 +1,6 @@
 # The spread number was found on 2026-09-17 and nobody read it
 
-**2026-09-20, home PC (RTX), `/lm`, two launches, flat, no headset.** Game launched, probes run,
+**2026-09-20, home PC, `/lm`, two launches, flat, no headset.** Game launched, probes run,
 game closed. No gameplay, no wearer.
 
 ## ⚠️ The headline is not what I first wrote

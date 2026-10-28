@@ -1,6 +1,6 @@
 # 2026-09-21 16:40–16:47 — eighth zero: up −10.7 / right −9.5, and distance-follow reaches the glass
 
-Home PC (RTX), Tefa in the headset. First run of the dossier §9ce build.
+Home PC, Tefa in the headset. First run of the dossier §9ce build.
 
 ## What the log says
 

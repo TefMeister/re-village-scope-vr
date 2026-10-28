@@ -1,4 +1,4 @@
-# The constant tilt gets a knob that measures its own value, and the goat toggle turns out not to be free (2026-09-12 night, home PC `RTX`, `/pd`)
+# The constant tilt gets a knob that measures its own value, and the goat toggle turns out not to be free (2026-09-12 night, home PC, `/pd`)
 
 **The game was not launched and nothing here has been run.** Built, tested on the host, deployed
 and hash-stamped.

@@ -1,4 +1,4 @@
-# First worn win: the disc sits still, and the gun steers the picture (2026-09-12 afternoon, home PC `RTX`, Tefa in the headset, Claude at the files)
+# First worn win: the disc sits still, and the gun steers the picture (2026-09-12 afternoon, home PC, Tefa in the headset, Claude at the files)
 
 Two lanes in one afternoon. **15:12–15:50, hands-on** (`/ms` claim): Tefa launched, wore
 and judged; Claude never touched the game beyond writing its two command files. **15:59

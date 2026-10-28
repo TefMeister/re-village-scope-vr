@@ -1,4 +1,4 @@
-# Four wears in one evening: the spin cancel goes from "spins and snaps" to "half strength, no snaps, one steady tilt left" (2026-09-12 evening, home PC `RTX`, `/lm`, Tefa wearing)
+# Four wears in one evening: the spin cancel goes from "spins and snaps" to "half strength, no snaps, one steady tilt left" (2026-09-12 evening, home PC, `/lm`, Tefa wearing)
 
 Tefa launched (three times, all in VR) and wore; Claude drove everything else from the two
 command files and rebuilt the plugin twice between wears. Evidence and both roll traces:

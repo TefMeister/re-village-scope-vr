@@ -1,4 +1,4 @@
-# 2026-09-13b — The exact map: one formula from the glass to the mirror picture, instead of a roll knob (`/pd`, home PC `RTX`, NO LAUNCH, Fable)
+# 2026-09-13b — The exact map: one formula from the glass to the mirror picture, instead of a roll knob (`/pd`, home PC, NO LAUNCH, Fable)
 
 **The game was not launched and nothing here has been run in the game.** Source: `staging/re-village-scope-vr/`
 (`plugin/src/scope_geom_math.h`, `plugin/tools/geom_test.cpp`, `Plugin.cpp`, both Lua files). Dossier §9w.

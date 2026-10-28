@@ -1,6 +1,6 @@
 # The steering hook fires live — and two ways an automated session can fool itself
 
-**2026-09-19, home PC (RTX), one launch, flat.** Follows on from
+**2026-09-19, home PC, one launch, flat.** Follows on from
 `2026-09-19b-the-steering-code-is-written-and-builds.md`.
 
 ## The result

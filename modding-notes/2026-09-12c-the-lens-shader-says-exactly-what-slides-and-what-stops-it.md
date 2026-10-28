@@ -1,4 +1,4 @@
-# The lens shader says exactly what slides the picture, and which two numbers stop it (2026-09-12 late afternoon, home PC `RTX`, `/pd`)
+# The lens shader says exactly what slides the picture, and which two numbers stop it (2026-09-12 late afternoon, home PC, `/pd`)
 
 **The game was not launched and nothing here has been run.** The shader was read off disk.
 One build was made, deployed and hash-stamped; it has not been executed.

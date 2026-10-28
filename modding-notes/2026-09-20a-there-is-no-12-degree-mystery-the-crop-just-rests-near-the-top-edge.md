@@ -3,7 +3,7 @@
 **Supersedes: `modding-notes/2026-09-19g-two-aiming-paths-disagree-and-the-vertical-is-the-one-thats-wrong.md`
 (its "~12° unexplained" claim), and ENGINE-DOSSIER.md §9aw's repetition of it.**
 
-**2026-09-20, home PC (RTX). Static; nothing launched.** Tool:
+**2026-09-20, home PC. Static; nothing launched.** Tool:
 `plugin/tools/crop_centre_decompose.cpp`, **9 checks, 0 failed** `[verified-numerically 2026-09-20]`.
 
 ## The retraction

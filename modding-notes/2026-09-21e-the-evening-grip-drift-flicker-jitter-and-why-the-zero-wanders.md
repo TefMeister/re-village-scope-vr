@@ -50,7 +50,7 @@ order of events, with what is and is not established at the end of the day.
 - The two-handed drift, parked.
 - `grip-no-throw.patch` has not been applied to a fresh clone alongside the mirror patches.
 
-## Installed on RTX at the end of the day
+## Installed on the home PC at the end of the day
 
 `dinput8.dll` `4262e542…` (grip take, frozen socket, corrected steering, 25° limit, two-source instrument);
 `re_scope_vr.dll` `5fc622f3…` (repaired measure, rate watch, snapshot hand-off, view-frame zero option);

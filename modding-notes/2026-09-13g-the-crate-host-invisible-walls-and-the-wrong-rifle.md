@@ -1,6 +1,6 @@
 # 2026-09-13g — The crate as the rig host: invisible walls, and a spare rifle at the world origin
 
-Home PC `RTX`, `/ms`, 20:43–21:10, Tefa wearing. Continued straight after the PC blue-screened at
+Home PC, `/ms`, 20:43–21:10, Tefa wearing. Continued straight after the PC blue-screened at
 20:13 (`CLOCK_WATCHDOG_TIMEOUT`, first bugcheck in the System log since 2026-07-23; the crashed
 session's claim was taken over with `--force`).
 

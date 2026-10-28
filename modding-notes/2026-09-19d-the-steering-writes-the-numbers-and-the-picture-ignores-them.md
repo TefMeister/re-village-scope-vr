@@ -1,6 +1,6 @@
 # The steering writes the numbers and the picture ignores them — and the smear is in both eyes
 
-**2026-09-19, home PC (RTX), one launch, flat, wearer present.** The evening's third note, and the
+**2026-09-19, home PC, one launch, flat, wearer present.** The evening's third note, and the
 one that matters. Two independent results, both pointing the same way, and both against §9aq.
 
 ---

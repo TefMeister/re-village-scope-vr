@@ -1,4 +1,4 @@
-# 2026-09-13a — The whole scope set-up is one command: `bringup` (`/pd`, home PC `RTX`, NO LAUNCH)
+# 2026-09-13a — The whole scope set-up is one command: `bringup` (`/pd`, home PC, NO LAUNCH)
 
 **The game was not launched and nothing here has been run in the game.** Source: `staging/re-village-scope-vr/`.
 Dossier §9v.

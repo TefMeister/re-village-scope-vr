@@ -6,7 +6,7 @@ home PC's `D:` drive and in no repo at all** — the exact pattern that lost the
 August. The patch is committed here; **the binary deliberately is not** (22 MB, and it rebuilds from
 this in one command).
 
-Rescued from `D:\RE2 REFramework builds\tools\REFramework-src\` on 2026-09-16 (home PC `RTX`).
+Rescued from `D:\RE2 REFramework builds\tools\REFramework-src\` on 2026-09-16 (home PC).
 ⚠️ `mirror-exemption.patch` and `mirror-exemption-v2.patch` on that drive are **byte-identical**
 (checked), so only one copy is kept here, under the v2 name the board uses.
 

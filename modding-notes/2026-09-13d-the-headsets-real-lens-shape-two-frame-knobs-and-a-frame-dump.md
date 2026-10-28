@@ -1,4 +1,4 @@
-# 2026-09-13d — The headset's real lens shape goes into the map; two frame knobs; the frame dump that settles the half-turn (`/pd`, home PC `RTX`, NO LAUNCH, Fable)
+# 2026-09-13d — The headset's real lens shape goes into the map; two frame knobs; the frame dump that settles the half-turn (`/pd`, home PC, NO LAUNCH, Fable)
 
 **The game was not launched and nothing here has been run.** Source: `staging/re-village-scope-vr/`. Dossier §9y.
 Follows the first wear (2026-09-13c): the exact map with steering off was "the closest to what it should be

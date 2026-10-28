@@ -1,4 +1,4 @@
-# The eye-box was never unwritable — it is a float4 and we kept writing it as a float; and crop-follow cannot move the disc (2026-09-12 afternoon, home PC `RTX`, `/pd`)
+# The eye-box was never unwritable — it is a float4 and we kept writing it as a float; and crop-follow cannot move the disc (2026-09-12 afternoon, home PC, `/pd`)
 
 **The game was not launched and nothing here has been run.** Everything below is read out of
 shipped code, our own source, and logs already on disk. One build was made and deployed; it has

@@ -1518,10 +1518,10 @@ Note: `modding-notes/2026-09-16-the-one-frame-flicker-read-from-the-code-and-thr
 
 Note: `modding-notes/2026-09-17c-the-nine-builds-checked-in-the-headset-two-work-and-one-broke-the-sky.md`. Evidence: `dev-archive/recon/2026-09-17-the-nine-builds-checked-in-the-headset/` (launch 3's log lines extracted; launches 1 and 2 transcribed, because REFramework truncates the log at every launch).
 
-- **⛔ DEAD END AS BUILT — the rig-rebuild fallback (`rb_fb`, §9z save-reload bullet) must not be on by default.** `bringup` rebuilds the rig as part of its normal run, and the fallback cannot tell that from a save reload. Launch 1: `UPGRADED to raw-HDR` at 22:16:03.987, `rig rebuild #1: source fell back to the 8-bit resolve` at 22:16:04.110, and no re-upgrade in the 35 minutes that followed. The wearer saw the 8-bit signature: black sky, golden colours. With `rb_fb=0` in the settings file, two further launches upgraded and stayed upgraded, and the wearer confirmed the sky and colours `[verified-live 2026-09-17, n=1 wearer; log n=3 launches]`. **`rbfb 0` live does not recover it:** the panel's latch re-arm logs `PENDING` and waits for an allocation that does not come; only a relaunch does. `rb_fb=0` is now in the `RTX` settings file. Whether the fallback cures the save-reload security camera is **still untested**; a rework has to tell a reload from `bringup`'s own rebuild, or re-upgrade by itself. **→ REWORKED 2026-09-18, see §9ab below.**
+- **⛔ DEAD END AS BUILT — the rig-rebuild fallback (`rb_fb`, §9z save-reload bullet) must not be on by default.** `bringup` rebuilds the rig as part of its normal run, and the fallback cannot tell that from a save reload. Launch 1: `UPGRADED to raw-HDR` at 22:16:03.987, `rig rebuild #1: source fell back to the 8-bit resolve` at 22:16:04.110, and no re-upgrade in the 35 minutes that followed. The wearer saw the 8-bit signature: black sky, golden colours. With `rb_fb=0` in the settings file, two further launches upgraded and stayed upgraded, and the wearer confirmed the sky and colours `[verified-live 2026-09-17, n=1 wearer; log n=3 launches]`. **`rbfb 0` live does not recover it:** the panel's latch re-arm logs `PENDING` and waits for an allocation that does not come; only a relaunch does. `rb_fb=0` is now in the `home PC` settings file. Whether the fallback cures the save-reload security camera is **still untested**; a rework has to tell a reload from `bringup`'s own rebuild, or re-upgrade by itself. **→ REWORKED 2026-09-18, see §9ab below.**
 - **⛔ The hold measure reads exactly zero in VR, so `hold 1` and `hold 2` cannot work as built.** 23,400 frames measured, every summary `spikes=0 avg=0.0000 max=0.000`, at `t=0.080` and at the clamp's floor `t=0.005`, while the wearer walked, aimed and counted about 12 flickers in 2 minutes `[verified-live 2026-09-17, n=8 summaries]`. A moving picture cannot measure 0.0000, so the comparison returns nothing; the cause is not found. Slots, RTV, readback copy and shader re-read: nothing visibly wrong `[inferred-static]`. Cheapest next step: a flat launch. A non-zero `avg` flat puts the fault in the VR present path.
 - **The flicker is NOT the pooled raw-HDR buffer (§9z reading A is out).** Launch 1 ran on the kept 8-bit resolve throughout, which is the buffer `src8 1` selects (`hook::mirror_sdr` on both paths `[inferred-static]`), and the wearer counted about 15 and about 12 flickers per 2 minutes on it `[verified-live 2026-09-17, n=1 wearer, 2 counts]`. The rate on raw-HDR was not counted, so nothing is claimed about the two being equal.
-- **✅ `swdelay 1500` works:** no glass flash on 11 switches away from the rifle, the deferred restore fires 1.49–1.50 s later every time, no crash `[verified-live 2026-09-17, n=11 switches, 1 wearer]`. Now the boot value on `RTX` (`sw_delay=1500`). The early-return path was not exercised. **Seen beside it:** switching back shows the stock glass for one second, which is the auto re-bind's fixed `+1 s` first press (1.0 s in the log).
+- **✅ `swdelay 1500` works:** no glass flash on 11 switches away from the rifle, the deferred restore fires 1.49–1.50 s later every time, no crash `[verified-live 2026-09-17, n=11 switches, 1 wearer]`. Now the boot value on `home PC` (`sw_delay=1500`). The early-return path was not exercised. **Seen beside it:** switching back shows the stock glass for one second, which is the auto re-bind's fixed `+1 s` first press (1.0 s in the log).
 - **⛔ `framev 2` comes out upside down, vertical motion inverted.** Its diagnostics half is right: `geom:` went from `IMPROPER`, roll 129–140°, to proper, roll 1–5°. By the 09-16h outcome table the glass path therefore does **not** v-flip as `sg_rifle_frame_rh` assumes. The panel's `7 Glass flip V` then flipped `glassFlipV` to 0 in the compositor line and the wearer saw **no change**, so either `glass_flip_v` does not reach the picture under `framev 2`, or the inversion is elsewhere `[verified-live 2026-09-17, n=1]`.
 - **⛔ The per-eye aim's premise is disproved.** §9z's jitter bullet says the reflected eye hops about 0.06 m every frame. `eyepar 1`'s own line reads `eye moved 0.000`–`0.001 m` on 200 of 231 ticks and 0.037–0.051 m on 7, six of them in one 32-second stretch while the wearer was crouching and standing `[verified-live 2026-09-17, n=231 lines]`. No visible change either way. Wearer's diagnosis: the whole rifle model carries a reprojection shake and the scope rides on it `[reported]`. Look upstream of the scope.
 - **⛔ `re8vr.left_hand_position_offset` is writable, reads back, and does not move the drawn hand.** `y 0.0450 -> -0.0050 (reads back -0.0050)`, back, and again: no visible movement on any of the three `[verified-live 2026-09-17, n=3 writes]`. So the direct write is as disconnected as the menu slider. ⚠️ The first run of this test was reported as a clear improvement and had not happened: the click never reached the mod and the log had no `handhigher` line. **A helper click that leaves no `harness:` echo line did not happen.**
@@ -1687,7 +1687,7 @@ default. Pressing `7` while `framev 2` was up wrote `frame_v=2`; caught and reve
   `crop_follow`, `aspect_mode` — were never affected: they got their own `g_lua_*` atomics on
   2026-09-06 and are merged at the point of use. That is the older, heavier form of the same idea.
 - **A harness word can no longer be made permanent at all**, by accident or on purpose. To keep one,
-  edit `re_scope_vr_settings.txt` by hand, which is what `RTX` already did for `sw_delay`. Deliberate
+  edit `re_scope_vr_settings.txt` by hand, which is what `home PC` already did for `sw_delay`. Deliberate
   trade: silence was the defect.
 - **The save now logs one line naming every knob whose live value it declined**, what it kept and what
   was on the dial.
@@ -1923,7 +1923,7 @@ wrong.** Three facts already in this dossier, never put together:
   1000 means the delay is not the timer and the refusals logged above it say which precondition is
   holding it.
 
-### 9ak. THE SCOPE PICTURE IS BLACK ON THE HOME PC WITH THE HEADSET OFF - AND IT IS NOT A BUILD REGRESSION (2026-09-18, `/lm`, home PC `RTX`, FIVE LAUNCHES, FLAT)
+### 9ak. THE SCOPE PICTURE IS BLACK ON THE HOME PC WITH THE HEADSET OFF - AND IT IS NOT A BUILD REGRESSION (2026-09-18, `/lm`, home PC, FIVE LAUNCHES, FLAT)
 
 **The first time the home PC ran this project's group-A tests, the thing all of them depend on turned
 out to be broken, and it is not what anyone would have guessed.**
@@ -1978,7 +1978,7 @@ visual A/B on this project meaningless, and three separate rows were about to be
 
 ---
 
-### 9al. WHAT THE HOME PC CONFIRMED THAT THE DEV PC COULD ONLY DERIVE (2026-09-18, `/lm`, home PC `RTX`, FLAT)
+### 9al. WHAT THE HOME PC CONFIRMED THAT THE DEV PC COULD ONLY DERIVE (2026-09-18, `/lm`, home PC, FLAT)
 
 The same five launches closed several rows the dev PC had only reasoned about statically.
 
@@ -2270,7 +2270,7 @@ which carries `Supersedes: ENGINE-DOSSIER.md §9ai (completeness of, not its ari
   proposal wants the opposite); §9ai's arithmetic; §9g (narrowed to two candidates under this pose only);
   §9ac. Tool: `plugin/tools/bore_plane_check.cpp`, 23 checks, 0 failed, proven able to fail on a mutant.
 
-### 9cn. ⭐⭐⭐ THE PICTURE AND THE CROSSHAIR USED TWO DIFFERENT CAMERAS — plan C draws the mirror from the game's own camera pose, the crop maths read the headset pose; the drawn pose is now handed over. Plus the stacked grip, and a map-hold + spike instrument for the flicker (2026-09-22 morning, static + two builds on RTX; INSTALLED, NOT RUN)
+### 9cn. ⭐⭐⭐ THE PICTURE AND THE CROSSHAIR USED TWO DIFFERENT CAMERAS — plan C draws the mirror from the game's own camera pose, the crop maths read the headset pose; the drawn pose is now handed over. Plus the stacked grip, and a map-hold + spike instrument for the flicker (2026-09-22 morning, static + two builds on the home PC; INSTALLED, NOT RUN)
 
 **Supersedes: §9cm's identification of the zero with the eye's off-centre projection** (that part only). Today's
 logged projection (`P00 0.9027 P20 ±0.2425 P11 0.8355 P21 −0.1932`, 20:16 on 2026-09-21) gives 15.0° sideways
@@ -2310,7 +2310,7 @@ a different framing `[hypothesis]`; the 1 Hz log samples one tick in sixty. Buil
 up to 36 ticks (`h_held`, `map-hold:` count), and each `SPIKE` line prints the map's change since the previous
 present. Decides between "our crop moved" and "the content moved" in one wear.
 
-Installed on RTX: `dinput8.dll` `72c19937…` (previous kept), `re_scope_vr.dll` `87b0f32c…` (`.pre-draw-pose-
+Installed on the home PC: `dinput8.dll` `72c19937…` (previous kept), `re_scope_vr.dll` `87b0f32c…` (`.pre-draw-pose-
 2026-09-22` kept). Helpers: `STACKED-GRIP-ON/OFF.bat`, `CROSSHAIR-FROM-DRAWN-POSE.bat`,
 `CROSSHAIR-FROM-JOINT-POSE.bat`. Note `modding-notes/2026-09-22a-three-answers-zero-stacked-grip-flicker.md`.
 
@@ -2331,7 +2331,7 @@ Installed on RTX: `dinput8.dll` `72c19937…` (previous kept), `re_scope_vr.dll`
   dump (`spike_dump.cpp`, first six spikes → `flicker-spike-N-{src,now,prev}.ppm`).
 Afternoon builds `dinput8` `bce0cf0a…`, plugin `2cc90ba3…` — **not installed, the game was running.**
 
-### 9cm. ⭐⭐⭐ WHY THE ZERO WILL NOT STAY: IT LIVES IN THE RIFLE'S FRAME, AND WHAT IT CORRECTS LIVES IN THE VIEW'S — the ~14° zero IS the headset eye's off-centre projection. Snapshot hand-off worn: jitter gone, flicker not (2026-09-21 evening, LIVE VR by Tefa + build on RTX; INSTALLED, NOT RUN)
+### 9cm. ⭐⭐⭐ WHY THE ZERO WILL NOT STAY: IT LIVES IN THE RIFLE'S FRAME, AND WHAT IT CORRECTS LIVES IN THE VIEW'S — the ~14° zero IS the headset eye's off-centre projection. Snapshot hand-off worn: jitter gone, flicker not (2026-09-21 evening, LIVE VR by Tefa + build on the home PC; INSTALLED, NOT RUN)
 
 > ⚠️ **2026-09-22:** the "IS the eye's off-centre projection" identification is withdrawn by §9cn (today's
 > numbers give 15.0/13.0° against 9.2/10.9°); the cant finding and the view-frame zero stand.
@@ -2376,7 +2376,7 @@ centres wilder, so that path has a history and wants a careful derivation, not a
 1280×720; `START-SCOPE-1080` and `START-SCOPE-SHARP-1440` keep the others.
 Evidence: `dev-archive/recon/2026-09-21-snapshot-worn-jitter-gone-zero-turns-with-cant/`.
 
-### 9cl. ⭐⭐⭐ ONE SUSPECT FOR BOTH REMAINING FAULTS: THE CROP IS HANDED FROM THE GAME THREAD TO PRESENT AS LOOSE ATOMICS — read mid-write (flicker) and not matched to the frame on screen (head-turn stepping). A snapshot hand-off is built. ALSO: `hold 2` does NOT hide the flicker, and the zero moved when the picture size changed (2026-09-21 evening, static + build on RTX; BUILT, NOT INSTALLED)
+### 9cl. ⭐⭐⭐ ONE SUSPECT FOR BOTH REMAINING FAULTS: THE CROP IS HANDED FROM THE GAME THREAD TO PRESENT AS LOOSE ATOMICS — read mid-write (flicker) and not matched to the frame on screen (head-turn stepping). A snapshot hand-off is built. ALSO: `hold 2` does NOT hide the flicker, and the zero moved when the picture size changed (2026-09-21 evening, static + build on the home PC; BUILT, NOT INSTALLED)
 
 **What the wearer added after §9ck.** On the head-only test: *"honestly if the picture was like that without
 the warping effect, i think it would be perfect"* — the target is that smoothness, rifle-aimed.
@@ -2424,7 +2424,7 @@ at each size: 0.55 % / 0.73 % / 1.10 % of the frame height. Small, but the weare
 sizes. **The test:** one launch on `START-SCOPE-SHARP-1440.bat` — zero back = confirmed, then the fix is to
 make the crop maths use the picture's real rows, not the padded ones.
 
-### 9ck. ⭐⭐⭐ THE FLICKER MEASURE IS REPAIRED (the Map asked for 192 bytes more than the buffer holds), AND A RATE WATCH IS BUILT FOR THE STEPPED PICTURE (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
+### 9ck. ⭐⭐⭐ THE FLICKER MEASURE IS REPAIRED (the Map asked for 192 bytes more than the buffer holds), AND A RATE WATCH IS BUILT FOR THE STEPPED PICTURE (2026-09-21, static + build on the home PC; INSTALLED, NOT RUN)
 
 Tefa, parking everything else: *"our 2 remaining things are the flicker and the jitter on the scope picture"*
 `[reported 2026-09-21]`. Both have been blind since 2026-09-16, because the one instrument for them never
@@ -2463,7 +2463,7 @@ setting, not a way to play.
 
 ✅ **WORN 19:52–19:58 — THE MEASURE WORKS, FOR THE FIRST TIME** `[verified-live 2026-09-21]`: `avg` 0.0015–0.047 (was 0.0000 since 09-16). **18 spikes in 3.5 min against the wearer's ~20 flickers** (*"some stronger than the others"* `[reported]` — the rest sit under the 0.08 threshold; 6 of the 18 fall inside `bringup`). **So the flicker is in the picture we compose, before our blit**, and `hold 2` has a number to act on: `FLICKER-BLOCK-ON.bat` = `holdt 0.05` + `hold 2`, not yet worn. **Rate: the picture changed on every present and the camera rotation on every tick — nothing runs at half rate; table rows 1 and 2 are OUT.** And with `cropfollow 0` the wearer saw **no jitter** `[reported 2026-09-21]` → **the stepping is made by the CROP PLACEMENT** (row 3). `hold 1` cost 5 fps (66.1 vs 71.3). Evidence: `dev-archive/recon/2026-09-21-first-real-flicker-and-rate-readings/`.
 
-### 9cj. ⛔⭐⭐⭐ WITHDRAWN: "tracking slide cannot do 30–70°" — the wearer says it always has in this game. A second game-specific amplifier found (the 16 cm wrist lever), and the instrument now measures both candidates side by side (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
+### 9cj. ⛔⭐⭐⭐ WITHDRAWN: "tracking slide cannot do 30–70°" — the wearer says it always has in this game. A second game-specific amplifier found (the 16 cm wrist lever), and the instrument now measures both candidates side by side (2026-09-21, static + build on the home PC; INSTALLED, NOT RUN)
 
 **Supersedes: §9ci item 2's conclusion** ("Tracking slide cannot do that … Cause, mine"). The maths error
 in §9cf is real and provable on paper, and it is fixed — **but it cannot be the whole story, and I said it
@@ -2494,7 +2494,7 @@ The 25° limit from §9ci stands whatever the cause. `[compile-verified 2026-09-
 ⚠️ For the record, the pattern: I explained a wearer's long-standing complaint with the bug I had just
 found, because it was mine and it was fresh. `PREFERENCES.md` → *"WHEN TEFA REPORTS WHAT THEY SAW"*.
 
-### 9ci. ⛔⭐⭐⭐ MY "RELATIVE GRIP" MATHS INVENTED STEERING — up to 71° with the hand still, muzzle at the player; corrected into the gun's own frame. AND: Virtual Desktop never clears the tracked bit (2026-09-21, LIVE VR by Tefa, then build on RTX; BUILT, NOT INSTALLED)
+### 9ci. ⛔⭐⭐⭐ MY "RELATIVE GRIP" MATHS INVENTED STEERING — up to 71° with the hand still, muzzle at the player; corrected into the gun's own frame. AND: Virtual Desktop never clears the tracked bit (2026-09-21, LIVE VR by Tefa, then build on the home PC; BUILT, NOT INSTALLED)
 
 **Supersedes: §9cf's fix as built** (its diagnosis stands; its implementation was wrong), **and §9ch's hope
 for the tracked bit.**
@@ -2541,7 +2541,7 @@ vs 64.7 at 1080p `[measured 2026-09-21, different scenes]`. Tefa remembers a cle
 earlier in the project; what differed then is not known (higher zoom step, a mis-latched source, or the
 pre-HDR path are candidates) — if it returns, note the zoom step.
 
-### 9ch. ⭐⭐⭐ "THE WEAPON JUST STARTS MOVING BY ITSELF" — RE8VR steers the gun from the left hand's POSITION alone, unsmoothed and unchecked; a tracked-bit guard and a 4 Hz instrument are built (2026-09-21, static + build on RTX; INSTALLED, NOT RUN)
+### 9ch. ⭐⭐⭐ "THE WEAPON JUST STARTS MOVING BY ITSELF" — RE8VR steers the gun from the left hand's POSITION alone, unsmoothed and unchecked; a tracked-bit guard and a 4 Hz instrument are built (2026-09-21, static + build on the home PC; INSTALLED, NOT RUN)
 
 Tefa: *"motion controller drift when one controller is behind the other one … right now it is sometimes
 impossible to aim, because the weapon just starts moving by itself. but honestly it's really bad in RE
@@ -2589,7 +2589,7 @@ kept as `dinput8.previous.dll`). NOT RUN.
 
 Credit: **praydog** (REFramework, RE8VR).
 
-### 9cg. ⭐⭐⭐ THE JUMP IS AT THE FIRST SHOT AFTER A TAKE, NOT AT THE TAKE — the body ANIMATION moves the grip socket under a held grip, and RE8VR steers by it (2026-09-21, LIVE VR by Tefa, then build on RTX; BUILT, NOT INSTALLED)
+### 9cg. ⭐⭐⭐ THE JUMP IS AT THE FIRST SHOT AFTER A TAKE, NOT AT THE TAKE — the body ANIMATION moves the grip socket under a held grip, and RE8VR steers by it (2026-09-21, LIVE VR by Tefa, then build on the home PC; BUILT, NOT INSTALLED)
 
 **Corrects §9cf's reading of the symptom, not its mechanism.** §9cf's patch was worn: Tefa — *"steering
 feels good, the weapon still sharply jumps left and down slightly after putting hand on it. the last 3
@@ -2626,7 +2626,7 @@ Evidence: `second-half-worn-1815.txt` in the recon folder below.
 that is the right hand's own joint against the animation — a separate, smaller thing.
 Evidence: `dev-archive/recon/2026-09-21-grip-take-removed-first-shot-still-jumps/`.
 
-### 9cf. ⭐⭐⭐ THE GUN IS THROWN LEFT WHEN THE SECOND HAND GOES ON — the cause is three lines of RE8VR, and the fix is built (2026-09-21, static + build on RTX; BUILT, NOT INSTALLED — the game was running)
+### 9cf. ⭐⭐⭐ THE GUN IS THROWN LEFT WHEN THE SECOND HAND GOES ON — the cause is three lines of RE8VR, and the fix is built (2026-09-21, static + build on the home PC; BUILT, NOT INSTALLED — the game was running)
 
 Tefa: *"the weapon throwing to the left visibly after putting hand on the gun"* `[reported 2026-09-21]`.
 
@@ -2729,7 +2729,7 @@ so distance-follow is the next thing to try. The grey-blue wash on the right of 
 (capture in recon), and it is NOT diagnosed. Note: `modding-notes/2026-09-21c-roll-disproved-the-two-hand-snap.md`;
 evidence `dev-archive/recon/2026-09-21-roll-disproved-two-hand-snap/`.
 
-### 9cb. ⭐⭐⭐ OUR OWN DISTANCE RAY: it skips anything nearer than 1 m and our own objects, and it names what it hit (2026-09-21, `/pd`, BUILT + INSTALLED on RTX, NOT RUN)
+### 9cb. ⭐⭐⭐ OUR OWN DISTANCE RAY: it skips anything nearer than 1 m and our own objects, and it names what it hit (2026-09-21, `/pd`, BUILT + INSTALLED on the home PC, NOT RUN)
 
 Follows §9bw (distance-follow read **0.50 m**, which is RE8VR's nearest-contact crosshair
 distance catching something at the muzzle; suspect `[hypothesis]`: our own rig prop).
@@ -2751,7 +2751,7 @@ the rifle and player checks). `producer_split_check` 52/52, globals PASS, build 
 alone filters). Whether the 0.50 m object is our prop is answered by the first VR census.
 Note: `modding-notes/2026-09-21b-our-own-distance-ray.md`.
 
-### 9ca. ⭐⭐⭐ THE ZERO TURNS WITH THE RIFLE'S ROLL — proven present in the shipped code; every shot line now says by how much, and the plugin keeps its own log (2026-09-21, `/pd`, BUILT + INSTALLED on RTX, NOT RUN)
+### 9ca. ⭐⭐⭐ THE ZERO TURNS WITH THE RIFLE'S ROLL — proven present in the shipped code; every shot line now says by how much, and the plugin keeps its own log (2026-09-21, `/pd`, BUILT + INSTALLED on the home PC, NOT RUN)
 
 Follows §9bz. **Static read `[inferred-static 2026-09-21]`:** `crop_follow.cpp` builds the zero's *up*
 from the rifle root's own Y axis and its *right* from the root's own X axis, flipping only their
@@ -2766,7 +2766,7 @@ changes nothing. **A −22° roll from level — §9bz's two-handed median — m
 *level*, not with the roll the zero was set at (never logged), so the cause of Tefa's miss stays
 `[hypothesis]`; only the mechanism is proven.
 
-**Built `[compile-verified 2026-09-21]`, installed on RTX (DLL `b86edec6…`, backup
+**Built `[compile-verified 2026-09-21]`, installed on the home PC (DLL `b86edec6…`, backup
 `re_scope_vr.dll.pre-shot-roll-2026-09-21`), NOT RUN:**
 1. Every `STRAIGHTENED` line in `re_scope_shots.log` now ends
    `roll ±R | zero U/R, as seen ±u up ±r right (points ±c deg)` plus `UP-FLIPPED`/`RIGHT-FLIPPED` when
@@ -4656,7 +4656,7 @@ committed here** — only setting names, values and the engine's own help text.
 Credit: **praydog** (REFramework).
 
 
-### 9co. ⭐⭐⭐ THE ONE-FRAME FLICKER: for one tick the exact map is built from the OTHER EYE'S projection — caught by hand four times; the eye lock keeps one eye (2026-09-22 evening, LIVE VR by Tefa + build on RTX; INSTALLED, NOT WORN)
+### 9co. ⭐⭐⭐ THE ONE-FRAME FLICKER: for one tick the exact map is built from the OTHER EYE'S projection — caught by hand four times; the eye lock keeps one eye (2026-09-22 evening, LIVE VR by Tefa + build on the home PC; INSTALLED, NOT WORN)
 
 **How it was caught.** The change measure had failed as a detector (18 spikes vs ~20 flickers one run, 0 vs ~20 the next) and `hold 2` had not removed them, so the plugin got a hand trigger: the last 90 shown scope pictures kept on the GPU and written to disk with one line of numbers per frame when the wearer pulls the trigger (`flicker_ring.cpp`, note 2026-09-22c). Tefa, standing still, shot on each flicker. Four rings, and in each exactly one frame differs from both neighbours while the neighbours agree with each other — and **on exactly that frame the per-frame line carries `P20 = −0.174`, the other eye's off-centre projection term, against `+0.174` on every other frame** `[verified-live 2026-09-22, n=4 of 4]`. Map centre and source pointer are unchanged on it. The odd frame is the same scene at a different framing (brightened crops in note 2026-09-22e), i.e. the 09-13 stills.
 

@@ -1,6 +1,6 @@
 # 2026-09-21 — the zero turns with the rifle, and every shot now says by how much
 
-`/pd`, home PC (RTX), no launch. **The game was not launched, and nothing here has been run.**
+`/pd`, home PC, no launch. **The game was not launched, and nothing here has been run.**
 
 ## Where this starts
 
@@ -36,7 +36,7 @@ roll was never logged (the launch overwrote it), so the −22° is compared with
 with the roll the zero was set at. The direction agreeing is suggestive, `n=1` report.
 **Status: `[hypothesis]`, now with its mechanism proven present in the code.**
 
-## What was built — `[compile-verified 2026-09-21]`, installed on RTX, NOT RUN
+## What was built — `[compile-verified 2026-09-21]`, installed on the home PC, NOT RUN
 
 1. **Every `STRAIGHTENED` shot line now ends with the roll and the zero as the wearer sees
    it**, for example:

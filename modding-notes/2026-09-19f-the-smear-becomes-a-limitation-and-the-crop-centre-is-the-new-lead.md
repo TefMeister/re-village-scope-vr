@@ -1,6 +1,6 @@
 # The smear becomes a documented limitation — and the crop centre is the new lead
 
-**2026-09-19, home PC (RTX), wearer present.** Written straight after the §9av disproof, and it
+**2026-09-19, home PC, wearer present.** Written straight after the §9av disproof, and it
 changes the direction of the project.
 
 ## 1. Tefa's decision: the smear is a LIMITATION, not a bug to chase

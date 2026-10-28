@@ -1,4 +1,4 @@
-# 2026-09-12h — Silent, invisible goat, live picture: the tick was a volume knob, not the swing (`/lm`, home PC `RTX`, 21:30–00:00, Tefa wearing)
+# 2026-09-12h — Silent, invisible goat, live picture: the tick was a volume knob, not the swing (`/lm`, home PC, 21:30–00:00, Tefa wearing)
 
 **Where it ended (23:53, screenshot):** one goat on the rifle at ×0.001, **no ticking**, our picture live
 on the glass, aimed at the well by the house. The picture still **rotates with head and rifle** — that is

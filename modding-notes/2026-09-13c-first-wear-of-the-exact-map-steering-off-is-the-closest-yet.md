@@ -1,4 +1,4 @@
-# 2026-09-13c — First wear of the exact map: with steering OFF it is "the closest to what it should be like" (`/ms`, home PC `RTX`, 13:55–14:30, Tefa wearing)
+# 2026-09-13c — First wear of the exact map: with steering OFF it is "the closest to what it should be like" (`/ms`, home PC, 13:55–14:30, Tefa wearing)
 
 Tefa launched and wore; Claude sent commands through the harness file and read the log. Evidence (six headset
 stills): `dev-archive/recon/2026-09-13-exact-map-first-wear/`. Dossier §9x.

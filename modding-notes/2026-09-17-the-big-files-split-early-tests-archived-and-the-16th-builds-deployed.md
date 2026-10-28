@@ -1,6 +1,6 @@
 # 2026-09-17: the big files are split, the early tests archived, and the 09-16 builds deployed
 
-Home PC `RTX`, `/lm`. The user asked for the big files to be backed up and cut into smaller pieces,
+Home PC, `/lm`. The user asked for the big files to be backed up and cut into smaller pieces,
 and for the early tests to be cleared out, keeping only what makes the scope work. The work followed
 the code-hygiene proposal of 2026-09-16 (`claude-memory/docs/plans/2026-09-16-code-hygiene-pass.md`),
 which the user approved today.
@@ -60,10 +60,10 @@ Same route both times: last save, into gameplay, `bringup` through the command f
    order periodic lines interleave `[verified-live 2026-09-17, n=1 each, flat]`.
 3. The picture on the glass looked the same in both captures.
 
-Logs: `reframework/_archive-2026-09-17/re2_framework_log.{head,split}-bringup-flat.txt` (on `RTX`).
+Logs: `reframework/_archive-2026-09-17/re2_framework_log.{head,split}-bringup-flat.txt` (on `home PC`).
 
 The split branch was then fast-forwarded into `main` in both repos, and **the split build is what is
-installed on `RTX` now**, stamped with `deployed.sh` (19 files, including `re8scope/*.lua`).
+installed on `home PC` now**, stamped with `deployed.sh` (19 files, including `re8scope/*.lua`).
 
 ## Not established
 

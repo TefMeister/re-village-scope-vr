@@ -1,6 +1,6 @@
 # Two aiming paths disagree, and the vertical is the one that's wrong
 
-**2026-09-19 late, home PC (RTX). Static analysis of live log lines; the game had been closed by the
+**2026-09-19 late, home PC. Static analysis of live log lines; the game had been closed by the
 time the A/B was ready.** Follows §9aw, and narrows it considerably.
 
 ## The finding: the mod computes the crop centre TWICE, and the two disagree

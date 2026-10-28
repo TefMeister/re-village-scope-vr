@@ -51,7 +51,7 @@ fact read fresh each poll rather than a flag that can go stale. Nothing is remem
 Three consequences, stated plainly because two of them are trades:
 
 * A harness word can no longer be made permanent by accident. **It also cannot be made permanent on
-  purpose** — to keep one, put the line in `re_scope_vr_settings.txt` by hand, which is what `RTX`
+  purpose** — to keep one, put the line in `re_scope_vr_settings.txt` by hand, which is what `home PC`
   already did for `sw_delay`. Silence was the thing being fixed, so that is the right way round.
 * Knobs the harness cannot reach — exposure, `mir_cx`/`mir_cy`, `glass_flip_v`, the grading knobs —
   are untouched and still persist their live value, because for them the live value *is* the

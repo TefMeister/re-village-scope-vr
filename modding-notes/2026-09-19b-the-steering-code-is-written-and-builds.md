@@ -1,6 +1,6 @@
 # The steering code is written, and the patched REFramework builds with it
 
-**2026-09-19, home PC (RTX). Static + a build. The game was NOT launched.**
+**2026-09-19, home PC. Static + a build. The game was NOT launched.**
 
 ## In one line
 

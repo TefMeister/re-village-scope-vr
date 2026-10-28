@@ -1,6 +1,6 @@
 # The next flat run: the rifle camera ONLY — no mirror rig (built 2026-09-26 by /pd, Opus)
 
-Autostart `1 1920 clone` (already set on RTX) now means **rifle camera only**: `clonescope 20` → `glassaspect 1.0` + numpad `*`
+Autostart `1 1920 clone` (already set on the home PC) now means **rifle camera only**: `clonescope 20` → `glassaspect 1.0` + numpad `*`
 with re-presses at +1/+5/+20 s; no rtex, no numpad `.`, no bringup, no Mirror. `clonerig` keeps the verified rig-first way.
 The re-draw now checks the clone, not the rig. `[compile-verified 2026-09-26]` (autostart test 36/36), nothing run.
 

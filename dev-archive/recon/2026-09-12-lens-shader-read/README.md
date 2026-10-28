@@ -1,4 +1,4 @@
-# The sniper-scope lens shader, read (2026-09-12, home PC `RTX`, `/pd`, no launch)
+# The sniper-scope lens shader, read (2026-09-12, home PC, `/pd`, no launch)
 
 What this folder records: the **mechanism** behind the picture sliding in the scope tube,
 read out of the shipped pixel shader. Nothing here was run; the game was not launched.

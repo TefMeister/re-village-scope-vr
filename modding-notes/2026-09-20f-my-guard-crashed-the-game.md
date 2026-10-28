@@ -1,4 +1,4 @@
-# My safety check crashed the game (2026-09-20, `/pd`, home PC `RTX`)
+# My safety check crashed the game (2026-09-20, `/pd`, home PC)
 
 Tefa ran `RIFLE-STRAIGHT-A.bat` and fired: *"it crashed the game on me"*
 `[verified-live 2026-09-20, n=1]`.

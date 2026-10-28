@@ -1,6 +1,6 @@
 # The scope picture is black on the home PC in flat mode — and it is not today's build
 
-**2026-09-18, home PC (`RTX`), `/lm`, five launches, all flat.** The session that was supposed to run
+**2026-09-18, home PC, `/lm`, five launches, all flat.** The session that was supposed to run
 the home-PC group-A tests instead found the thing those tests depend on.
 
 ---

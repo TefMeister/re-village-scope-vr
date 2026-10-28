@@ -1,6 +1,6 @@
 # 2026-09-24 flat test: auto-start on draw, early eye pose, two-press flip
 
-`/lm` on the home PC (`RTX`), flat (REFramework logged `XR_ERROR_FORM_FACTOR_UNAVAILABLE`), driven by
+`/lm` on the home PC, flat (REFramework logged `XR_ERROR_FORM_FACTOR_UNAVAILABLE`), driven by
 `re8drive.py` from the title screen to the last save (the Stronghold, rifle in hand). `log-excerpt.txt`
 is the relevant lines of `re2_framework_log.txt` from this launch. `[verified-live 2026-09-24, n=1 launch]`
 

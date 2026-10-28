@@ -1,4 +1,4 @@
-# 2026-09-12 evening — the spin cancel worn four times (home PC `RTX`, `/lm`, Tefa wearing)
+# 2026-09-12 evening — the spin cancel worn four times (home PC, `/lm`, Tefa wearing)
 
 Write-up: `modding-notes/2026-09-12e-four-wears-the-spin-cancel-goes-from-snapping-to-half-strength.md`; dossier §9r.
 

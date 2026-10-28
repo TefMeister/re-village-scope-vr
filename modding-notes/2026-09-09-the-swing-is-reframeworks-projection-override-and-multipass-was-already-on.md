@@ -1,6 +1,6 @@
 # The swing is REFramework's projection override — and the proposed fix was already switched on, and failing
 
-**2026-09-09, home PC (`RTX`), `/lm`, NO LAUNCH.** The game was not started. Everything here is a
+**2026-09-09, home PC, `/lm`, NO LAUNCH.** The game was not started. Everything here is a
 drained inbox, a config read and a log read.
 
 ## What was done

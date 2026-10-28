@@ -1,4 +1,4 @@
-# The hip-fire scatter cancel is native now, and it compiles (2026-09-20, `/pd`, home PC `RTX`)
+# The hip-fire scatter cancel is native now, and it compiles (2026-09-20, `/pd`, home PC)
 
 **The game was not launched. Nothing here has been run.** Built, deployed, and waiting on one flat
 test.

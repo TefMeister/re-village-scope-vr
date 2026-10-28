@@ -1,6 +1,6 @@
 # 2026-09-21b — our own distance ray, which says what it hit
 
-`/pd`, home PC (RTX), no launch. **The game was not launched, and nothing here has been run.**
+`/pd`, home PC, no launch. **The game was not launched, and nothing here has been run.**
 
 ## Where this starts
 
@@ -11,7 +11,7 @@ Attack layer, with a filter that leaves out only the player. So anything half a 
 the muzzle catches it. The leading suspect `[hypothesis]` is our own hidden rig prop, parked
 at the rifle.
 
-## What was built — `[compile-verified 2026-09-21]` + tests, installed on RTX, NOT RUN
+## What was built — `[compile-verified 2026-09-21]` + tests, installed on the home PC, NOT RUN
 
 1. **`scripts/re8scope/ray.lua`, our own ray.** It uses the same cast RE8VR's live crosshair
    uses (`castRayAsync`, all hits, nearest first). It is issued in `LockScene`, the scene step

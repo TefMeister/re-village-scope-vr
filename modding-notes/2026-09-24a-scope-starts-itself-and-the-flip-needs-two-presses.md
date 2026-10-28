@@ -1,6 +1,6 @@
 # 2026-09-24 — the scope can start itself, the eye pose goes in with the rig, and the flip needs two presses
 
-`/pd` on the home PC (`RTX`), no game launched. Everything below is **built and installed, not run**.
+`/pd` on the home PC, no game launched. Everything below is **built and installed, not run**.
 
 ## 1. The eye pose now goes in at bring-up, not 45 s later
 

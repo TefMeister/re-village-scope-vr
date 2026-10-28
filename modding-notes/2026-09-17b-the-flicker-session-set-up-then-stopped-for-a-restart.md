@@ -1,15 +1,15 @@
-# 2026-09-17b — the flicker session: set up, then stopped for a PC restart (`/ms`, home PC `RTX`, Opus)
+# 2026-09-17b — the flicker session: set up, then stopped for a PC restart (`/ms`, home PC, Opus)
 
 **The game was never launched. Nothing here has been run.** The session was set up and then ended
 at Tefa's request ("i need to restart pc") before step 1.
 
 ## Why this entry exists at all
 
-So the next session does not repeat the set-up. Everything below is ready on `RTX` right now.
+So the next session does not repeat the set-up. Everything below is ready on `home PC` right now.
 
 ## What was done
 
-- **Pre-flight clean.** All 19 installed files match the `RTX` stamp (`deployed.sh check`), which is
+- **Pre-flight clean.** All 19 installed files match the `home PC` stamp (`deployed.sh check`), which is
   the split build of 2026-09-17 morning. The `/gs` inbox drop was drained: the dossier's line 1405
   tag `[inferred, n=1 log]` became `[inferred-static 2026-09-13]` with the source in the prose. The
   three modding-notes hits in that drop were deliberately left alone — they are dated records of

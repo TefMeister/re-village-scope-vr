@@ -1,4 +1,4 @@
-# 2026-09-12 first worn win — `retdepth` A/B and steering `model 0` (home PC `RTX`)
+# 2026-09-12 first worn win — `retdepth` A/B and steering `model 0` (home PC)
 
 Log excerpts from the 15:10 launch, Tefa wearing, Claude driving only the two command files.
 Write-up: `modding-notes/2026-09-12d-first-worn-win-the-disc-sits-still-and-the-gun-steers-the-picture.md`.
