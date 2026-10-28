@@ -36,7 +36,7 @@ roll was never logged (the launch overwrote it), so the −22° is compared with
 with the roll the zero was set at. The direction agreeing is suggestive, `n=1` report.
 **Status: `[hypothesis]`, now with its mechanism proven present in the code.**
 
-## What was built — `[compile-verified 2026-09-21]`, installed on home PC, NOT RUN
+## What was built — `[compile-verified 2026-09-21]`, installed on the home PC, NOT RUN
 
 1. **Every `STRAIGHTENED` shot line now ends with the roll and the zero as the wearer sees
    it**, for example:

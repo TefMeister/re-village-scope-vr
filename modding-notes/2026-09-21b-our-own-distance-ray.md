@@ -11,7 +11,7 @@ Attack layer, with a filter that leaves out only the player. So anything half a 
 the muzzle catches it. The leading suspect `[hypothesis]` is our own hidden rig prop, parked
 at the rifle.
 
-## What was built — `[compile-verified 2026-09-21]` + tests, installed on home PC, NOT RUN
+## What was built — `[compile-verified 2026-09-21]` + tests, installed on the home PC, NOT RUN
 
 1. **`scripts/re8scope/ray.lua`, our own ray.** It uses the same cast RE8VR's live crosshair
    uses (`castRayAsync`, all hits, nearest first). It is issued in `LockScene`, the scene step
