@@ -71,3 +71,7 @@ just grateful to have learned from it.
 ## Sources (2026-10-26)
 
 - **praydog**, REFramework: `scripts/re8_vr.lua` and `src/mods/vr/games/RE8VR.cpp` (the one-handed hand pose and its offsets), read online — https://github.com/praydog/REFramework
+
+## Sources (2026-11-07)
+
+- **praydog**, REFramework: master commits and nightlies 01434 to 01438, incl. PR #1885 by **wdre9** (HookManager error paths and thread safety) — https://github.com/praydog/REFramework

@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-11-01 (estate sweep) — CHECK-IN.** REFramework check: as for visceral-re8-vr (the #1853 hook fix is on master only, not pd-upscaler); nothing else new.
+**Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** REFramework as for visceral-re8-vr (#1885 HookManager fixes on master only; nothing for OpenXR, Lua file reading or RE8); no new public Village VR mod. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-11-01 (estate sweep) — CHECK-IN.** REFramework check: as for visceral-re8-vr (the #1853 hook fix is on master only, not pd-upscaler); nothing else new._
 
 _Previous: **Last `/gr` pass: 2026-10-26 — CHECK-IN.** Inbox empty; the scope is done (v1.1.5). REFramework moved once since 10-11 (nightly-01433, a Dragon's Dogma 2 window fix), nothing for Village. Read praydog's one-handed gun pose for the "rifle points up" row: a fixed, runtime-dependent hand offset, so a tilt that comes and goes is tracking; one topic, pointer sent to the dossier._
 
