@@ -1,6 +1,6 @@
 # Research index
 
-**Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** REFramework as for visceral-re8-vr (#1885 HookManager fixes on master only; nothing for OpenXR, Lua file reading or RE8); no new public Village VR mod. Nothing new.
+**Last `/gr` pass: 2026-11-11 — CHECK-IN.** Inbox empty; the scope is done (v1.1.5). REFramework quiet since 11-07 (no nightly after 01438, `pd-upscaler` unchanged since 2026-10-11); no new public Village VR mod (one web search). Nothing new for the scope; one cross-link to visceral-re8-vr's note on the same `76298bd` build (the .NET connector error).
 
 _Previous: **Last `/gr` pass: 2026-11-01 (estate sweep) — CHECK-IN.** REFramework check: as for visceral-re8-vr (the #1853 hook fix is on master only, not pd-upscaler); nothing else new._
 
@@ -40,6 +40,7 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
+| 2026-11-11 | [The connector's "exception in reframework_plugin_required_version" is the .NET runtime failing to start, not the build](https://github.com/TefMeister/visceral-re8-vr/blob/main/external-research/topics/2026-11-11-the-dotnet-connector-error-is-a-runtime-start-failure-not-the-build.md) (in visceral-re8-vr) | 🆕 | Same game, same `76298bd` DLSS build: praydog's RE Engine MCP connector may run on it once the .NET 10 Desktop Runtime and the zip's files are checked. |
 | 2026-10-26 | [The one-handed gun pose is the controller's rotation times a fixed offset, and the offset depends on the runtime](topics/2026-10-26-the-one-handed-gun-pose-is-controller-times-a-fixed-offset.md) | 🆕 | Answers the "rifle points up" row's no-game first step: praydog adds a constant per-hand offset (different for OpenXR and OpenVR, live sliders in his menu), so a tilt that comes and goes is the controller's tracking, not the offset. |
 | 2026-09-29 | [REFramework writes the FOV only on the primary camera, but the eye projection on every camera](topics/2026-09-29-reframework-writes-fov-only-on-the-primary-camera.md) | 🆕 | Answers the 09-26 hand-off, question 3; questions 1 and 2 not found publicly. |
 | 2026-09-23 | [theHunter: Call of the Wild VR: a measured scope design, and a flicker post-mortem worth reading first](topics/2026-09-23-thehunter-vr-scope-design-and-the-same-object-same-path-rule.md) | 🆕 | A one-eye-then-other-eye shot test for per-eye aim, and a flicker caused by one object drawn by two routes. |
