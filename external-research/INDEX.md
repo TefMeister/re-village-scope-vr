@@ -1,6 +1,6 @@
 # Research index
 
-**Last `/gr` pass: 2026-11-11 — CHECK-IN.** Inbox empty; the scope is done (v1.1.5). REFramework quiet since 11-07 (no nightly after 01438, `pd-upscaler` unchanged since 2026-10-11); no new public Village VR mod (one web search). Nothing new for the scope; one cross-link to visceral-re8-vr's note on the same `76298bd` build (the .NET connector error).
+**Last `/gr` pass: 2026-11-21 — CHECK-IN.** Nothing new for the scope (v1.1.5, done): REFramework nightlies 01439 to 01441 (a script-reset fix, a DD2 exit-crash fix, a start-up deadlock fix in kananlib) are on master only, `pd-upscaler` still unchanged since 2026-10-11; no new public Village VR mod (one web search).
 
 _Previous: **Last `/gr` pass: 2026-11-01 (estate sweep) — CHECK-IN.** REFramework check: as for visceral-re8-vr (the #1853 hook fix is on master only, not pd-upscaler); nothing else new._
 
